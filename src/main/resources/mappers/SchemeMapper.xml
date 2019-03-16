@@ -38,6 +38,11 @@
         values(#{scheme_id},#{army_id},#{army_people})
     </insert>
 
+    <insert id="AddGroupIntoScheme" parameterType="com.example.entity.Group">
+        insert into group_info(scheme_id,group_name,group_type)
+        values (#{scheme_id},#{group_name},#{group_type})
+    </insert>
+
     <update id="ModifySchemeArmy" parameterType="com.example.entity.Scheme_Army">
         update scheme_army_info set army_people = #{army_people}
         where scheme_id = #{scheme_id} and army_id = #{army_id}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.GroupMapper">
+    <select id="GetGroupByGroupId" resultType="Group">
+        select * from group_info where group_id = #{group_id}
+    </select>
+
+    <select id="GetGroupByGroupName" resultType="Group">
+        select * from group_info where group_name = #{group_name}
+    </select>
+
+
+</mapper>

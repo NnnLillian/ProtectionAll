@@ -2,6 +2,7 @@ package com.example.service.impl;
 
 import com.example.entity.*;
 import com.example.mappers.ArmyMapper;
+import com.example.mappers.GroupMapper;
 import com.example.mappers.LocationMapper;
 import com.example.mappers.SchemeMapper;
 import com.example.service.SchemeService;
@@ -18,6 +19,8 @@ public class SchemeServiceImpl implements SchemeService {
     private SchemeMapper schemeMapper;
     @Autowired
     private LocationMapper locationMapper;
+    @Autowired
+    private GroupMapper groupMapper;
 
     @Override
     public List<Platoon> RequestPlatoon() {
@@ -76,5 +79,12 @@ public class SchemeServiceImpl implements SchemeService {
     @Override
     public List<Scheme_Army> GetSchemeArmyBySchemeId(Integer scheme_id) {
         return schemeMapper.GetSchemeArmyBySchemeId(scheme_id);
+    }
+
+    @Override
+    public void AddGroupIntoScheme(Group group) {
+
+            schemeMapper.AddGroupIntoScheme(group);
+
     }
 }
