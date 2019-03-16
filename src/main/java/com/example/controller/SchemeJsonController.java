@@ -61,14 +61,21 @@ public class SchemeJsonController {
             scheme_army_list.get(i).setScheme_id(scheme_id);
             schemeService.AddSchemeArmy(scheme_army_list.get(i));
         }
+        return null;
 
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/AddSchemeGroup", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+    public String AddSchemeGroup(@RequestBody String jsonStr){
+        Integer scheme_id = jsonPaser.ParseSchemeId(jsonStr);
         //增加scheme中的group
         Group group = new Group();
         group.setScheme_id(scheme_id);
         group.setGroup_name("保障机构编组");
         group.setGroup_type("protectionGroup");
         schemeService.AddGroupIntoScheme(group);
-        return null;
+        return "{}";
     }
 
     @ResponseBody
