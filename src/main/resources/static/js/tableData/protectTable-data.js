@@ -6,7 +6,7 @@ self.protectDataInit = function (name) {
             // url = "js/tableData/json/protectCategory.json";
 
             // 假设 type = 2 为器材保障科设备
-            url = "/GetCategoryMsg?type=protect&platoon_id=" + localStorage.getItem("platoon_id");
+            url = "/GetPlatoonCategoryMsg?type=protect&platoon_id=" + localStorage.getItem("platoon_id");
             columns = [
                 {
                     checkbox: true,

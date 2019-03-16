@@ -130,6 +130,14 @@ public class SchemeJsonController {
         return jsonBuilder.buildCategoryList(category_list);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "GetPlatoonCategoryMsg", method = {RequestMethod.GET})
+    public String GetPlatoonCategoryMsg(@Param("platoon_id") Integer platoon_id, @Param("type") String type){
+        System.out.println("getPlatoonCategory");
+        List<Category> categoryList = equipmentService.GetCategoryByPlatoonIdAndType(platoon_id, type);
+        return jsonBuilder.buildPlatoonCategoryList(categoryList);
+    }
+
 //    获得民用保障资源
     @ResponseBody
     @RequestMapping(value = "/GetSupplierMsg", method = {RequestMethod.GET})

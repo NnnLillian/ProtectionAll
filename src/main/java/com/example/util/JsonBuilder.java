@@ -85,6 +85,13 @@ public class JsonBuilder {
         resObj.put("rows",category_list);
         return resObj.toString();
     }
+    public String buildPlatoonCategoryList(List<Category> category_list) throws JSONException
+    {
+        JSONObject resObj = new JSONObject();
+        resObj.put("total",category_list.size());
+        resObj.put("rows",category_list);
+        return resObj.toString();
+    }
     public String buildSupplierList(List<Supplier> supplier_list) throws JSONException
     {
         JSONObject resObj = new JSONObject();

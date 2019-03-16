@@ -7,7 +7,7 @@ self.dataInit = function (name) {
             // url = "js/tableData/json/repairCategory.json";
 
             // 假设 type = 1 为装备抢修科设备
-            url = "/GetCategoryMsg?type=repair&platoon_id=" + localStorage.getItem("platoon_id");
+            url = "/GetPlatoonCategoryMsg?type=repair&platoon_id=" + localStorage.getItem("platoon_id");
             clickToSelect = false;
             columns = [
                 {
@@ -16,12 +16,12 @@ self.dataInit = function (name) {
                 {
                     field: 'category_id',
                     title: '装备类ID',
-                    align: 'center',
+                    align: 'center'
                     // width:300
                 }, {
                     field: 'category_name',
                     title: '装备类名称',
-                    align: 'center',
+                    align: 'center'
                     // sortable:false   //本列不可以排序
                 }, {
                     field: 'category_number',

@@ -47,4 +47,9 @@ public class EquipmentServiceImpl implements EquipmentService {
         return equipmentMapper.GetSupplierByPosition(position);
     }
 
+    @Override
+    public List<Category> GetCategoryByPlatoonIdAndType(Integer platoon_id, String category_type) {
+        return equipmentMapper.GetCategoryByPlatoonIdAndType(platoon_id, category_type);
+    }
+
 }
