@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.EnvironmentMapper">
+
+    <select id="GetEnvironment" resultType="com.example.entity.Environment">
+        select * from environment_info where location_id = #{location_id} order by month_time
+    </select>
+    <insert id="AddEnvironment" parameterType="com.example.entity.Environment">
+        insert into environment_info(loactiond_id,month_time,temperature,rainfall,snowfall,sunshine,wind_level,corrosion)
+        valus(#{location_id},#{month_time},#{temperature},#{rainfall},#{snowfall},#{sunshine},#{wind_level},#{corrosion})
+    </insert>
+    <update id="ModifyEnvironment" parameterType="com.example.entity.Environment">
+        update environment_info
+        <set>
+            <if test="location_id != null">
+                location_id = #{location_id}
+            </if>
+            <if test="month_time != null">
+                month_time = #{month_time}
+            </if>
+            <if test="rainfall != null">
+                rainfall = #{rainfall}
+            </if>
+            <if test="snowfall != null">
+                snowfall = #{snowfall}
+            </if>
+            <if test="sunshine != null">
+                sunshine = #{sunshine}
+            </if>
+            <if test="wind_level != null">
+                wind_level = #{wind_level}
+            </if>
+            <if test="corrosion != null">
+                corrosion = #{corrosion}
+            </if>
+        </set>
+        where environment_id = #{environment_id}
+       </update>
+</mapper>

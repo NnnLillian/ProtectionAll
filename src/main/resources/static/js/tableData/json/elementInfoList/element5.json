@@ -1,0 +1,18 @@
+{
+	"total": "2",
+	"rows": [
+		{
+			"element_name":"稳压器",
+			"work_time":"340",
+			"maintenance_date":"2017-10-8",
+			"reliability":"0.935"
+		},
+		{
+			"element_name":"工频机",
+			"work_time":"360",
+			"maintenance_date":"2018-1-16",
+			"reliability":"0.922"
+		}
+	]
+}
+

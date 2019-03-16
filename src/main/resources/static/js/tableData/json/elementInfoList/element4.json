@@ -1,0 +1,24 @@
+{
+	"total": "3",
+	"rows": [
+		{
+			"element_name":"回转液压缸",
+			"work_time":"489",
+			"maintenance_date":"2017-10-8",
+			"reliability":"0.955"
+		},
+		{
+			"element_name":"吊具",
+			"work_time":"460",
+			"maintenance_date":"2017-1-8",
+			"reliability":"0.954"
+		},
+		{
+			"element_name":"液压支腿",
+			"work_time":"510",
+			"maintenance_date":"2018-7-8",
+			"reliability":"0.942"
+		}
+	]
+}
+

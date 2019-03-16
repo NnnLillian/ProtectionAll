@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.EquipmentMapper">
+
+    <resultMap id="EquipmentDate" type="com.example.entity.Equipment">
+        <result property="equipment_id" column="equipment_id"></result>
+        <result property="category_id" column="category_id"></result>
+        <result property="army_id" column="army_id"></result>
+        <result property="equipment_name" column="equipment_name"></result>
+        <result property="equipment_create" column="equipment_create"></result>
+        <association property="equipment_repair_count" column="equipment_id"
+                     select="com.example.mappers.EquipmentMapper.GetEquipmentRepairCount"></association>
+    </resultMap>
+
+    <resultMap id="ElementDate" type="com.example.entity.Element">
+        <result property="equipment_id" column="equipment_id"></result>
+        <result property="category_id" column="category_id"></result>
+        <result property="element_id" column="element_id"></result>
+        <result property="element_type" column="element_type"></result>
+        <result property="work_time" column="work_time"></result>
+        <result property="maintenance_date" column="equipment_name"></result>
+        <result property="element_name" column="element_name"></result>
+        <association property="maintenance_date" column="equipment_element_id"
+                     select="com.example.mappers.EquipmentMapper.GetElementMaintainDate"></association>
+    </resultMap>
+
+    <resultMap id="CategoryDate" type="com.example.entity.Category">
+        <result property="category_id" column="category_id"></result>
+        <result property="category_name" column="category_name"></result>
+        <result property="category_type" column="category_type"></result>
+        <result property="category_unit" column="category_unit"></result>
+        <result property="category_comment" column="category_comment"></result>
+        <association property="category_number" column="category_id"
+                     select="com.example.mappers.EquipmentMapper.GetCategoryEquipmentCount"></association>
+    </resultMap>
+    <resultMap id="MaintainDate" type="com.example.entity.Element_Maintain">
+        <result property="element_maintain_id" column="element_maintain_id"></result>
+        <result property="equipment_id" column="equipment_id"></result>
+        <result property="element_id" column="element_id"></result>
+        <result property="spare_part_id" column="spare_part_id"></result>
+        <result property="maintain_time" column="maintain_time"></result>
+        <result property="malfunction_description" column="malfunction_description"></result>
+        <result property="reason_description" column="reason_description"></result>
+        <association property="spare_part_name" column="spare_part_id"
+                     select="com.example.mappers.EquipmentMapper.GetSparePartName"></association>
+    </resultMap>
+
+    <select id="GetEquipmentByArmyIdAndType" resultMap="EquipmentDate">
+        select * from equipment_info where army_id = #{army_id}
+        and category_id in (select category_id from category_info where category_type = #{category_type})
+    </select>
+
+    <select id="GetEquipmentByPlatoonIdAndType" resultMap="EquipmentDate">
+        select * from equipment_info where platoon_id = #{platoon_id}
+        and category_id in (select category_id from category_info where category_type = #{category_type})
+    </select>
+
+    <select id="GetEquipmentRepairCount" resultType="Integer">
+        select count(*) from element_maintain_info where equipment_element_id in (select equipment_element_id from  equipment_element_info where  equipment_id = #{equipment_id})
+    </select>
+
+    <select id="GetElementByEquipmentId" resultMap="ElementDate">
+        select equipment_element_info.*,element_info.* from element_info,equipment_element_info
+        where equipment_element_info.element_id = element_info.element_id and equipment_id = #{equipment_id}
+    </select>
+
+    <insert id="AddSchemeEquipment" parameterType="com.example.entity.Scheme_Equipment">
+        insert into scheme_equipment_info(scheme_id, equipment_id) values (#{scheme_id},#{equipment_id})
+    </insert>
+
+    <select id="GetElementMaintainDate" resultType="String">
+        select MAX(maintain_time) from element_maintain_info where equipment_element_id = #{equipment_element_id}
+    </select>
+
+    <select id="GetElementMaintainByEquipmentId" resultMap="MaintainDate">
+        select * from element_maintain_info where equipment_element_id in (select equipment_element_id from equipment_element_info where equipment_id = #{equipment_id})
+    </select>
+
+    <select id="GetCategoryByArmyIdAndType" resultMap="CategoryDate">
+        select * from category_info where category_type = #{category_type} and category_id in (select category_id from equipment_info where army_id = #{army_id})
+    </select>
+
+    <select id="GetCategoryByPlatoonIdAndType" resultMap="CategoryDate">
+        select * from category_info where category_type = #{category_type} and category_id in (select category_id from equipment_info where platoon_id = #{platoon_id})
+    </select>
+
+    <insert id="AddTeamCategory" parameterType="com.example.entity.Team_Category">
+        insert into team_department_info values (#{team_id},#{category_id},#{category_number})
+    </insert>
+
+    <select id="GetCategoryEquipmentCount" resultType="Integer">
+        select count(*) from equipment_info where category_id = #{category_id}
+    </select>
+
+    <select id="GetSparePartName" resultType="String">
+        select spare_part_name from  spare_part_info where spare_part_id = #{spare_part_id}
+    </select>
+
+    <select id="GetSupplierByPosition" resultType="com.example.entity.Supplier">
+        select supplier_info.*,location_info.* from supplier_info,location_info where supplier_info.location_id = location_info.location_id and case_position = #{case_position}
+    </select>
+</mapper>

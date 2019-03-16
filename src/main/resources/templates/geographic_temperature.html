@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Air pressure</title>
+</head>
+<body>
+<div id="table" style="width:64%;height:500px; float: left"></div>
+<div style="width: 36%;float: right">
+    <ul id="descriptionTips">
+    </ul>
+</div>
+<script src="js/echarts.js"></script>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('table'));
+    var TemperatureDataList = [];
+    var DataList = [];
+    $("#document").ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/GetEnvironment?scheme_id='+localStorage.getItem("scheme_id")+'&month='+localStorage.getItem("month")+'&type=temperature',
+            contentType: 'application/json',
+            dataType: 'JSON',
+            data: {index: 0},
+            success: function (data) {
+                console.log(data);
+                var data_list = data.data_list;
+                console.log(data_list);
+                for (var i = 0 ; i<data_list.length; i++){
+                    TemperatureDataList.push(data_list[i].temperature);
+                    DataList.push(data_list[i].month_time);
+                }
+                // 指定图表的配置项和数据
+                var option = {
+                    backgroundColor: '#FBFBFB',
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: ['沙尘数据']
+                    },
+
+                    calculable: true,
+
+
+                    xAxis: [
+                        {
+                            axisLabel: {
+                                rotate: 30,
+                                interval: 0
+                            },
+                            axisLine: {
+                                lineStyle: {
+//                        color: '#000080'
+                                }
+                            },
+                            type: 'category',
+                            boundaryGap: false,
+                            data: DataList
+                        }
+                    ],
+                    yAxis: [
+                        {
+
+                            type: 'value',
+                            axisLine: {
+                                lineStyle: {
+//                        color: '#000080'
+                                }
+                            }
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '温度',
+                            type: 'line',
+                            symbol: 'none',
+                            smooth: true,
+                            color: ['#808000'],
+                            data: TemperatureDataList,
+                            itemStyle: {
+                                normal: {
+                                    label: {
+                                        show: true,
+                                        position: 'top',
+                                        textStyle: {
+                                            color: 'black',
+                                            fontSize: 16
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+
+                // 特情部分的获取
+                var case_list = data.case_list;
+                for (var i = 0; i<case_list.length; i++){
+                    var tips = $("<li>");
+                    tips.text(case_list[i].description);
+                    $("#descriptionTips").append(tips);
+                }
+            },
+        }, JSON)
+    })
+
+
+</script>
+</body>
+</html>

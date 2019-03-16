@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.Special_CaseMapper">
+    <select id="GetSpecialCase" resultType="com.example.entity.Special_Case">
+
+        select * from special_case_info where case_position = #{case_position}
+        <if test="case_type != null  and case_type != ''">
+            and case_type = #{case_type}
+        </if>
+        <if test="month_time != null  and month_time != ''">
+            and month_time = #{month_time}
+        </if>
+        <if test="description != null  and description != ''">
+            and description = #{description}
+        </if>
+
+    </select>
+</mapper>

@@ -1,0 +1,20 @@
+{
+  "total": "2",
+  "rows": [
+    {
+      "repair_id":1,
+      "malfunction_description":"起竖液压缸异常",
+      "reason_description": "液压缸故障",
+    "solution": "更换液压缸",
+      "repair_date":"2018-05-02"
+    },
+    {
+      "repair_id":2,
+      "malfunction_description":"筒弹异常",
+      "reason_description": "电缆线路故障",
+    "solution": "维修检查线路",
+      "repair_date":"2018-11-02"
+    }
+  ]
+}
+

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <title>方案库-装备保障方案</title>
+
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
+    <link href="css/style.default.css" rel="stylesheet">
+
+    <link href="css/bootstrap-table.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1><span>[</span> 装备保障系统 <span>]</span></h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+            <!-- This is only visible to small devices -->
+            <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                <div class="media userlogged">
+                    <img alt="" src="images/photos/loggeduser.png" class="media-object">
+                    <div class="media-body">
+                        <h4>小张</h4>
+                        <!--    <span>"Life is so..."</span> -->
+                    </div>
+                </div>
+
+                <h5 class="sidebartitle actitle">账户</h5>
+                <ul class="nav nav-pills nav-stacked nav-bracket mb30">
+                    <li><a href="profile.html"><i class="fa fa-user"></i> <span>个人信息</span></a></li>
+                    <li><a href=""><i class="fa fa-cog"></i> <span>个人信息修改</span></a></li>
+                    <li><a href=""><i class="fa fa-question-circle"></i> <span>帮助</span></a></li>
+                    <li><a href="signout.html"><i class="fa fa-sign-out"></i> <span>退出</span></a></li>
+                </ul>
+            </div>
+
+            <h3 class="sidebartitle">装备保障方案</h3>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li class="active"><a href="completeness.html"><i class="fa fa-file-text"></i> <span>方案库</span></a></li>
+                <li><a href="scheme_model.html"><i class="fa fa-home"></i> <span>方案模板库</span></a></li>
+            </ul>
+
+
+            <h5 class="sidebartitle">保障方案资料</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <!--<li class="nav-parent"><a href=""><i class="fa fa-flag"></i> <span>装备使用保障方案</span></a>-->
+                <!--<ul class="children">-->
+                <!--<li><a href="general-forms.html"><i class="fa fa-caret-right"></i> 任务类型</a></li>-->
+                <!--<li><a href="form-layouts.html"><i class="fa fa-caret-right"></i> 保障组类别</a></li>-->
+                <!--<li><a href="form-validation.html"><i class="fa fa-caret-right"></i> 器材保障组要求</a></li>-->
+                <!--<li><a href="form-wizards.html"><i class="fa fa-caret-right"></i> 保障计划类别</a></li>-->
+                <!--</ul>-->
+                <!--</li>-->
+                <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>装备维修保障方案</span></a>
+                    <ul class="children">
+                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i> 维修保障任务类型</a></li>
+                        <li><a href="icons.html"><i class="fa fa-caret-right"></i> 交通保障类型</a></li>
+                        <li><a href="typography.html"><i class="fa fa-caret-right"></i> 设备保障类型</a></li>
+                    </ul>
+                </li>
+                <li><a href="maps.html"><i class="fa fa-map-marker"></i> <span>气象水文保障信息</span></a></li>
+                <li class="nav-parent"><a href="tables.html"><i class="fa fa-th-list"></i> <span>特情处置预案</span></a>
+                    <ul class="children">
+                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i>特情处置原则</a></li>
+                        <li><a href="#"><i class="fa fa-caret-right"></i>伪装措施组织</a></li>
+                        <li><a href="#"><i class="fa fa-caret-right"></i>防护措施组织</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div><!-- leftpanelinner -->
+    </div><!-- leftpanel -->
+
+    <div class="mainpanel">
+        <div class="headerbar">
+
+            <a class="menutoggle"><i class="fa fa-bars"></i></a>
+
+            <form class="searchform" action="index.html" method="post">
+                <input type="text" class="form-control" name="keyword" placeholder="查找..."/>
+            </form>
+
+            <div class="header-right">
+                <ul class="headermenu">
+                    <li>
+                        <div class="btn-group">
+                            <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <span class="badge">2</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-head pull-right">
+                                <h5 class="title">您有2条未读信息</h5>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <img src="images/photos/loggeduser.png" alt=""/>
+                                小张
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                                <li><a href="profile.html"><i class="glyphicon glyphicon-user"></i> 个人信息</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人信息修改 </a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> 帮助</a></li>
+                                <li><a href="signin.html"><i class="glyphicon glyphicon-log-out"></i> 退出</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div><!-- header-right -->
+
+        </div><!-- headerbar -->
+
+        <div class="pageheader">
+            <h2><i class="fa  fa-edit"></i> 保障方案编辑</h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="#">装备保障系统</a></li>
+                    <li class="active">编辑保障方案</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a href="" class="panel-close">&times;</a>
+                        <a href="" class="minimize">&minus;</a>
+                    </div>
+                    <h4 class="panel-title" id="platoon_name"></h4>
+                    <p>选择该旅级单位下的人员组成与数量</p>
+                </div>
+                <div class="panel-body editable-list-group">
+                    <div class="table-responsive col-md-12">
+                        <table class="table table-striped" id="onePlatoonTable"></table>
+                    </div>
+                </div><!-- panel-body -->
+                <div class="panel-footer" style="text-align: center; margin: 0 auto">
+                    <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
+                        返回
+                    </button>
+                    <button type="submit" id="determineNumber" class="btn btn-primary">继续</button>
+                    <!--<button id="test">查看</button>-->
+                </div><!-- panel-footer -->
+            </div><!-- panel-default -->
+        </div><!-- contentpanel -->
+
+    </div><!-- mainpanel -->
+
+
+</section>
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+<script src="js/bootstrap-table.min.js"></script>
+<script src="js/bootstrap-table-zh-CN.js"></script>
+
+<script src="js/select2.min.js"></script>
+<script src="js/bootstrap-editable.min.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js"></script>
+<script src="js/moment.js"></script>
+
+<script src="js/custom.js"></script>
+<script th:inline="javascript">
+    // 加载共同头部
+    $(function () {
+        $('.left').load("left")
+        $('.head').load("head")
+    });
+
+    $("#platoon_name").text(localStorage.getItem("platoon_name"));
+
+    var $onePlatoonTable = $('#onePlatoonTable');
+    selections = [];
+
+
+    function initTable() {
+        $onePlatoonTable.bootstrapTable({
+            // locale data
+            // url: 'js/tableData/json/armyList.json',
+            url: '/GetArmyMsg?platoon_id='+localStorage.getItem("platoon_id"),
+            striped: true,   //是否显示行间隔色
+            // showHeader: true,
+            showColumns: true, //是否显示所有的列
+            showRefresh: true, //现实刷新按钮
+            showExport: true, //显示导出
+            pagination: true,//分页
+            sidePagination: 'server',//服务器端分页
+            search: true,//显示搜索框
+            clickToSelect: false,  //是否启用点击选中行
+            toolbar: '#toolbar', //工具按钮用哪个容器
+            idField: 'id',
+            editable: true, //行内编辑
+
+            onCheck: function (row) {
+                localStorage.setItem("army_list_" + row.army_id, row.army_name);
+                console.log(row.army_id);
+            },
+
+            //表格的列
+            columns: [{
+                checkbox: true
+            }, {
+                field: 'army_id',
+                title: '队伍ID'
+            }, {
+                field: 'army_name',
+                title: '队伍名称'
+            }, {
+                field: 'army_people',
+                title: '队伍人数',
+                editable: {
+                    type: 'number',
+                    title: '人数',
+                    validate: function (value) {
+                        value = $.trim(value);
+                        if (!value) {
+                            return '不能为空，无人时填写0';
+                        }
+                    },
+                }
+            }]
+        });
+        setTimeout(function () {
+            $onePlatoonTable.bootstrapTable('resetView');
+        }, 200);
+    }
+
+    // // getSelection问题
+    var getSelectRow = $onePlatoonTable.bootstrapTable('getSelections');
+    $('#test').click(function () {
+        console.log("getSelectionByStr: " + getSelectRow);
+        console.log("getSelectionByStrJSON: " + JSON.stringify(getSelectRow));
+        console.log("getSelections: " + $onePlatoonTable.bootstrapTable('getSelections'));
+        console.log('getSelectionsJSON:' + JSON.stringify($onePlatoonTable.bootstrapTable('getSelections')));
+        var aid = $onePlatoonTable.bootstrapTable('getSelections')[0].army_id;
+        alert(aid);
+    });
+
+    $(function () {
+        var scripts = [
+                'js/bootstrap-table.min.js',
+                'js/bootstrap-table-locale-all.min.js',
+                'js/bootstrap-table-export.min.js',
+                'js/tableExport.min.js',
+                'js/bootstrap-table-editable.js',
+                'js/bootstrap-editable.js'
+            ],
+            eachSeries = function (arr, iterator, callback) {
+                callback = callback || function () {
+                };
+                if (!arr.length) {
+                    return callback();
+                }
+                var completed = 0;
+                var iterate = function () {
+                    iterator(arr[completed], function (err) {
+                        if (err) {
+                            callback(err);
+                            callback = function () {
+                            };
+                        } else {
+                            completed += 1;
+                            if (completed >= arr.length) {
+                                callback(null);
+                            } else {
+                                iterate();
+                            }
+                        }
+                    });
+                };
+                iterate();
+            };
+        eachSeries(scripts, getScript, initTable);
+    });
+
+
+    function getScript(url, callback) {
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.src = url;
+        var done = false;
+        // Attach handlers for all browsers
+        script.onload = script.onreadystatechange = function () {
+            if (!done && (!this.readyState ||
+                this.readyState == 'loaded' || this.readyState == 'complete')) {
+                done = true;
+                if (callback)
+                    callback();
+                // Handle memory leak in IE
+                script.onload = script.onreadystatechange = null;
+            }
+        };
+        head.appendChild(script);
+        // We handle everything using the script element injection
+        return undefined;
+    }
+
+    //  【继续】跳转按钮
+    $("#determineNumber").click(function () {
+        var army_msg = [];
+        for (var i = 0; i < $onePlatoonTable.bootstrapTable('getSelections').length; i++) {
+            var army_id = $onePlatoonTable.bootstrapTable('getSelections')[i].army_id;
+            var army_people = parseInt($onePlatoonTable.bootstrapTable('getSelections')[i].army_people);
+            var scheme_army_list = {
+                army_id: army_id,
+                army_people: army_people
+            };
+            var scheme_army = {
+                scheme_army : scheme_army_list
+            };
+            army_msg.push(scheme_army);
+        }
+
+        var scheme_army_list = {
+            scheme_id: localStorage.getItem("scheme_id"),
+            scheme_army_list: army_msg
+        };
+        var armyStr = JSON.stringify(scheme_army_list);
+        console.log(armyStr);
+
+        // var
+        $.ajax({
+            type: 'POST',
+            data: armyStr,
+            contentType: "application/json;charset=UTF-8",
+            url: "/AddSchemeArmy",
+            dataType: "json",
+            async: false,     // 取消异步加载
+            success: function (data) {
+                window.location.href = "/edit_step?scheme_id="+localStorage.getItem("scheme_id");
+                // window.location.href = "/edit_step";
+            },
+            error: function () {
+                console.error("error");
+                alert("添加作战人数失败")
+            }
+        });
+    });
+</script>
+</body>
+</html>

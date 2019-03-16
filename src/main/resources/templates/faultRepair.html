@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="js/echarts.js"></script>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 100%;height:500px;"></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+    //    var ecConfig = require('echarts/config');
+    //    myChart.on(ecConfig.EVENT.CLICK, eConsole);
+    myChart.on('click', function (param) {
+        // alert(param.dataIndex);
+        localStorage.setItem("malfunctionSolution", param.dataIndex);
+        $("#solutionModal").modal('show');
+    });
+
+    function hideLoad() {
+        myChart.hideLoading();
+        var option = {
+            title: {
+                text: '大概率故障事件列表',
+                x: 'center'
+            },
+            tooltip: {},
+            legend: {
+                data: ['故障率'],
+                textStyle: {
+                    fontSize: 18
+                }
+            },
+            xAxis: {
+                type: 'value',
+            },
+            yAxis: {
+                type: 'category',
+                data: ["弹上电池故障", "调平支腿故障", "高压油管漏油", "行军固定器不锁定", "下滑油缸外窜", "发射架起竖时筒弹自动下滑", "汇油环渗油", "侧移锁定油缸故障"],
+            },
+            series: [{
+//                <span style="color:#ff0000;"><strong>clickable:true,</strong></span>
+                name: '故障名',
+                type: 'bar',
+                data: [85, 82, 65, 60, 56, 55, 48, 30],
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: true,
+                            position: 'right',
+                            textStyle: {
+                                color: 'black',
+                                fontSize: 16
+                            }
+                        }
+                    }
+                }
+            }]
+        };
+        myChart.setOption(option);
+    }
+
+    setTimeout(hideLoad, 3000);
+    // 基于准备好的dom，初始化echarts实例
+    //    var myChart = echarts.init(document.getElementById('main'));
+    myChart.showLoading({text: '数据计算中'})
+    // 指定图表的配置项和数据
+    // 使用刚指定的配置项和数据显示图表。
+
+</script>
+</body>
+</html>

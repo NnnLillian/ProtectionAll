@@ -1,0 +1,18 @@
+{
+  "total": "2",
+  "rows": [
+    {
+      "element_name":"天线",
+      "work_time":"1160",
+      "maintenance_date":"2018-10-8",
+      "reliability":"0.925"
+    },
+    {
+      "element_name":"回转液压缸",
+      "work_time":"1240",
+      "maintenance_date":"2018-12-8",
+      "reliability":"0.934"
+    }
+  ]
+}
+

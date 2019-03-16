@@ -1,0 +1,17 @@
+{
+	"total": "2",
+	"rows": [{
+			"repair_id":1,
+			"malfunction_description":"天线展开异常",
+		"reason_description": "液压缸故障",
+		"solution": "更换液压缸",
+		"repair_date":"2018-03-02"
+		}, {
+			"repair_id":2,
+			"malfunction_description":"信号异常",
+			"reason_description": "发射机故障",
+		"solution": "更换发射机",
+			"repair_date":"2019-01-12"
+		}]
+}
+

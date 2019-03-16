@@ -1,0 +1,20 @@
+{
+	"total": "2",
+	"rows": [
+
+		{
+			"repair_id":1,
+			"malfunction_description":"电压异常",
+			"reason_description": "液压缸故障",
+		"solution": "更换稳压器",
+			"repair_date":"2017-06-02"
+		},
+		{
+			"repair_id":2,
+			"malfunction_description":"接头过热",
+			"reason_description": "变压器故障",
+		"solution": "更换变压器",
+			"repair_date":"2018-11-12"
+		}
+	]
+}

@@ -1,0 +1,18 @@
+{
+	"total": "2",
+	"rows": [
+		{
+			"element_name":"液压支腿",
+			"work_time":"576",
+			"maintenance_date":"2017-10-6",
+			"reliability":"0.951"
+		},
+		{
+			"element_name":"筒弹",
+			"work_time":"10",
+			"maintenance_date":"2017-11-8",
+			"reliability":"0.964"
+		}
+	]
+}
+

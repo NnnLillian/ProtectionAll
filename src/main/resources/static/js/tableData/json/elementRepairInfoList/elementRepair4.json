@@ -1,0 +1,20 @@
+{
+	"total": "2",
+	"rows": [
+
+		{
+			"repair_id":1,
+			"malfunction_description":"吊具故障",
+			"reason_description": "刚柔转换装置故障",
+		"solution": "维修更换转换装置",
+			"repair_date":"2017-11-10"
+		},
+		{
+			"repair_id":2,
+			"malfunction_description":"大臂故障",
+			"reason_description": "换向阀卡涩",
+		"solution": "更换换向阀",
+			"repair_date":"2018-05-02"
+		}
+	]
+}

@@ -1,0 +1,72 @@
+﻿{
+  "total": "11",
+  "rows": [
+    {
+      "category_id": "001",
+      "category_name": "指挥车",
+      "category_number": 5,
+      "category_type": "repair"
+    },
+    {
+      "category_id": "002",
+      "category_name": "机械维修车",
+      "category_number": 4,
+      "category_type": "repair"
+    },
+    {
+      "category_id": "003",
+      "category_name": "机械备件车",
+      "category_number": 6,
+      "category_type": "spare"
+    },
+    {
+      "category_id": "004",
+      "category_name": "电子维修表",
+      "category_number": 7,
+      "category_type": "repair"
+    },
+    {
+      "category_id": "005",
+      "category_name": "电子备件车",
+      "category_number": 8,
+      "category_type": "spare"
+    },
+    {
+      "category_id": "006",
+      "category_name": "50KW工频电源车",
+      "category_number": 7,
+      "category_type": "power"
+    },
+    {
+      "category_id": "007",
+      "category_name": "制氮充氮车",
+      "category_number": 6,
+      "category_type": "repair"
+    },
+    {
+      "category_id": "008",
+      "category_name": "筒弹测试车",
+      "category_number": 5,
+      "category_type": "testCar"
+    },
+    {
+      "category_id": "009",
+      "category_name": "便携式防空导弹检测车",
+      "category_number": 2,
+      "category_type": "testCar"
+    },
+    {
+      "category_id": "010",
+      "category_name": "野战器材运输车",
+      "category_number": 3,
+      "category_type": "transport"
+    },
+    {
+      "category_id": "011",
+      "category_name": "运输车",
+      "category_number": 10,
+      "category_type": "transport"
+    }
+  ]
+}
+

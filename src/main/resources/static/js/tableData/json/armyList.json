@@ -1,0 +1,24 @@
+{
+  "total": "",
+  "rows": [{
+    "army_id": 1,
+    "army_name": "第一营",
+    "army_people": 1203
+  }, {
+    "army_id": 2,
+    "army_name": "第二营",
+    "army_people": 803
+  }, {
+    "army_id": 3,
+    "army_name": "第三营",
+    "army_people": 1029
+  }, {
+    "army_id": 4,
+    "army_name": "第四营",
+    "army_people": 1023
+  }, {
+    "army_id": 5,
+    "army_name": "第四营",
+    "army_people": 900
+  }]
+}

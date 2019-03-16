@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <link href="images/favicon.png" rel="shortcut icon" type="image/png">
+
+    <title>编辑方案-装备保障方案</title>
+
+    <link href="css/style.default.css" rel="stylesheet">
+    <link href="css/jquery.datatables.css" rel="stylesheet">
+    <!-- datepicker -->
+    <!--<link rel='stylesheet' type='text/css' href='css/core.css'>-->
+
+    <link href="css/bootstrap-select.css" rel="stylesheet">
+    <link href="css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- baidu MapBox -->
+    <script type="text/javascript" src="baidumapv2/baidumap_offline_v2_load.js"></script>
+    <script type="text/javascript" src="baidumapv2_demo/jquery.js"></script>
+    <script type="text/javascript" src="baidumapv2_demo/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="baidumapv2/css/baidu_map_v2.css"/>
+
+    <!-- 生成的大型故障信息，载入维修方案 -->
+    <div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade bs-example-modal-lg"
+         data-backdrop="static"
+         id="solutionModal" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                    <h4 class="modal-title">处置方法</h4>
+                    </p>
+                </div>
+                <div class="modal-body">
+                    <div class="tab-pane active" id="solutionList">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/jquery.sparkline.min.js"></script>
+    <script src="js/toggles.min.js"></script>
+    <script src="js/retina.min.js"></script>
+    <script src="js/jquery.cookies.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-zh-CN.js"></script>
+    <script src="js/bootstrap-table-editable.js"></script>
+
+    <script src="js/jquery.datatables.min.js"></script>
+    <script src="js/morris.min.js"></script>
+    <script src="js/raphael-2.1.0.min.js"></script>
+    <script src="js/chosen.jquery.min.js"></script>
+    <script src="js/bootstrap-wizard.min.js"></script>
+    <script src="js/jquery.bootstrap.wizard.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/bootstrap-editable.min.js"></script>
+    <script src="js/moment.js"></script>
+
+    <script src="js/custom.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+
+    <script src="js/tableData/repairTable-data.js"></script>
+    <script src="js/tableData/department-table.js"></script>
+    <script src="js/tableData/equipmentTable-data.js"></script>
+    <script src="js/tableData/elementRepairTable-data.js"></script>
+    <script src="js/tableData/elementTable-data.js"></script>
+    <script src="js/tableData/protectTable-data.js"></script>
+
+    <script src="applicationTable/application.js"></script>
+
+    <style type="text/css">
+        body, html, #map_demo, #tab, #mapfrm {
+            width: 100%;
+            height: 100%;
+            /*overflow: hidden;*/
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+        #menu {
+            height: 100%;
+            overflow-y: auto
+        }
+
+        td {
+            font-size: 14px
+        }
+
+        h4 {
+            margin: 0;
+        }
+
+        #map_demo1, #map_demo2 {
+            height: 50%
+        }
+    </style>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="left"></div>
+
+    <div class="mainpanel">
+
+        <div class="head"></div>
+        <div class="pageheader">
+            <h2><i class="fa  fa-edit"></i> 保障方案编辑</h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="#">装备保障系统</a></li>
+                    <li class="active">编辑保障方案</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">装备保障方案</h4>
+                        <p></p>
+                    </div><!-- panel-heading -->
+                    <!--原本版本 panel-body-nopadding editable-list-group作用未知-->
+                    <!--<div class="panel-body panel-body-nopadding editable-list-group">-->
+                    <div class="panel-body">
+                        <!-- BASIC WIZARD -->
+                        <!-- Question 这里是否需要request -->
+                        <div class="basic-wizard" id="progressWizard">
+                            <ul class="nav nav-pills nav-justified">
+                                <li><a data-toggle="tab" href="#ptab1"><span>1:</span> 作战任务</a></li>
+                                <li><a data-toggle="tab" href="#ptab2"><span>2:</span> 保障机构编组</a></li>
+                                <li><a data-toggle="tab" href="#ptab3"><span>3:</span> 民用保障资源</a></li>
+                                <li><a data-toggle="tab" href="#ptab4"><span>4:</span> 特情信息</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="progress progress-striped active">
+                                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" class="progress-bar"
+                                         role="progressbar"></div>
+                                </div>
+                                <div class="tab-pane" id="ptab1">
+                                    <form class="form-horizontal form-bordered">
+                                        <div class="form-group dropdown">
+                                            <h4>作战任务</h4>
+                                            <p><code id="platoon_name"></code>率领第
+                                                <th:block th:each="item:${army_list}">
+                                                    <code th:text="${item.getArmy_name()}">十二</code><span
+                                                        th:text="${item.getArmy_people()}">30</span>人
+                                                </th:block>
+                                                ，向作战地区机动，于规定时间到达预定阵地展开部署，担负作战任务。
+                                            </p>
+                                            <hr>
+                                            <!-- 携行的武器装备 -->
+                                            <h4>装备表</h4>
+                                            <div class="tab-pane" id="task-carryEquipments">
+                                                <div class="table-responsive">
+                                                    <table id="carryEquipment-table"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="tab-pane" id="ptab2">
+                                    <div class="form-group">
+                                        <h4>装备抢修组</h4>
+                                        <p>装备抢修组负责与上级业务部门协调处理装备问题，参与上级业务部门工作</p>
+                                        <button class="btn btn-primary" data-target="#newRepairCategory"
+                                                data-toggle="modal" id="btn_add"
+                                                type="button">
+                                            <span aria-hidden="true" class="glyphicon glyphicon-plus"> </span>新增装备抢修组
+                                        </button>
+                                        <div class="mb30"></div>
+                                        <div id="repairTeam"></div>
+                                        <div class="mb5"></div>
+                                        <div id="repairCategory">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <h4>器材保障组</h4>
+                                        <p>负责器材调整补充及请领下送</p>
+                                        <button class="btn btn-primary" data-target="#newProtectCategory"
+                                                data-toggle="modal">
+                                            <span aria-hidden="true" class="glyphicon glyphicon-plus"> </span>新增器材保障组
+                                        </button>
+                                        <div class="mb30"></div>
+                                        <div id="protectTeam"></div>
+                                        <div class="mb5"></div>
+                                        <div id="protectCategory"></div>
+                                        <div class="mb10"></div>
+                                        <div class="applyRepair"></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane" id="ptab3">
+                                    <div class="form-group" style="height: 1100px">
+                                        <h4>地方保障力量</h4>
+
+                                        <div class="mb20"></div>
+                                        <div id="localSecurity" class="col-md-12" style="height: 1000px">
+                                            <button onclick="addPolyLine();" class="btn btn-default mr10">生成折线</button>
+                                            <button onclick="addLine()" class="btn btn-default mr10">生成直线</button>
+                                            <button onclick="removeLine()" class="btn btn-default mr10">清除</button>
+                                            <button onclick="calDegree()" class="btn btn-default mr10">角度值</button>
+                                            <button onclick="calDistance()" class="btn btn-default mr10">距离值</button>
+                                            <div class="mb20"></div>
+                                            <div id="map_demo">1</div>
+                                        </div>
+
+                                        <!--<div class="tab-pane" id="warehouseMessage">-->
+                                        <!--<div class="table-responsive">-->
+                                        <!--<table id="NearbyWarehouse-table"></table>-->
+                                        <!--</div>-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="ptab4">
+                                    <div id="specialInfo">
+                                    </div>
+                                </div>
+
+                            </div><!-- tab-content -->
+                            <ul class="pager wizard">
+                                <li class="previous"><a href="javascript:void(0)">上一步</a></li>
+                                <li class="next"><a href="javascript:void(0)">下一步</a></li>
+                                <li class="finish" id="finish" style="float: right"><a href="#">完成</a>
+                                </li>
+                            </ul>
+                        </div><!-- #basicWizard -->
+                    </div><!-- panel-body -->
+                    <div class="panel-footer">
+                        <input type="button" value="see" id="test">
+                    </div>
+                </div><!-- panel -->
+
+                <div class="panel panel-default" id="calculationWholeDiv">
+                    <div class="panel-heading">
+                        <div class="panel-btns">
+                            <input type="button" id="calculationReliability" class="btn btn-default" value="计算故障概率"
+                                   style="float: right">
+                        </div>
+                        <h4>故障概率计算</h4>
+                        <div class="panel-body" id="calculationDiv"></div>
+                    </div>
+                </div>
+
+            </div><!-- row -->
+        </div><!-- contentpanel -->
+    </div><!-- mainpanel -->
+</section>
+
+<!-- 新增装备抢修组 modal -->
+<div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade bs-example-modal-lg"
+     data-backdrop="static"
+     id="newRepairCategory" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                <h4 class="modal-title">装备抢修组</h4>
+                <p>装备抢修组负责与上级业务部门协调处理装备问题，参与上级业务部门工作</p>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <span class="mr30">第&nbsp;&nbsp;<div style="width: 60px; display: inline-block"><input
+                            class="form-control"
+                            id="repairTeamName"
+                            type="number"></div>&nbsp;&nbsp;装备抢修组</span>
+
+                </div>
+                <!-- response team_name -->
+                <hr>
+                <div class="mb10"></div>
+                <!-- response team_department -->
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">装备技术科:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="repairEquipmentTechnology"
+                                   placeholder="人数" type="number"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">技术保障队</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="repairTechnicalSupport"
+                                   placeholder="人数" type="number"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">汽车修理队</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="repairAutoMechanic"
+                                   placeholder="人数" type="number"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane active" id="repairTeamCategory">
+                    <div class="table-responsive">
+                        <table id="category-table1"></table>
+                    </div>
+                </div>
+                <div class="mb20"></div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="newRepairTeam" type="submit">保存</button>
+                </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 新增器材保障组 modal -->
+<div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade bs-example-modal-lg"
+     data-backdrop="static"
+     id="newProtectCategory" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                <h4 class="modal-title">器材保障组</h4>
+                <p>负责器材调整补充及请领下送</p>
+            </div>
+            <div class="modal-body">
+                <span class="mr30">第&nbsp;&nbsp;<div style="width: 60px; display: inline-block"><input
+                        class="form-control"
+                        id="protectTeamName"
+                        type="number"/></div>&nbsp;&nbsp;器材保障组</span>
+                <!-- response team_name -->
+                <div class="mb10"></div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">装备技术科:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="protectEquipmentTechnology"
+                                   placeholder="人数" type="number"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">技术保障队</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="protectTechnicalSupport"
+                                   placeholder="人数" type="number"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">汽车修理队</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="protectAutoMechanic"
+                                   placeholder="人数" type="number"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane active" id="protectTeamCategory">
+                    <div class="table-responsive">
+                        <table id="category-table2"></table>
+                    </div>
+                </div>
+                <div class="mb20"></div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="newProtectTeam" type="submit">保存</button>
+                </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- equipment 的 reliability 细节 modal -->
+<div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade bs-example-modal-lg"
+     data-backdrop="static"
+     id="reliabilityModal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                <h4 class="modal-title" id="elementMsgTitle">器材可靠性</h4>
+                <p>装备器材的部件可靠性</p>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane active elementInfo">
+                    <div class="table-responsive" id="elementTablesDiv">
+                        <table id="element-table"></table>
+                    </div>
+                    <div class="mb15"></div>
+                    <div class="table-responsive">
+                        <table id="element-repair-table"></table>
+                    </div>
+                    <hr>
+                    <div id="loaderImg" align="center">
+                        <img src="images/loaders/loader1.gif" alt="">
+                    </div>
+                    <div id="elementSuggest">
+                    </div>
+                    <hr>
+                    <div align="center">
+                        <img id="tableLoaderImg"
+                             src="images/loaders/loader1.gif">
+                    </div>
+                    <div id="applyElementTable">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 展示 某团领着某营 -->
+<script>
+    $("#platoon_name").text(localStorage.getItem("platoon_name"));
+</script>
+
+<script>
+    // 加载共同头部
+    $(function () {
+        $('.left').load("left");
+        $('.head').load("head");
+        $('#specialInfo').load("special_info");
+    });
+
+    jQuery(document).ready(function () {
+
+        "use strict";
+        // Delete row in a table
+        jQuery('.delete-row').click(function () {
+            var c = confirm("Continue delete?");
+            if (c)
+                jQuery(this).closest('.panel').fadeOut(function () {
+                    jQuery(this).remove();
+                });
+
+            return false;
+        });
+
+        // Progress Wizard
+        $('#progressWizard').bootstrapWizard({
+            'nextSelector': '.next',
+            'previousSelector': '.previous',
+            onNext: function (tab, navigation, index) {
+                var $total = navigation.find('li').length;
+                var $current = index + 1;
+                var $percent = ($current / $total) * 100;
+                jQuery('#progressWizard').find('.progress-bar').css('width', $percent + '%');
+            },
+            onPrevious: function (tab, navigation, index) {
+                var $total = navigation.find('li').length;
+                var $current = index + 1;
+                var $percent = ($current / $total) * 100;
+                jQuery('#progressWizard').find('.progress-bar').css('width', $percent + '%');
+            },
+            onTabShow: function (tab, navigation, index) {
+                var $total = navigation.find('li').length;
+                var $current = index + 1;
+                var $percent = ($current / $total) * 100;
+                jQuery('#progressWizard').find('.progress-bar').css('width', $percent + '%');
+            },
+        });
+
+        <!-- 提交作战装备 -->
+        jQuery('#progressWizard .finish').click(function () {
+            alert('Finished');
+
+            var carryEquipmentRows = getCarryEquipment();
+            var scheme_equipment_list = [];
+            console.log(carryEquipmentRows);
+            for (var i=0; i<carryEquipmentRows.length; i++) {
+                var scheme_equipment_item ={
+                    equipment_id : carryEquipmentRows[i].equipment_id
+                };
+                var scheme_equipment = {
+                    scheme_equipment: scheme_equipment_item
+                };
+                scheme_equipment_list.push(scheme_equipment);
+            }
+            var scheme = {
+                scheme_id : localStorage.getItem("scheme_id"),
+                scheme_equipment_list: scheme_equipment_list
+            };
+
+            var schemeStr = JSON.stringify(scheme);
+
+            console.log(schemeStr);
+
+            $.ajax({
+                type: 'POST',
+                data: schemeStr,
+                contentType: "application/json;charset=UTF-8",
+                url: "/AddSchemeEquipment",
+                dataType: "json",
+                async: false,     // 取消异步加载
+                success: function (data) {
+                    alert("Add Equipment Success");
+                    window.location.href = "/scheme_show";
+                    localStorage.setItem("scheme_id", data.scheme_id);
+                },
+                error: function () {
+                    console.error("error");
+
+                }
+            })
+        });
+
+        // Disabled Tab Click Wizard
+        jQuery('#disabledTabWizard').bootstrapWizard({
+            tabClass: 'nav nav-pills nav-justified nav-disabled-click',
+            onTabClick: function (tab, navigation, index) {
+                return false;
+            }
+        });
+
+        jQuery(".select2").select2({
+            width: '100%',
+            minimumResultsForSearch: -1
+        });
+
+        // Basic Inline Example
+        jQuery('.basicInline').editable({});
+
+
+    });
+</script>
+
+<!-- 携装装备表格录入 -->
+<script>
+    // $(function () {
+        equipmentDataInit('task-carryEquipment');
+
+        function getCarryEquipment() {
+            return $("#carryEquipment-table").bootstrapTable('getSelections');
+        }
+
+        $("#reliabilityModal").on('shown.bs.modal', function () {
+            document.getElementById("elementMsgTitle").innerHTML = localStorage.getItem("element_category_name");
+            //    查看装备元件信息
+            elementDataInit("elementReliability");
+            elementRepairDataInit("elementRepairInfo");
+            setTimeout(loadSuggest, 2000);
+            setTimeout(loadApplyTable, 2500);
+        });
+        $("#reliabilityModal").on('hidden.bs.modal', function () {
+            $("#loaderImg").show();
+            $("#tableLoaderImg").show();
+            $('#elementSuggest').hide();
+            $('#applyElementTable').hide()
+        });
+
+        function loadSuggest() {
+            $("#loaderImg").hide();
+            $('#elementSuggest').show();
+            $('#elementSuggest').load("elementSuggest/elementSuggest" + localStorage.getItem("element_category_id") + ".html");
+        }
+
+        function loadApplyTable() {
+            $("#tableLoaderImg").hide();
+            $('#applyElementTable').show();
+            $('#applyElementTable').load("elementSuggest/elementApplyTable" + localStorage.getItem("element_category_id") + ".html");
+        }
+
+    // });
+</script>
+
+<!--更改4.1.2维修组信息-->
+<script th:inline="javascript">
+    $(function () {
+
+        // Bootstrap Table
+
+        dataInit('warehouseMessage');
+
+        //  Bootstrap Table获得所选数据
+
+        $("#newRepairCategory").on('shown.bs.modal', function () {
+            dataInit('repairTeamCategory');
+        });
+        $('#newRepairTeam').click(function () {
+            $("#newRepairCategory").modal("hide");
+
+            var categorylist = $("#category-table1").bootstrapTable('getSelections');
+            console.log("in RepairTeam Click");
+            console.log(categorylist);
+
+            var div2 = document.createElement("div")
+            for (var i = 0; i < categorylist.length; i++) {
+                localStorage.setItem("categorylist1", categorylist.length);
+                var item = categorylist[i];
+                localStorage.setItem("categoryName" + i, item.category_name);
+                console.log(item.category_name);
+                localStorage.setItem("categoryNum" + i, item.category_number);
+                var p1 = document.createElement("p");
+                p1.innerText = "携带" + localStorage.getItem("categoryName" + i) + "共" + localStorage.getItem("categoryNum" + i);
+                div2.appendChild(p1);
+
+            }
+
+
+            var team_name = $('#repairTeamName').val();
+            var repairEquipmentTechnology = $('#repairEquipmentTechnology').val();
+            localStorage.setItem("repairEquipmentTechnologyNum" + team_name, repairEquipmentTechnology);
+            var repairTechnicalSupport = $('#repairTechnicalSupport').val();
+            localStorage.setItem("repairTechnicalSupportNum" + team_name, repairTechnicalSupport);
+            var repairAutoMechanic = $('#repairAutoMechanic').val();
+            localStorage.setItem("repairAutoMechanic" + team_name, repairAutoMechanic);
+
+            localStorage.setItem("team_name" + team_name, team_name);
+
+            var repairTeamDiv = document.getElementById("repairTeam");
+
+            var div1 = document.createElement("div");
+
+            var peopleP = document.createElement("h4");
+            peopleP.innerText = "第" + localStorage.getItem("team_name" + team_name) + "装备抢修组";
+            peopleP.setAttribute("style", "display:inline");
+            peopleP.setAttribute("class", "mr30");
+
+            var span1 = document.createElement("span");
+            span1.innerText = localStorage.getItem("repairEquipmentTechnologyNum" + team_name);
+            var span2 = document.createElement("span");
+            span2.innerText = localStorage.getItem("repairTechnicalSupportNum" + team_name);
+            var span3 = document.createElement("span");
+            span3.innerText = localStorage.getItem("repairAutoMechanic" + team_name);
+
+            var lable1 = document.createElement("p");
+            lable1.innerText = "装备技术科：";
+            lable1.append(span1);
+            var lable2 = document.createElement("p");
+            lable2.innerText = "技术保障队：";
+            lable2.append(span2);
+            var lable3 = document.createElement("p");
+            lable3.innerText = "汽车修理队：";
+            lable3.append(span3);
+            var hr1 = document.createElement("hr");
+
+            var deletebtn = document.createElement("button");
+            deletebtn.innerText = "删除";
+            deletebtn.setAttribute("class", "btn btn-default");
+            deletebtn.onclick = function () {
+                div1.remove();
+                div2.remove();
+                p1.remove();
+                hr1.remove();
+                localStorage.removeItem("repairEquipmentTechnologyNum" + team_name);
+                localStorage.removeItem("repairTechnicalSupportNum" + team_name);
+                localStorage.removeItem("repairAutoMechanic" + team_name);
+            };
+
+            div1.appendChild(peopleP);
+            div1.appendChild(deletebtn);
+            div1.appendChild(lable1);
+            div1.appendChild(lable2);
+            div1.appendChild(lable3);
+            repairTeamDiv.appendChild(div1);
+            repairTeamDiv.appendChild(div2);
+            repairTeamDiv.appendChild(hr1);
+
+        });
+
+        $("#newRepairCategory").on('show.bs.modal', function () {
+            console.log("cleaning Modal");
+            $('#repairTeamName').val("");
+            $("#repairEquipmentTechnology").val("");
+            $("#repairTechnicalSupport").val("");
+            $("#repairAutoMechanic").val("");
+        });
+    });
+</script>
+
+<!--更改4.1.2保障组信息-->
+<script th:inline="javascript">
+    $(function () {
+
+        $('#newProtectTeam').click(function () {
+            $("#newProtectCategory").modal("hide");
+
+            //  Bootstrap Table获得所选数据
+            var categorylist = $("#category-table2").bootstrapTable('getSelections');
+            console.log("in ProtectTeam Click");
+            console.log(categorylist);
+
+            var div2 = document.createElement("div");
+            for (var i = 0; i < categorylist.length; i++) {
+                var item = categorylist[i];
+                localStorage.setItem("categoryName1" + i, item.category_name);
+                console.log(item.category_name);
+                localStorage.setItem("categoryNum1" + i, item.category_number);
+                var p1 = document.createElement("p");
+                p1.innerText = "携带" + localStorage.getItem("categoryName1" + i) + "共" + localStorage.getItem("categoryNum1" + i);
+                div2.appendChild(p1);
+
+            }
+
+
+            var team_name = $('#protectTeamName').val();
+            var protectEquipmentTechnology = $('#protectEquipmentTechnology').val();
+            localStorage.setItem("protectEquipmentTechnologyNum" + team_name, protectEquipmentTechnology);
+            var protectTechnicalSupport = $('#protectTechnicalSupport').val();
+            localStorage.setItem("protectTechnicalSupportNum" + team_name, protectTechnicalSupport);
+            var protectAutoMechanic = $('#protectAutoMechanic').val();
+            localStorage.setItem("protectAutoMechanic" + team_name, protectAutoMechanic);
+
+            localStorage.setItem("team_name1" + team_name, team_name);
+
+            var protectTeamDiv = document.getElementById("protectTeam");
+
+            var div1 = document.createElement("div");
+
+            var peopleP = document.createElement("h4");
+            peopleP.innerText = "第" + localStorage.getItem("team_name1" + team_name) + "装备保障组";
+            peopleP.setAttribute("style", "display:inline");
+            peopleP.setAttribute("class", "mr30");
+
+            var span1 = document.createElement("span");
+            span1.innerText = localStorage.getItem("protectEquipmentTechnologyNum" + team_name);
+            var span2 = document.createElement("span");
+            span2.innerText = localStorage.getItem("protectTechnicalSupportNum" + team_name);
+            var span3 = document.createElement("span");
+            span3.innerText = localStorage.getItem("protectAutoMechanic" + team_name);
+
+            var lable1 = document.createElement("p");
+            lable1.innerText = "装备技术科：";
+            lable1.append(span1);
+            var lable2 = document.createElement("p");
+            lable2.innerText = "技术保障队：";
+            lable2.append(span2);
+            var lable3 = document.createElement("p");
+            lable3.innerText = "汽车修理队：";
+            lable3.append(span3);
+
+            var hr1 = document.createElement("hr");
+
+            var deletebtn = document.createElement("button");
+            deletebtn.innerText = "删除";
+            deletebtn.setAttribute("class", "btn btn-default");
+            deletebtn.onclick = function () {
+                div1.remove();
+                div2.remove();
+                p1.remove();
+                localStorage.removeItem("protectEquipmentTechnologyNum" + team_name);
+                localStorage.removeItem("protectTechnicalSupportNum" + team_name);
+                localStorage.removeItem("protectAutoMechanic" + team_name);
+                hr1.remove();
+                $('.applyRepair').empty();
+            };
+
+            div1.appendChild(peopleP);
+            div1.appendChild(deletebtn);
+            div1.appendChild(lable1);
+            div1.appendChild(lable2);
+            div1.appendChild(lable3);
+            protectTeamDiv.appendChild(div1);
+            protectTeamDiv.appendChild(div2);
+            protectTeamDiv.appendChild(hr1);
+
+
+            //    根据保障表数据，依次加载申领表
+            $('.applyRepair').load("applicationTable/applyRepair.html");
+
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json;charset=UTF-8",
+                success: function () {
+                    $("#newProtectCategory").modal("hide");
+                },
+                error: function () {
+                    $("#newProtectCategory").modal("hide");
+                },
+            })
+        });
+
+        $("#newProtectCategory").on('show.bs.modal', function () {
+            // Bootstrap Table
+            protectDataInit('protectTeamCategory');
+            console.log("cleaning Modal");
+            $('#protectTeamName').val("");
+            $("#protectEquipmentTechnology").val("");
+            $("#protectTechnicalSupport").val("");
+            $("#protectAutoMechanic").val("");
+        });
+
+
+        // $('.'+applicationTable).load("applicationTable/"+ applicationTable +".html")
+
+
+    });
+</script>
+
+<!--更改4.1.3人员信息-->
+<script>
+    localStorage.setItem("technicalPeople", $("#technicalPeople").text())
+    localStorage.setItem("repairPeople", $("#repairPeople").text())
+    localStorage.setItem("equipmentBusiness", $("#equipmentBusiness").text())
+    localStorage.setItem("technicalSupport", $("#technicalSupport").text())
+    localStorage.setItem("autoRepairCrew", $("#autoRepairCrew").text())
+</script>
+
+<!-- 计算可靠度页面载入 -->
+<script>
+    $(function () {
+        $('#calculationReliability').click(function () {
+            var bodyDiv = $("<div>");
+            bodyDiv.attr("class", "panel-body");
+            bodyDiv.attr("id", "calculationLoad");
+            bodyDiv.load("faultRepair.html");
+            $("#calculationDiv").append(bodyDiv);
+        });
+
+        $('#progressWizard .next').click(function () {
+            $("#calculationWholeDiv").hide();
+        })
+    })
+</script>
+
+<!-- 地方保障力量 地图导入 -->
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("map_demo", {minZoom: 5, maxZoom: 8});
+    var point = new BMap.Point(71.03369, 44.45368);
+    map.centerAndZoom(point, 6);
+    map.enableScrollWheelZoom();
+
+    var bounds = map.getBounds();
+    var data_info = [
+        [91.151, 29.6125, "西藏天富工程机械有限公司<br\>地址：西藏拉萨市和平路东嘎村工程机械商业街2号<br\>联系人：<br\>联系电话：0891-6151186"],
+        [92.141, 31.45, "公司：拉萨鸿飞工贸有限<br\>地址：西藏拉萨市堆龙德庆县团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
+        [84.151, 32.2125, "公司：西藏重型汽车服务有限责任公司<br\>地址：西藏拉萨团结村<br\>联系人：<br\>联系电话：13704928555"],
+        [81.171, 32.35, "公司：拉萨广天汽车修理场<br\>地址：西藏拉萨市高支路12号<br\>联系人：<br\>联系电话：021-50413751"],
+        [89.141, 29.13, "西藏海泰汽修有限公司<br\>地址：西藏拉百善镇商业街2号<br\>联系人：<br\>联系电话：0891-6151186"],
+        [80.25, 32.32, "公司：西藏大洼生云汽车修理厂<br\>地址：西藏曹溪镇月山村团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
+        [88.81, 30.86, "西藏井文汽车维修有限公司<br\>地址：西藏长阳镇黄管屯村<br\>联系人：<br\>联系电话：0891-6151186"],
+        [91.78, 32.25, "公司：永春新兴保修厂<br\>地址：西藏堆龙德庆草高支路团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
+        [97.18, 31.12, "西藏汽车修配有限公司<br\>地址：西藏河区东陵路2号<br\>联系人：<br\>联系电话：0891-6151186"],
+        [93.11, 29.10, "公司：西藏东瑞汽车修理场<br\>地址：西藏九原区团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
+        [123.059, 41.122, "公司：台安县重型汽车服务有限责任公司<br\>地址：辽宁省鞍山市台安县工业园区<br\>联系人：陈美娜<br\>联系电话：13704928555"],
+        [123.43, 41.766, "公司：沈阳市广天汽车修理场<br\>地址：沈阳市沈河区东陵路149号<br\>联系人：<br\>联系电话：024-84545001"],
+        [121.505, 31.228, "公司：上海浦东新区龙叶汽车修理厂<br\>地址：浦东新区草高支路1250号<br\>联系人：<br\>联系电话：021-58673442"],
+        [121.7902, 30.867, "公司：上海君文汽车修理有限公司<br\>地址：上海市浦东新区浦东北路2059弄36号<br\>联系人：<br\>联系电话：021-50413751"],
+        [118.99, 42.405, "公司：赤峰市井文汽车维修有限公司<br\>地址：内蒙古自治区赤峰市红山物流园区2幢<br\>联系人：路飞<br\>联系电话：13848522285"],
+        [116.48, 43.8408, "公司：锡林浩特腾飞汽车修配厂<br\>内蒙古锡林浩特县<br\>联系人：<br\>联系电话：15849389589"],
+        [109.85, 40.69, "公司：包头市海泰汽修有限公司<br\>地址：内蒙古包头市210国道与南绕城立交桥<br\>联系人：路飞<br\>联系电话：13664774775"],
+        [109.89, 40.23, "公司：包头市土右旗佳信重车维修服务部<br\>地址：内蒙古包头市九原区110国道683公里处<br\>联系人：<br\>联系电话：18686100268"],
+        [116.63, 39.87, "公司：北京大洼生云汽车修理厂<br\>地址：北京市昌平区百善镇加油站后院<br\>联系人：郭生云<br\>联系电话：13601178768"],
+        [116.133, 40.049, "公司：北京燕宏宏达汽车科技有限公司<br\>地址：北京市房山区长阳镇黄管屯村<br\>联系人：路飞<br\>联系电话：13801268841"],
+        [118.883, 24.781, "公司：永春新兴保修厂<br\>地址：福建省泉州市永春县榜德工业区榜德南路<br\>联系人：<br\>联系电话：0595-23864528"],
+        [117.752, 24.432, "公司：漳州市蓝田开发区东瑞汽车修理场<br\>地址：福建省漳州市蓝田开发区景檀路6号<br\>联系人：<br\>联系电话：0596-2131565"],
+        [117.163, 25.0524, "公司：龙岩市林保汽车修配有限公司<br\>地址：福建省龙岩市新罗区曹溪镇月山村曹溪地税局南侧<br\>联系人：<br\>联系电话：0597-2775715"],
+        [87.67, 43.77, "公司：乌鲁木齐汽车修配有限公司<br\>地址：新疆乌鲁木齐市<br\>联系人：<br\>联系电话：13801268841"]
+    ];
+    var opts = {
+        width: 300,     // 信息窗口宽度
+        height: 135,     // 信息窗口高度
+        title: "公司信息", // 信息窗口标题
+        enableMessage: true//设置允许信息窗发送短息
+    };
+    for (var i = 0; i < data_info.length; i++) {
+        var marker = new BMap.Marker(new BMap.Point(data_info[i][0], data_info[i][1]));  // 创建标注
+        var content = data_info[i][2];
+        map.addOverlay(marker);               // 将标注添加到地图中
+        addClickHandler(content, marker);
+    }
+
+    function addClickHandler(content, marker) {
+        marker.addEventListener("click", function (e) {
+                openInfo(content, e)
+            }
+        );
+    }
+
+    function openInfo(content, e) {
+        var p = e.target;
+        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+        var infoWindow = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
+        map.openInfoWindow(infoWindow, point); //开启信息窗口
+    }
+
+    var polyline = new BMap.Polyline([
+        new BMap.Point(92.06, 31.28),
+        new BMap.Point(91.351, 29.625),
+        new BMap.Point(94.277, 29.546)
+    ], {strokeColor: "red", strokeWeight: 2, strokeOpacity: 0.5});
+    var line = new BMap.Polyline([
+        new BMap.Point(90.91, 29.2725),
+        new BMap.Point(91.351, 29.715)
+    ], {strokeColor: "blue", strokeWeight: 2, strokeOpacity: 0.5});
+
+    function addPolyLine() {
+        map.addOverlay(polyline);
+        polyline.enableEditing();
+    }
+
+    function addLine() {
+        map.addOverlay(line);
+        line.enableEditing();
+    }
+
+    //增加折线
+    //增加多边形
+    function removeLine() {
+        map.removeOverlay(polyline);
+        map.removeOverlay(line);
+    }
+
+    function calDegree() {
+        var pointList = polyline.getPath();
+        var p1 = new BMap.Point(pointList[0].lng - pointList[1].lng, pointList[0].lat - pointList[1].lat);
+        var p2 = new BMap.Point(pointList[2].lng - pointList[1].lng, pointList[2].lat - pointList[1].lat);
+        var res = Math.acos((p1.lng * p2.lng + p1.lat * p2.lat) / (Math.sqrt(p1.lng * p1.lng + p1.lat * p1.lat) * Math.sqrt(p2.lng * p2.lng + p2.lat * p2.lat)));
+        layer.msg(res * 180 / 3.142 + "°");
+    }
+
+    function calDistance() {
+        var pointList = line.getPath();
+        layer.msg(map.getDistance(pointList[0], pointList[1]) + "m");
+    }
+</script>
+
+<!-- 对于大型故障的解决方案 -->
+<script>
+    $("#solutionModal").on('shown.bs.modal', function () {
+        $("#solutionList").load("solutionList/solution" + localStorage.getItem("malfunctionSolution") + ".html");
+    })
+</script>
+
+<!-- 提交作战装备 -->
+<script type="text/javascript">
+    $("#")
+</script>
+</body>
+</html>

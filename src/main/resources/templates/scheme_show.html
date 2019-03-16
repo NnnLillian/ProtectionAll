@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+  <title>方案-装备保障方案</title>
+
+  <link href="css/style.default.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+<div class="left"></div>
+  
+  <div class="mainpanel">
+<div class="headerbar">
+
+    <a class="menutoggle"><i class="fa fa-bars"></i></a>
+
+    <form class="searchform" action="index.html" method="post">
+        <input type="text" class="form-control" name="keyword" placeholder="查找..." />
+    </form>
+
+    <div class="header-right">
+        <ul class="headermenu">
+            <li>
+                <div class="btn-group">
+                    <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <span class="badge">2</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-head pull-right">
+                        <h5 class="title">您有2条未读信息</h5>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <img src="images/photos/loggeduser.png" alt="" />
+                        小张
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                        <li><a href="profile.html"><i class="glyphicon glyphicon-user"></i> 个人信息</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人信息修改 </a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> 帮助</a></li>
+                        <li><a href="signin.html"><i class="glyphicon glyphicon-log-out"></i> 退出</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div><!-- header-right -->
+
+</div><!-- headerbar -->        
+    <div class="pageheader">
+      <h2><i class="fa fa-file-text"></i> 方案展示 <span>方案细节</span></h2>
+      <div class="breadcrumb-wrapper">
+        <span class="label">当前位置:</span>
+        <ol class="breadcrumb">
+          <li><a href="index.html">装备保障系统</a></li>
+          <li class="active">保障方案</li>
+        </ol>
+      </div>
+    </div>
+    
+    <div class="contentpanel">
+      
+      <div class="row">
+      <div class="col-sm-10">
+        
+        <div class="panel panel-default panel-blog">
+          <div class="panel-body" th:each = "item:${schemeList}">
+            <!--<h3 class="blogsingle-title" th:text="${item.getSchemeName()}">装备保障方案</h3>-->
+            
+            <ul class="blog-meta">
+              <li>方案编辑人: <a href="">郭文涛</a></li>
+              <li>完成日期: <a href="">2019-01-12</a></li>
+              <li>评估结果: <a href="">84分</a></li>
+            </ul>
+
+            <!--<div class="blog-img"><img src="" class="img-responsive" alt="" /></div>-->
+            <div class="mb20"></div>
+            
+          <div class="scheme-content" th:value= "${item.getSchemeId()}"></div>
+
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-sm-12 col-sm-offset-3" style="text-align: center; margin: 0 auto">
+                  <button class="btn btn-primary" onclick="window.location.href='edit_struct.html'">复制该方案</button>&nbsp;
+                  <button class="btn btn-default" onclick="window.location.href='edit_struct.html'">
+                    新建方案
+                  </button>
+                </div>
+              </div>
+            </div><!-- panel-footer -->
+          </div><!-- panel-body -->
+        </div><!-- panel -->
+      </div><!-- col-sm-8 -->
+      
+      <div class="col-sm-2">
+        <div class="blog-sidebar">
+          
+          <h5 class="subtitle"> 特情处理 </h5>
+          <p></p>
+
+          <div class="mb30"></div>
+          
+          <h5 class="subtitle">目录</h5>
+          <ul class="sidebar-list">
+            <li><a href=""><i class="fa fa-angle-right"></i> 装备保障方案 </a></li>
+            <li><a href=""><i class="fa fa-angle-right"></i>  器材保障预案</a></li>
+            <li><a href=""><i class="fa fa-angle-right"></i> 特情处置预案 </a></li>
+            <li><a href=""><i class="fa fa-angle-right"></i> 野战修理所预案 </a></li>
+          </ul>
+          
+        </div><!-- blog-sidebar -->
+        
+      </div><!-- col-sm-4 -->
+      
+      </div><!-- row -->
+      
+    </div><!-- contentpanel -->
+    
+  </div><!-- mainpanel -->
+
+</section>
+
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+
+<script src="js/custom.js"></script>
+<script>
+    // 加载共同头部
+    $(function(){
+        $('.left').load("left.html")
+        $('.head').load("head.html")
+        $('.scheme-content').load("text.html")
+    });
+
+  jQuery(window).load(function(){
+    
+    "use strict";
+  
+    var container = document.querySelector('#bloglist');
+    var msnry = new Masonry( container, {
+      // options
+      columnWidth: '.col-xs-6',
+      itemSelector: '.col-xs-6'
+    });
+  
+  });
+</script>
+
+<!--<script th:inline="javascript">-->
+    <!--$(function () {-->
+        <!--var schemeId = $('.scheme-content').val();-->
+        <!--$('.scheme-content').load("scheme_schemeId="+ schemeId + ".html")-->
+    <!--})-->
+<!--</script>-->
+
+</body>
+</html>

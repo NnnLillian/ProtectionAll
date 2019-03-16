@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <title>方案库-装备保障方案</title>
+
+    <link href="css/style.default.css" rel="stylesheet">
+    <link href="css/jquery.datatables.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+<div class="left"></div>
+    <div class="mainpanel">
+<div class="headerbar">
+
+    <a class="menutoggle"><i class="fa fa-bars"></i></a>
+
+    <form class="searchform" action="index.html" method="post">
+        <input type="text" class="form-control" name="keyword" placeholder="查找..." />
+    </form>
+
+    <div class="header-right">
+        <ul class="headermenu">
+            <li>
+                <div class="btn-group">
+                    <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <span class="badge">2</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-head pull-right">
+                        <h5 class="title">您有2条未读信息</h5>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <img src="images/photos/loggeduser.png" alt="" />
+                        小张
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                        <li><a href="profile.html"><i class="glyphicon glyphicon-user"></i> 个人信息</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人信息修改 </a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> 帮助</a></li>
+                        <li><a href="signin.html"><i class="glyphicon glyphicon-log-out"></i> 退出</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div><!-- header-right -->
+
+</div><!-- headerbar -->
+        <div class="pageheader">
+            <h2><i class="fa  fa-align-right fa-rotate-90"></i> 保障方案</h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="#">装备保障系统</a></li>
+                    <li class="active">方案完成度</li>
+                </ol>
+            </div>
+        </div>
+
+        <div id="" class="contentpanel">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-btns">
+                                <a href="" class="delete-row"><i class="fa fa-trash-o"></i></a>
+                                <a href="" class="minimize">&minus;</a>
+                            </div><!-- panel-btns -->
+                            <h5 class="panel-title">中印方向</h5>
+                            <p></p>
+                        </div><!-- panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>进度</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <!-- request plan_id & plan_name-->
+                                        <td><a href="edit_step.html">装备使用保障方案</a></td>
+                                        <td>
+                                            <div class="progress">
+                                                <div style="width: 5%" aria-valuemax="100" aria-valuemin="0"
+                                                     aria-valuenow="5" role="progressbar"
+                                                     class="progress-bar progress-bar-primary">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="" value="5">装备维修保障方案</a></td>
+                                        <td>
+                                            <div class="progress">
+                                                <div style="width: 15%" aria-valuemax="100" aria-valuemin="0"
+                                                     aria-valuenow="0" role="progressbar"
+                                                     class="progress-bar progress-bar-primary">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            0%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="">特情处置预案</a></td>
+                                        <td>
+                                            <div class="progress">
+                                                <div style="width: 52%" aria-valuemax="100" aria-valuemin="0"
+                                                     aria-valuenow="0" role="progressbar"
+                                                     class="progress-bar progress-bar-primary">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>0%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>总进度</td>
+                                        <td>
+                                            <div class="progress">
+                                                <div style="width: 5%" aria-valuemax="100" aria-valuemin="0"
+                                                     aria-valuenow="5" role="progressbar"
+                                                     class="progress-bar progress-bar-success">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>5%</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- table-responsive -->
+                        </div><!-- panel-body -->
+
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-12 col-sm-offset-3" style="text-align: center; margin: 0 auto">
+                                    <!--<button class="btn btn-primary" id="newPlan" onclick="window.location.href='edit_step.html'"></button>&nbsp;-->
+                                    <!--<button class="btn btn-default" onclick="window.location.href='completeness.html'">-->
+                                    <!--取消-->
+                                    <!--</button>-->
+                                </div>
+                            </div>
+                        </div><!--panel-footer-->
+                    </div><!-- panel -->
+                </div><!-- col-md-12 -->
+            </div><!-- row -->
+        </div>
+
+    </div><!-- mainpanel -->
+
+</section>
+
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/jquery.datatables.min.js"></script>
+<script src="js/morris.min.js"></script>
+<script src="js/raphael-2.1.0.min.js"></script>
+<script src="js/chosen.jquery.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/sweetalert.min.js"></script>
+
+<script src="js/custom.js"></script>
+
+<script>
+    // 加载共同头部、左侧部
+    $(function () {
+        $('.head').load("head.html")
+        $('.left').load("left.html")
+    });
+
+    jQuery(document).ready(function () {
+
+        "use strict";
+
+
+        // Delete row in a table
+        jQuery('.delete-row').click(function () {
+            var c = confirm("Continue delete?");
+            if (c)
+                jQuery(this).closest('.panel').fadeOut(function () {
+                    jQuery(this).remove();
+                });
+
+            return false;
+        });
+
+
+    });
+</script>
+
+</body>
+</html>

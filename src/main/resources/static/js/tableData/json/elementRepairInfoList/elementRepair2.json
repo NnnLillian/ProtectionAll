@@ -1,0 +1,20 @@
+{
+  "total": "2",
+  "rows": [
+    {
+      "repair_id":1,
+      "malfunction_description":"起竖装置异常",
+      "reason_description": "起竖液压缸故障",
+    "solution": "更换液压缸",
+      "repair_date":"2018-10-12"
+    },
+    {
+      "repair_id":2,
+      "malfunction_description":"液压支腿无力",
+      "reason_description": "液压缸故障",
+    "solution": "更换液压支腿",
+      "repair_date":"2019-02-02"
+    }
+  ]
+}
+

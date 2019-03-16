@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.ArmyMapper">
+    <select id="GetPlatoon"  resultType="Platoon">
+        select * from platoon_info
+    </select>
+    <select id="GetArmyByPlatoonId" resultType="Army">
+        select army_id,army_name,army_people from army_info where platoon_id = #{platoon_id}
+    </select>
+    <select id="GetArmyBySchemeId" resultType="Army">
+        select army_info.army_id,army_name,scheme_army_info.army_people from army_info,scheme_army_info where army_info.army_id = scheme_army_info.army_id and scheme_id = #{scheme_id}
+    </select>
+</mapper>

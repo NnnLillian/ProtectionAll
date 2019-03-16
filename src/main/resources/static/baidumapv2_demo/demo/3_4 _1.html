@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <title>地图</title>
+	<style type="text/css">
+  body, html,#map_demo, #tab, #mapfrm {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+  #menu{height:100%;overflow-y:auto}
+  td{font-size:14px}
+  h4{margin:0;}
+  #map_demo1,#map_demo2{height: 50%}
+  </style>
+  <script type="text/javascript" src="../../baidumapv2/baidumap_offline_v2_load.js"></script>
+  <script type="text/javascript" src="../jquery.js"></script>
+  <script type="text/javascript" src="../layer/layer.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../baidumapv2/css/baidu_map_v2.css"/>
+</head>
+<body>
+
+		<button onclick = "addLine();">开启线、面编辑功能</button>
+		<button onclick = "removeLine()">关闭线、面编辑功能</button>
+		<button onclick="calDegree()">计算弧度</button>
+<div id="map_demo">1</div>
+</body>
+</html>
+<script type="text/javascript">  
+// 百度地图API功能
+	var map = new BMap.Map("map_demo");
+	map.centerAndZoom(new BMap.Point(116.404, 39.915), 15);
+	map.enableScrollWheelZoom();
+	var polyline = new BMap.Polyline([
+		new BMap.Point(116.399, 39.910),
+		new BMap.Point(116.405, 39.920),
+		new BMap.Point(116.423493, 39.907445)
+	], {strokeColor:"red", strokeWeight:2, strokeOpacity:0.5}); 
+	function addLine()
+	{
+		map.addOverlay(polyline);
+		polyline.enableEditing();
+	}
+ //增加折线
+	 //增加多边形
+	function removeLine()
+	{
+		map.removeOverlay(polyline);
+	}
+
+	function calDegree()
+	{
+		var pointList = polyline.getPath();
+		var p1 = new BMap.Point(pointList[0].lng - pointList[1].lng ,pointList[0].lat - pointList[1].lat);
+		var p2 = new BMap.Point(pointList[2].lng - pointList[1].lng ,pointList[2].lat - pointList[1].lat);
+		var res = Math.acos((p1.lng*p2.lng + p1.lat*p2.lat)/(Math.sqrt(p1.lng * p1.lng + p1.lat * p1.lat) * Math.sqrt(p2.lng * p2.lng + p2.lat * p2.lat)));
+		layer.msg(res*180/3.142);
+	}
+</script>

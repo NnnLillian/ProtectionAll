@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <title>装备保障系统</title>
+
+    <link href="css/style.default.css" rel="stylesheet">
+    <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1><span>[</span> 装备保障系统 <span>]</span></h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+            <!-- This is only visible to small devices -->
+            <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                <div class="media userlogged">
+                    <img alt="" src="images/photos/loggeduser.png" class="media-object">
+                    <div class="media-body">
+                        <h4>小张</h4>
+                        <!--    <span>"Life is so..."</span> -->
+                    </div>
+                </div>
+
+                <h5 class="sidebartitle actitle">账户</h5>
+                <ul class="nav nav-pills nav-stacked nav-bracket mb30">
+                    <li><a href="profile.html"><i class="fa fa-user"></i> <span>个人信息</span></a></li>
+                    <li><a href=""><i class="fa fa-cog"></i> <span>个人信息修改</span></a></li>
+                    <li><a href=""><i class="fa fa-question-circle"></i> <span>帮助</span></a></li>
+                    <li><a href="signout.html"><i class="fa fa-sign-out"></i> <span>退出</span></a></li>
+                </ul>
+            </div>
+
+            <h3 class="sidebartitle">装备保障方案</h3>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li class="active"><a href="completeness.html"><i class="fa fa-file-text"></i> <span>方案库</span></a></li>
+                <li><a href="scheme_model.html"><i class="fa fa-home"></i> <span>方案模板库</span></a></li>
+            </ul>
+
+
+            <h5 class="sidebartitle">保障方案资料</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <!--<li class="nav-parent"><a href=""><i class="fa fa-flag"></i> <span>装备使用保障方案</span></a>-->
+                <!--<ul class="children">-->
+                <!--<li><a href="general-forms.html"><i class="fa fa-caret-right"></i> 任务类型</a></li>-->
+                <!--<li><a href="form-layouts.html"><i class="fa fa-caret-right"></i> 保障组类别</a></li>-->
+                <!--<li><a href="form-validation.html"><i class="fa fa-caret-right"></i> 器材保障组要求</a></li>-->
+                <!--<li><a href="form-wizards.html"><i class="fa fa-caret-right"></i> 保障计划类别</a></li>-->
+                <!--</ul>-->
+                <!--</li>-->
+                <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>装备维修保障方案</span></a>
+                    <ul class="children">
+                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i> 维修保障任务类型</a></li>
+                        <li><a href="icons.html"><i class="fa fa-caret-right"></i> 交通保障类型</a></li>
+                        <li><a href="typography.html"><i class="fa fa-caret-right"></i> 设备保障类型</a></li>
+                    </ul>
+                </li>
+                <li><a href="mapsMapbox.html"><i class="fa fa-map-marker"></i> <span>气象水文保障信息</span></a></li>
+                <li class="nav-parent"><a href="tables.html"><i class="fa fa-th-list"></i> <span>特情处置预案</span></a>
+                    <ul class="children">
+                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i>特情处置原则</a></li>
+                        <li><a href="#"><i class="fa fa-caret-right"></i>伪装措施组织</a></li>
+                        <li><a href="#"><i class="fa fa-caret-right"></i>防护措施组织</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div><!-- leftpanelinner -->
+    </div><!-- leftpanel -->
+
+    <div class="mainpanel">
+
+        <div class="headerbar">
+
+            <a class="menutoggle"><i class="fa fa-bars"></i></a>
+
+            <form class="searchform" action="index.html" method="post">
+                <input type="text" class="form-control" name="keyword" placeholder="查找..."/>
+            </form>
+
+            <div class="header-right">
+                <ul class="headermenu">
+                    <li>
+                        <div class="btn-group">
+                            <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <span class="badge">2</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-head pull-right">
+                                <h5 class="title">您有2条未读信息</h5>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <img src="images/photos/loggeduser.png" alt=""/>
+                                小张
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                                <li><a href="profile.html"><i class="glyphicon glyphicon-user"></i> 个人信息</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人信息修改 </a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> 帮助</a></li>
+                                <li><a href="signin.html"><i class="glyphicon glyphicon-log-out"></i> 退出</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div><!-- header-right -->
+
+        </div><!-- headerbar -->
+        <div class="pageheader">
+            <h2><i class="fa fa-map-marker"></i> 环境信息 </h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="index.html">装备保障系统</a></li>
+                    <li class="active">水文保障信息</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">环境信息分析</h4>
+                </div><!-- panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="subtitle">Basic Map</h5>
+                            <p>Some basic example of using google maps with latitude and longitude defined.</p>
+                            <div id="geocoder" class="geocoder"></div>
+                            <div id="map" style="height: 400px"></div>
+                        </div><!-- col-md-12 -->
+                    </div><!-- row -->
+                </div><!-- panel-body -->
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="subtitle">Building Map</h5>
+                            <p>Some basic example of using google maps with latitude and longitude defined.</p>
+                            <div id="map_build" style="height: 400px"></div>
+                        </div><!-- col-md-6 -->
+                    </div><!-- row -->
+                </div><!-- panel-body -->
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="subtitle">satellite Map</h5>
+                            <p>Some basic example of using google maps with latitude and longitude defined.</p>
+                            <div id="map_satellite" style="height: 400px"></div>
+                        </div><!-- col-md-6 -->
+                    </div><!-- row -->
+                </div><!-- panel-body -->
+
+            </div><!-- panel -->
+
+        </div><!-- mainpanel -->
+
+        <div class="rightpanel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a href="#rp-alluser" data-toggle="tab"><i class="fa fa-users"></i></a></li>
+                <li><a href="#rp-favorites" data-toggle="tab"><i class="fa fa-heart"></i></a></li>
+                <li><a href="#rp-history" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
+                <li><a href="#rp-settings" data-toggle="tab"><i class="fa fa-gear"></i></a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="rp-alluser">
+                    <h5 class="sidebartitle">Online Users</h5>
+                    <ul class="chatuserlist">
+                        <li class="online">
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/userprofile.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Eileen Sideways</strong>
+                                    <small>Los Angeles, CA</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li class="online">
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user1.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <span class="pull-right badge badge-danger">2</span>
+                                    <strong>Zaham Sindilmaca</strong>
+                                    <small>San Francisco, CA</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li class="online">
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user2.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Nusja Nawancali</strong>
+                                    <small>Bangkok, Thailand</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li class="online">
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user3.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Renov Leongal</strong>
+                                    <small>Cebu City, Philippines</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li class="online">
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user4.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Weno Carasbong</strong>
+                                    <small>Tokyo, Japan</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                    </ul>
+
+                    <div class="mb30"></div>
+
+                    <h5 class="sidebartitle">Offline Users</h5>
+                    <ul class="chatuserlist">
+                        <li>
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user5.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Eileen Sideways</strong>
+                                    <small>Los Angeles, CA</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user2.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Zaham Sindilmaca</strong>
+                                    <small>San Francisco, CA</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user3.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Nusja Nawancali</strong>
+                                    <small>Bangkok, Thailand</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user4.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Renov Leongal</strong>
+                                    <small>Cebu City, Philippines</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user5.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Weno Carasbong</strong>
+                                    <small>Tokyo, Japan</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user4.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Renov Leongal</strong>
+                                    <small>Cebu City, Philippines</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user5.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Weno Carasbong</strong>
+                                    <small>Tokyo, Japan</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane" id="rp-favorites">
+                    <h5 class="sidebartitle">Favorites</h5>
+                    <ul class="chatuserlist">
+                        <li class="online">
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user2.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Eileen Sideways</strong>
+                                    <small>Los Angeles, CA</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user1.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Zaham Sindilmaca</strong>
+                                    <small>San Francisco, CA</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user3.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Nusja Nawancali</strong>
+                                    <small>Bangkok, Thailand</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li class="online">
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user4.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Renov Leongal</strong>
+                                    <small>Cebu City, Philippines</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                        <li class="online">
+                            <div class="media">
+                                <a href="#" class="pull-left media-thumb">
+                                    <img alt="" src="images/photos/user5.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <strong>Weno Carasbong</strong>
+                                    <small>Tokyo, Japan</small>
+                                </div>
+                            </div><!-- media -->
+                        </li>
+                    </ul>
+                </div>
+
+            </div><!-- tab-content -->
+        </div><!-- rightpanel -->
+    </div>
+
+</section>
+
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+
+<script src="js/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="js/jquery-jvectormap-world-mill-en.js"></script>
+<script src="js/jquery-jvectormap-us-aea-en.js"></script>
+
+
+<script src="js/custom.js"></script>
+
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet'/>
+
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.2/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet'
+      href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.2/mapbox-gl-geocoder.css'
+      type='text/css'/>
+
+<script>
+    // 加载共同头部
+    $(function () {
+        $('.left').load("left.html")
+        $('.head').load("head.html")
+    });
+
+    mapboxgl.accessToken = 'pk.eyJ1Ijoibm5ubGlsbGlhbiIsImEiOiJjanM1c3FqZ3EwajJmNGFvYmptaTc2b2sxIn0.jyvC5P8jvT6oyQonD4iSLg';
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/mapbox/streets-v9',
+        center: [78.96577, 31.498753], // starting position
+        // center: [109.069, 34.324], // starting position
+        zoom: 7, // starting zoom
+        // localIdeographFontFamily: "'Noto Sans', 'Noto Sans CJK SC', sans-serif"
+    });
+
+    //map_build
+
+    var map_building = new mapboxgl.Map({
+        style: 'mapbox://styles/mapbox/light-v9',
+        center: [109.069, 34.324],
+        zoom: 15.5,
+        pitch: 45,
+        bearing: -17.6,
+        container: 'map_build'
+    });
+
+    // Place the geocoder input outside the map
+    // var geocoder = new MapboxGeocoder({
+    //     accessToken: mapboxgl.accessToken
+    // });
+    //
+    // document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
+    /**************************************************************************/
+
+    /* given a query in the form "lng, lat" or "lat, lng" returns the matching
+    * geographic coordinate(s) as search results in carmen geojson format,
+    * https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
+    */
+    var coordinatesGeocoder = function (query) {
+        // match anything which looks like a decimal degrees coordinate pair
+        var matches = query.match(/^[ ]*(?:Lat: )?(-?\d+\.?\d*)[, ]+(?:Lng: )?(-?\d+\.?\d*)[ ]*$/i);
+        if (!matches) {
+            return null;
+        }
+
+        function coordinateFeature(lng, lat) {
+            return {
+                center: [lng, lat],
+                geometry: {
+                    type: "Point",
+                    coordinates: [lng, lat]
+                },
+                place_name: 'Lat: ' + lat + ', Lng: ' + lng, // eslint-disable-line camelcase
+                place_type: ['coordinate'], // eslint-disable-line camelcase
+                properties: {},
+                type: 'Feature'
+            };
+        }
+
+        var coord1 = Number(matches[1]);
+        var coord2 = Number(matches[2]);
+        var geocodes = [];
+
+        if (coord1 < -90 || coord1 > 90) {
+            // must be lng, lat
+            geocodes.push(coordinateFeature(coord1, coord2));
+        }
+
+        if (coord2 < -90 || coord2 > 90) {
+            // must be lat, lng
+            geocodes.push(coordinateFeature(coord2, coord1));
+        }
+
+        if (geocodes.length === 0) {
+            // else could be either lng, lat or lat, lng
+            geocodes.push(coordinateFeature(coord1, coord2));
+            geocodes.push(coordinateFeature(coord2, coord1));
+        }
+
+        return geocodes;
+    };
+
+    // Add zoom and rotation controls to the map.
+    map.addControl(new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        localGeocoder: coordinatesGeocoder,
+        zoom: 10,
+        placeholder: "输入经纬度（半角符号分开）"
+    }));
+
+
+    // The 'building' layer in the mapbox-streets vector source contains building-height
+    // data from OpenStreetMap.
+    map_building.on('load', function () {
+        // Insert the layer beneath any symbol layer.
+        var layers = map_building.getStyle().layers;
+
+        var labelLayerId;
+        for (var i = 0; i < layers.length; i++) {
+            if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
+                labelLayerId = layers[i].id;
+                break;
+            }
+        }
+
+        map_building.addLayer({
+            'id': '3d-buildings',
+            'source': 'composite',
+            'source-layer': 'building',
+            'filter': ['==', 'extrude', 'true'],
+            'type': 'fill-extrusion',
+            'minzoom': 15,
+            'paint': {
+                'fill-extrusion-color': '#aaa',
+
+                // use an 'interpolate' expression to add a smooth transition effect to the
+                // buildings as the user zooms in
+                'fill-extrusion-height': [
+                    "interpolate", ["linear"], ["zoom"],
+                    15, 0,
+                    15.05, ["get", "height"]
+                ],
+                'fill-extrusion-base': [
+                    "interpolate", ["linear"], ["zoom"],
+                    15, 0,
+                    15.05, ["get", "min_height"]
+                ],
+                'fill-extrusion-opacity': .6
+            }
+        }, labelLayerId);
+    });
+
+    var map_satellite = new mapboxgl.Map({
+        container: 'map_satellite',
+        zoom: 10,
+        center: [109.069, 34.324],
+        style: 'mapbox://styles/mapbox/satellite-v9'
+    });
+
+
+    map.on('moveend', function () {
+        map_building.flyTo({
+            center: map.getCenter(),
+        });
+
+        map_satellite.flyTo({
+            center: map.getCenter(),
+        })
+    });
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>jQuery网页版PDF在线预览代码 </title>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<style type="text/css">
+	.cwts{height: 30px;line-height: 30px !important;text-indent: 1em;width: 60%;position: absolute;top: 5px;left: 30%;}
+	#pdfContainer{height:800px !important;width:100%;}
+	.buy_hui,.buy_hui:hover{background:#aaa;}	
+	.btn_hot{bottom:30px;top:auto;height:50px;line-height:50px;font-size:16px;}
+	.pro_modal .modal-body{padding:0;height:auto}
+	.pro_modal .modal-body ul{padding:10px 50px;}
+	.buy_modal_pay{padding:0;box-shadow:none;height:2em;width:4em;border-radius:.7em;color:#1082ff;border:1px solid #1082ff;line-height:2em !important;background:none;float:right !important;margin-right:40px}
+	.modal-dialog{height:690px;}
+	.tan_a{display: inline-block;width: 14px;height: 14px;position: relative;top: 2px;}
+	.upgrade_title .close_title{position:absolute;width:20px;height:20px;top:20px;right:20px;z-index:100}
+	.upgrade_title .close_title img{width:100%;height:100%;}
+</style>
+
+</head>
+<body>
+
+<div class="modal fade" id="pdf_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="width: 1000px;height: 1600px;z-index:1500">
+	<div class="modal-content pro_modal">
+		<iframe src="" id="pdfContainer" name="pdfContainer"></iframe>
+	</div>
+  </div>
+</div>
+<div class="container">
+	<div class="pro_p3">
+	  <div class="tab-content"> 
+		<div role="tabpanel"  class="tab-pane active"  id="tab01">
+			<div class="container-fluid">
+				<div class="accordion pro_pdf" id="accordion2">
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" onClick="showPDF('images/03231549018457.pdf')">法律尽职调查报告<span>【点击查看】</span></a>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle"  onclick="showPDF('images/03231549018457.pdf')">房产评估报告<span>【点击查看】</span></a>
+						</div>
+					</div>
+					  <div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle"  onclick="showPDF('images/03231549018457.pdf')">资产交易协议（样本）<span>【点击查看】</span></a>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" onClick="showPDF('images/03231549018457.pdf')">项目委托投资协议(样本)<span>【点击查看】</span></a>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" onClick="showPDF('images/03231549018457.pdf')">资产远期收购协议<span>【点击查看】</span></a>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" onClick="showPDF('images/03231549018457.pdf')">战略合作协议<span>【点击查看】</span></a>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" onClick="showPDF('images/03231549018457.pdf')">房产证<span>【点击查看】</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	  </div>
+	</div>
+</div>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script>	
+	function showPDF(urlSrc){
+		var urlPre ="pdfjs/web/viewer.html?file="+ urlSrc;
+		$("#pdfContainer").attr('src',urlPre); 
+		$("#pdf_Modal").modal("show");
+	}
+</script>
+ 
+</html>

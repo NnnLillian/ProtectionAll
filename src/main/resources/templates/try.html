@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <title>前端数据库</title>
+    <!-- 1、Jquery組件引用-->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <!-- 2、bootstrap組件引用-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script>
+    <!-- 3、bootstrap-table組件引用-->
+    <link rel='stylesheet' type='text/css' href='css/core.css'>
+    <!-- 4、其他-->
+    <!--<link href="css/font-awesome.min.css" rel="stylesheet" />-->
+    <link href="css/style.default.css" rel="stylesheet">
+    <!--<link href="css/customer_info.css?v=4.1.0" rel="stylesheet" />-->
+    <!--<script src="js/plugins/layer/laydate/laydate.js"></script>-->
+    <!--<script src="/js/customer_info.js"></script>-->
+</head>
+<body>
+<input type="text" id="ipt">
+<button id="btn">Click</button>
+<button id="delete">delete</button>
+</body>
+</html>
+<script>
+    window.onload=function(){
+        var oBtn=document.getElementById("btn");
+        var dBtn=document.getElementById("delete");
+        var oInput1=$("#ipt");
+        var storage=window.localStorage;
+
+        var oInput2=document.getElementsByTagName("input")[0];
+        oBtn.onclick=function(){
+            var val1=oInput1.val();
+            var val2=oInput2.value;
+            console.log(val1);
+            console.log(val2);
+            storage.setItem("value",val1);
+        }
+        dBtn.onclick=function () {
+            storage.clear();
+        }
+    }
+</script>

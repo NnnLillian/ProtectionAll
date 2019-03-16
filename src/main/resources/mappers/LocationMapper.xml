@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.LocationMapper">
+    <select id="GetAllLocationByID"  resultType="Location">
+        select * from location_info where location_id = #{location_id}
+    </select>
+    <select id="GetLocationID" resultType="Integer">
+        select location_id from location_info where longitude = #{longitude} and latitude = #{latitude}
+    </select>
+    <insert id="AddLocation" parameterType="com.example.entity.Location">
+        insert into location_info(longitude,latitude) values(#{longitude},#{latitude})
+    </insert>
+</mapper>

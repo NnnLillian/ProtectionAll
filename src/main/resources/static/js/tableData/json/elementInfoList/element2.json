@@ -1,0 +1,18 @@
+{
+	"total": "2",
+	"rows": [
+		{
+			"element_name":"液压支腿",
+			"work_time":"688",
+			"maintenance_date":"2018-5-8",
+			"reliability":"0.965"
+		},
+		{
+			"element_name":"起竖液压缸",
+			"work_time":"490",
+			"maintenance_date":"2017-12-8",
+			"reliability":"0.962"
+		}
+	]
+}
+

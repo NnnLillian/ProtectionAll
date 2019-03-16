@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.SchemeMapper">
+
+    <select id="GetSchemeBySchemeID"  resultType="com.example.entity.Scheme">
+        select * from scheme_info where scheme_id = #{scheme_id}
+    </select>
+    <select id="GetSchemeBySchemeName"  resultType="com.example.entity.Scheme">
+        select * from scheme_info where scheme_name = #{scheme_name}
+    </select>
+    <select id="GetSchemeBySchemeCode"  resultType="com.example.entity.Scheme">
+        select * from scheme_info where scheme_Code = #{scheme_Code}
+    </select>
+    <select id="GetSchemeEquipment"  resultType="com.example.entity.Equipment">
+        select * from equipment_info where equipment_id in (select equipment_id from scheme_equipment_info where scheme_id =  #{scheme_id})
+    </select>
+    <select id="GetSchemeArmyBySchemeId" resultType="com.example.entity.Scheme_Army">
+        select scheme_army_info.*,army_name from scheme_army_info,army_info where scheme_id = #{scheme_id} and army_info.army_id = scheme_army_info.army_id
+    </select>
+    <select id="GetSchemeArmyNumber" resultType="com.example.entity.Scheme_Army">
+        select * from scheme_army_info where scheme_id = #{scheme_id} and army_id = #{army_id}
+    </select>
+
+    <insert id="AddScheme" parameterType="com.example.entity.Scheme">
+        insert into scheme_info(scheme_name,scheme_code,location_id,scheme_type,combat_direction,safeguard_mode,carry_method,scheme_begin_time,scheme_end_time)
+        values (#{scheme_name},#{scheme_code},#{location_id},#{scheme_type},#{combat_direction},#{safeguard_mode},#{carry_method},#{scheme_begin_time},#{scheme_end_time})
+    </insert>
+
+    <insert id="AddSchemeEquipment">
+        insert into scheme_equipment_info(scheme_id,equipment_id)
+        values(#{scheme_id},#{equipment_id})
+    </insert>
+
+    <insert id="AddSchemeArmy">
+        insert into scheme_army_info(scheme_id,army_id,army_people)
+        values(#{scheme_id},#{army_id},#{army_people})
+    </insert>
+
+    <update id="ModifySchemeArmy" parameterType="com.example.entity.Scheme_Army">
+        update scheme_army_info set army_people = #{army_people}
+        where scheme_id = #{scheme_id} and army_id = #{army_id}
+    </update>
+
+    <update id="ModifyScheme" parameterType="com.example.entity.Scheme">
+        update scheme_info
+        <set>
+            <if test="scheme_name != null and scheme_name != ''">
+                scheme_name = #{scheme_name},
+            </if>
+            <if test="scheme_code != null and scheme_code != ''">
+                scheme_code = #{scheme_code},
+            </if>
+            <if test="location_id != null and location_id != ''">
+                location_id = #{location_id},
+            </if>
+            <if test="army_id != null and army_id != ''">
+                army_id = #{army_id},
+            </if>
+            <if test="people_number != null and people_number != ''">
+                people_number = #{people_number},
+            </if>
+            <if test="scheme_begin_time != null and scheme_begin_time != ''">
+                scheme_begin_time = #{scheme_begin_time},
+            </if>
+            <if test="scheme_end_time != null and scheme_end_time != ''">
+                scheme_end_time = #{scheme_end_time}
+            </if>
+        </set>
+        where scheme_id = #{scheme_id}
+    </update>
+
+
+    <delete id="DeleteSchemeEquipment">
+        delete from scheme_equipment_info where scheme_id = #{scheme_id} and equipment_id = #{equipment_id}
+    </delete>
+
+    <delete id="DeleteScheme">
+        delete from scheme_info where scheme_id = #{scheme_id}
+    </delete>
+</mapper>

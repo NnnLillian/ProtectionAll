@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <title>方案库-装备保障方案</title>
+
+    <link href="css/style.default.css" rel="stylesheet">
+    <link href="css/jquery.datatables.css" rel="stylesheet">
+    <!-- datepicker -->
+        <link rel='stylesheet' type='text/css' href='css/core.css'>
+
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <link rel="stylesheet" type="text/css" href="css/city-picker.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+
+    <style type="text/css">
+        #pdfContainer{height:800px !important;width:100%;}
+        .pro_modal .modal-body{padding:0;height:auto}
+        .pro_modal .modal-body ul{padding:10px 50px;}
+        .modal-dialog{height:690px;}
+        .upgrade_title .close_title{position:absolute;width:20px;height:20px;top:20px;right:20px;z-index:100}
+        .upgrade_title .close_title img{width:100%;height:100%;}
+    </style>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="leftpanel">
+
+    <div class="logopanel">
+        <h1><span>[</span> 装备保障系统 <span>]</span></h1>
+    </div><!-- logopanel -->
+
+    <div class="leftpanelinner">
+
+        <!-- This is only visible to small devices -->
+        <div class="visible-xs hidden-sm hidden-md hidden-lg">
+            <div class="media userlogged">
+                <img alt="" src="images/photos/loggeduser.png" class="media-object">
+                <div class="media-body">
+                    <h4>小张</h4>
+                    <!--    <span>"Life is so..."</span> -->
+                </div>
+            </div>
+
+            <h5 class="sidebartitle actitle">账户</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket mb30">
+                <li><a href="profile.html"><i class="fa fa-user"></i> <span>个人信息</span></a></li>
+                <li><a href=""><i class="fa fa-cog"></i> <span>个人信息修改</span></a></li>
+                <li><a href=""><i class="fa fa-question-circle"></i> <span>帮助</span></a></li>
+                <li><a href="signout.html"><i class="fa fa-sign-out"></i> <span>退出</span></a></li>
+            </ul>
+        </div>
+
+        <h3 class="sidebartitle">装备保障方案</h3>
+        <ul class="nav nav-pills nav-stacked nav-bracket">
+            <li class="active"><a href="completeness.html"><i class="fa fa-file-text"></i> <span>方案库</span></a></li>
+            <li><a href="scheme_model.html"><i class="fa fa-home"></i> <span>方案模板库</span></a></li>
+        </ul>
+
+
+        <h5 class="sidebartitle">保障方案资料</h5>
+        <ul class="nav nav-pills nav-stacked nav-bracket">
+            <!--<li class="nav-parent"><a href=""><i class="fa fa-flag"></i> <span>装备使用保障方案</span></a>-->
+                <!--<ul class="children">-->
+                    <!--<li><a href="general-forms.html"><i class="fa fa-caret-right"></i> 任务类型</a></li>-->
+                    <!--<li><a href="form-layouts.html"><i class="fa fa-caret-right"></i> 保障组类别</a></li>-->
+                    <!--<li><a href="form-validation.html"><i class="fa fa-caret-right"></i> 器材保障组要求</a></li>-->
+                    <!--<li><a href="form-wizards.html"><i class="fa fa-caret-right"></i> 保障计划类别</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
+            <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>装备维修保障方案</span></a>
+                <ul class="children">
+                    <li><a href="buttons.html"><i class="fa fa-caret-right"></i> 维修保障任务类型</a></li>
+                    <li><a href="icons.html"><i class="fa fa-caret-right"></i> 交通保障类型</a></li>
+                    <li><a href="typography.html"><i class="fa fa-caret-right"></i> 设备保障类型</a></li>
+                </ul>
+            </li>
+            <li><a href="mapsMapbox.html"><i class="fa fa-map-marker"></i> <span>气象水文保障信息</span></a></li>
+            <li class="nav-parent"><a href="tables.html"><i class="fa fa-th-list"></i> <span>特情处置预案</span></a>
+                <ul class="children">
+                    <li><a href="buttons.html"><i class="fa fa-caret-right"></i>特情处置原则</a></li>
+                    <li><a href="#"><i class="fa fa-caret-right"></i>伪装措施组织</a></li>
+                    <li><a href="#"><i class="fa fa-caret-right"></i>防护措施组织</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div><!-- leftpanelinner -->
+</div><!-- leftpanel -->
+
+    <div class="mainpanel">
+
+        <div class="headerbar">
+
+    <a class="menutoggle"><i class="fa fa-bars"></i></a>
+
+    <form class="searchform" action="index.html" method="post">
+        <input type="text" class="form-control" name="keyword" placeholder="查找..." />
+    </form>
+
+    <div class="header-right">
+        <ul class="headermenu">
+            <li>
+                <div class="btn-group">
+                    <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <span class="badge">2</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-head pull-right">
+                        <h5 class="title">您有2条未读信息</h5>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <img src="images/photos/loggeduser.png" alt="" />
+                        小张
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                        <li><a href="profile.html"><i class="glyphicon glyphicon-user"></i> 个人信息</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人信息修改 </a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> 帮助</a></li>
+                        <li><a href="signin.html"><i class="glyphicon glyphicon-log-out"></i> 退出</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div><!-- header-right -->
+
+</div><!-- headerbar -->
+        <div class="pageheader">
+            <h2><i class="fa  fa-edit"></i> 保障方案编辑</h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="#">装备保障系统</a></li>
+                    <li class="active">编辑保障方案</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="modal fade" id="pdf_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" style="width: 1000px;height: 1600px;z-index:1500">
+                <div class="modal-content pro_modal">
+                    <iframe src="" id="pdfContainer" name="pdfContainer"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-btns">
+                            <a href="" class="panel-close">&times;</a>
+                            <a href="" class="minimize">&minus;</a>
+                        </div>
+                        <h4 class="panel-title">xxx类型xx季节任务 -- 代号</h4>
+                        <p></p>
+                    </div>
+                    <div class="panel-body">
+                        <h3>相似方案推荐</h3>
+                        <div class="col-md-12">
+                            <div>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>方案名称</th>
+                                        <th>完成时间</th>
+                                        <th>评估得分</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td class="plan_name"><a href="#">XX任务</a></td>
+                                        <td>2015-06-12</td>
+                                        <td>88</td>
+                                        <td>选择</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td class="plan_name"><a href="#">XXX任务</a></td>
+                                        <td>2016-06-12</td>
+                                        <td>80</td>
+                                        <td>选择</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td class="plan_name"><a href="#">XXX任务</a></td>
+                                        <td>2016-06-12</td>
+                                        <td>80</td>
+                                        <td>选择</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-12 col-sm-offset-3" style="text-align: center; margin: 0 auto">
+                                    <!--<button class="btn btn-primary">保存</button>&nbsp;-->
+                                    <button class="btn btn-primary" onclick="window.location.href='edit_struct.html'">新建方案</button>&nbsp;
+                                    <button class="btn btn-default" onclick="window.location.href='text.html'">
+                                        取消
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- panel-body -->
+
+                </div><!-- panel-footer -->
+        </div><!-- panel -->
+
+
+    </div><!-- mainpanel -->
+
+</section>
+
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/select2.min.js"></script>
+
+<script src="js/custom.js"></script>
+<script src="js/bootstrap-select.js"></script>
+
+<script>
+    // 加载共同头部
+    $(function(){
+        $('.left').load("left.html")
+        $('.head').load("head.html")
+    });
+
+    function showPDF(urlSrc){
+        var urlPre ="pdfjs/web/viewer.html?file="+ urlSrc;
+        $("#pdfContainer").attr('src',urlPre);
+        $("#pdf_Modal").modal("show");
+    }
+
+    jQuery(document).ready(function () {
+
+        "use strict";
+
+        // Delete row in a table
+        jQuery('.delete-row').click(function () {
+            alert("delete row");
+            var c = confirm("Continue delete?");
+            if (c)
+                jQuery(this).closest('.panel').fadeOut(function () {
+                    jQuery(this).remove();
+                });
+
+            return false;
+        });
+
+
+    });
+
+</script>
+
+<script>
+
+</script>
+</body>
+</html>

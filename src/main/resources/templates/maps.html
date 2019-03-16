@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <title>装备保障系统</title>
+
+    <link href="css/style.default.css" rel="stylesheet">
+    <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+
+    <script type="text/javascript" src="baidumapv2/baidumap_offline_v2_load.js"></script>
+    <script type="text/javascript" src="baidumapv2_demo/jquery.js"></script>
+    <script type="text/javascript" src="baidumapv2_demo/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="baidumapv2/css/baidu_map_v2.css"/>
+
+    <style type="text/css">
+        body, html, #map_demo, #tab, #mapfrm {
+            width: 100%;
+            height: 100%;
+            /*overflow: hidden;*/
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+        td {
+            font-size: 14px
+        }
+
+        h4 {
+            margin: 0;
+        }
+
+    </style>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1><span>[</span> 装备保障系统 <span>]</span></h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+            <!-- This is only visible to small devices -->
+            <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                <div class="media userlogged">
+                    <img alt="" src="images/photos/loggeduser.png" class="media-object">
+                    <div class="media-body">
+                        <h4>小张</h4>
+                        <!--    <span>"Life is so..."</span> -->
+                    </div>
+                </div>
+
+                <h5 class="sidebartitle actitle">账户</h5>
+                <ul class="nav nav-pills nav-stacked nav-bracket mb30">
+                    <li><a href="profile.html"><i class="fa fa-user"></i> <span>个人信息</span></a></li>
+                    <li><a href=""><i class="fa fa-cog"></i> <span>个人信息修改</span></a></li>
+                    <li><a href=""><i class="fa fa-question-circle"></i> <span>帮助</span></a></li>
+                    <li><a href="signout.html"><i class="fa fa-sign-out"></i> <span>退出</span></a></li>
+                </ul>
+            </div>
+
+            <h3 class="sidebartitle">装备保障方案</h3>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li><a href="completeness.html"><i class="fa fa-file-text"></i> <span>方案库</span></a></li>
+                <li><a href="scheme_model.html"><i class="fa fa-home"></i> <span>方案模板库</span></a></li>
+            </ul>
+
+
+            <h5 class="sidebartitle">保障方案资料</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <!--<li class="nav-parent"><a href=""><i class="fa fa-flag"></i> <span>装备使用保障方案</span></a>-->
+                <!--<ul class="children">-->
+                <!--<li><a href="general-forms.html"><i class="fa fa-caret-right"></i> 任务类型</a></li>-->
+                <!--<li><a href="form-layouts.html"><i class="fa fa-caret-right"></i> 保障组类别</a></li>-->
+                <!--<li><a href="form-validation.html"><i class="fa fa-caret-right"></i> 器材保障组要求</a></li>-->
+                <!--<li><a href="form-wizards.html"><i class="fa fa-caret-right"></i> 保障计划类别</a></li>-->
+                <!--</ul>-->
+                <!--</li>-->
+                <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>装备维修保障方案</span></a>
+                    <ul class="children">
+                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i> 维修保障任务类型</a></li>
+                        <li><a href="icons.html"><i class="fa fa-caret-right"></i> 交通保障类型</a></li>
+                        <li><a href="typography.html"><i class="fa fa-caret-right"></i> 设备保障类型</a></li>
+                    </ul>
+                </li>
+                <li class="active"><a href="maps.html"><i class="fa fa-map-marker"></i> <span>气象水文保障信息</span></a></li>
+                <li class="nav-parent"><a href="tables.html"><i class="fa fa-th-list"></i> <span>特情处置预案</span></a>
+                    <ul class="children">
+                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i>特情处置原则</a></li>
+                        <li><a href="#"><i class="fa fa-caret-right"></i>伪装措施组织</a></li>
+                        <li><a href="#"><i class="fa fa-caret-right"></i>防护措施组织</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div><!-- leftpanelinner -->
+    </div><!-- leftpanel -->
+
+    <div class="mainpanel">
+
+        <div class="head"></div>
+
+        <div class="pageheader">
+            <h2><i class="fa fa-map-marker"></i> 环境信息 </h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="index.html">装备保障系统</a></li>
+                    <li class="active">水文保障信息</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">环境信息分析</h4>
+                </div><!-- panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12" style="height: 1000px">
+                            <button onclick="addPolyLine();" class="btn btn-primary mr10">生成折线</button>
+                            <button onclick="addLine()" class="btn btn-primary mr10">生成直线</button>
+                            <button onclick="calDegree()" class="btn btn-primary mr10">角度值</button>
+                            <button onclick="calDistance()" class="btn btn-primary mr10">距离值</button>
+                            <button onclick="removeLine()" class="btn btn-default mr10">清除</button>
+                                <input type="text" id="lng"/>
+                                <input type="text" id="lat"/>
+                            <button onclick="searchLocation()">查找</button>
+                            <div class="mb20"></div>
+                            <div id="map_demo">1</div>
+                        </div>
+                    </div><!-- row -->
+                </div><!-- panel-body -->
+            </div><!-- mainpanel -->
+
+        </div>
+    </div>
+
+</section>
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+
+<script src="js/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="js/jquery-jvectormap-world-mill-en.js"></script>
+<script src="js/jquery-jvectormap-us-aea-en.js"></script>
+
+
+<script src="js/custom.js"></script>
+
+
+-->
+
+<script>
+    // 加载共同头部
+    $(function () {
+        $('.left').load("left.html")
+        $('.head').load("head.html")
+        // $('.map39').load("3_9.html")
+    });
+</script>
+
+
+<!-- 百度地图APP　-->
+<script type="text/javascript">
+    // 百度地图API功能
+    var lng = document.getElementById("lng").nodeValue;
+    localStorage.setItem("lat",$('#lat').val());
+    console.log("lng: "+ lng);
+    var map = new BMap.Map("map_demo", {minZoom: 5, maxZoom: 8});
+    var point = new BMap.Point(100.141, 34.665);
+    var marker = new BMap.Marker(point);
+    function searchLocation() {
+        // if (lng.length = null){
+        //     point = new BMap.Point(100.141, 34.665);
+        // } else {
+        // alert(lng);
+        // console.log(lng);
+        map.removeOverlay(marker);
+        point = new BMap.Point($("#lng").val(), $("#lat").val());
+        marker = new BMap.Marker(point);
+        map.centerAndZoom(point, 6);
+        map.addOverlay(marker);
+        // }
+    }
+
+    map.centerAndZoom(point, 6);
+    map.enableScrollWheelZoom();
+
+    var bounds = map.getBounds();
+    var data_info = [
+        [91.151, 29.6125, "西藏天富工程机械有限公司<br\>地址：西藏拉萨市和平路东嘎村工程机械商业街2号<br\>联系人：<br\>联系电话：0891-6151186"],
+        [92.141, 31.45, "公司：拉萨鸿飞工贸有限<br\>地址：西藏拉萨市堆龙德庆县团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
+        [84.151, 32.2125, "公司：西藏重型汽车服务有限责任公司<br\>地址：西藏拉萨团结村<br\>联系人：<br\>联系电话：13704928555"],
+        [81.171, 32.35, "公司：拉萨广天汽车修理场<br\>地址：西藏拉萨市高支路12号<br\>联系人：<br\>联系电话：021-50413751"],
+        [89.141, 29.13, "西藏海泰汽修有限公司<br\>地址：西藏拉百善镇商业街2号<br\>联系人：<br\>联系电话：0891-6151186"],
+        [80.25, 32.32, "公司：西藏大洼生云汽车修理厂<br\>地址：西藏曹溪镇月山村团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
+        [88.81, 30.86, "西藏井文汽车维修有限公司<br\>地址：西藏长阳镇黄管屯村<br\>联系人：<br\>联系电话：0891-6151186"],
+        [91.78, 32.25, "公司：永春新兴保修厂<br\>地址：西藏堆龙德庆草高支路团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
+        [97.18, 31.12, "西藏汽车修配有限公司<br\>地址：西藏河区东陵路2号<br\>联系人：<br\>联系电话：0891-6151186"],
+        [93.11, 29.10, "公司：西藏东瑞汽车修理场<br\>地址：西藏九原区团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
+        [123.059, 41.122, "公司：台安县重型汽车服务有限责任公司<br\>地址：辽宁省鞍山市台安县工业园区<br\>联系人：陈美娜<br\>联系电话：13704928555"],
+        [123.43, 41.766, "公司：沈阳市广天汽车修理场<br\>地址：沈阳市沈河区东陵路149号<br\>联系人：<br\>联系电话：024-84545001"],
+        [121.505, 31.228, "公司：上海浦东新区龙叶汽车修理厂<br\>地址：浦东新区草高支路1250号<br\>联系人：<br\>联系电话：021-58673442"],
+        [121.7902, 30.867, "公司：上海君文汽车修理有限公司<br\>地址：上海市浦东新区浦东北路2059弄36号<br\>联系人：<br\>联系电话：021-50413751"],
+        [118.99, 42.405, "公司：赤峰市井文汽车维修有限公司<br\>地址：内蒙古自治区赤峰市红山物流园区2幢<br\>联系人：路飞<br\>联系电话：13848522285"],
+        [116.48, 43.8408, "公司：锡林浩特腾飞汽车修配厂<br\>内蒙古锡林浩特县<br\>联系人：<br\>联系电话：15849389589"],
+        [109.85, 40.69, "公司：包头市海泰汽修有限公司<br\>地址：内蒙古包头市210国道与南绕城立交桥<br\>联系人：路飞<br\>联系电话：13664774775"],
+        [109.89, 40.23, "公司：包头市土右旗佳信重车维修服务部<br\>地址：内蒙古包头市九原区110国道683公里处<br\>联系人：<br\>联系电话：18686100268"],
+        [116.63, 39.87, "公司：北京大洼生云汽车修理厂<br\>地址：北京市昌平区百善镇加油站后院<br\>联系人：郭生云<br\>联系电话：13601178768"],
+        [116.133, 40.049, "公司：北京燕宏宏达汽车科技有限公司<br\>地址：北京市房山区长阳镇黄管屯村<br\>联系人：路飞<br\>联系电话：13801268841"],
+        [118.883, 24.781, "公司：永春新兴保修厂<br\>地址：福建省泉州市永春县榜德工业区榜德南路<br\>联系人：<br\>联系电话：0595-23864528"],
+        [117.752, 24.432, "公司：漳州市蓝田开发区东瑞汽车修理场<br\>地址：福建省漳州市蓝田开发区景檀路6号<br\>联系人：<br\>联系电话：0596-2131565"],
+        [117.163, 25.0524, "公司：龙岩市林保汽车修配有限公司<br\>地址：福建省龙岩市新罗区曹溪镇月山村曹溪地税局南侧<br\>联系人：<br\>联系电话：0597-2775715"],
+        [87.67, 43.77, "公司：乌鲁木齐汽车修配有限公司<br\>地址：新疆乌鲁木齐市<br\>联系人：<br\>联系电话：13801268841"]
+    ];
+    var opts = {
+        width: 300,     // 信息窗口宽度
+        height: 135,     // 信息窗口高度
+        title: "公司信息", // 信息窗口标题
+        enableMessage: true//设置允许信息窗发送短息
+    };
+    for (var i = 0; i < data_info.length; i++) {
+        var marker = new BMap.Marker(new BMap.Point(data_info[i][0], data_info[i][1]));  // 创建标注
+        var content = data_info[i][2];
+        map.addOverlay(marker);               // 将标注添加到地图中
+        addClickHandler(content, marker);
+    }
+
+    function addClickHandler(content, marker) {
+        marker.addEventListener("click", function (e) {
+                openInfo(content, e)
+            }
+        );
+    }
+
+    function openInfo(content, e) {
+        var p = e.target;
+        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+        var infoWindow = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
+        map.openInfoWindow(infoWindow, point); //开启信息窗口
+    }
+
+    var polyline = new BMap.Polyline([
+        new BMap.Point(92.06, 31.28),
+        new BMap.Point(91.351, 29.625),
+        new BMap.Point(94.277, 29.546)
+    ], {strokeColor: "red", strokeWeight: 2, strokeOpacity: 0.5});
+    var line = new BMap.Polyline([
+        new BMap.Point(90.91, 29.2725),
+        new BMap.Point(91.351, 29.715)
+    ], {strokeColor: "blue", strokeWeight: 2, strokeOpacity: 0.5});
+
+    function addPolyLine() {
+        map.addOverlay(polyline);
+        polyline.enableEditing();
+    }
+
+    function addLine() {
+        map.addOverlay(line);
+        line.enableEditing();
+    }
+
+    //增加折线
+    //增加多边形
+    function removeLine() {
+        map.removeOverlay(polyline);
+        map.removeOverlay(line);
+        map.removeOverlay(marker);
+    }
+
+    function calDegree() {
+        var pointList = polyline.getPath();
+        var p1 = new BMap.Point(pointList[0].lng - pointList[1].lng, pointList[0].lat - pointList[1].lat);
+        var p2 = new BMap.Point(pointList[2].lng - pointList[1].lng, pointList[2].lat - pointList[1].lat);
+        var res = Math.acos((p1.lng * p2.lng + p1.lat * p2.lat) / (Math.sqrt(p1.lng * p1.lng + p1.lat * p1.lat) * Math.sqrt(p2.lng * p2.lng + p2.lat * p2.lat)));
+        layer.msg(res * 180 / 3.142 + "°");
+    }
+
+    function calDistance() {
+        var pointList = line.getPath();
+        layer.msg(map.getDistance(pointList[0], pointList[1]) + "m");
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+package com.example.util;
+
+
+import com.example.entity.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
+public class JsonBuilder {
+    private JSONObject getBeanJsonObj(Object bean) {
+        JSONObject resObj = new JSONObject();
+
+        Field[] fields = bean.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            try {
+                String type = field.getType().getName();
+                switch (type) {
+                    case "java.util.List":
+                    case "java.lang.String":
+                    case "int":
+                    case "java.lang.Integer":
+                    case "long":
+                    case "java.lang.Long":
+                        resObj.put(field.getName(), field.get(bean));
+                        break;
+                    default:
+                        resObj.put(field.getName(), getBeanJsonObj(field.get(bean)));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return resObj;
+    }
+
+    public String buildEnvironmentCase(String tip,List<Environment> environment_list,List<Special_Case> special_case_list)
+    {
+        JSONObject resObj = new JSONObject();
+        resObj.put("data_number",environment_list.size());
+        resObj.put("case_number",special_case_list.size());
+        resObj.put("data_list",environment_list);
+        resObj.put("case_list",special_case_list);
+        return  resObj.toString();
+
+    }
+    public String buildArmyList(List<Army> army_list) throws JSONException
+    {
+        JSONObject resObj = new JSONObject();
+        resObj.put("total",army_list.size());
+        resObj.put("rows",army_list);
+        return resObj.toString();
+    }
+
+    public String buildEquipmentList(List<Equipment> equipment_list) throws JSONException
+    {
+        JSONObject resObj = new JSONObject();
+        resObj.put("total",equipment_list.size());
+        resObj.put("rows",equipment_list);
+        return resObj.toString();
+    }
+    public String buildElementList(List<Element> element_list) throws JSONException
+    {
+        JSONObject resObj = new JSONObject();
+        resObj.put("total",element_list.size());
+        resObj.put("rows",element_list);
+        return resObj.toString();
+    }
+
+    public String buildMaintainList(List<Element_Maintain> element_maintain_list) throws JSONException
+    {
+        JSONObject resObj = new JSONObject();
+        resObj.put("total",element_maintain_list.size());
+        resObj.put("rows",element_maintain_list);
+        return resObj.toString();
+    }
+    public String buildCategoryList(List<Category> category_list) throws JSONException
+    {
+        JSONObject resObj = new JSONObject();
+        resObj.put("total",category_list.size());
+        resObj.put("rows",category_list);
+        return resObj.toString();
+    }
+    public String buildSupplierList(List<Supplier> supplier_list) throws JSONException
+    {
+        JSONObject resObj = new JSONObject();
+        resObj.put("total",supplier_list.size());
+        resObj.put("rows",supplier_list);
+        return resObj.toString();
+    }
+}

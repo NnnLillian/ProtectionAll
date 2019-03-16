@@ -1,0 +1,69 @@
+{
+  "total": "16",
+  "rows": [{
+    "category_id" : "XJ4362A",
+    "category_name" : "100M示波器",
+    "category_number" : 5
+  }, {
+    "category_id" : "DH122D",
+    "category_name" : "雷达测试表",
+    "category_number" : 4
+  }, {
+    "category_id" : "MF18",
+    "category_name" : "三用表",
+    "category_number" : 4
+  }, {
+    "category_id" : "MF14",
+    "category_name" : "三用表",
+    "category_number" : 5
+  }, {
+    "category_id" : "NH4608",
+    "category_name" : "示波器校准仪",
+    "category_number" : 8
+  }, {
+    "category_id" : "SH3382A",
+    "category_name" : "微波频率计数器",
+    "category_number" : 3
+  }, {
+    "category_id" : "3831",
+    "category_name" : "信号发生器",
+    "category_number" : 3
+  }, {
+    "category_id" : "HPE4418B",
+    "category_name" : "功率计",
+    "category_number" : 4
+  }, {
+    "category_id" : "",
+    "category_name" : "指针式三用表",
+    "category_number" : 1
+  }, {
+    "category_id" : "MV-19C",
+    "category_name" : "高频毫伏表",
+    "category_number" : 1
+  }, {
+    "category_id" : "D030",
+    "category_name" : "数字式三用表检验仪",
+    "category_number" : 1
+  },{"category_id" : "XJ4810",
+    "category_name" : "半导体特性图示仪",
+    "category_number" : 1
+  }, {
+    "category_id" : "LPS202",
+    "category_name" : "双路支流稳压电源",
+    "category_number" : 1
+  }, {
+    "category_id" : "TH2818",
+    "category_name" : "LCR电桥",
+    "category_number" : 1
+  }, {
+    "category_id" : "泰克TDS3032B",
+    "category_name" : "数字示波器",
+    "category_number" : 1
+  }, {
+    "category_id" : "安立MS2665C",
+    "category_name" : "频谱分析仪",
+    "category_number" : 20
+
+  }]
+}
+

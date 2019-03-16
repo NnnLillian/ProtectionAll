@@ -1,0 +1,17 @@
+{
+  "tip": "temperature",
+  "data_number": 4,
+  "case_number": 2,
+  "data_list":
+  [
+    {"pressure": 20.1, "month": 1},
+    {"pressure": 18.2, "month": 2},
+    {"pressure": 19.2, "month": 3},
+    {"pressure": 22.8, "month": 4}
+  ],
+  "case_list":
+  [
+    {"description": "该地区123424"},
+    {"description": "该地区6574657"}
+  ]
+}
