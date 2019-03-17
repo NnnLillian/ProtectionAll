@@ -26,5 +26,5 @@ public interface SchemeService {
     public List<Scheme_Army> GetSchemeArmyBySchemeId(Integer scheme_id);
 
     //如果添加成功，则返回group_id；失败则返回null
-    public void AddGroupIntoScheme(Group group);
+    public Integer AddGroupIntoScheme(Group group);
 }

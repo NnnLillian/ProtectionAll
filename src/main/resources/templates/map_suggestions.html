@@ -370,6 +370,7 @@
                 window.location.href = "/edit_people";
             },
             error: function () {
+                console.log(arguments);
                 console.error("error");
 
             }
@@ -381,125 +382,6 @@
 
 </script>
 
-<!-- 折线图 -->
-<script type="text/javascript">
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('sandyDataTable'));
-
-    // 指定图表的配置项和数据
-    var option = {
-        backgroundColor: '#FBFBFB',
-        tooltip: {
-            trigger: 'axis'
-        },
-        legend: {
-            data: ['沙尘数据']
-        },
-
-        calculable: true,
-
-
-        xAxis: [
-            {
-                axisLabel: {
-                    rotate: 30,
-                    interval: 0
-                },
-                axisLine: {
-                    lineStyle: {
-//                        color: '#000080'
-                    }
-                },
-                type: 'category',
-                boundaryGap: false,
-                data: function () {
-                    var list = [];
-                    for (var i = 0; i <= 7; i++) {
-                        list.push('2017-' + (i - 0));
-                    }
-                    return list;
-                }()
-            }
-        ],
-        yAxis: [
-            {
-
-                type: 'value',
-                axisLine: {
-                    lineStyle: {
-//                        color: '#000080'
-                    }
-                }
-            }
-        ],
-        series: [
-            {
-                name: '作战期间沙尘颗粒数据',
-                type: 'line',
-                symbol: 'none',
-                smooth: true,
-                color: ['#808000'],
-                data: [80, 140, 100, 35, 40, 50, 30, 45],
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: true,
-                            position: 'top',
-                            textStyle: {
-                                color: 'black',
-                                fontSize: 16
-                            }
-                        }
-                    }
-                }
-            },
-        ]
-    };
-
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-</script>
-
-<!-- 柱状图 -->
-<script type="text/javascript">
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('rainyDataTable'));
-
-    // 指定图表的配置项和数据
-    var option = {
-        // title: {
-        //     text: '历史雨雪数据'
-        // },
-        tooltip: {},
-        legend: {
-            data: ['每日平均', '小时最高', '月总降水量']
-        },
-        xAxis: {
-            data: ["2017年1月", "2月", "3月", "4月", "5月", "6月"],
-            type: 'category'
-        },
-        yAxis: {},
-        series: [{
-            name: '每日平均',
-            smooth: true,
-            type: 'bar',
-            data: [0.2, 0.5, 0.4, 0.5, 1, 0]
-        }, {
-            name: '小时最高',
-            smooth: true,
-            type: 'bar',
-            data: [0, 0, 0, 1, 2, 0]
-        }, {
-            name: '月总降水量',
-            smooth: true,
-            type: 'bar',
-            data: [0, 0, 3, 5, 20, 13]
-        }]
-    };
-
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-</script>
 
 <!-- 百度地图APP　-->
 <script type="text/javascript">
@@ -513,59 +395,6 @@
     map.enableScrollWheelZoom();
     var marker = new BMap.Marker(point);
     map.addOverlay(marker);
-    // var bounds = map.getBounds();
-    // var data_info = [
-    //     [91.151, 29.6125, "西藏天富工程机械有限公司<br\>地址：西藏拉萨市和平路东嘎村工程机械商业街2号<br\>联系人：<br\>联系电话：0891-6151186"],
-    //     [92.141, 31.45, "公司：拉萨鸿飞工贸有限<br\>地址：西藏拉萨市堆龙德庆县团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
-    //     [84.151, 32.2125, "公司：西藏重型汽车服务有限责任公司<br\>地址：西藏拉萨团结村<br\>联系人：<br\>联系电话：13704928555"],
-    //     [81.171, 32.35, "公司：拉萨广天汽车修理场<br\>地址：西藏拉萨市高支路12号<br\>联系人：<br\>联系电话：021-50413751"],
-    //     [89.141, 29.13, "西藏海泰汽修有限公司<br\>地址：西藏拉百善镇商业街2号<br\>联系人：<br\>联系电话：0891-6151186"],
-    //     [80.25, 32.32, "公司：西藏大洼生云汽车修理厂<br\>地址：西藏曹溪镇月山村团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
-    //     [88.81, 30.86, "西藏井文汽车维修有限公司<br\>地址：西藏长阳镇黄管屯村<br\>联系人：<br\>联系电话：0891-6151186"],
-    //     [91.78, 32.25, "公司：永春新兴保修厂<br\>地址：西藏堆龙德庆草高支路团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
-    //     [97.18, 31.12, "西藏汽车修配有限公司<br\>地址：西藏河区东陵路2号<br\>联系人：<br\>联系电话：0891-6151186"],
-    //     [93.11, 29.10, "公司：西藏东瑞汽车修理场<br\>地址：西藏九原区团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
-    //     [123.059, 41.122, "公司：台安县重型汽车服务有限责任公司<br\>地址：辽宁省鞍山市台安县工业园区<br\>联系人：陈美娜<br\>联系电话：13704928555"],
-    //     [123.43, 41.766, "公司：沈阳市广天汽车修理场<br\>地址：沈阳市沈河区东陵路149号<br\>联系人：<br\>联系电话：024-84545001"],
-    //     [121.505, 31.228, "公司：上海浦东新区龙叶汽车修理厂<br\>地址：浦东新区草高支路1250号<br\>联系人：<br\>联系电话：021-58673442"],
-    //     [121.7902, 30.867, "公司：上海君文汽车修理有限公司<br\>地址：上海市浦东新区浦东北路2059弄36号<br\>联系人：<br\>联系电话：021-50413751"],
-    //     [118.99, 42.405, "公司：赤峰市井文汽车维修有限公司<br\>地址：内蒙古自治区赤峰市红山物流园区2幢<br\>联系人：路飞<br\>联系电话：13848522285"],
-    //     [116.48, 43.8408, "公司：锡林浩特腾飞汽车修配厂<br\>内蒙古锡林浩特县<br\>联系人：<br\>联系电话：15849389589"],
-    //     [109.85, 40.69, "公司：包头市海泰汽修有限公司<br\>地址：内蒙古包头市210国道与南绕城立交桥<br\>联系人：路飞<br\>联系电话：13664774775"],
-    //     [109.89, 40.23, "公司：包头市土右旗佳信重车维修服务部<br\>地址：内蒙古包头市九原区110国道683公里处<br\>联系人：<br\>联系电话：18686100268"],
-    //     [116.63, 39.87, "公司：北京大洼生云汽车修理厂<br\>地址：北京市昌平区百善镇加油站后院<br\>联系人：郭生云<br\>联系电话：13601178768"],
-    //     [116.133, 40.049, "公司：北京燕宏宏达汽车科技有限公司<br\>地址：北京市房山区长阳镇黄管屯村<br\>联系人：路飞<br\>联系电话：13801268841"],
-    //     [118.883, 24.781, "公司：永春新兴保修厂<br\>地址：福建省泉州市永春县榜德工业区榜德南路<br\>联系人：<br\>联系电话：0595-23864528"],
-    //     [117.752, 24.432, "公司：漳州市蓝田开发区东瑞汽车修理场<br\>地址：福建省漳州市蓝田开发区景檀路6号<br\>联系人：<br\>联系电话：0596-2131565"],
-    //     [117.163, 25.0524, "公司：龙岩市林保汽车修配有限公司<br\>地址：福建省龙岩市新罗区曹溪镇月山村曹溪地税局南侧<br\>联系人：<br\>联系电话：0597-2775715"],
-    //     [87.67, 43.77, "公司：乌鲁木齐汽车修配有限公司<br\>地址：新疆乌鲁木齐市<br\>联系人：<br\>联系电话：13801268841"]
-    // ];
-    // var opts = {
-    //     width: 300,     // 信息窗口宽度
-    //     height: 135,     // 信息窗口高度
-    //     title: "公司信息", // 信息窗口标题
-    //     enableMessage: true//设置允许信息窗发送短息
-    // };
-    // for (var i = 0; i < data_info.length; i++) {
-    //     var marker = new BMap.Marker(new BMap.Point(data_info[i][0], data_info[i][1]));  // 创建标注
-    //     var content = data_info[i][2];
-    //     map.addOverlay(marker);               // 将标注添加到地图中
-    //     addClickHandler(content, marker);
-    // }
-    //
-    // function addClickHandler(content, marker) {
-    //     marker.addEventListener("click", function (e) {
-    //             openInfo(content, e)
-    //         }
-    //     );
-    // }
-    //
-    // function openInfo(content, e) {
-    //     var p = e.target;
-    //     var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-    //     var infoWindow = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
-    //     map.openInfoWindow(infoWindow, point); //开启信息窗口
-    // }
 
 
     var polyline = new BMap.Polyline([

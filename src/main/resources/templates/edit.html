@@ -77,8 +77,8 @@
                                 <select class="form-control selectpicker show-tick" id="schemeDirection">
                                     <option value="1">中韩方向</option>
                                     <option value="2">首都方向</option>
-                                    <option value="3">东海方向</option>
                                     <option value="3">中印方向</option>
+                                    <option value="4">东海方向</option>
                                 </select>
                             </div>
                         </div>
@@ -245,6 +245,7 @@
             var platoonId = $('#platoonId option:selected').val();
             var platoonName = $('#platoonId option:selected').text();
             console.log(platoonId);
+            localStorage.setItem("case_position", schemeDirection);
             localStorage.setItem("platoon_id", platoonId);
             localStorage.setItem("platoon_name", platoonName);
 

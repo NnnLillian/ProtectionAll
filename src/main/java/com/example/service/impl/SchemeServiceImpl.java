@@ -82,9 +82,15 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
-    public void AddGroupIntoScheme(Group group) {
-
+    public Integer AddGroupIntoScheme(Group group) {
+        Group group1 = groupMapper.GetGroupBySchemeId(group.getScheme_id());
+        if (group1 != null){
+            System.out.println("group error");
+            return null;
+        } else {
             schemeMapper.AddGroupIntoScheme(group);
+            return groupMapper.GetGroupBySchemeId(group.getScheme_id()).getGroup_id();
+        }
 
     }
 }

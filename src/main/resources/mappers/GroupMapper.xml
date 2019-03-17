@@ -7,6 +7,10 @@
         select * from group_info where group_id = #{group_id}
     </select>
 
+    <select id="GetGroupBySchemeId" resultType="Group">
+        select * from group_info where scheme_id = #{scheme_id}
+    </select>
+
     <select id="GetGroupByGroupName" resultType="Group">
         select * from group_info where group_name = #{group_name}
     </select>
