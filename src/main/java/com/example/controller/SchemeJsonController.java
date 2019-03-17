@@ -171,4 +171,13 @@ public class SchemeJsonController {
         List<Supplier> supplier_list = equipmentService.GetSupplierByPosition(case_position);
         return jsonBuilder.buildSupplierList(supplier_list);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/DeleteTeam", method = {RequestMethod.POST})
+    public String DeleteTeam(@RequestBody String jsonStr){
+        System.out.println(jsonStr);
+        Integer team_id = jsonPaser.ParseTeamId(jsonStr);
+        schemeService.DeleteTeam(team_id);
+        return "{}";
+    }
 }

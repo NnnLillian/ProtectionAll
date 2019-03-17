@@ -114,7 +114,8 @@ public class SchemeServiceImpl implements SchemeService {
                 team_department.setTeam_id(team_id1);
                 groupMapper.AddTeamDepartment(team_department);
             }
-            return "{\"tips\": \"success\",\" team_id\": " + team_id1 + "}";
+            System.out.println("{\"tips\": \"success\",\"team_id\": " + team_id1 + "}");
+            return "{\"tips\": \"success\",\"team_id\": " + team_id1 + "}";
         }
     }
 

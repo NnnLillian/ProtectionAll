@@ -603,19 +603,16 @@
             return $("#category-table1").bootstrapTable('getSelections');
         }
 
-        function buildDivShow(){
-
-        }
-
-        $("#newRepairCategory").on('shown.bs.modal', function () {
-            dataInit('repairTeamCategory');
-        });
-        $('#newRepairTeam').click(function () {
-            $("#newRepairCategory").modal("hide");
-
+        function buildDivShow(team_id) {
             var categorylist = getCategoryList();
             console.log("in RepairTeam Click");
             console.log(categorylist);
+            console.log(team_id);
+
+            var team_name = $('#repairTeamName').val();
+            var repairEquipmentTechnology = $('#repairEquipmentTechnology').val();
+            var repairTechnicalSupport = $('#repairTechnicalSupport').val();
+            var repairAutoMechanic = $('#repairAutoMechanic').val();
 
             var div2 = document.createElement("div")
             for (var i = 0; i < categorylist.length; i++) {
@@ -628,12 +625,12 @@
                 p1.innerText = "携带" + localStorage.getItem("categoryName" + i) + "共" + localStorage.getItem("categoryNum" + i);
                 div2.appendChild(p1);
             }
-            var team_name = $('#repairTeamName').val();
-            var repairEquipmentTechnology = $('#repairEquipmentTechnology').val();
+
+
             localStorage.setItem("repairEquipmentTechnologyNum" + team_name, repairEquipmentTechnology);
-            var repairTechnicalSupport = $('#repairTechnicalSupport').val();
+
             localStorage.setItem("repairTechnicalSupportNum" + team_name, repairTechnicalSupport);
-            var repairAutoMechanic = $('#repairAutoMechanic').val();
+
             localStorage.setItem("repairAutoMechanic" + team_name, repairAutoMechanic);
             localStorage.setItem("team_name" + team_name, team_name);
             var repairTeamDiv = document.getElementById("repairTeam");
@@ -659,6 +656,59 @@
             lable3.append(span3);
             var hr1 = document.createElement("hr");
 
+            var deletebtn = document.createElement("button");
+            deletebtn.innerText = "删除";
+            deletebtn.setAttribute("class", "btn btn-default");
+            deletebtn.onclick = function () {
+                div1.remove();
+                div2.remove();
+                p1.remove();
+                hr1.remove();
+                localStorage.removeItem("repairEquipmentTechnologyNum" + team_name);
+                localStorage.removeItem("repairTechnicalSupportNum" + team_name);
+                localStorage.removeItem("repairAutoMechanic" + team_name);
+                var TeamId = {
+                    team_id :team_id
+                };
+                var TeamIdStr = JSON.stringify(TeamId);
+                console.log(TeamIdStr);
+                $.ajax({
+                    type: 'POST',
+                    data: TeamIdStr,
+                    contentType: "application/json;charset=UTF-8",
+                    url: "/DeleteTeam",
+                    dataType: "json",
+                    async: false,     // 取消异步加载
+                    success: function () {
+                        alert("delete success");
+                    },
+                    error: function () {
+                        console.error("error");
+                    }
+                });
+            };
+
+            div1.appendChild(peopleP);
+            div1.appendChild(deletebtn);
+            div1.appendChild(lable1);
+            div1.appendChild(lable2);
+            div1.appendChild(lable3);
+            repairTeamDiv.appendChild(div1);
+            repairTeamDiv.appendChild(div2);
+            repairTeamDiv.appendChild(hr1);
+
+        }
+
+        $("#newRepairCategory").on('shown.bs.modal', function () {
+            dataInit('repairTeamCategory');
+        });
+        $('#newRepairTeam').click(function () {
+            $("#newRepairCategory").modal("hide");
+
+            var repairEquipmentTechnology = $('#repairEquipmentTechnology').val();
+            var team_name = $('#repairTeamName').val();
+            var repairTechnicalSupport = $('#repairTechnicalSupport').val();
+            var repairAutoMechanic = $('#repairAutoMechanic').val();
             var team_department = [{
                 "department_id": 1,
                 "department_people": repairEquipmentTechnology,
@@ -699,9 +749,11 @@
                 async: false,     // 取消异步加载
                 success: function (data) {
                     var tip = data.tips;
+                    var team_id = data.team_id;
+                    alert("success:" + team_id);
                     if (tip == "success") {
                         alert("success");
-
+                        buildDivShow(team_id);
                     }
                     console.log(data);
                 },
@@ -710,29 +762,6 @@
 
                 }
             });
-
-            var deletebtn = document.createElement("button");
-            deletebtn.innerText = "删除";
-            deletebtn.setAttribute("class", "btn btn-default");
-            deletebtn.onclick = function () {
-                div1.remove();
-                div2.remove();
-                p1.remove();
-                hr1.remove();
-                localStorage.removeItem("repairEquipmentTechnologyNum" + team_name);
-                localStorage.removeItem("repairTechnicalSupportNum" + team_name);
-                localStorage.removeItem("repairAutoMechanic" + team_name);
-            };
-
-            div1.appendChild(peopleP);
-            div1.appendChild(deletebtn);
-            div1.appendChild(lable1);
-            div1.appendChild(lable2);
-            div1.appendChild(lable3);
-            repairTeamDiv.appendChild(div1);
-            repairTeamDiv.appendChild(div2);
-            repairTeamDiv.appendChild(hr1);
-
         });
 
         $("#newRepairCategory").on('show.bs.modal', function () {
@@ -994,7 +1023,7 @@
     $("#addRepairDepartment").click(function () {
         $.ajax({
             type: 'POST',
-            data: schemeStr,
+            // data: schemeStr,
             contentType: "application/json;charset=UTF-8",
             // url: "/AddSchemeEquipment",
             dataType: "json",

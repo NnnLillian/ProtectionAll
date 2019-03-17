@@ -129,4 +129,9 @@ public class JsonPaser {
         }
         return list;
     }
+
+    public Integer ParseTeamId(String jsonStr) throws JSONException {
+        JSONObject jsonObj = new JSONObject(jsonStr);
+        return jsonObj.getInt("team_id");
+    }
 }
