@@ -763,7 +763,6 @@
                 }
             });
         });
-
         $("#newRepairCategory").on('show.bs.modal', function () {
             console.log("cleaning Modal");
             $('#repairTeamName').val("");
@@ -777,12 +776,12 @@
 <!--更改4.1.2保障组信息-->
 <script th:inline="javascript">
     $(function () {
-
-        $('#newProtectTeam').click(function () {
-            $("#newProtectCategory").modal("hide");
-
-            //  Bootstrap Table获得所选数据
-            var categorylist = $("#category-table2").bootstrapTable('getSelections');
+        //  Bootstrap Table获得所选数据
+        function getProtectCategoryList() {
+            return $("#category-table2").bootstrapTable('getSelections');
+        }
+        function buildProtectDivShow(team_id) {
+            var categorylist = getProtectCategoryList();
             console.log("in ProtectTeam Click");
             console.log(categorylist);
 
@@ -795,36 +794,29 @@
                 var p1 = document.createElement("p");
                 p1.innerText = "携带" + localStorage.getItem("categoryName1" + i) + "共" + localStorage.getItem("categoryNum1" + i);
                 div2.appendChild(p1);
-
             }
-
 
             var team_name = $('#protectTeamName').val();
             var protectEquipmentTechnology = $('#protectEquipmentTechnology').val();
-            localStorage.setItem("protectEquipmentTechnologyNum" + team_name, protectEquipmentTechnology);
             var protectTechnicalSupport = $('#protectTechnicalSupport').val();
-            localStorage.setItem("protectTechnicalSupportNum" + team_name, protectTechnicalSupport);
             var protectAutoMechanic = $('#protectAutoMechanic').val();
+            localStorage.setItem("protectEquipmentTechnologyNum" + team_name, protectEquipmentTechnology);
+            localStorage.setItem("protectTechnicalSupportNum" + team_name, protectTechnicalSupport);
             localStorage.setItem("protectAutoMechanic" + team_name, protectAutoMechanic);
-
             localStorage.setItem("team_name1" + team_name, team_name);
 
             var protectTeamDiv = document.getElementById("protectTeam");
-
             var div1 = document.createElement("div");
-
             var peopleP = document.createElement("h4");
             peopleP.innerText = "第" + localStorage.getItem("team_name1" + team_name) + "装备保障组";
             peopleP.setAttribute("style", "display:inline");
             peopleP.setAttribute("class", "mr30");
-
             var span1 = document.createElement("span");
             span1.innerText = localStorage.getItem("protectEquipmentTechnologyNum" + team_name);
             var span2 = document.createElement("span");
             span2.innerText = localStorage.getItem("protectTechnicalSupportNum" + team_name);
             var span3 = document.createElement("span");
             span3.innerText = localStorage.getItem("protectAutoMechanic" + team_name);
-
             var lable1 = document.createElement("p");
             lable1.innerText = "装备技术科：";
             lable1.append(span1);
@@ -834,9 +826,7 @@
             var lable3 = document.createElement("p");
             lable3.innerText = "汽车修理队：";
             lable3.append(span3);
-
             var hr1 = document.createElement("hr");
-
             var deletebtn = document.createElement("button");
             deletebtn.innerText = "删除";
             deletebtn.setAttribute("class", "btn btn-default");
@@ -849,6 +839,25 @@
                 localStorage.removeItem("protectAutoMechanic" + team_name);
                 hr1.remove();
                 $('.applyRepair').empty();
+                var TeamId = {
+                    team_id :team_id
+                };
+                var TeamIdStr = JSON.stringify(TeamId);
+                console.log(TeamIdStr);
+                $.ajax({
+                    type: 'POST',
+                    data: TeamIdStr,
+                    contentType: "application/json;charset=UTF-8",
+                    url: "/DeleteTeam",
+                    dataType: "json",
+                    async: false,     // 取消异步加载
+                    success: function () {
+                        alert("delete");
+                    },
+                    error: function () {
+                        console.error("error");
+                    }
+                });
             };
 
             div1.appendChild(peopleP);
@@ -859,23 +868,68 @@
             protectTeamDiv.appendChild(div1);
             protectTeamDiv.appendChild(div2);
             protectTeamDiv.appendChild(hr1);
+        }
+        $('#newProtectTeam').click(function () {
+            $("#newProtectCategory").modal("hide");
+            var team_name = $('#protectTeamName').val();
+            var protectEquipmentTechnology = $('#protectEquipmentTechnology').val();
+            var protectTechnicalSupport = $('#protectTechnicalSupport').val();
+            var protectAutoMechanic = $('#protectAutoMechanic').val();
+            var team_department = [{
+                "department_id": 1,
+                "department_people": protectEquipmentTechnology,
+            }, {
+                "department_id": 2,
+                "department_people": protectTechnicalSupport,
+            }, {
+                "department_id": 3,
+                "department_people": protectAutoMechanic,
+            }];
 
+            var teamCategoryRows = getProtectCategoryList();
+            var team_categories = [];
+            for (var i = 0; i < teamCategoryRows.length; i++) {
+                var category_item = {
+                    category_id: teamCategoryRows[i].category_id,
+                    category_number: teamCategoryRows[i].category_number
+                };
+                team_categories.push(category_item);
+            }
 
-            //    根据保障表数据，依次加载申领表
-            $('.applyRepair').load("applicationTable/applyRepair.html");
-
+            var repairTeam = {
+                group_id: localStorage.getItem("group_id"),
+                team_type: "protect",
+                team_name: team_name,
+                team_department: team_department,
+                team_category: team_categories
+            };
+            var TeamStr = JSON.stringify(repairTeam);
+            console.log(TeamStr);
             $.ajax({
                 type: 'POST',
+                data: TeamStr,
                 contentType: "application/json;charset=UTF-8",
-                success: function () {
-                    $("#newProtectCategory").modal("hide");
+                url: "/AddTeam",
+                dataType: "json",
+                async: false,     // 取消异步加载
+                success: function (data) {
+                    var tip = data.tips;
+                    var team_id = data.team_id;
+                    alert("success:" + team_id);
+                    if (tip == "success") {
+                        alert("success");
+                        buildProtectDivShow(team_id);
+                    }
+                    console.log(data);
                 },
                 error: function () {
-                    $("#newProtectCategory").modal("hide");
-                }
-            })
-        });
+                    console.error("error");
 
+                }
+            });
+            //    根据保障表数据，依次加载申领表
+            $('.applyRepair').load("applicationTable/applyRepair.html");
+        });
         $("#newProtectCategory").on('show.bs.modal', function () {
             // Bootstrap Table
             protectDataInit('protectTeamCategory');

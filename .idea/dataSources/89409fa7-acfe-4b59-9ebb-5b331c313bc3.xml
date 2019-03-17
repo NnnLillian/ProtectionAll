@@ -1852,6 +1852,7 @@ equipment_id</ColNames>
     </column>
     <column id="419" parent="293" name="case_position">
       <Position>2</Position>
+      <Comment>schemeDirection</Comment>
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
@@ -1872,186 +1873,200 @@ equipment_id</ColNames>
       <DataType>varchar(1024)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="423" parent="293" name="PRIMARY">
+    <column id="423" parent="293" name="case_url">
+      <Position>6</Position>
+      <DataType>varchar(64)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="424" parent="293" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>case_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="424" parent="294" name="special_case_id">
+    <column id="425" parent="294" name="special_case_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="425" parent="294" name="special_solve_number">
+    <column id="426" parent="294" name="special_solve_number">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="426" parent="294" name="special_solve_body">
+    <column id="427" parent="294" name="special_solve_body">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="427" parent="294" name="PRIMARY">
+    <key id="428" parent="294" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>special_case_id
 special_solve_number</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="428" parent="295" name="supplier_id">
+    <column id="429" parent="295" name="supplier_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="429" parent="295" name="location_id">
+    <column id="430" parent="295" name="location_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="430" parent="295" name="supplier_name">
+    <column id="431" parent="295" name="supplier_name">
       <Position>3</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="431" parent="295" name="supplier_head">
+    <column id="432" parent="295" name="supplier_head">
       <Position>4</Position>
       <DataType>varchar(64)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="432" parent="295" name="supplier_phone">
+    <column id="433" parent="295" name="supplier_phone">
       <Position>5</Position>
       <DataType>varchar(32)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="433" parent="295" name="case_position">
+    <column id="434" parent="295" name="case_position">
       <Position>6</Position>
       <DataType>varchar(64)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="434" parent="295" name="location_id">
+    <column id="435" parent="295" name="position_name">
+      <Position>7</Position>
+      <DataType>varchar(64)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="436" parent="295" name="location_id">
       <ColNames>location_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="435" parent="295" name="PRIMARY">
+    <key id="437" parent="295" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>supplier_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="436" parent="295" name="supplier_info_ibfk_1">
+    <foreign-key id="438" parent="295" name="supplier_info_ibfk_1">
       <ColNames>location_id</ColNames>
       <RefSchemaName>test</RefSchemaName>
       <RefTableName>location_info</RefTableName>
       <RefColNames>location_id</RefColNames>
     </foreign-key>
-    <column id="437" parent="296" name="team_id">
+    <column id="439" parent="296" name="team_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="438" parent="296" name="category_id">
+    <column id="440" parent="296" name="category_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="439" parent="296" name="category_number">
+    <column id="441" parent="296" name="category_number">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="440" parent="296" name="category_id">
+    <index id="442" parent="296" name="category_id">
       <ColNames>category_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="441" parent="296" name="PRIMARY">
+    <key id="443" parent="296" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>team_id
 category_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="442" parent="296" name="team_category_info_ibfk_1">
+    <foreign-key id="444" parent="296" name="team_category_info_ibfk_1">
       <ColNames>team_id</ColNames>
       <RefSchemaName>test</RefSchemaName>
       <RefTableName>team_info</RefTableName>
       <RefColNames>team_id</RefColNames>
     </foreign-key>
-    <foreign-key id="443" parent="296" name="team_category_info_ibfk_2">
+    <foreign-key id="445" parent="296" name="team_category_info_ibfk_2">
       <ColNames>category_id</ColNames>
       <RefSchemaName>test</RefSchemaName>
       <RefTableName>category_info</RefTableName>
       <RefColNames>category_id</RefColNames>
     </foreign-key>
-    <column id="444" parent="297" name="team_id">
+    <column id="446" parent="297" name="team_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="445" parent="297" name="department_id">
+    <column id="447" parent="297" name="department_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="446" parent="297" name="department_people">
+    <column id="448" parent="297" name="department_people">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="447" parent="298" name="team_id">
+    <column id="449" parent="298" name="team_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="448" parent="298" name="group_id">
+    <column id="450" parent="298" name="group_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="449" parent="298" name="team_name">
+    <column id="451" parent="298" name="team_name">
       <Position>3</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="450" parent="298" name="army_id">
+    <column id="452" parent="298" name="army_id">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="451" parent="298" name="group_id">
+    <column id="453" parent="298" name="team_type">
+      <Position>5</Position>
+      <DataType>varchar(32)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="454" parent="298" name="group_id">
       <ColNames>group_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="452" parent="298" name="army_id">
+    <index id="455" parent="298" name="army_id">
       <ColNames>army_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="453" parent="298" name="PRIMARY">
+    <key id="456" parent="298" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>team_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="454" parent="298" name="team_info_ibfk_1">
+    <foreign-key id="457" parent="298" name="team_info_ibfk_1">
       <ColNames>group_id</ColNames>
       <RefSchemaName>test</RefSchemaName>
       <RefTableName>group_info</RefTableName>
       <RefColNames>group_id</RefColNames>
     </foreign-key>
-    <foreign-key id="455" parent="298" name="team_info_ibfk_2">
+    <foreign-key id="458" parent="298" name="team_info_ibfk_2">
       <ColNames>army_id</ColNames>
       <RefSchemaName>test</RefSchemaName>
       <RefTableName>army_info</RefTableName>
