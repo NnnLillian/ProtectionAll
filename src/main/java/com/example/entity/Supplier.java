@@ -3,16 +3,18 @@ package com.example.entity;
 public class Supplier {
     private Integer supplier_id;
     private Integer location_id;
-    private double  longitude;
-    private double  latitude;
-    private String  supplier_name;
-    private String  supplier_head;
-    private String  supplier_phone;
-    private String  case_position;
+    private double longitude;
+    private double latitude;
+    private String supplier_name;
+    private String supplier_head;
+    private String supplier_phone;
+    private String case_position;
+    private String position_name;
+
     public Supplier() {
     }
 
-    public Supplier(Integer supplier_id, Integer location_id, double longitude, double latitude, String supplier_name, String supplier_head, String supplier_phone, String case_position) {
+    public Supplier(Integer supplier_id, Integer location_id, double longitude, double latitude, String supplier_name, String supplier_head, String supplier_phone, String case_position, String position_name) {
         this.supplier_id = supplier_id;
         this.location_id = location_id;
         this.longitude = longitude;
@@ -21,6 +23,15 @@ public class Supplier {
         this.supplier_head = supplier_head;
         this.supplier_phone = supplier_phone;
         this.case_position = case_position;
+        this.position_name = position_name;
+    }
+
+    public String getPosition_name() {
+        return position_name;
+    }
+
+    public void setPosition_name(String position_name) {
+        this.position_name = position_name;
     }
 
     public Integer getSupplier_id() {

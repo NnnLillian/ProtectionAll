@@ -171,6 +171,6 @@ return
     "supplier_phone" : "18XXXXXXXXX",
     "longitude":90.05,
     "latitude":30.14,
-    case_position:"3"
+    "case_position":"3"
 	}]
 }

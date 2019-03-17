@@ -26,7 +26,7 @@
 
     <!-- baidu MapBox -->
     <script type="text/javascript" src="baidumapv2/baidumap_offline_v2_load.js"></script>
-    <script type="text/javascript" src="baidumapv2_demo/jquery.js"></script>
+    <!--<script type="text/javascript" src="baidumapv2_demo/jquery.js"></script>-->
     <script type="text/javascript" src="baidumapv2_demo/layer/layer.js"></script>
     <link rel="stylesheet" type="text/css" href="baidumapv2/css/baidu_map_v2.css"/>
 
@@ -83,6 +83,7 @@
     <script src="js/tableData/elementRepairTable-data.js"></script>
     <script src="js/tableData/elementTable-data.js"></script>
     <script src="js/tableData/protectTable-data.js"></script>
+    <script src="js/tableData/supplyTable-data.js"></script>
 
     <script src="applicationTable/application.js"></script>
 
@@ -164,7 +165,7 @@
                                          role="progressbar"></div>
                                 </div>
                                 <div class="tab-pane" id="ptab1">
-                                    <form class="form-horizontal form-bordered">
+                                    <div class="form-horizontal form-bordered">
                                         <div class="form-group dropdown">
                                             <h4>作战任务</h4>
                                             <p><code id="platoon_name"></code>率领第
@@ -183,7 +184,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
 
                                 <div class="tab-pane" id="ptab2">
@@ -191,7 +192,7 @@
                                         <h4>装备抢修组</h4>
                                         <p>装备抢修组负责与上级业务部门协调处理装备问题，参与上级业务部门工作</p>
                                         <button class="btn btn-primary" data-target="#newRepairCategory"
-                                                data-toggle="modal" id="btn_add"
+                                                data-toggle="modal" id="addRepairDepartment"
                                                 type="button">
                                             <span aria-hidden="true" class="glyphicon glyphicon-plus"> </span>新增装备抢修组
                                         </button>
@@ -206,7 +207,7 @@
                                         <h4>器材保障组</h4>
                                         <p>负责器材调整补充及请领下送</p>
                                         <button class="btn btn-primary" data-target="#newProtectCategory"
-                                                data-toggle="modal">
+                                                data-toggle="modal" id="addProtectDepartment">
                                             <span aria-hidden="true" class="glyphicon glyphicon-plus"> </span>新增器材保障组
                                         </button>
                                         <div class="mb30"></div>
@@ -220,7 +221,7 @@
                                 </div>
 
                                 <div class="tab-pane" id="ptab3">
-                                    <div class="form-group" style="height: 1100px">
+                                    <div class="form-group">
                                         <h4>地方保障力量</h4>
 
                                         <div class="mb20"></div>
@@ -231,14 +232,13 @@
                                             <button onclick="calDegree()" class="btn btn-default mr10">角度值</button>
                                             <button onclick="calDistance()" class="btn btn-default mr10">距离值</button>
                                             <div class="mb20"></div>
-                                            <div id="map_demo">1</div>
+                                            <div id="map_demo">map</div>
                                         </div>
-
-                                        <!--<div class="tab-pane" id="warehouseMessage">-->
-                                        <!--<div class="table-responsive">-->
-                                        <!--<table id="NearbyWarehouse-table"></table>-->
-                                        <!--</div>-->
-                                        <!--</div>-->
+                                        <hr>
+                                        <div class="mb40"></div>
+                                        <div class="table-responsive">
+                                            <table id="NearbySupply-table"></table>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -331,7 +331,7 @@
                 </div>
                 <div class="mb20"></div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" id="newRepairTeam" type="submit">保存</button>
+                    <button class="btn btn-primary" id="newRepairTeam" type="button">保存</button>
                 </div>
                 </ul>
             </div>
@@ -494,9 +494,9 @@
             var carryEquipmentRows = getCarryEquipment();
             var scheme_equipment_list = [];
             console.log(carryEquipmentRows);
-            for (var i=0; i<carryEquipmentRows.length; i++) {
-                var scheme_equipment_item ={
-                    equipment_id : carryEquipmentRows[i].equipment_id
+            for (var i = 0; i < carryEquipmentRows.length; i++) {
+                var scheme_equipment_item = {
+                    equipment_id: carryEquipmentRows[i].equipment_id
                 };
                 var scheme_equipment = {
                     scheme_equipment: scheme_equipment_item
@@ -504,7 +504,7 @@
                 scheme_equipment_list.push(scheme_equipment);
             }
             var scheme = {
-                scheme_id : localStorage.getItem("scheme_id"),
+                scheme_id: localStorage.getItem("scheme_id"),
                 scheme_equipment_list: scheme_equipment_list
             };
 
@@ -554,38 +554,38 @@
 <!-- 携装装备表格录入 -->
 <script>
     // $(function () {
-        equipmentDataInit('task-carryEquipment');
+    equipmentDataInit('task-carryEquipment');
 
-        function getCarryEquipment() {
-            return $("#carryEquipment-table").bootstrapTable('getSelections');
-        }
+    function getCarryEquipment() {
+        return $("#carryEquipment-table").bootstrapTable('getSelections');
+    }
 
-        $("#reliabilityModal").on('shown.bs.modal', function () {
-            document.getElementById("elementMsgTitle").innerHTML = localStorage.getItem("element_category_name");
-            //    查看装备元件信息
-            elementDataInit("elementReliability");
-            elementRepairDataInit("elementRepairInfo");
-            setTimeout(loadSuggest, 2000);
-            setTimeout(loadApplyTable, 2500);
-        });
-        $("#reliabilityModal").on('hidden.bs.modal', function () {
-            $("#loaderImg").show();
-            $("#tableLoaderImg").show();
-            $('#elementSuggest').hide();
-            $('#applyElementTable').hide()
-        });
+    $("#reliabilityModal").on('shown.bs.modal', function () {
+        document.getElementById("elementMsgTitle").innerHTML = localStorage.getItem("element_category_name");
+        //    查看装备元件信息
+        elementDataInit("elementReliability");
+        elementRepairDataInit("elementRepairInfo");
+        setTimeout(loadSuggest, 2000);
+        setTimeout(loadApplyTable, 2500);
+    });
+    $("#reliabilityModal").on('hidden.bs.modal', function () {
+        $("#loaderImg").show();
+        $("#tableLoaderImg").show();
+        $('#elementSuggest').hide();
+        $('#applyElementTable').hide()
+    });
 
-        function loadSuggest() {
-            $("#loaderImg").hide();
-            $('#elementSuggest').show();
-            $('#elementSuggest').load("elementSuggest/elementSuggest" + localStorage.getItem("element_category_id") + ".html");
-        }
+    function loadSuggest() {
+        $("#loaderImg").hide();
+        $('#elementSuggest').show();
+        $('#elementSuggest').load("elementSuggest/elementSuggest" + localStorage.getItem("element_category_id") + ".html");
+    }
 
-        function loadApplyTable() {
-            $("#tableLoaderImg").hide();
-            $('#applyElementTable').show();
-            $('#applyElementTable').load("elementSuggest/elementApplyTable" + localStorage.getItem("element_category_id") + ".html");
-        }
+    function loadApplyTable() {
+        $("#tableLoaderImg").hide();
+        $('#applyElementTable').show();
+        $('#applyElementTable').load("elementSuggest/elementApplyTable" + localStorage.getItem("element_category_id") + ".html");
+    }
 
     // });
 </script>
@@ -793,7 +793,7 @@
                 },
                 error: function () {
                     $("#newProtectCategory").modal("hide");
-                },
+                }
             })
         });
 
@@ -807,20 +807,9 @@
             $("#protectAutoMechanic").val("");
         });
 
-
         // $('.'+applicationTable).load("applicationTable/"+ applicationTable +".html")
 
-
     });
-</script>
-
-<!--更改4.1.3人员信息-->
-<script>
-    localStorage.setItem("technicalPeople", $("#technicalPeople").text())
-    localStorage.setItem("repairPeople", $("#repairPeople").text())
-    localStorage.setItem("equipmentBusiness", $("#equipmentBusiness").text())
-    localStorage.setItem("technicalSupport", $("#technicalSupport").text())
-    localStorage.setItem("autoRepairCrew", $("#autoRepairCrew").text())
 </script>
 
 <!-- 计算可靠度页面载入 -->
@@ -847,46 +836,43 @@
     var point = new BMap.Point(71.03369, 44.45368);
     map.centerAndZoom(point, 6);
     map.enableScrollWheelZoom();
-
-    var bounds = map.getBounds();
-    var data_info = [
-        [91.151, 29.6125, "西藏天富工程机械有限公司<br\>地址：西藏拉萨市和平路东嘎村工程机械商业街2号<br\>联系人：<br\>联系电话：0891-6151186"],
-        [92.141, 31.45, "公司：拉萨鸿飞工贸有限<br\>地址：西藏拉萨市堆龙德庆县团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
-        [84.151, 32.2125, "公司：西藏重型汽车服务有限责任公司<br\>地址：西藏拉萨团结村<br\>联系人：<br\>联系电话：13704928555"],
-        [81.171, 32.35, "公司：拉萨广天汽车修理场<br\>地址：西藏拉萨市高支路12号<br\>联系人：<br\>联系电话：021-50413751"],
-        [89.141, 29.13, "西藏海泰汽修有限公司<br\>地址：西藏拉百善镇商业街2号<br\>联系人：<br\>联系电话：0891-6151186"],
-        [80.25, 32.32, "公司：西藏大洼生云汽车修理厂<br\>地址：西藏曹溪镇月山村团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
-        [88.81, 30.86, "西藏井文汽车维修有限公司<br\>地址：西藏长阳镇黄管屯村<br\>联系人：<br\>联系电话：0891-6151186"],
-        [91.78, 32.25, "公司：永春新兴保修厂<br\>地址：西藏堆龙德庆草高支路团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
-        [97.18, 31.12, "西藏汽车修配有限公司<br\>地址：西藏河区东陵路2号<br\>联系人：<br\>联系电话：0891-6151186"],
-        [93.11, 29.10, "公司：西藏东瑞汽车修理场<br\>地址：西藏九原区团结路13号<br\>联系人：<br\>联系电话：0891-61590000"],
-        [123.059, 41.122, "公司：台安县重型汽车服务有限责任公司<br\>地址：辽宁省鞍山市台安县工业园区<br\>联系人：陈美娜<br\>联系电话：13704928555"],
-        [123.43, 41.766, "公司：沈阳市广天汽车修理场<br\>地址：沈阳市沈河区东陵路149号<br\>联系人：<br\>联系电话：024-84545001"],
-        [121.505, 31.228, "公司：上海浦东新区龙叶汽车修理厂<br\>地址：浦东新区草高支路1250号<br\>联系人：<br\>联系电话：021-58673442"],
-        [121.7902, 30.867, "公司：上海君文汽车修理有限公司<br\>地址：上海市浦东新区浦东北路2059弄36号<br\>联系人：<br\>联系电话：021-50413751"],
-        [118.99, 42.405, "公司：赤峰市井文汽车维修有限公司<br\>地址：内蒙古自治区赤峰市红山物流园区2幢<br\>联系人：路飞<br\>联系电话：13848522285"],
-        [116.48, 43.8408, "公司：锡林浩特腾飞汽车修配厂<br\>内蒙古锡林浩特县<br\>联系人：<br\>联系电话：15849389589"],
-        [109.85, 40.69, "公司：包头市海泰汽修有限公司<br\>地址：内蒙古包头市210国道与南绕城立交桥<br\>联系人：路飞<br\>联系电话：13664774775"],
-        [109.89, 40.23, "公司：包头市土右旗佳信重车维修服务部<br\>地址：内蒙古包头市九原区110国道683公里处<br\>联系人：<br\>联系电话：18686100268"],
-        [116.63, 39.87, "公司：北京大洼生云汽车修理厂<br\>地址：北京市昌平区百善镇加油站后院<br\>联系人：郭生云<br\>联系电话：13601178768"],
-        [116.133, 40.049, "公司：北京燕宏宏达汽车科技有限公司<br\>地址：北京市房山区长阳镇黄管屯村<br\>联系人：路飞<br\>联系电话：13801268841"],
-        [118.883, 24.781, "公司：永春新兴保修厂<br\>地址：福建省泉州市永春县榜德工业区榜德南路<br\>联系人：<br\>联系电话：0595-23864528"],
-        [117.752, 24.432, "公司：漳州市蓝田开发区东瑞汽车修理场<br\>地址：福建省漳州市蓝田开发区景檀路6号<br\>联系人：<br\>联系电话：0596-2131565"],
-        [117.163, 25.0524, "公司：龙岩市林保汽车修配有限公司<br\>地址：福建省龙岩市新罗区曹溪镇月山村曹溪地税局南侧<br\>联系人：<br\>联系电话：0597-2775715"],
-        [87.67, 43.77, "公司：乌鲁木齐汽车修配有限公司<br\>地址：新疆乌鲁木齐市<br\>联系人：<br\>联系电话：13801268841"]
-    ];
     var opts = {
         width: 300,     // 信息窗口宽度
         height: 135,     // 信息窗口高度
         title: "公司信息", // 信息窗口标题
         enableMessage: true//设置允许信息窗发送短息
     };
-    for (var i = 0; i < data_info.length; i++) {
-        var marker = new BMap.Marker(new BMap.Point(data_info[i][0], data_info[i][1]));  // 创建标注
-        var content = data_info[i][2];
-        map.addOverlay(marker);               // 将标注添加到地图中
-        addClickHandler(content, marker);
-    }
+    var bounds = map.getBounds();
+    $.ajax({
+        type: 'GET',
+        url: "/GetSupplierMsg?case_position=" + localStorage.getItem("case_position"),
+        dataType: "JSON",
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            var data_info = [];
+            var length = data.total;
+            console.log(data);
+            console.log(data.rows);
+            for (var i = 0; i < length; i++) {
+                var data_info_item = [];
+                data_info_item.push(data.rows[i].longitude);
+                data_info_item.push(data.rows[i].latitude);
+                data_info_item.push("公司：" + data.rows[i].supplier_name + "<br>联系人：" + data.rows[i].supplier_head + "<br>联系电话：" + data.rows[i].supplier_phone);
+                data_info.push(data_info_item);
+            }
+
+            for (var i = 0; i < data_info.length; i++) {
+                var marker = new BMap.Marker(new BMap.Point(data_info[i][0], data_info[i][1]));  // 创建标注
+                var content = data_info[i][2];
+                map.addOverlay(marker);               // 将标注添加到地图中
+                addClickHandler(content, marker);
+            }
+        },
+        error: function () {
+
+        }
+    });
+
 
     function addClickHandler(content, marker) {
         marker.addEventListener("click", function (e) {
@@ -941,6 +927,9 @@
         var pointList = line.getPath();
         layer.msg(map.getDistance(pointList[0], pointList[1]) + "m");
     }
+
+    //    地图表格
+    SupplyInit("supplyMessage");
 </script>
 
 <!-- 对于大型故障的解决方案 -->
@@ -950,9 +939,28 @@
     })
 </script>
 
-<!-- 提交作战装备 -->
+<!-- 增加保障机构编组 -->
 <script type="text/javascript">
-    $("#")
+    $("#addRepairDepartment").click(function () {
+        $.ajax({
+            type: 'POST',
+            data: schemeStr,
+            contentType: "application/json;charset=UTF-8",
+            // url: "/AddSchemeEquipment",
+            dataType: "json",
+            async: false,     // 取消异步加载
+            success: function (data) {
+                alert("Add Equipment Success");
+                window.location.href = "/scheme_show";
+                localStorage.setItem("scheme_id", data.scheme_id);
+            },
+            error: function () {
+                console.error("error");
+
+            }
+        })
+    });
 </script>
+
 </body>
 </html>
