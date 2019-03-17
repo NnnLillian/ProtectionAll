@@ -66,10 +66,29 @@ public class SchemeHtmlController {
         return "edit_step";
     }
 
-//    @GetMapping("/edit_step")
-//    public String GetEditContent() {
-//        return "edit_step";
-//    }
+    @GetMapping("/scheme_show")
+    public String GetSchemeShowContent(@RequestParam("scheme_id") Integer scheme_id, Model model) {
+        Scheme scheme = schemeService.GetSchemeBySchemeID(scheme_id);
+        model.addAttribute("schemeList", scheme);
+        return "scheme_show";
+    }
+
+    @GetMapping("/text")
+    public String GetTextContent(@RequestParam("scheme_id") Integer scheme_id, Model model) {
+        List<Army> armyList = schemeService.GetArmyBySchemeID(scheme_id);
+        List<Equipment> equipmentList = schemeService.GetEquipmentBySchemeId(scheme_id);
+        List<Team> repairTeamList = schemeService.GetTeamBySchemeIdAndTeamType(scheme_id, "repair");
+        List<Team> protectTeamList = schemeService.GetTeamBySchemeIdAndTeamType(scheme_id, "protect");
+        Integer repairTeamCount = repairTeamList.size();
+        Integer protectTeamCount = protectTeamList.size();
+        model.addAttribute("army_list",armyList);
+        model.addAttribute("equipment_list",equipmentList);
+        model.addAttribute("repair_team_list",repairTeamList);
+        model.addAttribute("protect_team_list",protectTeamList);
+        model.addAttribute("repairTeamCount", repairTeamCount);
+        model.addAttribute("protectTeamCount",protectTeamCount);
+        return "text";
+    }
 
     @GetMapping("/special_info")
     public String GetSpecialInfo() {

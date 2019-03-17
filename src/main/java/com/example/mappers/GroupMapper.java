@@ -4,6 +4,7 @@ import com.example.entity.Group;
 import com.example.entity.Team;
 import com.example.entity.Team_Category;
 import com.example.entity.Team_Department;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,6 +14,8 @@ public interface GroupMapper {
     public Group GetGroupByGroupId(Integer group_id);
 
     public Group GetGroupBySchemeId(Integer scheme_id);
+
+    public List<Team> GetTeamBySchemeIdAndTeamType(@Param("scheme_id") Integer scheme_id, @Param("team_type") String team_type);
 
     public void AddTeam(Team team);
 

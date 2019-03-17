@@ -82,6 +82,11 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
+    public List<Equipment> GetEquipmentBySchemeId(Integer scheme_id) {
+        return schemeMapper.GetSchemeEquipmentBySchemeId(scheme_id);
+    }
+
+    @Override
     public Integer AddGroupIntoScheme(Group group) {
         Group group1 = groupMapper.GetGroupBySchemeId(group.getScheme_id());
         if (group1 != null) {
@@ -124,5 +129,10 @@ public class SchemeServiceImpl implements SchemeService {
         groupMapper.DeleteTeamCategory(team_id);
         groupMapper.DeleteTeamDepartment(team_id);
         groupMapper.DeleteTeam(team_id);
+    }
+
+    @Override
+    public List<Team> GetTeamBySchemeIdAndTeamType(Integer scheme_id, String team_type) {
+        return groupMapper.GetTeamBySchemeIdAndTeamType(scheme_id, team_type);
     }
 }

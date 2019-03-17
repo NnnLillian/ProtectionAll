@@ -19,9 +19,13 @@ public interface SchemeMapper {
 
     public Scheme_Army GetSchemeArmyNumber(Scheme_Army scheme_army);
 
+    public List<Equipment> GetSchemeEquipmentBySchemeId(Integer scheme_id);
+
     public void AddScheme(Scheme scheme);
 
     public void AddSchemeArmy(Scheme_Army scheme_army);
+
+    public void AddGroupIntoScheme(Group group);
 
     public void AddSchemeEquipment(@Param("scheme_id") Integer scheme_id, @Param("equipment_id") Integer equipment_id);
 
@@ -32,6 +36,4 @@ public interface SchemeMapper {
     public void DeleteSchemeEquipment(@Param("scheme_id") Integer scheme_id, @Param("equipment_id") Integer equipment_id);
 
     public void DeleteScheme(@Param("scheme_id") Integer scheme_id);
-
-    public void AddGroupIntoScheme(Group group);
 }

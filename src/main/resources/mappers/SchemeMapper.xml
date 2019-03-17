@@ -23,6 +23,10 @@
         select * from scheme_army_info where scheme_id = #{scheme_id} and army_id = #{army_id}
     </select>
 
+    <select id="GetSchemeEquipmentBySchemeId" resultType="com.example.entity.Equipment">
+        select * from equipment_info where equipment_id in (select equipment_id from scheme_equipment_info where scheme_id = #{scheme_id})
+    </select>
+
     <insert id="AddScheme" parameterType="com.example.entity.Scheme">
         insert into scheme_info(scheme_name,scheme_code,location_id,scheme_type,combat_direction,safeguard_mode,carry_method,scheme_begin_time,scheme_end_time)
         values (#{scheme_name},#{scheme_code},#{location_id},#{scheme_type},#{combat_direction},#{safeguard_mode},#{carry_method},#{scheme_begin_time},#{scheme_end_time})
