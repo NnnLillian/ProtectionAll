@@ -599,6 +599,13 @@
         dataInit('warehouseMessage');
 
         //  Bootstrap Table获得所选数据
+        function getCategoryList() {
+            return $("#category-table1").bootstrapTable('getSelections');
+        }
+
+        function buildDivShow(){
+
+        }
 
         $("#newRepairCategory").on('shown.bs.modal', function () {
             dataInit('repairTeamCategory');
@@ -606,7 +613,7 @@
         $('#newRepairTeam').click(function () {
             $("#newRepairCategory").modal("hide");
 
-            var categorylist = $("#category-table1").bootstrapTable('getSelections');
+            var categorylist = getCategoryList();
             console.log("in RepairTeam Click");
             console.log(categorylist);
 
@@ -620,10 +627,7 @@
                 var p1 = document.createElement("p");
                 p1.innerText = "携带" + localStorage.getItem("categoryName" + i) + "共" + localStorage.getItem("categoryNum" + i);
                 div2.appendChild(p1);
-
             }
-
-
             var team_name = $('#repairTeamName').val();
             var repairEquipmentTechnology = $('#repairEquipmentTechnology').val();
             localStorage.setItem("repairEquipmentTechnologyNum" + team_name, repairEquipmentTechnology);
@@ -631,25 +635,19 @@
             localStorage.setItem("repairTechnicalSupportNum" + team_name, repairTechnicalSupport);
             var repairAutoMechanic = $('#repairAutoMechanic').val();
             localStorage.setItem("repairAutoMechanic" + team_name, repairAutoMechanic);
-
             localStorage.setItem("team_name" + team_name, team_name);
-
             var repairTeamDiv = document.getElementById("repairTeam");
-
             var div1 = document.createElement("div");
-
             var peopleP = document.createElement("h4");
             peopleP.innerText = "第" + localStorage.getItem("team_name" + team_name) + "装备抢修组";
             peopleP.setAttribute("style", "display:inline");
             peopleP.setAttribute("class", "mr30");
-
             var span1 = document.createElement("span");
             span1.innerText = localStorage.getItem("repairEquipmentTechnologyNum" + team_name);
             var span2 = document.createElement("span");
             span2.innerText = localStorage.getItem("repairTechnicalSupportNum" + team_name);
             var span3 = document.createElement("span");
             span3.innerText = localStorage.getItem("repairAutoMechanic" + team_name);
-
             var lable1 = document.createElement("p");
             lable1.innerText = "装备技术科：";
             lable1.append(span1);
@@ -660,6 +658,58 @@
             lable3.innerText = "汽车修理队：";
             lable3.append(span3);
             var hr1 = document.createElement("hr");
+
+            var team_department = [{
+                "department_id": 1,
+                "department_people": repairEquipmentTechnology,
+            }, {
+                "department_id": 2,
+                "department_people": repairTechnicalSupport,
+            }, {
+                "department_id": 3,
+                "department_people": repairAutoMechanic,
+            }];
+
+            var teamCategoryRows = getCategoryList();
+            var team_categories = [];
+            for (var i = 0; i < teamCategoryRows.length; i++) {
+                var category_item = {
+                    category_id: teamCategoryRows[i].category_id,
+                    category_number: teamCategoryRows[i].category_number
+                };
+                team_categories.push(category_item);
+            }
+
+            var repairTeam = {
+                group_id: localStorage.getItem("group_id"),
+                team_type: "repair",
+                team_name: team_name,
+                team_department: team_department,
+                team_category: team_categories
+            };
+            var TeamStr = JSON.stringify(repairTeam);
+            console.log(TeamStr);
+
+            $.ajax({
+                type: 'POST',
+                data: TeamStr,
+                contentType: "application/json;charset=UTF-8",
+                url: "/AddTeam",
+                dataType: "json",
+                async: false,     // 取消异步加载
+                success: function (data) {
+                    var tip = data.tips;
+                    if (tip == "success") {
+                        alert("success");
+
+                    }
+                    console.log(data);
+                },
+                error: function () {
+                    console.error("error");
+
+                }
+            });
 
             var deletebtn = document.createElement("button");
             deletebtn.innerText = "删除";

@@ -84,7 +84,7 @@ public class SchemeServiceImpl implements SchemeService {
     @Override
     public Integer AddGroupIntoScheme(Group group) {
         Group group1 = groupMapper.GetGroupBySchemeId(group.getScheme_id());
-        if (group1 != null){
+        if (group1 != null) {
             System.out.println("group error");
             return null;
         } else {
@@ -92,5 +92,36 @@ public class SchemeServiceImpl implements SchemeService {
             return groupMapper.GetGroupBySchemeId(group.getScheme_id()).getGroup_id();
         }
 
+    }
+
+    @Override
+    public String AddTeam(Team team) {
+        Integer team_id = groupMapper.GetTeamId(team);
+        if (team_id != null) {
+            return "{\"tips\": \"error\"}";
+        } else {
+            groupMapper.AddTeam(team);
+            Integer team_id1 = groupMapper.GetTeamId(team);
+            List<Team_Category> team_categories = team.getTeam_category_list();
+            for (int i = 0; i < team_categories.size(); i++) {
+                Team_Category team_category = team_categories.get(i);
+                team_category.setTeam_id(team_id1);
+                groupMapper.AddTeamCategory(team_category);
+            }
+            List<Team_Department> team_departments = team.getTeam_department_list();
+            for (int i = 0; i < team_departments.size(); i++) {
+                Team_Department team_department = team_departments.get(i);
+                team_department.setTeam_id(team_id1);
+                groupMapper.AddTeamDepartment(team_department);
+            }
+            return "{\"tips\": \"success\",\" team_id\": " + team_id1 + "}";
+        }
+    }
+
+    @Override
+    public void DeleteTeam(Integer team_id) {
+        groupMapper.DeleteTeamCategory(team_id);
+        groupMapper.DeleteTeamDepartment(team_id);
+        groupMapper.DeleteTeam(team_id);
     }
 }

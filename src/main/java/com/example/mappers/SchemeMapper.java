@@ -1,8 +1,6 @@
 package com.example.mappers;
 
-import com.example.entity.Group;
-import com.example.entity.Scheme;
-import com.example.entity.Scheme_Army;
+import com.example.entity.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

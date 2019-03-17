@@ -19,7 +19,7 @@ public interface SchemeService {
     //如果添加成功，则返回scheme_id；失败则返回null
     public Integer AddScheme(Scheme scheme);
 
-    public Integer GetLocationID(double longitude,double latitude);
+    public Integer GetLocationID(double longitude, double latitude);
 
     public void AddSchemeArmy(Scheme_Army scheme_army);
 
@@ -27,4 +27,8 @@ public interface SchemeService {
 
     //如果添加成功，则返回group_id；失败则返回null
     public Integer AddGroupIntoScheme(Group group);
+
+    public String AddTeam(Team team);
+
+    public void DeleteTeam(Integer team_id);
 }

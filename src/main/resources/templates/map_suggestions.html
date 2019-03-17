@@ -19,9 +19,33 @@
     <![endif]-->
 
     <script type="text/javascript" src="baidumapv2/baidumap_offline_v2_load.js"></script>
-    <script type="text/javascript" src="baidumapv2_demo/jquery.js"></script>
+    <!--<script type="text/javascript" src="baidumapv2_demo/jquery.js"></script>-->
     <script type="text/javascript" src="baidumapv2_demo/layer/layer.js"></script>
     <link rel="stylesheet" type="text/css" href="baidumapv2/css/baidu_map_v2.css"/>
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/jquery.sparkline.min.js"></script>
+    <script src="js/toggles.min.js"></script>
+    <script src="js/retina.min.js"></script>
+    <script src="js/jquery.cookies.js"></script>
+
+    <script src="js/jquery.datatables.min.js"></script>
+    <script src="js/raphael-2.1.0.min.js"></script>
+    <script src="js/chosen.jquery.min.js"></script>
+    <script src="js/select2.min.js"></script>
+
+    <script src="js/custom.js"></script>
+    <!--<script src="js/dashboard.js"></script>-->
+
+    <!--&lt;!&ndash; 折线图 &ndash;&gt;-->
+    <!--<script src="js/flot/jquery.flot.min.js"></script>-->
+    <!--<script src="js/flot/jquery.flot.resize.min.js"></script>-->
+    <!--<script src="js/flot/jquery.flot.spline.min.js"></script>-->
+    <!--<script src="js/morris.min.js"></script>-->
+    <script src="js/raphael-2.1.0.min.js"></script>
 
     <style type="text/css">
         body, html, #map_demo, #tab, #mapfrm {
@@ -324,29 +348,7 @@
 </section>
 
 
-<script src="js/jquery-1.11.1.min.js"></script>
-<script src="js/jquery-migrate-1.2.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/modernizr.min.js"></script>
-<script src="js/jquery.sparkline.min.js"></script>
-<script src="js/toggles.min.js"></script>
-<script src="js/retina.min.js"></script>
-<script src="js/jquery.cookies.js"></script>
 
-<script src="js/jquery.datatables.min.js"></script>
-<script src="js/raphael-2.1.0.min.js"></script>
-<script src="js/chosen.jquery.min.js"></script>
-<script src="js/select2.min.js"></script>
-
-<script src="js/custom.js"></script>
-<script src="js/dashboard.js"></script>
-
-<!--&lt;!&ndash; 折线图 &ndash;&gt;-->
-<script src="js/flot/jquery.flot.min.js"></script>
-<script src="js/flot/jquery.flot.resize.min.js"></script>
-<script src="js/flot/jquery.flot.spline.min.js"></script>
-<script src="js/morris.min.js"></script>
-<script src="js/raphael-2.1.0.min.js"></script>
 
 <script>
     // 跳转按钮
@@ -366,6 +368,8 @@
             dataType: "json",
             async: false,     // 取消异步加载
             success: function (data) {
+                console.log(data.group_id);
+                localStorage.setItem("group_id", data.group_id);
                 alert("Add Equipment Success");
                 window.location.href = "/edit_people";
             },

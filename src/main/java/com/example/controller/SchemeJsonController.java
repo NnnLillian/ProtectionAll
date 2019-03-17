@@ -50,14 +50,14 @@ public class SchemeJsonController {
             return "{\"scheme_id\":" + scheme_id + "}";
         }
     }
+
     @ResponseBody
     @RequestMapping(value = "/AddSchemeArmy", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
     public String AddSchemeArmy(@RequestBody String jsonStr) {
         Integer scheme_id = jsonPaser.ParseSchemeId(jsonStr);
         System.out.println(jsonStr);
         List<Scheme_Army> scheme_army_list = jsonPaser.ParseSchemeArmy(jsonStr);
-        for (int i=0;i<scheme_army_list.size();i++)
-        {
+        for (int i = 0; i < scheme_army_list.size(); i++) {
             scheme_army_list.get(i).setScheme_id(scheme_id);
             schemeService.AddSchemeArmy(scheme_army_list.get(i));
         }
@@ -67,15 +67,16 @@ public class SchemeJsonController {
 
     @ResponseBody
     @RequestMapping(value = "/AddSchemeGroup", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
-    public String AddSchemeGroup(@RequestBody String jsonStr){
+    public String AddSchemeGroup(@RequestBody String jsonStr) {
         Integer scheme_id = jsonPaser.ParseSchemeId(jsonStr);
         //增加scheme中的group
         Group group = new Group();
         group.setScheme_id(scheme_id);
         group.setGroup_name("保障机构编组");
         group.setGroup_type("protectionGroup");
-        schemeService.AddGroupIntoScheme(group);
-        return "{}";
+
+        Integer group_id = schemeService.AddGroupIntoScheme(group);
+        return "{\"group_id\":" + group_id + "}";
     }
 
     @ResponseBody
@@ -84,13 +85,24 @@ public class SchemeJsonController {
         System.out.println(jsonStr);
         Integer scheme_id = jsonPaser.ParseSchemeId(jsonStr);
         List<Scheme_Equipment> scheme_equipment_list = jsonPaser.ParseSchemeEquipment(jsonStr);
-        for (int i=0;i<scheme_equipment_list.size();i++)
-        {
+        for (int i = 0; i < scheme_equipment_list.size(); i++) {
             scheme_equipment_list.get(i).setScheme_id(scheme_id);
             equipmentService.AddSchemeEquipment(scheme_equipment_list.get(i));
         }
         return null;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/AddTeam", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+    public String AddRepairTeam(@RequestBody String jsonStr){
+        Team team = jsonPaser.ParseTeam(jsonStr);
+        List<Team_Category> team_categoryList = jsonPaser.ParseTeamCategory(jsonStr);
+        List<Team_Department> team_departmentList = jsonPaser.ParseTeamDepartment(jsonStr);
+        team.setTeam_category_list(team_categoryList);
+        team.setTeam_department_list(team_departmentList);
+        return schemeService.AddTeam(team);
+    }
+
     @ResponseBody
     @RequestMapping(value = "/GetEnvironment", method = {RequestMethod.GET})
     public String RequestEnvironment(@Param("scheme_id") String scheme_id, @Param("month") String month, @Param("type") String type) {
@@ -146,13 +158,13 @@ public class SchemeJsonController {
 
     @ResponseBody
     @RequestMapping(value = "GetPlatoonCategoryMsg", method = {RequestMethod.GET})
-    public String GetPlatoonCategoryMsg(@Param("platoon_id") Integer platoon_id, @Param("type") String type){
+    public String GetPlatoonCategoryMsg(@Param("platoon_id") Integer platoon_id, @Param("type") String type) {
         System.out.println("getPlatoonCategory");
         List<Category> categoryList = equipmentService.GetCategoryByPlatoonIdAndType(platoon_id, type);
         return jsonBuilder.buildPlatoonCategoryList(categoryList);
     }
 
-//    获得民用保障资源
+    //    获得民用保障资源
     @ResponseBody
     @RequestMapping(value = "/GetSupplierMsg", method = {RequestMethod.GET})
     public String GetSupplierMsg(@Param("case_position") String case_position) {

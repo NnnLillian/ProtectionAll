@@ -15,5 +15,31 @@
         select * from group_info where group_name = #{group_name}
     </select>
 
+    <insert id="AddTeam" parameterType="Team">
+        insert into team_info(group_id,army_id,team_name,team_type)values (#{group_id},#{army_id},#{team_name},#{team_type})
+    </insert>
 
+    <insert id="AddTeamDepartment" parameterType="Team_Department">
+        insert into team_department_info values (#{team_id},#{department_id},#{department_people})
+    </insert>
+
+    <insert id="AddTeamCategory" parameterType="Team_Category">
+        insert into team_category_info values (#{team_id},#{category_id},#{category_number})
+    </insert>
+
+    <select id="GetTeamId" resultType="Integer">
+        select team_id from team_info where group_id = #{group_id} and team_type = #{team_type} and team_name = #{team_name}
+    </select>
+
+    <delete id="DeleteTeam">
+        delete from team_info where team_id = #{team_id}
+    </delete>
+
+    <delete id="DeleteTeamDepartment">
+        delete from team_department_info where team_id = #{team_id}
+    </delete>
+
+    <delete id="DeleteTeamCategory">
+        delete from team_category_info where team_id = #{team_id}
+    </delete>
 </mapper>
