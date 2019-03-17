@@ -99,4 +99,12 @@ public class JsonBuilder {
         resObj.put("rows",supplier_list);
         return resObj.toString();
     }
+
+    public String buildCategoryCase(List<Category_Case>category_case) throws JSONException
+    {
+        JSONObject resObj = new JSONObject();
+        resObj.put("total",category_case.size());
+        resObj.put("rows",category_case);
+        return resObj.toString();
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.entity.Category_Case;
 import com.example.entity.Environment;
 import com.example.entity.Special_Case;
 import com.example.mappers.EnvironmentMapper;
@@ -24,5 +25,12 @@ public class EnvironmentServiceImpl implements EnvironmentService {
     @Override
     public List<Special_Case> GetSpecialCase(Special_Case special_case) {
         return special_caseMapper.GetSpecialCase(special_case);
+    }
+
+
+    @Override
+    public List<Category_Case> GetCategoryCase(Integer equipment_id, String case_position) {
+
+        return special_caseMapper.GetCategoryCase(equipment_id,case_position);
     }
 }

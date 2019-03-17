@@ -17,4 +17,8 @@
         </if>
 
     </select>
+    <select id="GetCategoryCase" resultType="com.example.entity.Category_Case">
+    select * from category_case_info where
+    case_position = #{case_position} and category_id=(select category_id from equipment_info where equipment_id = #{equipment_id})
+</select>
 </mapper>

@@ -180,4 +180,11 @@ public class SchemeJsonController {
         schemeService.DeleteTeam(team_id);
         return "{}";
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/GetCategoryCase", method = {RequestMethod.GET})
+    public String GetCategoryCase(@Param("equipment_id") Integer category_id,@Param("case_position") String case_position) {
+        List<Category_Case> category_case_list = environmentService.GetCategoryCase(category_id,case_position);
+        return jsonBuilder.buildCategoryCase(category_case_list);
+    }
 }
