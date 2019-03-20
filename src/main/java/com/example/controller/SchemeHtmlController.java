@@ -95,6 +95,8 @@ public class SchemeHtmlController {
         return "special_info";
     }
 
+    @GetMapping("/people_directory")
+    public String GetPeopleMsg(){return "people_directory";}
     @GetMapping("/try")
     public String Try() {
         return "try";

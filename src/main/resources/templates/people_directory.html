@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <title>人员信息</title>
+
+    <link href="css/style.default.css" rel="stylesheet">
+    <link href="css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/jquery.sparkline.min.js"></script>
+    <script src="js/toggles.min.js"></script>
+    <script src="js/retina.min.js"></script>
+    <script src="js/jquery.cookies.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-zh-CN.js"></script>
+    <script src="js/bootstrap-table-editable.js"></script>
+    <script src="js/tableData/peopleTable-data.js"></script>
+
+    <script src="js/custom.js"></script>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1><span>[</span> 装备保障系统 <span>]</span></h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+            <!-- This is only visible to small devices -->
+            <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                <div class="media userlogged">
+                    <img alt="" src="images/photos/loggeduser.png" class="media-object">
+                    <div class="media-body">
+                        <h4>小张</h4>
+                        <!--    <span>"Life is so..."</span> -->
+                    </div>
+                </div>
+
+                <h5 class="sidebartitle actitle">账户</h5>
+                <ul class="nav nav-pills nav-stacked nav-bracket mb30">
+                    <li><a href="profile.html"><i class="fa fa-user"></i> <span>个人信息</span></a></li>
+                    <li><a href=""><i class="fa fa-cog"></i> <span>个人信息修改</span></a></li>
+                    <li><a href=""><i class="fa fa-question-circle"></i> <span>帮助</span></a></li>
+                    <li><a href="signout.html"><i class="fa fa-sign-out"></i> <span>退出</span></a></li>
+                </ul>
+            </div>
+
+            <h3 class="sidebartitle">装备保障方案</h3>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li><a href="completeness.html"><i class="fa fa-file-text"></i> <span>方案库</span></a></li>
+                <li><a href="scheme_model.html"><i class="fa fa-home"></i> <span>方案模板库</span></a></li>
+            </ul>
+
+
+            <h5 class="sidebartitle">保障方案资料</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <!--<li class="nav-parent"><a href=""><i class="fa fa-flag"></i> <span>装备使用保障方案</span></a>-->
+                <!--<ul class="children">-->
+                <!--<li><a href="general-forms.html"><i class="fa fa-caret-right"></i> 任务类型</a></li>-->
+                <!--<li><a href="form-layouts.html"><i class="fa fa-caret-right"></i> 保障组类别</a></li>-->
+                <!--<li><a href="form-validation.html"><i class="fa fa-caret-right"></i> 器材保障组要求</a></li>-->
+                <!--<li><a href="form-wizards.html"><i class="fa fa-caret-right"></i> 保障计划类别</a></li>-->
+                <!--</ul>-->
+                <!--</li>-->
+                <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>装备维修保障方案</span></a>
+                    <ul class="children">
+                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i> 维修保障任务类型</a></li>
+                        <li><a href="icons.html"><i class="fa fa-caret-right"></i> 交通保障类型</a></li>
+                        <li><a href="typography.html"><i class="fa fa-caret-right"></i> 设备保障类型</a></li>
+                    </ul>
+                </li>
+                <li><a href="maps.html"><i class="fa fa-map-marker"></i> <span>气象水文保障信息</span></a></li>
+                <li class="nav-parent"><a href="tables.html"><i class="fa fa-th-list"></i> <span>特情处置预案</span></a>
+                    <ul class="children">
+                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i>特情处置原则</a></li>
+                        <li><a href="#"><i class="fa fa-caret-right"></i>伪装措施组织</a></li>
+                        <li><a href="#"><i class="fa fa-caret-right"></i>防护措施组织</a></li>
+                    </ul>
+                </li>
+                <li class="nav-parent"><a href=""><i class="fa fa-flag"></i> <span>人员信息</span></a>
+                    <ul class="children">
+                        <li><a href="general-forms.html"><i class="fa fa-caret-right"></i> 人员工作概况</a></li>
+                        <li class="active"><a href="form-layouts.html"><i class="fa fa-caret-right"></i> 人员表</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div><!-- leftpanelinner -->
+    </div><!-- leftpanel -->
+
+    <div class="mainpanel">
+
+        <div class="head"></div><!-- headerbar -->
+
+        <div class="pageheader">
+            <h2><i class="fa fa-envelope"></i> 人员表 <span>/人员信息</span></h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="#">装备保障系统</a></li>
+                    <li class="active">人员信息</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+
+            <div class="row">
+                <div class="col-sm-3 col-lg-2">
+                    <a href="#" class="btn btn-danger btn-block btn-compose-email">新增人员</a>
+
+                    <ul class="nav nav-pills nav-stacked nav-email">
+                        <li class="active">
+                            <a href="#">
+                                <span class="badge pull-right">1232</span>
+                                <i class="glyphicon glyphicon-inbox"></i> 保障专业
+                            </a>
+                        </li>
+                        <li><a href="#">
+                            <span class="badge pull-right">839</span>
+                            <i class="glyphicon glyphicon-star"></i> 维修专业</a>
+                        </li>
+                        <li><a href="#">
+                            <span class="badge pull-right">928</span>
+                            <i class="glyphicon glyphicon-send"></i> 指挥专业</a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="badge pull-right">392</span>
+                                <i class="glyphicon glyphicon-pencil"></i> 筹划专业
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="mb30"></div>
+
+                    <h5 class="subtitle">文件夹</h5>
+                    <ul class="nav nav-pills nav-stacked nav-email mb20">
+                        <li>
+                            <a href="email.html">
+                                <i class="glyphicon glyphicon-folder-open"></i> 第一旅
+                            </a>
+                        </li>
+                        <li><a href="#"><i class="glyphicon glyphicon-folder-open"></i> 第二旅</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-folder-open"></i> 第三旅</a></li>
+                        <li>
+                            <a href="#">
+                                <i class="glyphicon glyphicon-folder-open"></i> 第四旅
+                            </a>
+                        </li>
+                    </ul>
+
+                </div><!-- col-sm-3 -->
+
+                <div class="col-sm-9 col-lg-10">
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <h5 class="subtitle mb5">人员信息</h5>
+                            <p class="text-muted">保障专业</p>
+
+                            <div class="table-responsive">
+                                <table class="table" id="protectPeople-table"></table>
+                            </div><!-- table-responsive -->
+
+                        </div><!-- panel-body -->
+                    </div><!-- panel -->
+
+                </div><!-- col-sm-9 -->
+
+            </div><!-- row -->
+
+        </div>
+
+    </div><!-- mainpanel -->
+
+    <div class="rightpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a href="#rp-alluser" data-toggle="tab"><i class="fa fa-users"></i></a></li>
+            <li><a href="#rp-favorites" data-toggle="tab"><i class="fa fa-heart"></i></a></li>
+            <li><a href="#rp-history" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
+            <li><a href="#rp-settings" data-toggle="tab"><i class="fa fa-gear"></i></a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="rp-alluser">
+                <h5 class="sidebartitle">Online Users</h5>
+                <ul class="chatuserlist">
+                    <li class="online">
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/userprofile.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Eileen Sideways</strong>
+                                <small>Los Angeles, CA</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li class="online">
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user1.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <span class="pull-right badge badge-danger">2</span>
+                                <strong>Zaham Sindilmaca</strong>
+                                <small>San Francisco, CA</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li class="online">
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user2.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Nusja Nawancali</strong>
+                                <small>Bangkok, Thailand</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li class="online">
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user3.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Renov Leongal</strong>
+                                <small>Cebu City, Philippines</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li class="online">
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user4.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Weno Carasbong</strong>
+                                <small>Tokyo, Japan</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                </ul>
+
+                <div class="mb30"></div>
+
+                <h5 class="sidebartitle">Offline Users</h5>
+                <ul class="chatuserlist">
+                    <li>
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user5.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Eileen Sideways</strong>
+                                <small>Los Angeles, CA</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li>
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user2.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Zaham Sindilmaca</strong>
+                                <small>San Francisco, CA</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li>
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user3.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Nusja Nawancali</strong>
+                                <small>Bangkok, Thailand</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li>
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user4.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Renov Leongal</strong>
+                                <small>Cebu City, Philippines</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li>
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user5.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Weno Carasbong</strong>
+                                <small>Tokyo, Japan</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li>
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user4.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Renov Leongal</strong>
+                                <small>Cebu City, Philippines</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li>
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user5.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Weno Carasbong</strong>
+                                <small>Tokyo, Japan</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane" id="rp-favorites">
+                <h5 class="sidebartitle">Favorites</h5>
+                <ul class="chatuserlist">
+                    <li class="online">
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user2.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Eileen Sideways</strong>
+                                <small>Los Angeles, CA</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li>
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user1.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Zaham Sindilmaca</strong>
+                                <small>San Francisco, CA</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li>
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user3.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Nusja Nawancali</strong>
+                                <small>Bangkok, Thailand</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li class="online">
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user4.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Renov Leongal</strong>
+                                <small>Cebu City, Philippines</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li class="online">
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user5.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Weno Carasbong</strong>
+                                <small>Tokyo, Japan</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane" id="rp-history">
+                <h5 class="sidebartitle">History</h5>
+                <ul class="chatuserlist">
+                    <li class="online">
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user4.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Eileen Sideways</strong>
+                                <small>Hi hello, ctc?... would you mind if I go to your...</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li>
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user2.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Zaham Sindilmaca</strong>
+                                <small>This is to inform you that your product that we...</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                    <li>
+                        <div class="media">
+                            <a href="#" class="pull-left media-thumb">
+                                <img alt="" src="images/photos/user3.png" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>Nusja Nawancali</strong>
+                                <small>Are you willing to have a long term relat...</small>
+                            </div>
+                        </div><!-- media -->
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane pane-settings" id="rp-settings">
+
+                <h5 class="sidebartitle mb20">Settings</h5>
+                <div class="form-group">
+                    <label class="col-xs-8 control-label">Show Offline Users</label>
+                    <div class="col-xs-4 control-label">
+                        <div class="toggle toggle-success"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-8 control-label">Enable History</label>
+                    <div class="col-xs-4 control-label">
+                        <div class="toggle toggle-success"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-8 control-label">Show Full Name</label>
+                    <div class="col-xs-4 control-label">
+                        <div class="toggle-chat1 toggle-success"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-8 control-label">Show Location</label>
+                    <div class="col-xs-4 control-label">
+                        <div class="toggle toggle-success"></div>
+                    </div>
+                </div>
+
+            </div><!-- tab-pane -->
+
+        </div><!-- tab-content -->
+    </div><!-- rightpanel -->
+
+</section>
+
+
+<script>
+    // 加载共同头部
+    $(function () {
+        $('.head').load("head");
+    });
+    peopleDataInit('protectPeople');
+</script>
+
+</body>
+</html>

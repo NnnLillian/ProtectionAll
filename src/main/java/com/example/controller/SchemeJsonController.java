@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.entity.*;
 import com.example.service.EnvironmentService;
 import com.example.service.EquipmentService;
+import com.example.service.PeopleService;
 import com.example.service.SchemeService;
 import com.example.util.JsonBuilder;
 import com.example.util.JsonPaser;
@@ -26,6 +27,9 @@ public class SchemeJsonController {
 
     @Autowired
     private EquipmentService equipmentService;
+
+    @Autowired
+    private PeopleService peopleService;
 
     private JsonBuilder jsonBuilder = new JsonBuilder();
 
@@ -170,6 +174,14 @@ public class SchemeJsonController {
     public String GetSupplierMsg(@Param("case_position") String case_position) {
         List<Supplier> supplier_list = equipmentService.GetSupplierByPosition(case_position);
         return jsonBuilder.buildSupplierList(supplier_list);
+    }
+
+//    获得人员信息
+    @ResponseBody
+    @RequestMapping(value = "/GetPeopleMsg", method = {RequestMethod.GET})
+    public String AddPeopleMsg(@Param("profession") String profession){
+        List<People> peopleList = peopleService.GetPeopleByProfession(profession);
+        return jsonBuilder.buildPeopleList(peopleList);
     }
 
     @ResponseBody

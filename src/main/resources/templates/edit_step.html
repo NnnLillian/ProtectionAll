@@ -256,9 +256,9 @@
                             </ul>
                         </div><!-- #basicWizard -->
                     </div><!-- panel-body -->
-                    <div class="panel-footer">
-                        <input type="button" value="see" id="test">
-                    </div>
+                    <!--<div class="panel-footer">-->
+                        <!--<input type="button" value="see" id="test">-->
+                    <!--</div>-->
                 </div><!-- panel -->
 
                 <div class="panel panel-default" id="calculationWholeDiv">
@@ -489,7 +489,7 @@
 
         <!-- 提交作战装备 -->
         jQuery('#progressWizard .finish').click(function () {
-            alert('Finished');
+            // alert('Finished');
 
             var carryEquipmentRows = getCarryEquipment();
             var scheme_equipment_list = [];
@@ -520,7 +520,7 @@
                 dataType: "json",
                 async: false,     // 取消异步加载
                 success: function (data) {
-                    alert("Add Equipment Success");
+                    // alert("Add Equipment Success");
                     window.location.href = "/scheme_show?scheme_id="+localStorage.getItem("scheme_id");
                     localStorage.setItem("scheme_id", data.scheme_id);
                 },

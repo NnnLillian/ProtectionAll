@@ -107,4 +107,11 @@ public class JsonBuilder {
         resObj.put("rows",category_case);
         return resObj.toString();
     }
+
+    public String buildPeopleList(List<People> people_list)throws JSONException{
+        JSONObject resPbj = new JSONObject();
+        resPbj.put("total",people_list.size());
+        resPbj.put("rows",people_list);
+        return resPbj.toString();
+    }
 }
