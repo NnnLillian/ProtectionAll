@@ -20,16 +20,18 @@
         select scheme_army_info.*,army_name from scheme_army_info,army_info where scheme_id = #{scheme_id} and army_info.army_id = scheme_army_info.army_id
     </select>
     <select id="GetSchemeArmyNumber" resultType="com.example.entity.Scheme_Army">
-        select * from scheme_army_info where scheme_id = #{scheme_id} and army_id = #{army_id}
+        select * from scheme_army_info where scheme_id = #{scheme_id} and army_id = #{army_id} and army_action_group = #{army_action_group}
     </select>
 
     <select id="GetSchemeEquipmentBySchemeId" resultType="com.example.entity.Equipment">
         select * from equipment_info where equipment_id in (select equipment_id from scheme_equipment_info where scheme_id = #{scheme_id})
     </select>
 
+
+
     <insert id="AddScheme" parameterType="com.example.entity.Scheme">
-        insert into scheme_info(scheme_name,scheme_code,location_id,scheme_type,combat_direction,safeguard_mode,carry_method,scheme_begin_time,scheme_end_time)
-        values (#{scheme_name},#{scheme_code},#{location_id},#{scheme_type},#{combat_direction},#{safeguard_mode},#{carry_method},#{scheme_begin_time},#{scheme_end_time})
+        insert into scheme_info(scheme_name,scheme_code,location_id,scheme_type,combat_direction,scheme_begin_time,scheme_end_time)
+        values (#{scheme_name},#{scheme_code},#{location_id},#{scheme_type},#{combat_direction},#{scheme_begin_time},#{scheme_end_time})
     </insert>
 
     <insert id="AddSchemeEquipment">
@@ -38,8 +40,8 @@
     </insert>
 
     <insert id="AddSchemeArmy">
-        insert into scheme_army_info(scheme_id,army_id,army_people)
-        values(#{scheme_id},#{army_id},#{army_people})
+        insert into scheme_army_info(scheme_id,army_id,army_people,army_action_group)
+        values(#{scheme_id},#{army_id},#{army_people},#{army_action_group})
     </insert>
 
     <insert id="AddGroupIntoScheme" parameterType="com.example.entity.Group">
@@ -49,7 +51,7 @@
 
     <update id="ModifySchemeArmy" parameterType="com.example.entity.Scheme_Army">
         update scheme_army_info set army_people = #{army_people}
-        where scheme_id = #{scheme_id} and army_id = #{army_id}
+        where scheme_id = #{scheme_id} and army_id = #{army_id} and army_action_group = #{army_action_group}
     </update>
 
     <update id="ModifyScheme" parameterType="com.example.entity.Scheme">

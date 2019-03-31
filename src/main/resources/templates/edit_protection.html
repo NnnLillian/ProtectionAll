@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <title>方案库-装备保障方案</title>
+
+    <link href="css/style.default.css" rel="stylesheet">
+    <link href="css/jquery.datatables.css" rel="stylesheet">
+    <!-- datepicker -->
+    <link rel='stylesheet' type='text/css' href='css/core.css'>
+
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <link href="css/bootstrap-table.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/jquery.sparkline.min.js"></script>
+    <script src="js/toggles.min.js"></script>
+    <script src="js/retina.min.js"></script>
+    <script src="js/jquery.cookies.js"></script>
+
+    <script src="js/select2.min.js"></script>
+
+    <script src="js/custom.js"></script>
+    <script src="js/when.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-zh-CN.js"></script>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="left"></div>
+
+    <div class="mainpanel">
+
+        <div class="head"></div><!-- headerbar -->
+
+        <div class="pageheader">
+            <h2><i class="fa  fa-edit"></i> 保障方案编辑</h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="#">装备保障系统</a></li>
+                    <li class="active">编辑保障方案</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+
+            <form id="basicForm2" class="form-horizontal">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-btns">
+                            <a href="" class="panel-close">&times;</a>
+                            <a href="" class="minimize">&minus;</a>
+                        </div>
+                        <h4 class="panel-title">保障任务</h4>
+                        <p></p>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group dropdown">
+                            <label class="col-sm-3 control-label">携装方式 <span class="asterisk">*</span></label>
+                            <div class="col-sm-2">
+                                <select class="form-control selectpicker show-tick " id="carryPattern">
+                                    <option value="1"> 全装</option>
+                                    <option value="2"> 简装</option>
+                                    <option value="3"> 小单元机动</option>
+                                    <option value="4"> 其他</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">保障模式 <span class="asterisk">*</span></label>
+                            <div class="col-sm-6">
+                                <select class="select2 selectpicker show-tick" id="protectionPattern" multiple>
+                                    <option value="1"> 自主保障</option>
+                                    <option value="2"> 协同保障</option>
+                                    <option value="4"> 支援保障</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <h3>保障关系</h3>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"> 上级保障单位<span class="asterisk">*</span></label>
+                            <div class="col-sm-6">
+                                <select id="highLevel" class="form-control selectpicker show-tick ">
+                                    <!--<th:block th:each="item:${base_list}">-->
+                                        <!--<option th:text="${item.getBase_name()}" th:value="${item.getBase_Id()}">无-->
+                                        <!--</option>-->
+                                    <option>无</option>
+                                        <option value="1">乌鲁木齐基地</option>
+                                        <option>拉萨基地</option>
+                                        <option>兰州基地</option>
+                                        <option>大同基地</option>
+                                        <option>济南基地</option>
+                                        <option>南宁基地</option>
+                                        <option>昆明基地</option>
+                                        <option>武汉基地</option>
+                                        <option>福州基地</option>
+                                        <option>大连基地</option>
+                                        <option>上海基地</option>
+                                    <!--</th:block>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"> 同级保障单位<span class="asterisk">*</span></label>
+                            <div class="col-sm-6">
+                                <select id="sameLevel" class="select2 selectpicker show-tick filter-option" multiple>
+                                    <option>无</option>
+                                    <option value="1">第1旅</option>
+                                    <option value="2">第2旅</option>
+                                    <option value="3">第3旅</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label mr10">依托保障资源</label>
+                            <div class="col-sm-8">
+                                <table id="safeguardRes">
+                                </table>
+                            </div>
+
+                        </div>
+
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-12 col-sm-offset-3" style="text-align: center; margin: 0 auto">
+                                    <!--<button class="btn btn-primary">保存</button>&nbsp;-->
+                                    <button type="button" class="btn btn-primary" id="newSchemeProtectionBtn">保存</button>&nbsp;
+                                    <button class="btn btn-default" onclick="javascript:history.go(-1);">
+                                        取消
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- panel-footer -->
+                </div><!-- panel -->
+            </form>
+
+        </div><!-- contentpanel -->
+
+    </div><!-- mainpanel -->
+
+</section>
+
+<script th:inline="javascript">
+
+    <!-- 加载共同头部 -->
+    $(function () {
+        $('.left').load("left");
+        // $('.head').load("head")
+
+        initTable();
+    });
+
+    jQuery(document).ready(function () {
+
+        "use strict";
+
+        // Select2
+        jQuery(".select2").select2({
+            width: '100%',
+            minimumResultsForSearch: -1
+        });
+
+    });
+
+    var $safeguardRes = $('#safeguardRes');
+
+    function initTable() {
+        $safeguardRes.bootstrapTable({
+            url: "/GetBaseResource",
+            striped: true,
+            showRefresh: true,
+            pagination: true,
+            sidePagination: "client",
+            pageNumber: 1,
+            pageSize: 20,
+            pageList: [20, 45, 80],
+            paginationPreText: "上一页",
+            paginationNextText: "下一页",
+            paginationFirstText: "第一页",
+            paginationLastText: "最后一页",
+            clickToSelect: true,
+            search: true,
+            searchOnEnterKey: true,
+            strictSearch: true,
+            columns: [{
+                checkbox: true
+            }, {
+                field: '_id',
+                title: '保障资源ID',
+                visible: false
+            }, {
+                field: '_name',
+                title: '保障资源名称'
+            }]
+        })
+    }
+
+
+    $(function () {
+        $('#newSchemeProtectionBtn').click(function () {
+            var carryPattern = $('#carryPattern option:selected').val();
+            var protectionPatternItem = $('#protectionPattern').select2("val");
+            console.log(protectionPatternItem);
+            // 将获得数组的每一位由字符串更改为数字
+            var res = protectionPatternItem.map(function (value, index, array) {
+                return parseInt(value);
+            });
+            // 数组求和
+            var protectionPattern = res.reduce(function (a, b) {
+                return a + b;
+            }, 0);
+            var highLevel = $('#highLevel option:selected').val();
+            var sameLevel = $('#sameLevel').select2("val");
+            var scheme_safeguard = [];
+            for (let i in sameLevel) {
+                var platoonId = {
+                    platoon_id: sameLevel[i]
+                };
+                scheme_safeguard.push(platoonId);
+            }
+
+
+            var scheme = {
+                scheme_id: localStorage.getItem("scheme_id"),
+                safeguard_mode: protectionPattern,
+                carry_method: carryPattern,
+                base_id: highLevel,
+                scheme_safeguard: scheme_safeguard
+            };
+
+            var schemeStr = JSON.stringify(scheme);
+
+            location.href = "/edit_equipment?scheme_id="+ localStorage.getItem("scheme_id");
+
+            $.ajax({
+                type: 'POST',
+                data: schemeStr,
+                contentType: "application/json;charset=UTF-8",
+                url: "/AddSchemeSafeguard",
+                dataType: "json",
+                async: false,     // 取消异步加载
+                success: function (data) {
+                    // window.location.href = "/ShowMap";
+                },
+                error: function () {
+                    console.error("error");
+
+                }
+            })
+
+
+        })
+
+    })
+
+</script>
+
+</body>
+</html>

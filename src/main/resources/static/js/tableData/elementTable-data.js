@@ -23,11 +23,11 @@ self.elementDataInit = function (name) {
         // url: '../data/login_info2.json',   //url一般是請求後台的url地址,調用ajax獲取數據。此處我用本地的json數據來填充表格。
         contentType: 'application/json,charset=utf-8',
         striped: true,                      // 隔行加亮
-        queryParamsType: "limit",           //設置為"undefined",可以獲取pageNumber，pageSize，searchText，sortName，sortOrder
+        // queryParamsType: "limit",           //設置為"undefined",可以獲取pageNumber，pageSize，searchText，sortName，sortOrder
                                             //設置為"limit",符合 RESTFul 格式的參數,可以獲取limit, offset, search, sort, order
         // queryParams: queryParams,
         sidePagination: "client",           //分頁方式：client客户端分頁，server服務端分頁（*）
-        sortable: true,                     //是否啟用排序;意味着整個表格都會排序
+        // sortable: true,                     //是否啟用排序;意味着整個表格都會排序
         // sortName: 'uid',                    // 設置默認排序為 name
         // sortOrder: "asc",                   //排序方式
         // search: true,                       //是否顯示錶格搜索，此搜索是客户端搜索，不會進服務端，所以，個人感覺意義不大
@@ -52,19 +52,39 @@ self.elementDataInit = function (name) {
                 title: '部件名称',
                 align: 'center',
             }, {
-                field: 'work_time',
-                title: '工作时长（小时）',
+                field: 'element_modal',
+                title: '器材型号',
                 align: 'center',
                 // sortable:false   //本列不可以排序
             }, {
-                field: 'maintenance_date',
+                field: 'element_product_identification',
+                title: '产品标识',
+                align: 'center'
+            },  {
+                field: 'element_unit',
+                title: '单位',
+                align: 'center'
+            },  {
+                field: 'reference_unit_price',
+                title: '参考单价',
+                align: 'center'
+            },  {
+                field: 'contract_unit_price',
+                title: '合同单价',
+                align: 'center'
+            },  {
+                field: 'units_installed_number',
                 title: '保养日期',
+                align: 'center'
+            },  {
+                field: 'element_manufacutrer',
+                title: '生产厂家',
                 align: 'center'
             }, {
                 field: 'reliability',
                 title: '可靠性',
                 align: 'center',
-                sortable: true,
+                // sortable: true,
             }
         ],
 

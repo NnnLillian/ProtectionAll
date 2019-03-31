@@ -2,18 +2,20 @@ package com.example.entity;
 
 public class Element_Maintain {
     private Integer element_maintain_id;
-    private Integer equipment_id;
-    private Integer element_id;
+    private String equipment_id;
+    private String element_id;
     private Integer spare_part_id;
     private String spare_part_name;
     private String  maintain_time;
     private String  malfunction_description;
     private String  reason_description;
+    private Integer maintain_type;
+    private String maintain_type_name;
 
     public Element_Maintain() {
     }
 
-    public Element_Maintain(Integer element_maintain_id, Integer equipment_id, Integer element_id, Integer spare_part_id, String spare_part_name, String maintain_time, String malfunction_description, String reason_description) {
+    public Element_Maintain(Integer element_maintain_id, String equipment_id, String element_id, Integer spare_part_id, String spare_part_name, String maintain_time, String malfunction_description, String reason_description, Integer maintain_type, String maintain_type_name) {
         this.element_maintain_id = element_maintain_id;
         this.equipment_id = equipment_id;
         this.element_id = element_id;
@@ -22,6 +24,8 @@ public class Element_Maintain {
         this.maintain_time = maintain_time;
         this.malfunction_description = malfunction_description;
         this.reason_description = reason_description;
+        this.maintain_type = maintain_type;
+        this.maintain_type_name = maintain_type_name;
     }
 
     public Integer getElement_maintain_id() {
@@ -32,19 +36,19 @@ public class Element_Maintain {
         this.element_maintain_id = element_maintain_id;
     }
 
-    public Integer getEquipment_id() {
+    public String getEquipment_id() {
         return equipment_id;
     }
 
-    public void setEquipment_id(Integer equipment_id) {
+    public void setEquipment_id(String equipment_id) {
         this.equipment_id = equipment_id;
     }
 
-    public Integer getElement_id() {
+    public String getElement_id() {
         return element_id;
     }
 
-    public void setElement_id(Integer element_id) {
+    public void setElement_id(String element_id) {
         this.element_id = element_id;
     }
 
@@ -86,5 +90,21 @@ public class Element_Maintain {
 
     public void setReason_description(String reason_description) {
         this.reason_description = reason_description;
+    }
+
+    public Integer getMaintain_type() {
+        return maintain_type;
+    }
+
+    public void setMaintain_type(Integer maintain_type) {
+        this.maintain_type = maintain_type;
+    }
+
+    public String getMaintain_type_name() {
+        return maintain_type_name;
+    }
+
+    public void setMaintain_type_name(String maintain_type_name) {
+        this.maintain_type_name = maintain_type_name;
     }
 }

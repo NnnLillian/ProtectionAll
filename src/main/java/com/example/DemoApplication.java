@@ -29,5 +29,6 @@ class WebConfigurer extends WebMvcConfigurerAdapter
         registry.addResourceHandler("images/**").addResourceLocations("classpath:/static/images/");
         registry.addResourceHandler("baidumapv2/**").addResourceLocations("classpath:/static/baidumapv2/");
         registry.addResourceHandler("baidumapv2_demo/**").addResourceLocations("classpath:/baidumapv2_demo/baidumapv2/");
+        registry.addResourceHandler("elementSuggest/**").addResourceLocations("classpath:/static/elementSuggest/");
     }
 }

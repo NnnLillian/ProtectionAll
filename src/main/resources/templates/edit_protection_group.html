@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <link href="images/favicon.png" rel="shortcut icon" type="image/png">
+
+    <title>编辑方案-装备保障方案</title>
+
+    <link href="css/style.default.css" rel="stylesheet">
+    <link href="css/jquery.datatables.css" rel="stylesheet">
+    <!-- datepicker -->
+    <!--<link rel='stylesheet' type='text/css' href='css/core.css'>-->
+
+    <link href="css/bootstrap-select.css" rel="stylesheet">
+    <link href="css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/toggles.min.js"></script>
+    <script src="js/retina.min.js"></script>
+    <script src="js/jquery.cookies.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-zh-CN.js"></script>
+    <!--<script src="js/bootstrap-table-editable.js"></script>-->
+
+    <script src="js/custom.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+
+    <script src="js/tableData/protectionGroupTable-data.js"></script>
+    <script src="js/tableData/repairTable-data.js"></script>
+    <script src="js/tableData/protectTable-data.js"></script>
+    <script src="js/tableData/elementRepairTable-data.js"></script>
+    <script src="js/tableData/finish.js"></script>
+
+
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="left"></div>
+
+    <div class="mainpanel">
+
+        <div class="head"></div>
+        <div class="pageheader">
+            <h2><i class="fa  fa-edit"></i> 保障方案编辑</h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="#">装备保障系统</a></li>
+                    <li class="active">编辑保障方案</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">保障机构编组</h4>
+                        <p>组织实施保障任务</p>
+                    </div><!-- panel-heading -->
+                    <!--原本版本 panel-body-nopadding editable-list-group作用未知-->
+                    <!--<div class="panel-body panel-body-nopadding editable-list-group">-->
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <h4>装备抢修组</h4>
+                            <p>装备抢修组负责与上级业务部门协调处理装备问题，参与上级业务部门工作</p>
+                            <button class="btn btn-primary" data-target="#newTeamModal"
+                                    data-toggle="modal" name="modalRepairDepartment" id="r">
+                                <span aria-hidden="true" class="glyphicon glyphicon-plus"> </span>
+                                新增装备抢修组
+                            </button>
+                            <div class="mb30"></div>
+                            <div id="repairTeam"></div>
+                            <div class="mb5"></div>
+                            <div id="repairCategory">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h4>器材保障组</h4>
+                            <p>负责器材调整补充及请领下送</p>
+                            <button class="btn btn-primary" data-target="#newTeamModal"
+                                    data-toggle="modal" name="modalProtectDepartment" id="p">
+                                <span aria-hidden="true" class="glyphicon glyphicon-plus"> </span>新增器材保障组
+                            </button>
+                            <div class="mb30"></div>
+                            <div id="protectTeam"></div>
+                            <div class="mb5"></div>
+                            <div id="protectCategory"></div>
+                            <div class="mb10"></div>
+                            <div class="applyRepair"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <h4>支援保障组</h4>
+                            <p>负责战地的资源保障</p>
+                            <button class="btn btn-primary" data-target="#newTeamModal"
+                                    data-toggle="modal" name="modalSupplyDepartment" id="s">
+                                <span aria-hidden="true" class="glyphicon glyphicon-plus"> </span>新增支援保障组
+                            </button>
+                            <div class="mb30"></div>
+                            <div></div>
+                            <div class="mb5"></div>
+                            <div></div>
+                            <div class="mb10"></div>
+                            <div class="applyRepair"></div>
+                        </div>
+                    </div><!-- panel-body -->
+                    <div class="panel-footer" style="text-align: center; margin: 0 auto">
+                        <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
+                            返回
+                        </button>
+                        <button type="button" id="AddSchemeEquipment" class="btn btn-primary">继续</button>
+                    </div>
+                </div><!-- panel -->
+            </div><!-- row -->
+        </div><!-- contentpanel -->
+    </div><!-- mainpanel -->
+</section>
+
+<!-- 新增保障组 modal -->
+<div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade bs-example-modal-lg"
+     data-backdrop="static"
+     id="newTeamModal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                <h4 class="modal-title mb5"></h4>
+                <p class="modal-p"></p>
+            </div>
+            <div class="modal-body">
+                <span class="mr30">第&nbsp;&nbsp;<div style="width: 60px; display: inline-block"><input
+                        class="form-control"
+                        id="protectTeamName"
+                        type="number"/></div>&nbsp;&nbsp;器材保障组</span>
+                <!-- response team_name -->
+                <div class="mb10"></div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">组长:</label>
+                        <div class="col-sm-9">
+                            <div class="table-responsive">
+                                <table id="teamLeader-table"></table>
+                            </div>
+                            <label class="control-label">职责：</label>
+                            <textarea rows="2" class="form-control" placeholder="队长职责为……"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">副组长:</label>
+                        <div class="col-sm-9">
+                            <div class="table-responsive">
+                                <table id="deputyHead-table"></table>
+                            </div>
+                            <label class="control-label">职责：</label>
+                            <textarea rows="2" class="form-control" placeholder="副队长职责为……"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">组员:</label>
+                        <div class="col-sm-9">
+                            <div class="table-responsive">
+                                <table id="teamMember-table"></table>
+                            </div>
+                            <label class="control-label">职责：</label>
+                            <textarea rows="2" class="form-control" placeholder="队员职责为……"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane active" id="protectTeamCategory">
+                    <div class="table-responsive">
+                        <table id="category-table2"></table>
+                    </div>
+                </div>
+
+                <div class="mb20">
+                </div>
+                <label class="control-label col-md-2">职责:</label>
+                <textarea rows="5" class="form-control" name="comment" placeholder="负责器材调整补充及请领下送"></textarea>
+                <div class="mb20"></div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="newProtectTeam" type="submit">保存</button>
+                </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 展示 某团领着某营
+    $("#platoon_name").text(localStorage.getItem("platoon_name"));
+    // 加载共同头部
+    $(function () {
+        $('.left').load("left");
+        // $('.head').load("head");
+    });
+
+    // 触发模态框
+    $("button[name^='modal']").on('click', showModal);
+
+    function showModal() {
+        // 获取点击事件的ID
+        var id = $(this).attr("id");
+
+
+        $("#newTeamModal").on('show.bs.modal', function () {
+            peopleDataInit('teamLeader');
+            peopleDataInit('deputyHead');
+            peopleDataInit('teamMember');
+
+            // console.log(getHtmlElementId());
+            var title = $("#" + id).text();
+            $('.modal-title').text(title);
+            var describe = $("#" + id).prev().text();
+            console.log(describe);
+            $('.modal-p').text(describe);
+        })
+    }
+
+
+</script>
+
+<script>
+
+    jQuery(document).ready(function () {
+        <!-- 提交保障组 -->
+        jQuery('#progressWizard .finish').click(function () {
+            // alert('Finished');
+
+            var carryEquipmentRows = getCarryEquipment();
+            var scheme_equipment_list = [];
+            console.log(carryEquipmentRows);
+            for (var i = 0; i < carryEquipmentRows.length; i++) {
+                var scheme_equipment_item = {
+                    equipment_id: carryEquipmentRows[i].equipment_id
+                };
+                var scheme_equipment = {
+                    scheme_equipment: scheme_equipment_item
+                };
+                scheme_equipment_list.push(scheme_equipment);
+            }
+            var scheme = {
+                scheme_id: localStorage.getItem("scheme_id"),
+                scheme_equipment_list: scheme_equipment_list
+            };
+
+            var schemeStr = JSON.stringify(scheme);
+
+            console.log(schemeStr);
+
+            $.ajax({
+                type: 'POST',
+                data: schemeStr,
+                contentType: "application/json;charset=UTF-8",
+                url: "/AddSchemeEquipment",
+                dataType: "json",
+                async: false,     // 取消异步加载
+                success: function (data) {
+                    // alert("Add Equipment Success");
+                    window.location.href = "/scheme_show?scheme_id=" + localStorage.getItem("scheme_id");
+                    localStorage.setItem("scheme_id", data.scheme_id);
+                },
+                error: function () {
+                    console.error("error");
+
+                }
+            })
+        });
+
+    });
+</script>
+
+<!-- 增加保障机构编组 -->
+<script type="text/javascript">
+
+
+    $("#addRepairDepartment").click(function () {
+        $.ajax({
+            type: 'POST',
+            // data: schemeStr,
+            contentType: "application/json;charset=UTF-8",
+            // url: "/AddSchemeEquipment",
+            dataType: "json",
+            async: false,     // 取消异步加载
+            success: function (data) {
+                alert("Add Equipment Success");
+                window.location.href = "/scheme_show";
+                localStorage.setItem("scheme_id", data.scheme_id);
+            },
+            error: function () {
+                console.error("error");
+
+            }
+        })
+    });
+</script>
+
+</body>
+</html>

@@ -33,6 +33,11 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
+    public List<Army> RequestGroupArmy(Integer action_group_id) {
+        return armyMapper.RequestGroupArmy(action_group_id);
+    }
+
+    @Override
     public Scheme GetSchemeBySchemeID(Integer scheme_id) {
         return schemeMapper.GetSchemeBySchemeID(scheme_id);
     }
@@ -73,6 +78,14 @@ public class SchemeServiceImpl implements SchemeService {
             schemeMapper.ModifySchemeArmy(scheme_army);
         } else {
             schemeMapper.AddSchemeArmy(scheme_army);
+        }
+    }
+
+    @Override
+    public void AddActionGroup(Action_Group action_group) {
+        Integer id = GetActionGroupId(action_group);
+        if (id == null) {
+            armyMapper.AddActionGroup(action_group);
         }
     }
 
@@ -134,5 +147,20 @@ public class SchemeServiceImpl implements SchemeService {
     @Override
     public List<Team> GetTeamBySchemeIdAndTeamType(Integer scheme_id, String team_type) {
         return groupMapper.GetTeamBySchemeIdAndTeamType(scheme_id, team_type);
+    }
+
+    @Override
+    public Integer GetActionGroupId(Action_Group action_group) {
+        return armyMapper.GetActionGroupId(action_group);
+    }
+
+    @Override
+    public List<Action_Group> GetActionGroups(Integer scheme_id) {
+        List<Action_Group> groups = armyMapper.GetActionGroupBySchemeId(scheme_id);
+
+        for (int i=0; i<groups.size(); i++){
+            groups.get(i).setLocation("经度："+groups.get(i).getLongitude()+", 纬度："+groups.get(i).getLatitude());
+        }
+        return groups;
     }
 }

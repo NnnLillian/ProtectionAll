@@ -11,14 +11,15 @@ public class Scheme {
     private String scheme_end_time;
     private String scheme_type;
     private String combat_direction;//作战方向
-    private String safeguard_mode;//保障模式
-    private String carry_method;//携装方式
+//    private String safeguard_mode;//保障模式
+//    private String carry_method;//携装方式
     private List<Equipment> equipment_list;
+    private String action_group_flag;
 
     public Scheme() {
     }
 
-    public Scheme(Integer scheme_id, String scheme_name, String scheme_code, Integer location_id, String scheme_begin_time, String scheme_end_time, String scheme_type, String combat_direction, String safeguard_mode, String carry_method, List<Equipment> equipment_list) {
+    public Scheme(Integer scheme_id, String scheme_name, String scheme_code, Integer location_id, String scheme_begin_time, String scheme_end_time, String scheme_type, String combat_direction, List<Equipment> equipment_list, String action_group_flag) {
         this.scheme_id = scheme_id;
         this.scheme_name = scheme_name;
         this.scheme_code = scheme_code;
@@ -27,9 +28,8 @@ public class Scheme {
         this.scheme_end_time = scheme_end_time;
         this.scheme_type = scheme_type;
         this.combat_direction = combat_direction;
-        this.safeguard_mode = safeguard_mode;
-        this.carry_method = carry_method;
         this.equipment_list = equipment_list;
+        this.action_group_flag = action_group_flag;
     }
 
     public Integer getScheme_id() {
@@ -96,27 +96,19 @@ public class Scheme {
         this.combat_direction = combat_direction;
     }
 
-    public String getSafeguard_mode() {
-        return safeguard_mode;
-    }
-
-    public void setSafeguard_mode(String safeguard_mode) {
-        this.safeguard_mode = safeguard_mode;
-    }
-
-    public String getCarry_method() {
-        return carry_method;
-    }
-
-    public void setCarry_method(String carry_method) {
-        this.carry_method = carry_method;
-    }
-
     public List<Equipment> getEquipment_list() {
         return equipment_list;
     }
 
     public void setEquipment_list(List<Equipment> equipment_list) {
         this.equipment_list = equipment_list;
+    }
+
+    public String getAction_group_flag() {
+        return action_group_flag;
+    }
+
+    public void setAction_group_flag(String action_group_flag) {
+        this.action_group_flag = action_group_flag;
     }
 }

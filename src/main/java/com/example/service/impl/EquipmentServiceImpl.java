@@ -28,7 +28,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public List<Element> GetElementByEquipmentId(Integer equipment_id) {
+    public List<Element> GetElementByEquipmentId(String equipment_id) {
         return equipmentMapper.GetElementByEquipmentId(equipment_id);
     }
 

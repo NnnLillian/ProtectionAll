@@ -9,7 +9,7 @@ public interface EquipmentService {
 
     public  void AddSchemeEquipment(Scheme_Equipment scheme_equipment);
 
-    public  List<Element> GetElementByEquipmentId(Integer equipment_id);
+    public  List<Element> GetElementByEquipmentId(String equipment_id);
 
     public List<Element_Maintain> GetElementMaintainByEquipmentId(Integer equipment_id);
 

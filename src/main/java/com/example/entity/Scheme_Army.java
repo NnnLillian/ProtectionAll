@@ -6,15 +6,17 @@ public class Scheme_Army {
     private Integer army_id;
     private String  army_name;
     private Integer army_people;
+    private Integer army_action_group;
 
     public Scheme_Army() {
     }
 
-    public Scheme_Army(Integer scheme_id, Integer army_id, String army_name, Integer army_people) {
+    public Scheme_Army(Integer scheme_id, Integer army_id, String army_name, Integer army_people, Integer army_action_group) {
         this.scheme_id = scheme_id;
         this.army_id = army_id;
         this.army_name = army_name;
         this.army_people = army_people;
+        this.army_action_group = army_action_group;
     }
 
     public Integer getScheme_id() {
@@ -47,5 +49,13 @@ public class Scheme_Army {
 
     public void setArmy_people(Integer army_people) {
         this.army_people = army_people;
+    }
+
+    public Integer getArmy_action_group() {
+        return army_action_group;
+    }
+
+    public void setArmy_action_group(Integer army_action_group) {
+        this.army_action_group = army_action_group;
     }
 }

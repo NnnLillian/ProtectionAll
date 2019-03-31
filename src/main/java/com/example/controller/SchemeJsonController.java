@@ -56,10 +56,24 @@ public class SchemeJsonController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/AddActionGroupMsg", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+    public String AddActionGroup(@RequestBody String jsonStr) {
+        System.out.println(jsonStr);
+        String actionGroupName = jsonPaser.ParseActionGroup(jsonStr);
+        Location location = jsonPaser.ParseLocation(jsonStr);
+        Integer locationID = schemeService.GetLocationID(location.getLongitude(), location.getLatitude());
+        Action_Group actionGroup = new Action_Group(null, actionGroupName, locationID, 0,0);
+        schemeService.AddActionGroup(actionGroup);
+        Integer action_group_id = schemeService.GetActionGroupId(actionGroup);
+        return "{\"action_group_id\":" + action_group_id + "}";
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/AddSchemeArmy", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
     public String AddSchemeArmy(@RequestBody String jsonStr) {
+
         Integer scheme_id = jsonPaser.ParseSchemeId(jsonStr);
-        System.out.println(jsonStr);
+        System.out.println("AddSchemeArmy:"+ jsonStr);
         List<Scheme_Army> scheme_army_list = jsonPaser.ParseSchemeArmy(jsonStr);
         for (int i = 0; i < scheme_army_list.size(); i++) {
             scheme_army_list.get(i).setScheme_id(scheme_id);
@@ -98,7 +112,7 @@ public class SchemeJsonController {
 
     @ResponseBody
     @RequestMapping(value = "/AddTeam", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
-    public String AddRepairTeam(@RequestBody String jsonStr){
+    public String AddRepairTeam(@RequestBody String jsonStr) {
         Team team = jsonPaser.ParseTeam(jsonStr);
         List<Team_Category> team_categoryList = jsonPaser.ParseTeamCategory(jsonStr);
         List<Team_Department> team_departmentList = jsonPaser.ParseTeamDepartment(jsonStr);
@@ -122,10 +136,27 @@ public class SchemeJsonController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/GetActionGroupsMsg", method = {RequestMethod.GET})
+    public String RequestActionGroupMsg(@Param("scheme_id") String scheme_id) {
+        List<Action_Group> actionGroups = schemeService.GetActionGroups(Integer.parseInt(scheme_id));
+        System.out.println(jsonBuilder.buildActionGroupList(actionGroups));
+        return jsonBuilder.buildActionGroupList(actionGroups);
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/GetArmyMsg", method = {RequestMethod.GET})
     public String GetArmyMsg(@Param("platoon_id") Integer platoon_id) {
 
         List<Army> army_list = schemeService.RequestArmy(platoon_id);
+        System.out.println("ArmyMsg:" + army_list.size());
+        return jsonBuilder.buildArmyList(army_list);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/GetArmyMsgBy", method = {RequestMethod.GET})
+    public String GetArmyMsgByActionGroupId(@Param("action_group_id") Integer action_group_id) {
+
+        List<Army> army_list = schemeService.RequestGroupArmy(action_group_id);
         System.out.println("ArmyMsg:" + army_list.size());
         return jsonBuilder.buildArmyList(army_list);
     }
@@ -140,7 +171,7 @@ public class SchemeJsonController {
 
     @ResponseBody
     @RequestMapping(value = "/GetElementMsg", method = {RequestMethod.GET})
-    public String GetElementMsg(@Param("equipment_id") Integer equipment_id) {
+    public String GetElementMsg(@Param("equipment_id") String equipment_id) {
         System.out.println("getElementMsg");
         List<Element> element_list = equipmentService.GetElementByEquipmentId(equipment_id);
         return jsonBuilder.buildElementList(element_list);
@@ -176,17 +207,17 @@ public class SchemeJsonController {
         return jsonBuilder.buildSupplierList(supplier_list);
     }
 
-//    获得人员信息
+    //    获得人员信息
     @ResponseBody
     @RequestMapping(value = "/GetPeopleMsg", method = {RequestMethod.GET})
-    public String AddPeopleMsg(@Param("profession") String profession){
+    public String AddPeopleMsg(@Param("profession") String profession) {
         List<People> peopleList = peopleService.GetPeopleByProfession(profession);
         return jsonBuilder.buildPeopleList(peopleList);
     }
 
     @ResponseBody
     @RequestMapping(value = "/DeleteTeam", method = {RequestMethod.POST})
-    public String DeleteTeam(@RequestBody String jsonStr){
+    public String DeleteTeam(@RequestBody String jsonStr) {
         System.out.println(jsonStr);
         Integer team_id = jsonPaser.ParseTeamId(jsonStr);
         schemeService.DeleteTeam(team_id);
@@ -195,8 +226,8 @@ public class SchemeJsonController {
 
     @ResponseBody
     @RequestMapping(value = "/GetCategoryCase", method = {RequestMethod.GET})
-    public String GetCategoryCase(@Param("equipment_id") Integer category_id,@Param("case_position") String case_position) {
-        List<Category_Case> category_case_list = environmentService.GetCategoryCase(category_id,case_position);
+    public String GetCategoryCase(@Param("equipment_id") Integer category_id, @Param("case_position") String case_position) {
+        List<Category_Case> category_case_list = environmentService.GetCategoryCase(category_id, case_position);
         return jsonBuilder.buildCategoryCase(category_case_list);
     }
 }

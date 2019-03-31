@@ -12,6 +12,8 @@ public interface SchemeService {
 
     public List<Army> RequestArmy(Integer platoon_id);
 
+    public List<Army> RequestGroupArmy(Integer action_group_id);
+
     public Scheme GetSchemeBySchemeID(Integer scheme_id);
 
     public List<Army> GetArmyBySchemeID(Integer scheme_id);
@@ -22,6 +24,8 @@ public interface SchemeService {
     public Integer GetLocationID(double longitude, double latitude);
 
     public void AddSchemeArmy(Scheme_Army scheme_army);
+
+    public void AddActionGroup(Action_Group action_group);
 
     public List<Scheme_Army> GetSchemeArmyBySchemeId(Integer scheme_id);
 
@@ -35,4 +39,8 @@ public interface SchemeService {
     public void DeleteTeam(Integer team_id);
 
     public List<Team> GetTeamBySchemeIdAndTeamType(Integer scheme_id, String team_type);
+
+    public Integer GetActionGroupId(Action_Group action_group);
+
+    public List<Action_Group> GetActionGroups(Integer scheme_id);
 }

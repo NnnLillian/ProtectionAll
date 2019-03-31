@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <title>方案库-装备保障方案</title>
+
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
+    <link href="css/style.default.css" rel="stylesheet">
+
+    <link href="css/bootstrap-table.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/jquery.sparkline.min.js"></script>
+    <script src="js/toggles.min.js"></script>
+    <script src="js/jquery.cookies.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-zh-CN.js"></script>
+
+    <script src="js/bootstrap-editable.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+
+    <script src="js/custom.js"></script>
+
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="left"></div>
+
+    <div class="mainpanel">
+        <div class="head"></div>
+
+        <div class="pageheader">
+            <h2><i class="fa  fa-edit"></i> 保障方案编辑</h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="#">装备保障系统</a></li>
+                    <li class="active">编辑保障方案</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" id="platoon_name"></h4>
+                    <p>选择该旅级单位下的人员组成与数量</p>
+                </div>
+                <div class="panel-body editable-list-group">
+                    <div class="table-responsive col-md-12">
+                        <table class="table table-striped" id="onePlatoonTable"></table>
+                    </div>
+                </div><!-- panel-body -->
+                <div class="panel-footer" style="text-align: center; margin: 0 auto">
+                    <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
+                        返回
+                    </button>
+                    <button type="button" id="determineNumber" class="btn btn-primary">继续</button>
+                    <!--<input id="test">查看</input>-->
+                </div><!-- panel-footer -->
+            </div><!-- panel-default -->
+        </div><!-- contentpanel -->
+
+    </div><!-- mainpanel -->
+
+
+</section>
+
+
+<script th:inline="javascript">
+    // 加载共同头部
+    $(function () {
+        $('.left').load("left");
+        // $('.head').load("head")
+    });
+
+    $("#platoon_name").text(localStorage.getItem("platoon_name"));
+
+    var $onePlatoonTable = $('#onePlatoonTable');
+    selections = [];
+
+
+    function initTable() {
+        $onePlatoonTable.bootstrapTable({
+            method: 'GET',
+            // locale data
+            // url: 'js/tableData/json/armyList.json',
+            url: '/GetArmyMsg?platoon_id=' + localStorage.getItem("platoon_id"),
+            striped: true,   //是否显示行间隔色
+            // showHeader: true,
+            showColumns: true, //是否显示所有的列
+            showRefresh: true, //现实刷新按钮
+            clickToSelect: false,  //是否启用点击选中行
+            toolbar: '#toolbar', //工具按钮用哪个容器
+            idField: 'id',
+            editable: true, //行内编辑
+            //表格的列
+            columns: [{
+                checkbox: true
+            }, {
+                field: 'army_id',
+                title: '队伍ID',
+                visible: false,
+            }, {
+                field: 'army_name',
+                title: '队伍名称'
+            }, {
+                field: 'army_people',
+                title: '队伍人数',
+                // editable: {
+                //     type: 'number',
+                //     title: '人数',
+                //     validate: function (value) {
+                //         value = $.trim(value);
+                //         if (!value) {
+                //             return '不能为空，无人时填写0';
+                //         }
+                //     },
+                // }
+            }]
+        });
+        setTimeout(function () {
+            $onePlatoonTable.bootstrapTable('resetView');
+        }, 200);
+    }
+
+    // // getSelection问题
+    var getSelectRow = $onePlatoonTable.bootstrapTable('getSelections');
+    $('#test').click(function () {
+        console.log("getSelectionByStr: " + getSelectRow);
+        console.log("getSelectionByStrJSON: " + JSON.stringify(getSelectRow));
+        console.log("getSelections: " + $onePlatoonTable.bootstrapTable('getSelections'));
+        console.log('getSelectionsJSON:' + JSON.stringify($onePlatoonTable.bootstrapTable('getSelections')));
+        var aid = $onePlatoonTable.bootstrapTable('getSelections')[0].army_id;
+        alert(aid);
+    });
+
+    $(function () {
+        var scripts = [
+                'js/bootstrap-table.min.js',
+                'js/bootstrap-table-locale-all.min.js',
+                'js/bootstrap-table-export.min.js',
+                'js/tableExport.min.js',
+                'js/bootstrap-table-editable.js',
+                'js/bootstrap-editable.js'
+            ],
+            eachSeries = function (arr, iterator, callback) {
+                callback = callback || function () {
+                };
+                if (!arr.length) {
+                    return callback();
+                }
+                var completed = 0;
+                var iterate = function () {
+                    iterator(arr[completed], function (err) {
+                        if (err) {
+                            callback(err);
+                            callback = function () {
+                            };
+                        } else {
+                            completed += 1;
+                            if (completed >= arr.length) {
+                                callback(null);
+                            } else {
+                                iterate();
+                            }
+                        }
+                    });
+                };
+                iterate();
+            };
+        eachSeries(scripts, getScript, initTable);
+    });
+
+
+    function getScript(url, callback) {
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.src = url;
+        var done = false;
+        // Attach handlers for all browsers
+        script.onload = script.onreadystatechange = function () {
+            if (!done && (!this.readyState ||
+                this.readyState == 'loaded' || this.readyState == 'complete')) {
+                done = true;
+                if (callback)
+                    callback();
+                // Handle memory leak in IE
+                script.onload = script.onreadystatechange = null;
+            }
+        };
+        head.appendChild(script);
+        // We handle everything using the script element injection
+        return undefined;
+    }
+
+    //  【继续】跳转按钮
+    $("#determineNumber").click(function () {
+        var army_msg = [];
+        for (var i = 0; i < $onePlatoonTable.bootstrapTable('getSelections').length; i++) {
+            var army_id = $onePlatoonTable.bootstrapTable('getSelections')[i].army_id;
+            var army_people = parseInt($onePlatoonTable.bootstrapTable('getSelections')[i].army_people);
+            var scheme_army_list = {
+                army_id: army_id,
+                army_people: army_people,
+                army_action_group: null
+            };
+            var scheme_army = {
+                scheme_army: scheme_army_list
+            };
+            army_msg.push(scheme_army);
+        }
+
+        var scheme_army_list = {
+            scheme_id: localStorage.getItem("scheme_id"),
+            scheme_army_list: army_msg
+        };
+        var armyStr = JSON.stringify(scheme_army_list);
+        console.log(armyStr);
+
+        // var
+        $.ajax({
+            type: 'POST',
+            data: armyStr,
+            contentType: "application/json;charset=UTF-8",
+            url: "/AddSchemeArmy",
+            dataType: "json",
+            async: false,     // 取消异步加载
+            success: function (data) {
+                window.location.href = "/edit_step?scheme_id=" + localStorage.getItem("scheme_id");
+                // window.location.href = "/edit_step";
+            },
+            error: function () {
+                console.error("error");
+                alert("添加作战人数失败")
+            }
+        });
+    });
+</script>
+</body>
+</html>

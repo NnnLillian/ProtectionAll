@@ -53,9 +53,37 @@ public class SchemeHtmlController {
         return "edit_step";
     }
 
-    @GetMapping("/edit_people")
+    @GetMapping("/edit_action")
+    public String GetAction(Model model) {
+        List<Platoon> platoon_list = schemeService.RequestPlatoon();
+        model.addAttribute("platoon_list", platoon_list);
+        return "edit_action";
+    }
+
+    @GetMapping("/edit_people_Groups")
+    public String GetEditPeopleGroups(){
+        return "edit_people_Groups";
+    }
+
+    @GetMapping("/edit_people_oneGroup")
+    public String GetEditPeopleOneGroup(){
+        return "edit_people_oneGroup";
+    }
+
+    @GetMapping("/edit_protection")
+    public String GetEditProtection(){ return "edit_protection"; }
+
+    @GetMapping("/edit_equipment")
+    public String GetEditEquipment(@RequestParam("scheme_id") Integer scheme_id, Model model) {
+        List<Scheme_Army> army_list = schemeService.GetSchemeArmyBySchemeId(scheme_id);
+        System.out.println(scheme_id);
+        model.addAttribute("army_list", army_list);
+        return "edit_equipment";
+    }
+
+    @GetMapping("/edit_protection_group")
     public String GetEditPeople() {
-        return "edit_people";
+        return "edit_protection_group";
     }
 
     @GetMapping("/edit_step")

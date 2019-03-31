@@ -2,7 +2,7 @@ package com.example.entity;
 
 public class Spare_Part {
     private Integer spare_part_id;
-    private Integer element_id;
+    private String element_id;
     private Integer supplier_id;
     private String  spare_part_name;
     private String  spare_part_model;
@@ -11,7 +11,7 @@ public class Spare_Part {
     public Spare_Part() {
     }
 
-    public Spare_Part(Integer spare_part_id, Integer element_id, Integer supplier_id, String spare_part_name, String spare_part_model, Integer spare_part_quantity) {
+    public Spare_Part(Integer spare_part_id, String element_id, Integer supplier_id, String spare_part_name, String spare_part_model, Integer spare_part_quantity) {
         this.spare_part_id = spare_part_id;
         this.element_id = element_id;
         this.supplier_id = supplier_id;
@@ -28,11 +28,11 @@ public class Spare_Part {
         this.spare_part_id = spare_part_id;
     }
 
-    public Integer getElement_id() {
+    public String getElement_id() {
         return element_id;
     }
 
-    public void setElement_id(Integer element_id) {
+    public void setElement_id(String element_id) {
         this.element_id = element_id;
     }
 

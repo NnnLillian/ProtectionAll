@@ -12,4 +12,18 @@
     <select id="GetArmyBySchemeId" resultType="Army">
         select army_info.army_id,army_name,scheme_army_info.army_people from army_info,scheme_army_info where army_info.army_id = scheme_army_info.army_id and scheme_id = #{scheme_id}
     </select>
+    <insert id="AddActionGroup" parameterType="Action_Group">
+        insert into action_group_info (action_group_id, action_group_name, location_id) values (#{action_group_id}, #{action_group_name}, #{location_id})
+    </insert>
+    <select id="RequestGroupArmy" resultType="Army">
+        select * from army_info where army_id in (select army_id from scheme_army_info where army_action_group = #{action_group_id})
+    </select>
+
+    <select id="GetActionGroupId" resultType="Integer">
+        select action_group_id from action_group_info where action_group_name = #{action_group_name} and location_id = #{location_id}
+    </select>
+    <select id="GetActionGroupBySchemeId" resultType="Action_Group">
+        select * from action_group_info, location_info where action_group_info.location_id = location_info.location_id and  action_group_id in (select army_action_group from scheme_army_info where scheme_id = #{scheme_id})
+    </select>
+
 </mapper>

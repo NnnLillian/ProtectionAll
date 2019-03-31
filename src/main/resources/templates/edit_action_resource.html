@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <link href="images/favicon.png" rel="shortcut icon" type="image/png">
+
+    <title>编辑方案-装备保障方案</title>
+
+    <link href="css/style.default.css" rel="stylesheet">
+    <link href="css/jquery.datatables.css" rel="stylesheet">
+    <!-- datepicker -->
+    <!--<link rel='stylesheet' type='text/css' href='css/core.css'>-->
+
+    <link href="css/bootstrap-select.css" rel="stylesheet">
+    <link href="css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- baidu MapBox -->
+    <script type="text/javascript" src="baidumapv2/baidumap_offline_v2_load.js"></script>
+    <!--<script type="text/javascript" src="baidumapv2_demo/jquery.js"></script>-->
+    <script type="text/javascript" src="baidumapv2_demo/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="baidumapv2/css/baidu_map_v2.css"/>
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/jquery.sparkline.min.js"></script>
+    <script src="js/toggles.min.js"></script>
+    <script src="js/retina.min.js"></script>
+    <script src="js/jquery.cookies.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-zh-CN.js"></script>
+
+    <script src="js/custom.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+
+    <script src="js/tableData/supplyTable-data.js"></script>
+
+    <style type="text/css">
+        body, html, #map_demo {
+            width: 100%;
+            height: 100%;
+            /*overflow: hidden;*/
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+        td {
+            font-size: 14px
+        }
+
+        h4 {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="left"></div>
+
+    <div class="mainpanel">
+
+        <div class="head"></div>
+        <div class="pageheader">
+            <h2><i class="fa  fa-edit"></i> 保障方案编辑</h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="#">装备保障系统</a></li>
+                    <li class="active">编辑保障方案</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">军地保障力量</h4>
+                        <p>针对作战进程变化，合理调配保障力量，确保持续、高效地实施作战装备保障</p>
+                    </div><!-- panel-heading -->
+                    <!--原本版本 panel-body-nopadding editable-list-group作用未知-->
+                    <!--<div class="panel-body panel-body-nopadding editable-list-group">-->
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <h4></h4>
+                            <div class="col-md-12 mb10">
+                                <p>民用保障力量 : <img src="baidumapv2/images/marker_red_hd.png"></p>
+                                <p>军用保障力量 : <img src="baidumapv2/images/marker_red_sprite.png"></p>
+                            </div>
+                            <div id="localSecurity" class="col-md-12 mb40" style="height: 1000px">
+                                <!--<button onclick="addPolyLine();" class="btn btn-default mr10">生成折线</button>-->
+                                <!--<button onclick="addLine()" class="btn btn-default mr10">生成直线</button>-->
+                                <!--<button onclick="removeLine()" class="btn btn-default mr10">清除</button>-->
+                                <!--<button onclick="calDegree()" class="btn btn-default mr10">角度值</button>-->
+                                <!--<button onclick="calDistance()" class="btn btn-default mr10">距离值</button>-->
+                                <div class="mb20"></div>
+                                <div id="map_demo">map</div>
+                            </div>
+                            <hr>
+                            <div class="table-responsive">
+                                <table id="NearbySupply-table"></table>
+                            </div>
+                        </div>
+                    </div><!-- panel-body -->
+                    <div class="panel-footer" style="text-align: center; margin: 0 auto">
+                        <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
+                            返回
+                        </button>
+                        <button type="button" id="AddSchemeEquipment" class="btn btn-primary">继续</button>
+                    </div>
+                </div><!-- panel -->
+            </div><!-- row -->
+        </div><!-- contentpanel -->
+    </div><!-- mainpanel -->
+</section>
+
+
+<script>
+    // 加载共同头部
+    $(function () {
+        $('.left').load("left");
+        // $('.head').load("head");
+    });
+</script>
+
+<!-- 地方保障力量 地图导入 -->
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("map_demo", {minZoom: 5, maxZoom: 8});
+    var point = new BMap.Point(104.03369, 34.45368);
+    var myIcon = new BMap.Icon("baidumapv2/images/marker_red_hd.png", new BMap.Size(23, 25));
+
+    map.centerAndZoom(point, 6);
+    map.enableScrollWheelZoom();
+    var opts = {
+        width: 300,     // 信息窗口宽度
+        height: 135,     // 信息窗口高度
+        title: "公司信息", // 信息窗口标题
+        enableMessage: true//设置允许信息窗发送短息
+    };
+    var bounds = map.getBounds();
+    $.ajax({
+        type: 'GET',
+        url: "/GetSupplierMsg?case_position=" + localStorage.getItem("case_position"),
+        dataType: "JSON",
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            var data_info_civil = [];
+            var data_info_military = [];
+            var length = data.total;
+            console.log(data);
+            console.log(data.rows);
+            for (var i = 0; i < length; i++) {
+                if (data.rows[i].supplier_type == 1) {
+                    let data_info_item = [];
+                    data_info_item.push(data.rows[i].longitude);
+                    data_info_item.push(data.rows[i].latitude);
+                    data_info_item.push("公司：" + data.rows[i].supplier_name + "<br>联系人：" + data.rows[i].supplier_head + "<br>联系电话：" + data.rows[i].supplier_phone);
+                    data_info_civil.push(data_info_item);
+                } else {
+                    let data_info_item = [];
+                    data_info_item.push(data.rows[i].longitude);
+                    data_info_item.push(data.rows[i].latitude);
+                    data_info_item.push("公司：" + data.rows[i].supplier_name + "<br>联系人：" + data.rows[i].supplier_head + "<br>联系电话：" + data.rows[i].supplier_phone);
+                    data_info_military.push(data_info_item);
+                }
+            }
+
+            for (var i = 0; i < data_info_civil.length; i++) {
+                var marker = new BMap.Marker(new BMap.Point(data_info_civil[i][0], data_info_civil[i][1]), {icon: myIcon});  // 创建标注
+                var content = data_info_civil[i][2];
+                map.addOverlay(marker);               // 将标注添加到地图中
+                addClickHandler(content, marker);
+            }
+
+            for (var i = 0; i < data_info_military.length; i++) {
+                var marker = new BMap.Marker(new BMap.Point(data_info_military[i][0], data_info_military[i][1]));  // 创建标注
+                var content = data_info_military[i][2];
+                map.addOverlay(marker);               // 将标注添加到地图中
+                addClickHandler(content, marker);
+            }
+        },
+        error: function () {
+
+        }
+    });
+
+
+    function addClickHandler(content, marker) {
+        marker.addEventListener("click", function (e) {
+                openInfo(content, e)
+            }
+        );
+    }
+
+    function openInfo(content, e) {
+        var p = e.target;
+        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+        var infoWindow = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
+        map.openInfoWindow(infoWindow, point); //开启信息窗口
+    }
+
+
+    // 地图 button 中对应的方法
+    var polyline = new BMap.Polyline([
+        new BMap.Point(92.06, 31.28),
+        new BMap.Point(91.351, 29.625),
+        new BMap.Point(94.277, 29.546)
+    ], {strokeColor: "red", strokeWeight: 2, strokeOpacity: 0.5});
+    var line = new BMap.Polyline([
+        new BMap.Point(90.91, 29.2725),
+        new BMap.Point(91.351, 29.715)
+    ], {strokeColor: "blue", strokeWeight: 2, strokeOpacity: 0.5});
+
+    function addPolyLine() {
+        map.addOverlay(polyline);
+        polyline.enableEditing();
+    }
+
+    function addLine() {
+        map.addOverlay(line);
+        line.enableEditing();
+    }
+
+    //增加折线
+    //增加多边形
+    function removeLine() {
+        map.removeOverlay(polyline);
+        map.removeOverlay(line);
+    }
+
+    function calDegree() {
+        var pointList = polyline.getPath();
+        var p1 = new BMap.Point(pointList[0].lng - pointList[1].lng, pointList[0].lat - pointList[1].lat);
+        var p2 = new BMap.Point(pointList[2].lng - pointList[1].lng, pointList[2].lat - pointList[1].lat);
+        var res = Math.acos((p1.lng * p2.lng + p1.lat * p2.lat) / (Math.sqrt(p1.lng * p1.lng + p1.lat * p1.lat) * Math.sqrt(p2.lng * p2.lng + p2.lat * p2.lat)));
+        layer.msg(res * 180 / 3.142 + "°");
+    }
+
+    function calDistance() {
+        var pointList = line.getPath();
+        layer.msg(map.getDistance(pointList[0], pointList[1]) + "m");
+    }
+
+    // 地图表格
+    // supplyTable-data.js
+    SupplyInit("supplyMessage");
+</script>
+
+</body>
+</html>

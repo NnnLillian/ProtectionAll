@@ -4,22 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mappers.EquipmentMapper">
 
-    <resultMap id="EquipmentDate" type="com.example.entity.Equipment">
-        <result property="equipment_id" column="equipment_id"></result>
-        <result property="category_id" column="category_id"></result>
-        <result property="army_id" column="army_id"></result>
-        <result property="equipment_name" column="equipment_name"></result>
-        <result property="equipment_create" column="equipment_create"></result>
-        <association property="equipment_repair_count" column="equipment_id"
-                     select="com.example.mappers.EquipmentMapper.GetEquipmentRepairCount"></association>
-    </resultMap>
+
 
     <resultMap id="ElementDate" type="com.example.entity.Element">
         <result property="equipment_id" column="equipment_id"></result>
         <result property="category_id" column="category_id"></result>
         <result property="element_id" column="element_id"></result>
         <result property="element_type" column="element_type"></result>
-        <result property="work_time" column="work_time"></result>
         <result property="maintenance_date" column="equipment_name"></result>
         <result property="element_name" column="element_name"></result>
         <association property="maintenance_date" column="equipment_element_id"
@@ -47,12 +38,12 @@
                      select="com.example.mappers.EquipmentMapper.GetSparePartName"></association>
     </resultMap>
 
-    <select id="GetEquipmentByArmyIdAndType" resultMap="EquipmentDate">
+    <select id="GetEquipmentByArmyIdAndType" resultType="Equipment">
         select * from equipment_info where army_id = #{army_id}
         and category_id in (select category_id from category_info where category_type = #{category_type})
     </select>
 
-    <select id="GetEquipmentByPlatoonIdAndType" resultMap="EquipmentDate">
+    <select id="GetEquipmentByPlatoonIdAndType" resultType="Equipment">
         select * from equipment_info where platoon_id = #{platoon_id}
         and category_id in (select category_id from category_info where category_type = #{category_type})
     </select>
@@ -61,7 +52,7 @@
         select count(*) from element_maintain_info where equipment_element_id in (select equipment_element_id from  equipment_element_info where  equipment_id = #{equipment_id})
     </select>
 
-    <select id="GetElementByEquipmentId" resultMap="ElementDate">
+    <select id="GetElementByEquipmentId" resultType="Element">
         select equipment_element_info.*,element_info.* from element_info,equipment_element_info
         where equipment_element_info.element_id = element_info.element_id and equipment_id = #{equipment_id}
     </select>

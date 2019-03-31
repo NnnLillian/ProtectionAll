@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <link href="images/favicon.png" rel="shortcut icon" type="image/png">
+
+    <title>编辑方案-装备保障方案</title>
+
+    <link href="css/style.default.css" rel="stylesheet">
+    <link href="css/jquery.datatables.css" rel="stylesheet">
+    <!-- datepicker -->
+    <!--<link rel='stylesheet' type='text/css' href='css/core.css'>-->
+
+    <link href="css/bootstrap-select.css" rel="stylesheet">
+    <link href="css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/toggles.min.js"></script>
+    <script src="js/retina.min.js"></script>
+    <script src="js/jquery.cookies.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-zh-CN.js"></script>
+    <script src="js/bootstrap-table-editable.js"></script>
+
+    <script src="js/custom.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+
+    <script src="js/tableData/equipmentTable-data.js"></script>
+    <script src="js/tableData/elementRepairTable-data.js"></script>
+    <script src="js/tableData/elementTable-data.js"></script>
+    <script src="js/tableData/supplyTable-data.js"></script>
+
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="left"></div>
+
+    <div class="mainpanel">
+
+        <div class="head"></div>
+        <div class="pageheader">
+            <h2><i class="fa  fa-edit"></i> 保障方案编辑</h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="#">装备保障系统</a></li>
+                    <li class="active">编辑保障方案</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">作战装备选择</h4>
+                        <p>选择此次作战的装备</p>
+                    </div><!-- panel-heading -->
+                    <!--原本版本 panel-body-nopadding editable-list-group作用未知-->
+                    <!--<div class="panel-body panel-body-nopadding editable-list-group">-->
+                    <div class="panel-body">
+                        <div class="form-horizontal form-bordered">
+                            <div class="form-group">
+                                <h4>作战任务</h4>
+                                <p><code id="platoon_name"></code>率领第
+                                    <th:block th:each="item:${army_list}">
+                                        <code th:text="${item.getArmy_name()}">十二</code><span
+                                            th:text="${item.getArmy_people()}">30</span>人
+                                    </th:block>
+                                    ，向作战地区机动，于规定时间到达预定阵地展开部署，担负作战任务。
+                                </p>
+                                <hr>
+                                <!-- 携行的武器装备 -->
+                                <h4>装备表</h4>
+                                <div class="tab-pane" id="task-carryEquipments">
+                                    <div class="table-responsive">
+                                        <div id="toolbar" class="btn-group">
+                                            <!--<button id="btn_edit" type="button" class="btn btn-default">-->
+                                            <!--<span class="glyphicon glyphicon-pencil" aria-hidden="true" disabled></span>修改-->
+                                            <!--</button>-->
+                                            <!--<button id="btn_delete_equipment" type="button" class="btn btn-default" disabled="">-->
+                                            <!--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除-->
+                                            <!--</button>-->
+                                        </div>
+                                        <table id="carryEquipment-table"></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- panel-body -->
+                    <div class="panel-footer" style="text-align: center; margin: 0 auto">
+                        <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
+                            返回
+                        </button>
+                        <button type="button" id="AddSchemeEquipment" class="btn btn-primary">继续</button>
+                    </div>
+                </div><!-- panel -->
+            </div><!-- row -->
+        </div><!-- contentpanel -->
+    </div><!-- mainpanel -->
+</section>
+
+<!-- equipment 的 reliability 细节 modal -->
+<div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade bs-example-modal-lg"
+     data-backdrop="static"
+     id="reliabilityModal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                <h4 class="modal-title" id="elementMsgTitle">器材可靠性</h4>
+                <p>装备器材的部件可靠性</p>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane active elementInfo">
+                    <div class="table-responsive" id="elementTablesDiv">
+                        <table id="element-table"></table>
+                    </div>
+                    <div class="mb15"></div>
+                    <div class="table-responsive">
+                        <table id="element-repair-table"></table>
+                    </div>
+                    <hr>
+                    <div id="loaderImg" align="center">
+                        <img src="images/loaders/loader1.gif" alt="">
+                    </div>
+                    <div id="elementSuggest">
+                    </div>
+                    <hr>
+                    <div align="center">
+                        <img id="tableLoaderImg"
+                             src="images/loaders/loader1.gif">
+                    </div>
+                    <div id="applyElementTable">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 展示 某团领着某营 -->
+<script>
+    $("#platoon_name").text(localStorage.getItem("platoon_name"));
+</script>
+
+<script>
+    // 加载共同头部
+    $(function () {
+        $('.left').load("left");
+        // $('.head').load("head");
+    });
+
+    jQuery(document).ready(function () {
+
+        <!-- 提交作战装备 -->
+        jQuery('#AddSchemeEquipment').click(function () {
+            // alert('Finished');
+            location.href="/edit_protection_group";
+            var carryEquipmentRows = getCarryEquipment();
+            var scheme_equipment_list = [];
+            console.log(carryEquipmentRows);
+            for (var i = 0; i < carryEquipmentRows.length; i++) {
+                var scheme_equipment_item = {
+                    equipment_id: carryEquipmentRows[i].equipment_id
+                };
+                var scheme_equipment = {
+                    scheme_equipment: scheme_equipment_item
+                };
+                scheme_equipment_list.push(scheme_equipment);
+            }
+            var scheme = {
+                scheme_id: localStorage.getItem("scheme_id"),
+                scheme_equipment_list: scheme_equipment_list
+            };
+
+            var schemeStr = JSON.stringify(scheme);
+
+            console.log(schemeStr);
+
+            $.ajax({
+                type: 'POST',
+                data: schemeStr,
+                contentType: "application/json;charset=UTF-8",
+                url: "/AddSchemeEquipment",
+                dataType: "json",
+                async: false,     // 取消异步加载
+                success: function (data) {
+                    // alert("Add Equipment Success");
+                    window.location.href = "/scheme_show?scheme_id=" + localStorage.getItem("scheme_id");
+                    localStorage.setItem("scheme_id", data.scheme_id);
+                },
+                error: function () {
+                    console.error("error");
+
+                }
+            })
+        });
+    });
+</script>
+
+<!-- 携装装备表格录入 -->
+<script>
+    equipmentDataInit('task-carryEquipment');
+
+    function getCarryEquipment() {
+        return $("#carryEquipment-table").bootstrapTable('getSelections');
+    }
+    // 装备细节展示
+    $("#reliabilityModal").on('shown.bs.modal', function () {
+        document.getElementById("elementMsgTitle").innerHTML = localStorage.getItem("element_category_name");
+        //    查看装备元件信息
+        elementDataInit("elementReliability");
+        elementRepairDataInit("elementRepairInfo");
+        setTimeout(loadSuggest, 2000);
+        setTimeout(loadApplyTable, 2500);
+    });
+    $("#reliabilityModal").on('hidden.bs.modal', function () {
+        $("#loaderImg").show();
+        $("#tableLoaderImg").show();
+        $('#elementSuggest').hide();
+        $('#applyElementTable').hide()
+    });
+
+    function loadSuggest() {
+        $("#loaderImg").hide();
+        $('#elementSuggest').show();
+        $('#elementSuggest').load("elementSuggest/elementSuggest" + localStorage.getItem("element_category_id") + ".html");
+    }
+
+    function loadApplyTable() {
+        $("#tableLoaderImg").hide();
+        $('#applyElementTable').show();
+        $('#applyElementTable').load("elementSuggest/elementApplyTable" + localStorage.getItem("element_category_id") + ".html");
+    }
+</script>
+
+</body>
+</html>

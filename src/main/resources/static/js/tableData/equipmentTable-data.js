@@ -15,30 +15,108 @@ self.equipmentDataInit = function (name) {
                 },
                 {
                     field: 'equipment_id',
-                    title: '装备ID',
+                    title: '装备编号',
                     align: 'center',
+                    sortable: true,
                     // formatter: uidHandle,//自定義方法設置uid跳轉鏈接
-                    width:300
+                    width: 300
                 }, {
                     field: 'equipment_name',
                     title: '装备名称 ',
                     align: 'center',
-                    sortable:false   //本列不可以排序
+                    sortable: false   //本列不可以排序
                 }, {
-                    field: 'equipment_create',
-                    title: '出厂时间 ',
+                    field: 'category_unit',
+                    title: '计量单位',
+                    align: 'center',
+                }, {
+                    field: 'equipment_classis_name',
+                    title: '底盘名称 ',
                     align: 'center'
-                },
-                // {
-                // field:'equipment-service_time',
-                //     title:'装备服役时间',
-                //     align:'center'
-                //
-                // },
-                {
-                field:'equipment_repair_count',
-                    title:'大修次数',
-                    align:'center'
+                }, {
+                    field: 'maintain_whole_count',
+                    title: '大修次数 ',
+                    align: 'center'
+                }, {
+                    field: 'maintain_whole_time',
+                    title: '末次大修日期 ',
+                    align: 'center'
+                }, {
+                    field: 'equipment_manufacturer',
+                    title: '生产厂家 ',
+                    align: 'center'
+                }, {
+                    field: 'equipment_producted_time',
+                    title: '出厂年月 ',
+                    align: 'center'
+                }, {
+                    field: 'equipment_entry_time',
+                    title: '入役年月 ',
+                    align: 'center'
+                }, {
+                    field: 'equipment_state',
+                    title: '现处状态 ',
+                    align: 'center'
+                }, {
+                    field: 'equipment_quality',
+                    title: '质量状况',
+                    align: 'center'
+                }, {
+                    field: 'equipment_technology',
+                    title: '技术状态',
+                    align: 'center'
+                }, {
+                    field: 'maintain_whole_element',
+                    title: '末次大修承修单位',
+                    align: 'center'
+                }, {
+                    field: 'upgrade_times',
+                    title: '升级次数',
+                    align: 'center'
+                }, {
+                    field: 'upgrade_element',
+                    title: '升级承制单位',
+                    align: 'center'
+                }, {
+                    field: 'maintain_part_time',
+                    title: '末次中修日期',
+                    align: 'center'
+                }, {
+                    field: 'maintain_part_count',
+                    title: '中修次数',
+                    align: 'center'
+                }, {
+                    field: 'maintain_part_element',
+                    title: '末次中修承制单位',
+                    align: 'center'
+                }, {
+                    field: 'first_maintain_whole_time',
+                    title: '首次大修日期',
+                    align: 'center'
+                }, {
+                    field: 'maintain_whole_boot_time',
+                    title: '末次大修后累计开机时间',
+                    align: 'center'
+                }, {
+                    field: 'maintain_part_boot_time',
+                    title: '末次中修后累计开机时间',
+                    align: 'center'
+                }, {
+                    field: 'total_length_time',
+                    title: '总规定年限',
+                    align: 'center'
+                }, {
+                    field: 'total_specified_lfie',
+                    title: '总规定寿命',
+                    align: 'center'
+                }, {
+                    field: 'cumulative_working_time',
+                    title: '累计工作时间',
+                    align: 'center'
+                }, {
+                    field: 'post_extension_period',
+                    title: '延期后使用期限',
+                    align: 'center'
                 }
             ];
             break;
@@ -60,7 +138,7 @@ self.equipmentDataInit = function (name) {
         contentType: 'application/json,charset=utf-8',
         striped: true,                      // 隔行加亮
         // queryParamsType: "",           //設置為"undefined",可以獲取pageNumber，pageSize，searchText，sortName，sortOrder
-                                            //設置為"limit",符合 RESTFul 格式的參數,可以獲取limit, offset, search, sort, order
+        //設置為"limit",符合 RESTFul 格式的參數,可以獲取limit, offset, search, sort, order
         // queryParams: queryParams,
         sidePagination: "client",           //分頁方式：client客户端分頁，server服務端分頁（*）
         sortable: true,                     //是否啟用排序;意味着整個表格都會排序
@@ -77,6 +155,7 @@ self.equipmentDataInit = function (name) {
         pageNumber: 1,                   //初始化加載第一頁，默認第一頁
         pageSize: 10,                    //每頁的記錄行數（*）
         pageList: [10, 25, 50, 100],     //可供選擇的每頁的行數（*）
+        maintainSelected: true,             //多选框翻页保留
         paginationPreText: "<",
         paginationNextText: ">",
         paginationFirstText: "第一页",
@@ -101,11 +180,11 @@ self.equipmentDataInit = function (name) {
         },
         onCheckAll: function (row) {  //获取全部选择的数据
             console.log("clickall");
-          console.log(row);
+            console.log(row);
         },
         onUncheck: function (row) {
             console.log("uncheck");
-          console.log(row);
+            console.log(row);
         },
         onUncheckAll: function (row) {
             console.log("uncheckall");

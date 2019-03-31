@@ -65,6 +65,11 @@ public class JsonPaser {
         return scheme;
     }
 
+    public String ParseActionGroup(String jsonStr) throws JSONException{
+        JSONObject jsonObject = new JSONObject(jsonStr);
+        return jsonObject.getString("action_group_name");
+    }
+
     public List<Scheme_Army> ParseSchemeArmy(String jsonStr) throws JSONException {
         JSONObject jsonObj = new JSONObject(jsonStr);
         List<Scheme_Army> list = new ArrayList<>();

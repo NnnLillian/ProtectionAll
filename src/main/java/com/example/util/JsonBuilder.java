@@ -56,6 +56,12 @@ public class JsonBuilder {
         return resObj.toString();
     }
 
+    public String buildActionGroupList(List<Action_Group> action_groups) throws JSONException{
+        JSONObject resObj = new JSONObject();
+        resObj.put("total",action_groups.size());
+        resObj.put("rows",action_groups);
+        return resObj.toString();
+    }
     public String buildEquipmentList(List<Equipment> equipment_list) throws JSONException
     {
         JSONObject resObj = new JSONObject();
