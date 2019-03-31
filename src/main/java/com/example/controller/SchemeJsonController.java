@@ -203,6 +203,7 @@ public class SchemeJsonController {
     @ResponseBody
     @RequestMapping(value = "/GetSupplierMsg", method = {RequestMethod.GET})
     public String GetSupplierMsg(@Param("case_position") String case_position) {
+        System.out.println(case_position);
         List<Supplier> supplier_list = equipmentService.GetSupplierByPosition(case_position);
         return jsonBuilder.buildSupplierList(supplier_list);
     }

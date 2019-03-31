@@ -5,14 +5,23 @@ self.SupplyInit = function (name) {
             tableName = "NearbySupply-table";
             url = "/GetSupplierMsg?case_position=" + localStorage.getItem("case_position");
             columns = [
+                // {
+                //     checkbox: true
+                // },
+                {
+                    field: 'supplier_id',
+                    title: '公司名称',
+                    align: 'center',
+                    visible: false
+                },
                 {
                     field: 'supplier_name',
                     title: '公司名称',
-                    align: 'center',
+                    align: 'center'
                 }, {
                     field: 'supplier_head',
                     title: '联系人',
-                    align: 'center',
+                    align: 'center'
                 }, {
                     field: 'supplier_phone',
                     title: '联系方式',
@@ -20,6 +29,10 @@ self.SupplyInit = function (name) {
                 }, {
                     field: 'position_name',
                     title: '地址',
+                    align: 'center'
+                }, {
+                    field: 'supplier_type_name',
+                    title: '资源类型',
                     align: 'center'
                 }
             ];

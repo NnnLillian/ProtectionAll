@@ -160,7 +160,8 @@
     var bounds = map.getBounds();
     $.ajax({
         type: 'GET',
-        url: "/GetSupplierMsg?case_position=" + localStorage.getItem("case_position"),
+        url: "/GetSupplierMsg?case_position=4",
+        // url: "/GetSupplierMsg?case_position=" + localStorage.getItem("case_position"),
         dataType: "JSON",
         contentType: "application/json;charset=UTF-8",
         success: function (data) {
@@ -171,19 +172,21 @@
             console.log(data.rows);
             for (var i = 0; i < length; i++) {
                 if (data.rows[i].supplier_type == 1) {
-                    let data_info_item = [];
+                    var data_info_item = [];
                     data_info_item.push(data.rows[i].longitude);
                     data_info_item.push(data.rows[i].latitude);
-                    data_info_item.push("公司：" + data.rows[i].supplier_name + "<br>联系人：" + data.rows[i].supplier_head + "<br>联系电话：" + data.rows[i].supplier_phone);
+                    data_info_item.push("公司：" + data.rows[i].supplier_name + "<br>地址：" + data.rows[i].position_name + "<br>联系人：" + data.rows[i].supplier_head + "<br>联系电话：" + data.rows[i].supplier_phone);
                     data_info_civil.push(data_info_item);
                 } else {
-                    let data_info_item = [];
+                    var data_info_item = [];
                     data_info_item.push(data.rows[i].longitude);
                     data_info_item.push(data.rows[i].latitude);
-                    data_info_item.push("公司：" + data.rows[i].supplier_name + "<br>联系人：" + data.rows[i].supplier_head + "<br>联系电话：" + data.rows[i].supplier_phone);
+                    data_info_item.push("公司：" + data.rows[i].supplier_name + "<br>地址：" + data.rows[i].position_name + "<br>联系人：" + data.rows[i].supplier_head + "<br>联系电话：" + data.rows[i].supplier_phone);
                     data_info_military.push(data_info_item);
                 }
             }
+
+            console.log(data_info_military);
 
             for (var i = 0; i < data_info_civil.length; i++) {
                 var marker = new BMap.Marker(new BMap.Point(data_info_civil[i][0], data_info_civil[i][1]), {icon: myIcon});  // 创建标注
