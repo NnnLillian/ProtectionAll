@@ -74,17 +74,76 @@ self.elementDataInit = function (name) {
                 align: 'center'
             },  {
                 field: 'units_installed_number',
-                title: '保养日期',
+                title: '单装机用数',
                 align: 'center'
             },  {
+                field: 'installed_location',
+                title: '装机部位',
+                align: 'center'
+            }, {
                 field: 'element_manufacutrer',
                 title: '生产厂家',
                 align: 'center'
             }, {
-                field: 'reliability',
+                field: 'element_supplier',
+                title: '供货厂家',
+                align: 'center'
+            }, {
+                field: 'element_financing_division_of_labor',
+                title: '筹措分工',
+                align: 'center'
+            }, {
+                field: 'updateOrNot',
+                title: '是否交旧领新',
+                align: 'center'
+            }, {
+                field: 'army_reserve_standard',
+                title: '营存储标准',
+                align: 'center'
+            }, {
+                field: 'platoon_reserve_standard',
+                title: '旅存储标准',
+                align: 'center'
+            }, {
+                field: 'random_number',
+                title: '随机配备数量',
+                align: 'center'
+            }, {
+                field: 'army_initial_number',
+                title: '营初始配备数量',
+                align: 'center'
+            }, {
+                field: 'platoon_initial_number',
+                title: '旅初始配备数量',
+                align: 'center'
+            }, {
+                field: 'repairOrNot',
+                title: '是否可修',
+                align: 'center'
+            }, {
+                field: 'secretOrNot',
+                title: '是否涉密',
+                align: 'center'
+            }, {
+                field: 'repair_factory',
+                title: '承修单位',
+                align: 'center'
+            }, {
+                field: 'detection_cycle',
+                title: '检测周期',
+                align: 'center'
+            }, {
+                field: 'importantOrNot',
+                title: '是否关重件',
+                align: 'center'
+            }, {
+                field: 'importOrNot',
+                title: '是否进口件',
+                align: 'center'
+            }, {
+                field: 'comment',
                 title: '可靠性',
-                align: 'center',
-                // sortable: true,
+                align: 'center'
             }
         ],
 

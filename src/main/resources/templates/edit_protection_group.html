@@ -131,7 +131,7 @@
                         <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
                             返回
                         </button>
-                        <button type="button" id="AddSchemeEquipment" class="btn btn-primary">继续</button>
+                        <button type="button" id="addProtectionGroup" class="btn btn-primary">继续</button>
                     </div>
                 </div><!-- panel -->
             </div><!-- row -->
@@ -246,61 +246,13 @@
 
 </script>
 
-<script>
-
-    jQuery(document).ready(function () {
-        <!-- 提交保障组 -->
-        jQuery('#progressWizard .finish').click(function () {
-            // alert('Finished');
-
-            var carryEquipmentRows = getCarryEquipment();
-            var scheme_equipment_list = [];
-            console.log(carryEquipmentRows);
-            for (var i = 0; i < carryEquipmentRows.length; i++) {
-                var scheme_equipment_item = {
-                    equipment_id: carryEquipmentRows[i].equipment_id
-                };
-                var scheme_equipment = {
-                    scheme_equipment: scheme_equipment_item
-                };
-                scheme_equipment_list.push(scheme_equipment);
-            }
-            var scheme = {
-                scheme_id: localStorage.getItem("scheme_id"),
-                scheme_equipment_list: scheme_equipment_list
-            };
-
-            var schemeStr = JSON.stringify(scheme);
-
-            console.log(schemeStr);
-
-            $.ajax({
-                type: 'POST',
-                data: schemeStr,
-                contentType: "application/json;charset=UTF-8",
-                url: "/AddSchemeEquipment",
-                dataType: "json",
-                async: false,     // 取消异步加载
-                success: function (data) {
-                    // alert("Add Equipment Success");
-                    window.location.href = "/scheme_show?scheme_id=" + localStorage.getItem("scheme_id");
-                    localStorage.setItem("scheme_id", data.scheme_id);
-                },
-                error: function () {
-                    console.error("error");
-
-                }
-            })
-        });
-
-    });
-</script>
-
 <!-- 增加保障机构编组 -->
 <script type="text/javascript">
 
 
-    $("#addRepairDepartment").click(function () {
+    $("#addProtectionGroup").click(function () {
+        // 此处应该在success中实现跳转
+        location.href = "/edit_equipment?scheme_id="+ localStorage.getItem("scheme_id");
         $.ajax({
             type: 'POST',
             // data: schemeStr,

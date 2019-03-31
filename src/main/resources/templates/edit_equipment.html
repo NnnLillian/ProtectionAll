@@ -172,51 +172,48 @@
         // $('.head').load("head");
     });
 
-    jQuery(document).ready(function () {
-
-        <!-- 提交作战装备 -->
-        jQuery('#AddSchemeEquipment').click(function () {
-            // alert('Finished');
-            location.href="/edit_protection_group";
-            var carryEquipmentRows = getCarryEquipment();
-            var scheme_equipment_list = [];
-            console.log(carryEquipmentRows);
-            for (var i = 0; i < carryEquipmentRows.length; i++) {
-                var scheme_equipment_item = {
-                    equipment_id: carryEquipmentRows[i].equipment_id
-                };
-                var scheme_equipment = {
-                    scheme_equipment: scheme_equipment_item
-                };
-                scheme_equipment_list.push(scheme_equipment);
-            }
-            var scheme = {
-                scheme_id: localStorage.getItem("scheme_id"),
-                scheme_equipment_list: scheme_equipment_list
+    <!-- 提交作战装备 -->
+    jQuery('#AddSchemeEquipment').click(function () {
+        // 此处应该在success中实现跳转
+        location.href = "/edit_action_resource?scheme_id=" + localStorage.getItem("scheme_id");
+        var carryEquipmentRows = getCarryEquipment();
+        var scheme_equipment_list = [];
+        console.log(carryEquipmentRows);
+        for (var i = 0; i < carryEquipmentRows.length; i++) {
+            var scheme_equipment_item = {
+                equipment_id: carryEquipmentRows[i].equipment_id
             };
+            var scheme_equipment = {
+                scheme_equipment: scheme_equipment_item
+            };
+            scheme_equipment_list.push(scheme_equipment);
+        }
+        var scheme = {
+            scheme_id: localStorage.getItem("scheme_id"),
+            scheme_equipment_list: scheme_equipment_list
+        };
 
-            var schemeStr = JSON.stringify(scheme);
+        var schemeStr = JSON.stringify(scheme);
 
-            console.log(schemeStr);
+        console.log(schemeStr);
 
-            $.ajax({
-                type: 'POST',
-                data: schemeStr,
-                contentType: "application/json;charset=UTF-8",
-                url: "/AddSchemeEquipment",
-                dataType: "json",
-                async: false,     // 取消异步加载
-                success: function (data) {
-                    // alert("Add Equipment Success");
-                    window.location.href = "/scheme_show?scheme_id=" + localStorage.getItem("scheme_id");
-                    localStorage.setItem("scheme_id", data.scheme_id);
-                },
-                error: function () {
-                    console.error("error");
+        $.ajax({
+            type: 'POST',
+            data: schemeStr,
+            contentType: "application/json;charset=UTF-8",
+            url: "/AddSchemeEquipment",
+            dataType: "json",
+            async: false,     // 取消异步加载
+            success: function (data) {
+                // alert("Add Equipment Success");
+                window.location.href = "/scheme_show?scheme_id=" + localStorage.getItem("scheme_id");
+                localStorage.setItem("scheme_id", data.scheme_id);
+            },
+            error: function () {
+                console.error("error");
 
-                }
-            })
-        });
+            }
+        })
     });
 </script>
 
@@ -227,6 +224,7 @@
     function getCarryEquipment() {
         return $("#carryEquipment-table").bootstrapTable('getSelections');
     }
+
     // 装备细节展示
     $("#reliabilityModal").on('shown.bs.modal', function () {
         document.getElementById("elementMsgTitle").innerHTML = localStorage.getItem("element_category_name");

@@ -174,3 +174,8 @@ return
     "case_position":"3"
 	}]
 }
+
+
+(Integer)scheme_id,(String)team_type) ‰»Î
+List<Team>team_list ‰≥ˆ
+select * from team_info where group_id = (select group_id from group_info where scheme_id = #{scheme_id}) and 	team_type = #{team_type}

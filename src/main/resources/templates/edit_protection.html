@@ -240,7 +240,7 @@
             var highLevel = $('#highLevel option:selected').val();
             var sameLevel = $('#sameLevel').select2("val");
             var scheme_safeguard = [];
-            for (let i in sameLevel) {
+            for (var i in sameLevel) {
                 var platoonId = {
                     platoon_id: sameLevel[i]
                 };
@@ -258,7 +258,7 @@
 
             var schemeStr = JSON.stringify(scheme);
 
-            location.href = "/edit_equipment?scheme_id="+ localStorage.getItem("scheme_id");
+            location.href = "/edit_protection_group";
 
             $.ajax({
                 type: 'POST',
