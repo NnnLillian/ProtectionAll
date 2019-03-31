@@ -125,7 +125,7 @@
                         <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
                             返回
                         </button>
-                        <button type="button" id="AddSchemeEquipment" class="btn btn-primary">继续</button>
+                        <button type="button" id="NextPage" class="btn btn-primary" onclick="location.href='/ShowMap'">继续</button>
                     </div>
                 </div><!-- panel -->
             </div><!-- row -->
@@ -160,8 +160,8 @@
     var bounds = map.getBounds();
     $.ajax({
         type: 'GET',
-        url: "/GetSupplierMsg?case_position=4",
-        // url: "/GetSupplierMsg?case_position=" + localStorage.getItem("case_position"),
+        // url: "/GetSupplierMsg?case_position=4",
+        url: "/GetSupplierMsg?case_position=" + localStorage.getItem("case_position"),
         dataType: "JSON",
         contentType: "application/json;charset=UTF-8",
         success: function (data) {
