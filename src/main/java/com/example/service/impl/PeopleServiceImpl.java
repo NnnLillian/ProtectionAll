@@ -26,6 +26,11 @@ public class PeopleServiceImpl implements PeopleService {
     }
 
     @Override
+    public List<People> GetPeopleByArmyType(String army_type) {
+        return peopleMapper.GetPeopleByArmyType(army_type);
+    }
+
+    @Override
     public void AddPeople(People people) {
         Integer id = people.getPeople_id();
         if (id == null) {

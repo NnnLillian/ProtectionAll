@@ -218,8 +218,13 @@ public class SchemeJsonController {
     //    获得人员信息
     @ResponseBody
     @RequestMapping(value = "/GetPeopleMsg", method = {RequestMethod.GET})
-    public String AddPeopleMsg(@Param("profession") String profession) {
-        List<People> peopleList = peopleService.GetPeopleByProfession(profession);
+    public String AddPeopleMsg(@Param("army_type") String army_type) {
+        String Both = "both";
+        List<People> peopleList=peopleService.GetPeopleByArmyType("expert");
+        if (army_type.equals(Both)){
+            List<People> peopleList2 = peopleService.GetPeopleByArmyType("engineer");
+            peopleList.addAll(peopleList2);
+        }
         return jsonBuilder.buildPeopleList(peopleList);
     }
 

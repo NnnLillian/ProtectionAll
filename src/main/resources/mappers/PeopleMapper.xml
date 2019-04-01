@@ -9,6 +9,9 @@
     <select id="GetPeopleByProfession" resultType="com.example.entity.People">
         select * from people_info where people_profession = #{people_profession}
     </select>
+    <select id="GetPeopleByArmyType" resultType="com.example.entity.People">
+        select * from people_info where people_army_id = (select army_id from army_info where army_type = #{army_info})
+    </select>
     <insert id="AddPeople" parameterType="com.example.entity.People">
         insert into people_info values(#{people_id},#{people_name},#{people_profession},#{people_army_id})
     </insert>
