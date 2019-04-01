@@ -47,6 +47,30 @@ public class SchemeHtmlController {
     public String GetTem() {
         return "geographic_temperature";
     }
+    @GetMapping("/geographic_rainfall")
+    public String GetRain() {
+        return "geographic_rainfall";
+    }
+    @GetMapping("/geographic_snowfall")
+    public String GetSnow() {
+        return "geographic_snowfall";
+    }
+    @GetMapping("/geographic_sunshine")
+    public String GetSunshine() {
+        return "geographic_sunshine";
+    }
+    @GetMapping("/geographic_windLevel")
+    public String GetWind() {
+        return "geographic_windLevel";
+    }
+    @GetMapping("/geographic_AirPressure")
+    public String GetPress() {
+        return "geographic_AirPressure";
+    }
+    @GetMapping("/geographic_corrosion")
+    public String GetCorrosion() {
+        return "geographic_corrosion";
+    }
 
     @GetMapping("/next")
     public String GetNext() {

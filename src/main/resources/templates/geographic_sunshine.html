@@ -5,7 +5,7 @@
 <!--<title>Air pressure</title>-->
 <!--</head>-->
 <!--<body>-->
-<div id="temperaturetable" style="width:64%;height:500px; float: left"></div>
+<div id="sunshinetable" style="width:64%;height:500px; float: left"></div>
 <div style="width: 36%;float: right">
     <ul id="descriptionTips">
     </ul>
@@ -13,8 +13,9 @@
 <!--<script src="js/jquery-1.11.1.min.js"></script>-->
 <!--<script src="js/echarts.js"></script>-->
 <script type="text/javascript">
-    var temperatureChart = echarts.init(document.getElementById('temperaturetable'));
-    var TemperatureDataList = [];
+    var sunshineChart = echarts.init(document.getElementById('sunshinetable'));
+    var SunshineList = [];
+    var WholeSunshineList = [];
     // var DataList = [];
     $("#document").ready(function () {
         $.ajax({
@@ -28,8 +29,25 @@
                 var data_list = data.data_list;
                 console.log(data_list);
                 for (var i = 0; i < data_list.length; i++) {
-                    TemperatureDataList.push(data_list[i].temperature);
-                    // DataList.push(data_list[i].month_time);
+                    var sunshine = data_list[i].sunshine;
+                    var month =data_list[i].month_time;
+                    var wholeSun;
+                    SunshineList.push(sunshine);
+                    // DataList.push(month);
+                    switch (month) {
+                        case 2:
+                            wholeSun = 28*sunshine;
+                            break;
+                        case 4:
+                        case 6:
+                        case 9:
+                        case 11:
+                            wholeSun = 30*sunshine;
+                            break;
+                        default:
+                            wholeSun = 31*sunshine;
+                    }
+                    WholeSunshineList.push(wholeSun);
                 }
                 // 指定图表的配置项和数据
                 var option = {
@@ -41,20 +59,20 @@
                         {
                             var relVal = params[0].name+'月';
                             for (var i = 0, l = params.length; i < l; i++) {
-                                relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value+"°C";
+                                relVal += '<br/>'+ params[i].seriesName + ' : '+ params[i].value;
                             }
                             return relVal;
                         }
                     },
                     legend: {
-                        data: ['温度数据']
+                        data: ['总日照','平均日照']
                     },
                     toolbox: {
                         feature: {
                             saveAsImage: {}
                         }
                     },
-                    calculable: true,
+                    // calculable: true,
                     xAxis: [
                         {
                             axisLabel: {
@@ -64,57 +82,65 @@
                             },
                             axisLine: {
                                 lineStyle: {
-                                    // color: '#000080'
+                                    // color: '#e97817'
                                 }
                             },
                             type: 'category',
                             axisTick: {
                                 alignWithLabel: true
                             },
-                            boundaryGap: false,
+                            // boundaryGap: false,
                             data: DataList
                         }
                     ],
                     yAxis: [
                         {
                             type: 'value',
-                            name: '温度',
+                            name: '总日照',
+                            min:0,
+                            max:300,
+                            position: 'right',
                             axisLine: {
                                 lineStyle: {
-                                    // color: '#000080'
+                                    color: '#0d60b7'
                                 }
-                            },
-                            axisLabel:{
-                                formatter: '{value} °C'
+                            }
+                        },
+                        {
+                            type: 'value',
+                            name: '平均日照',
+                            min:0,
+                            max:10,
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#e97817'
+                                }
                             }
                         }
                     ],
                     series: [
                         {
-                            name: '温度数据',
+                            name: '总日照',
+                            type: 'bar',
+                            // symbol: 'none',  // 设置之后无小点
+                            // smooth: true,
+                            barWidth: '30%',
+                            color: ['#0d60b7'],
+                            data: WholeSunshineList
+                        },
+                        {
+                            name: '平均日照',
                             type: 'line',
                             // symbol: 'none',  // 设置之后无小点
-                            smooth: true,
-                            color: ['#15971f'],
-                            data: TemperatureDataList,
-                            // 在 轴 上显示数据
-                            // itemStyle: {
-                            //     normal: {
-                            //         label: {
-                            //             show: true,
-                            //             position: 'top',
-                            //             textStyle: {
-                            //                 color: 'black',
-                            //                 fontSize: 12
-                            //             },
-                            //         }
-                            //     }
-                            // }
+                            // smooth: true,
+                            color: ['#e97817'],
+                            yAxisIndex: 1,
+                            data: SunshineList
                         }
                     ]
                 };
                 // 使用刚指定的配置项和数据显示图表。
-                temperatureChart.setOption(option);
+                sunshineChart.setOption(option);
 
                 // 特情部分的获取
                 var case_list = data.case_list;

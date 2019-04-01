@@ -5,7 +5,7 @@
 <!--<title>Air pressure</title>-->
 <!--</head>-->
 <!--<body>-->
-<div id="temperaturetable" style="width:64%;height:500px; float: left"></div>
+<div id="pressuretable" style="width:64%;height:500px; float: left"></div>
 <div style="width: 36%;float: right">
     <ul id="descriptionTips">
     </ul>
@@ -13,13 +13,13 @@
 <!--<script src="js/jquery-1.11.1.min.js"></script>-->
 <!--<script src="js/echarts.js"></script>-->
 <script type="text/javascript">
-    var temperatureChart = echarts.init(document.getElementById('temperaturetable'));
-    var TemperatureDataList = [];
-    // var DataList = [];
+    var pressureChart = echarts.init(document.getElementById('pressuretable'));
+    var PressureDataList = [];
+    var pressureMonthList = [];
     $("#document").ready(function () {
         $.ajax({
             type: 'GET',
-            url: '/GetEnvironment?scheme_id=' + localStorage.getItem("scheme_id") + '&month=' + localStorage.getItem("month") + '&type=temperature',
+            url: '/GetEnvironment?scheme_id=' + localStorage.getItem("scheme_id") + '&month=' + localStorage.getItem("month") + '&type=pressure',
             contentType: 'application/json',
             dataType: 'JSON',
             data: {index: 0},
@@ -28,8 +28,8 @@
                 var data_list = data.data_list;
                 console.log(data_list);
                 for (var i = 0; i < data_list.length; i++) {
-                    TemperatureDataList.push(data_list[i].temperature);
-                    // DataList.push(data_list[i].month_time);
+                    PressureDataList.push(data_list[i].pressure);
+                    pressureMonthList.push(data_list[i].month_time);
                 }
                 // 指定图表的配置项和数据
                 var option = {
@@ -39,15 +39,15 @@
                         // axisPointer: {type: 'cross'}
                         formatter:function(params)
                         {
-                            var relVal = params[0].name+'月';
+                            var relVal = params[0].name +'月';
                             for (var i = 0, l = params.length; i < l; i++) {
-                                relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value+"°C";
+                                relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value;
                             }
                             return relVal;
                         }
                     },
                     legend: {
-                        data: ['温度数据']
+                        data: ['气压数据']
                     },
                     toolbox: {
                         feature: {
@@ -72,31 +72,32 @@
                                 alignWithLabel: true
                             },
                             boundaryGap: false,
-                            data: DataList
+                            data: pressureMonthList
                         }
                     ],
                     yAxis: [
                         {
                             type: 'value',
-                            name: '温度',
+                            name: '压强',
+                            min:6150,
                             axisLine: {
                                 lineStyle: {
                                     // color: '#000080'
                                 }
                             },
                             axisLabel:{
-                                formatter: '{value} °C'
+                                formatter: '{value} psk'
                             }
                         }
                     ],
                     series: [
                         {
-                            name: '温度数据',
+                            name: '气压数据',
                             type: 'line',
                             // symbol: 'none',  // 设置之后无小点
                             smooth: true,
                             color: ['#15971f'],
-                            data: TemperatureDataList,
+                            data: PressureDataList
                             // 在 轴 上显示数据
                             // itemStyle: {
                             //     normal: {
@@ -114,7 +115,7 @@
                     ]
                 };
                 // 使用刚指定的配置项和数据显示图表。
-                temperatureChart.setOption(option);
+                pressureChart.setOption(option);
 
                 // 特情部分的获取
                 var case_list = data.case_list;

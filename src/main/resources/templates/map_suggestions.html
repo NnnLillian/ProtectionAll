@@ -31,6 +31,7 @@
     <script src="js/toggles.min.js"></script>
     <script src="js/retina.min.js"></script>
     <script src="js/jquery.cookies.js"></script>
+    <script src="js/echarts.js"></script>
 
     <script src="js/jquery.datatables.min.js"></script>
     <script src="js/raphael-2.1.0.min.js"></script>
@@ -38,7 +39,6 @@
     <script src="js/select2.min.js"></script>
 
     <script src="js/custom.js"></script>
-    <script src="js/dashboard.js"></script>
 
     <!--&lt;!&ndash; 折线图 &ndash;&gt;-->
     <script src="js/flot/jquery.flot.min.js"></script>
@@ -124,11 +124,90 @@
                     <div class="row col-md-12">
                             <h5 class="subtitle mb5">温度图表</h5>
                             <p class="mb15"></p>
-                            <div id="pressureTable" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
+                            <div id="temperature" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
                     </div><!-- row -->
                 </div><!-- panel-body -->
             </div><!-- panel -->
 
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">历史气压数据</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row col-md-12">
+                        <h5 class="subtitle mb5">气压数据表</h5>
+                        <p class="mb15"></p>
+                        <div id="airPressure" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
+                    </div><!-- row -->
+                </div><!-- panel-body -->
+            </div><!-- panel -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">历史风沙数据</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row col-md-12">
+                        <h5 class="subtitle mb5">风沙数据表</h5>
+                        <p class="mb15"></p>
+                        <div id="corrosion" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
+                    </div><!-- row -->
+                </div><!-- panel-body -->
+            </div><!-- panel -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">历史降雨量数据</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row col-md-12">
+                        <h5 class="subtitle mb5">降雨量图表</h5>
+                        <p class="mb15"></p>
+                        <div id="rainfall" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
+                    </div><!-- row -->
+                </div><!-- panel-body -->
+            </div><!-- panel -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">历史降雪量数据</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row col-md-12">
+                        <h5 class="subtitle mb5">降雪量图表</h5>
+                        <p class="mb15"></p>
+                        <div id="snowfall" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
+                    </div><!-- row -->
+                </div><!-- panel-body -->
+            </div><!-- panel -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">历史日照数据</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row col-md-12">
+                        <h5 class="subtitle mb5">日照图表</h5>
+                        <p class="mb15"></p>
+                        <div id="sunshine" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
+                    </div><!-- row -->
+                </div><!-- panel-body -->
+            </div><!-- panel -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">历史风速数据</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row col-md-12">
+                        <h5 class="subtitle mb5">风速数据表</h5>
+                        <p class="mb15"></p>
+                        <div id="windLevel" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
+                    </div><!-- row -->
+                </div><!-- panel-body -->
+            </div><!-- panel -->
+
+            // 前端写死的部分
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h5 class="panel-title">历史气压数据</h5>
@@ -281,131 +360,16 @@
         })
     });
 
-    // 加载压力图
-    $("#pressureTable").load("geographic_temperature");
+    // 加载数据图表
+    $("#temperature").load("geographic_temperature");
+    $("#airPressure").load("geographic_AirPressure");
+    $("#corrosion").load("geographic_corrosion");
+    $("#rainfall").load("geographic_rainfall");
+    $("#snowfall").load("geographic_snowfall");
+    $("#sunshine").load("geographic_sunshine");
+    $("#windLevel").load("geographic_windLevel");
 
 </script>
-
-<!-- 折线图 -->
-<!--<script type="text/javascript">-->
-    <!--// 基于准备好的dom，初始化echarts实例-->
-    <!--var myChart = echarts.init(document.getElementById('sandyDataTable'));-->
-
-    <!--// 指定图表的配置项和数据-->
-    <!--var option = {-->
-        <!--backgroundColor: '#FBFBFB',-->
-        <!--tooltip: {-->
-            <!--trigger: 'axis'-->
-        <!--},-->
-        <!--legend: {-->
-            <!--data: ['沙尘数据']-->
-        <!--},-->
-
-        <!--calculable: true,-->
-
-
-        <!--xAxis: [-->
-            <!--{-->
-                <!--axisLabel: {-->
-                    <!--rotate: 30,-->
-                    <!--interval: 0-->
-                <!--},-->
-                <!--axisLine: {-->
-                    <!--lineStyle: {-->
-<!--//                        color: '#000080'-->
-                    <!--}-->
-                <!--},-->
-                <!--type: 'category',-->
-                <!--boundaryGap: false,-->
-                <!--data: function () {-->
-                    <!--var list = [];-->
-                    <!--for (var i = 0; i <= 7; i++) {-->
-                        <!--list.push('2017-' + (i - 0));-->
-                    <!--}-->
-                    <!--return list;-->
-                <!--}()-->
-            <!--}-->
-        <!--],-->
-        <!--yAxis: [-->
-            <!--{-->
-
-                <!--type: 'value',-->
-                <!--axisLine: {-->
-                    <!--lineStyle: {-->
-<!--//                        color: '#000080'-->
-                    <!--}-->
-                <!--}-->
-            <!--}-->
-        <!--],-->
-        <!--series: [-->
-            <!--{-->
-                <!--name: '作战期间沙尘颗粒数据',-->
-                <!--type: 'line',-->
-                <!--symbol: 'none',-->
-                <!--smooth: true,-->
-                <!--color: ['#808000'],-->
-                <!--data: [80, 140, 100, 35, 40, 50, 30, 45],-->
-                <!--itemStyle: {-->
-                    <!--normal: {-->
-                        <!--label: {-->
-                            <!--show: true,-->
-                            <!--position: 'top',-->
-                            <!--textStyle: {-->
-                                <!--color: 'black',-->
-                                <!--fontSize: 16-->
-                            <!--}-->
-                        <!--}-->
-                    <!--}-->
-                <!--}-->
-            <!--}-->
-        <!--]-->
-    <!--};-->
-
-    <!--// 使用刚指定的配置项和数据显示图表。-->
-    <!--myChart.setOption(option);-->
-<!--</script>-->
-
-<!-- 柱状图 -->
-<!--<script type="text/javascript">-->
-    <!--// 基于准备好的dom，初始化echarts实例-->
-    <!--var myChart = echarts.init(document.getElementById('rainyDataTable'));-->
-
-    <!--// 指定图表的配置项和数据-->
-    <!--var option = {-->
-        <!--// title: {-->
-        <!--//     text: '历史雨雪数据'-->
-        <!--// },-->
-        <!--tooltip: {},-->
-        <!--legend: {-->
-            <!--data: ['每日平均', '小时最高', '月总降水量']-->
-        <!--},-->
-        <!--xAxis: {-->
-            <!--data: ["2017年1月", "2月", "3月", "4月", "5月", "6月"],-->
-            <!--type: 'category'-->
-        <!--},-->
-        <!--yAxis: {},-->
-        <!--series: [{-->
-            <!--name: '每日平均',-->
-            <!--smooth: true,-->
-            <!--type: 'bar',-->
-            <!--data: [0.2, 0.5, 0.4, 0.5, 1, 0]-->
-        <!--}, {-->
-            <!--name: '小时最高',-->
-            <!--smooth: true,-->
-            <!--type: 'bar',-->
-            <!--data: [0, 0, 0, 1, 2, 0]-->
-        <!--}, {-->
-            <!--name: '月总降水量',-->
-            <!--smooth: true,-->
-            <!--type: 'bar',-->
-            <!--data: [0, 0, 3, 5, 20, 13]-->
-        <!--}]-->
-    <!--};-->
-
-    <!--// 使用刚指定的配置项和数据显示图表。-->
-    <!--myChart.setOption(option);-->
-<!--</script>-->
-
 
 <!-- 百度地图APP　-->
 <script type="text/javascript">

@@ -5,7 +5,7 @@
 <!--<title>Air pressure</title>-->
 <!--</head>-->
 <!--<body>-->
-<div id="temperaturetable" style="width:64%;height:500px; float: left"></div>
+<div id="rainfalltable" style="width:64%;height:500px; float: left"></div>
 <div style="width: 36%;float: right">
     <ul id="descriptionTips">
     </ul>
@@ -13,13 +13,14 @@
 <!--<script src="js/jquery-1.11.1.min.js"></script>-->
 <!--<script src="js/echarts.js"></script>-->
 <script type="text/javascript">
-    var temperatureChart = echarts.init(document.getElementById('temperaturetable'));
-    var TemperatureDataList = [];
+    var rainfallChart = echarts.init(document.getElementById('rainfalltable'));
+    var RainfalleDataList = [];
+    var EveryRainfalleDataList =[];
     // var DataList = [];
     $("#document").ready(function () {
         $.ajax({
             type: 'GET',
-            url: '/GetEnvironment?scheme_id=' + localStorage.getItem("scheme_id") + '&month=' + localStorage.getItem("month") + '&type=temperature',
+            url: '/GetEnvironment?scheme_id=' + localStorage.getItem("scheme_id") + '&month=' + localStorage.getItem("month") + '&type=rainfall',
             contentType: 'application/json',
             dataType: 'JSON',
             data: {index: 0},
@@ -28,26 +29,43 @@
                 var data_list = data.data_list;
                 console.log(data_list);
                 for (var i = 0; i < data_list.length; i++) {
-                    TemperatureDataList.push(data_list[i].temperature);
-                    // DataList.push(data_list[i].month_time);
+                    var rainfall = data_list[i].rainfall;
+                    var month = data_list[i].month_time;
+                    var Rain;
+                    RainfalleDataList.push(rainfall);
+                    // DataList.push(month);
+                    switch (month) {
+                        case 2:
+                            Rain = Math.round(rainfall/28);
+                            break;
+                        case 4:
+                        case 6:
+                        case 9:
+                        case 11:
+                            Rain = Math.round(rainfall/30);
+                            break;
+                        default:
+                           Rain = Math.round(rainfall/31);
+                    }
+                    EveryRainfalleDataList.push(Rain);
                 }
                 // 指定图表的配置项和数据
                 var option = {
                     backgroundColor: '#FBFBFB',
                     tooltip: {
                         trigger: 'axis',
-                        // axisPointer: {type: 'cross'}
+                        axisPointer: {type: 'shadow'},
                         formatter:function(params)
                         {
-                            var relVal = params[0].name+'月';
+                            var relVal = params[0].name + '月';
                             for (var i = 0, l = params.length; i < l; i++) {
-                                relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value+"°C";
+                                relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value+" ml";
                             }
                             return relVal;
                         }
                     },
                     legend: {
-                        data: ['温度数据']
+                        data: ['月总降雨量','每日平均雨量']
                     },
                     toolbox: {
                         feature: {
@@ -58,63 +76,51 @@
                     xAxis: [
                         {
                             axisLabel: {
-                                // rotate: 30,
-                                // interval: 0
                                 formatter: '{value} 月'
-                            },
-                            axisLine: {
-                                lineStyle: {
-                                    // color: '#000080'
-                                }
                             },
                             type: 'category',
                             axisTick: {
-                                alignWithLabel: true
+                                // alignWithLabel: true
+                                show: false
                             },
-                            boundaryGap: false,
-                            data: DataList
+                            // data: DataList
                         }
                     ],
                     yAxis: [
                         {
                             type: 'value',
-                            name: '温度',
+                            name: '降雨量',
                             axisLine: {
                                 lineStyle: {
                                     // color: '#000080'
                                 }
                             },
                             axisLabel:{
-                                formatter: '{value} °C'
+                                formatter: '{value} ml'
                             }
                         }
                     ],
                     series: [
                         {
-                            name: '温度数据',
-                            type: 'line',
-                            // symbol: 'none',  // 设置之后无小点
-                            smooth: true,
-                            color: ['#15971f'],
-                            data: TemperatureDataList,
-                            // 在 轴 上显示数据
-                            // itemStyle: {
-                            //     normal: {
-                            //         label: {
-                            //             show: true,
-                            //             position: 'top',
-                            //             textStyle: {
-                            //                 color: 'black',
-                            //                 fontSize: 12
-                            //             },
-                            //         }
-                            //     }
-                            // }
+                            name: '月总降雨量',
+                            type: 'bar',
+                            barGap:0.1,
+                            barWidth:'20%',
+                            // smooth: true,
+                            color: ['#003366'],
+                            data: RainfalleDataList
+                        },{
+                            name: '每日平均雨量',
+                            type: 'bar',
+                            // smooth: true,
+                            color: ['#006699'],
+                            barWidth:'20%',
+                            data: EveryRainfalleDataList
                         }
                     ]
                 };
                 // 使用刚指定的配置项和数据显示图表。
-                temperatureChart.setOption(option);
+                rainfallChart.setOption(option);
 
                 // 特情部分的获取
                 var case_list = data.case_list;
