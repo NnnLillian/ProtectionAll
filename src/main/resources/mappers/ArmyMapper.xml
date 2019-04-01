@@ -27,5 +27,8 @@
     <select id="GetActionGroupBySchemeId" resultType="Action_Group">
         select * from action_group_info, location_info where action_group_info.location_id = location_info.location_id and  action_group_id in (select army_action_group from scheme_army_info where scheme_id = #{scheme_id})
     </select>
+    <delete id="DeleteActionGroup">
+        delete from action_group_info where action_group_id = #{action_group_id}
+    </delete>
 
 </mapper>

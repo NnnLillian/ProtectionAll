@@ -36,4 +36,6 @@ public interface SchemeMapper {
     public void DeleteSchemeEquipment(@Param("scheme_id") Integer scheme_id, @Param("equipment_id") Integer equipment_id);
 
     public void DeleteScheme(@Param("scheme_id") Integer scheme_id);
+
+    public void DeleteSchemeActionGroup(@Param("action_group_id") Integer army_action_group);
 }

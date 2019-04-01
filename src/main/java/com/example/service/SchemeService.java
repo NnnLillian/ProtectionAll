@@ -41,6 +41,8 @@ public interface SchemeService {
 
     public void DeleteTeam(Integer team_id);
 
+    public void DeleteActionGroup(Integer action_group_id);
+
     public List<Team> GetTeamBySchemeIdAndTeamType(Integer scheme_id, String team_type);
 
     public Integer GetActionGroupId(Action_Group action_group);

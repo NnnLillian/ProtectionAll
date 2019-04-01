@@ -26,19 +26,14 @@
     <select id="GetSchemeEquipmentBySchemeId" resultType="com.example.entity.Equipment">
         select * from equipment_info where equipment_id in (select equipment_id from scheme_equipment_info where scheme_id = #{scheme_id})
     </select>
-
-
-
     <insert id="AddScheme" parameterType="com.example.entity.Scheme">
         insert into scheme_info(scheme_name,scheme_code,location_id,scheme_type,combat_direction,scheme_begin_time,scheme_end_time)
         values (#{scheme_name},#{scheme_code},#{location_id},#{scheme_type},#{combat_direction},#{scheme_begin_time},#{scheme_end_time})
     </insert>
-
     <insert id="AddSchemeEquipment">
         insert into scheme_equipment_info(scheme_id,equipment_id)
         values(#{scheme_id},#{equipment_id})
     </insert>
-
     <insert id="AddSchemeArmy">
         insert into scheme_army_info(scheme_id,army_id,army_people,army_action_group)
         values(#{scheme_id},#{army_id},#{army_people},#{army_action_group})
@@ -89,5 +84,9 @@
 
     <delete id="DeleteScheme">
         delete from scheme_info where scheme_id = #{scheme_id}
+    </delete>
+
+    <delete id="DeleteSchemeActionGroup">
+        delete from scheme_army_info where army_action_group = #{action_group_id}
     </delete>
 </mapper>

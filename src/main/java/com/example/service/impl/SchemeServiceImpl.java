@@ -150,6 +150,12 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
+    public void DeleteActionGroup(Integer action_group_id) {
+        schemeMapper.DeleteSchemeActionGroup(action_group_id);
+        armyMapper.DeleteActionGroup(action_group_id);
+    }
+
+    @Override
     public List<Team> GetTeamBySchemeIdAndTeamType(Integer scheme_id, String team_type) {
         return groupMapper.GetTeamBySchemeIdAndTeamType(scheme_id, team_type);
     }

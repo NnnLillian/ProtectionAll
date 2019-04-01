@@ -233,6 +233,13 @@ public class SchemeJsonController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/DeleteActionGroup", method = {RequestMethod.DELETE})
+    public void DeleteActionGroup(@Param("groupId") Integer groupId) {
+        System.out.println(groupId);
+        schemeService.DeleteActionGroup(groupId);
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/GetCategoryCase", method = {RequestMethod.GET})
     public String GetCategoryCase(@Param("equipment_id") Integer category_id, @Param("case_position") String case_position) {
         List<Category_Case> category_case_list = environmentService.GetCategoryCase(category_id, case_position);
