@@ -62,7 +62,7 @@ public class SchemeJsonController {
         String actionGroupName = jsonPaser.ParseActionGroup(jsonStr);
         Location location = jsonPaser.ParseLocation(jsonStr);
         Integer locationID = schemeService.GetLocationID(location.getLongitude(), location.getLatitude());
-        Action_Group actionGroup = new Action_Group(null, actionGroupName, locationID, 0,0);
+        Action_Group actionGroup = new Action_Group(null, actionGroupName, locationID, 0, 0);
         schemeService.AddActionGroup(actionGroup);
         Integer action_group_id = schemeService.GetActionGroupId(actionGroup);
         return "{\"action_group_id\":" + action_group_id + "}";
@@ -73,7 +73,7 @@ public class SchemeJsonController {
     public String AddSchemeArmy(@RequestBody String jsonStr) {
 
         Integer scheme_id = jsonPaser.ParseSchemeId(jsonStr);
-        System.out.println("AddSchemeArmy:"+ jsonStr);
+        System.out.println("AddSchemeArmy:" + jsonStr);
         List<Scheme_Army> scheme_army_list = jsonPaser.ParseSchemeArmy(jsonStr);
         for (int i = 0; i < scheme_army_list.size(); i++) {
             scheme_army_list.get(i).setScheme_id(scheme_id);
@@ -129,7 +129,7 @@ public class SchemeJsonController {
         Integer month_number = Integer.parseInt(month);
         System.out.println(scheme.getCombat_direction() + "......" + month_number + "........." + type);
 //        List<Environment> environment_list = environmentService.GetEnvironment(1);
-        String case_position =scheme.getCombat_direction();
+        String case_position = scheme.getCombat_direction();
         List<Environment> environment_list = environmentService.GetEnvironmentByCasePosition(case_position);
         System.out.println(environment_list);
         Special_Case special_case = new Special_Case(null, scheme.getCombat_direction(), null, month_number, null);
@@ -148,10 +148,14 @@ public class SchemeJsonController {
 
     @ResponseBody
     @RequestMapping(value = "/GetArmyMsg", method = {RequestMethod.GET})
-    public String GetArmyMsg(@Param("platoon_id") Integer platoon_id) {
-
-        List<Army> army_list = schemeService.RequestArmy(platoon_id);
-        System.out.println("ArmyMsg:" + army_list.size());
+    public String GetArmyMsg(@Param("platoon_id") Integer platoon_id, @Param("army_type") String army_type) {
+        List<Army> army_list;
+        if (army_type != null) {
+            army_list = schemeService.RequestArmyByType(platoon_id, army_type);
+        } else {
+            army_list = schemeService.RequestArmy(platoon_id);
+            System.out.println("ArmyMsg:" + army_list.size());
+        }
         return jsonBuilder.buildArmyList(army_list);
     }
 

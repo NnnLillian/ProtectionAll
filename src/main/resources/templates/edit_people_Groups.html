@@ -139,7 +139,7 @@
                         <label class="control-label col-sm-2">目标位置:</label>
                         <div class="col-sm-9">
                             <input type="text" id="actionLocation" class="form-control"
-                                   placeholder="请输入梯队作战位置，格式：经度,纬度，举例：116.88,40.81" required/>
+                                   placeholder="请输入梯队作战位置，格式：经度，纬度，举例：116.88，40.81" required/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -274,13 +274,13 @@
             columns: [{
                 field: 'army_id',
                 title: '队伍ID',
-                visible: false,
+                visible: false
             }, {
                 field: 'army_name',
                 title: '单位名称'
             }, {
                 field: 'army_people',
-                title: '单位人数',
+                title: '单位人数'
             }]
         });
     };
@@ -310,6 +310,8 @@
 <script>
     // 部队人员表的载入
     var $platoonsTable = $('#platoonsTable');
+    // 定义获取到的部队类型
+    var army_type = "normal";
     initPlatoonsTable();
 
     function initPlatoonsTable() {
@@ -317,7 +319,7 @@
         $platoonsTable.bootstrapTable({
             method: 'GET',
             // url: 'js/tableData/json/armyList.json',
-            url: '/GetArmyMsg?platoon_id=' + localStorage.getItem("platoon_id"),
+            url: '/GetArmyMsg?platoon_id=' + localStorage.getItem("platoon_id") + "&army_type=" + army_type,
             striped: true,
             showColumns: true, //是否显示所有的列
             showRefresh: true, //现实刷新按钮
@@ -328,13 +330,13 @@
             }, {
                 field: 'army_id',
                 title: '队伍ID',
-                visible: false,
+                visible: false
             }, {
                 field: 'army_name',
                 title: '队伍名称'
             }, {
                 field: 'army_people',
-                title: '队伍人数',
+                title: '队伍人数'
             }]
         });
 
@@ -361,7 +363,7 @@
         console.info(groupsPeople);
         console.log(typeof groupsPeople[0]);
         var actionGroupName = $('#actionGroupName').val();
-        var actionLocation = $('#actionLocation').val().split(',');
+        var actionLocation = $('#actionLocation').val().split('，');
         var longitude = actionLocation[0];
         var latitude = actionLocation[1];
         // actionGroupsStr

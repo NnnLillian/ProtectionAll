@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.entity.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,8 @@ public interface SchemeService {
     public List<Army> RequestArmy(Integer platoon_id);
 
     public List<Army> RequestGroupArmy(Integer action_group_id);
+
+    public List<Army> RequestArmyByType(Integer platoon_id, String army_type);
 
     public Scheme GetSchemeBySchemeID(Integer scheme_id);
 

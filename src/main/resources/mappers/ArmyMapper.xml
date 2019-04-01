@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mappers.ArmyMapper">
-    <select id="GetPlatoon"  resultType="Platoon">
+    <select id="GetPlatoon" resultType="Platoon">
         select * from platoon_info
     </select>
     <select id="GetArmyByPlatoonId" resultType="Army">
@@ -18,7 +18,9 @@
     <select id="RequestGroupArmy" resultType="Army">
         select * from army_info where army_id in (select army_id from scheme_army_info where army_action_group = #{action_group_id})
     </select>
-
+    <select id="RequestArmyByType" resultType="Army">
+        select * from army_info where platoon_id = #{platoon_id} and army_type = #{army_type}
+    </select>
     <select id="GetActionGroupId" resultType="Integer">
         select action_group_id from action_group_info where action_group_name = #{action_group_name} and location_id = #{location_id}
     </select>

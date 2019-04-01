@@ -38,6 +38,11 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
+    public List<Army> RequestArmyByType(Integer platoon_id, String army_type) {
+        return armyMapper.RequestArmyByType(platoon_id,army_type);
+    }
+
+    @Override
     public Scheme GetSchemeBySchemeID(Integer scheme_id) {
         return schemeMapper.GetSchemeBySchemeID(scheme_id);
     }

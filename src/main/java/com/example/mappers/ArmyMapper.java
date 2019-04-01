@@ -17,4 +17,5 @@ public interface ArmyMapper {
     public Integer GetActionGroupId(Action_Group action_group);
     public List<Action_Group> GetActionGroupBySchemeId(Integer scheme_id);
     public List<Army> RequestGroupArmy(Integer action_group_id);
+    public List<Army> RequestArmyByType(@Param("platoon_id") Integer platoon_id, @Param("army_type") String army_type);
 }
