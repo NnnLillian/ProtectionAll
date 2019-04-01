@@ -175,7 +175,7 @@
     <!-- 提交作战装备 -->
     jQuery('#AddSchemeEquipment').click(function () {
         // 此处应该在success中实现跳转
-        location.href = "/edit_action_resource?scheme_id=" + localStorage.getItem("scheme_id");
+        // location.href = "/edit_action_resource?scheme_id=" + localStorage.getItem("scheme_id");
         var carryEquipmentRows = getCarryEquipment();
         var scheme_equipment_list = [];
         console.log(carryEquipmentRows);
@@ -206,7 +206,7 @@
             async: false,     // 取消异步加载
             success: function (data) {
                 // alert("Add Equipment Success");
-                window.location.href = "/scheme_show?scheme_id=" + localStorage.getItem("scheme_id");
+                window.location.href = "/edit_action_resource?scheme_id=" + localStorage.getItem("scheme_id");
                 localStorage.setItem("scheme_id", data.scheme_id);
             },
             error: function () {
