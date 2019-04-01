@@ -17,6 +17,8 @@ public interface EnvironmentMapper {
     * location_id : 位置id，month：月份
     * */
 
+    public List<Environment> GetEnvironmentByCasePosition(@Param("case_position") String case_position);
+
     public void AddEnvironment(Environment environment);
 
     public void ModifyEnvironment(Environment environment);

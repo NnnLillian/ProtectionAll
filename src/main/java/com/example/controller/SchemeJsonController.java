@@ -128,7 +128,10 @@ public class SchemeJsonController {
         Scheme scheme = schemeService.GetSchemeBySchemeID(Integer.parseInt(scheme_id));
         Integer month_number = Integer.parseInt(month);
         System.out.println(scheme.getCombat_direction() + "......" + month_number + "........." + type);
-        List<Environment> environment_list = environmentService.GetEnvironment(scheme.getLocation_id());
+//        List<Environment> environment_list = environmentService.GetEnvironment(1);
+        String case_position =scheme.getCombat_direction();
+        List<Environment> environment_list = environmentService.GetEnvironmentByCasePosition(case_position);
+        System.out.println(environment_list);
         Special_Case special_case = new Special_Case(null, scheme.getCombat_direction(), null, month_number, null);
         List<Special_Case> special_case_list = environmentService.GetSpecialCase(special_case);
 

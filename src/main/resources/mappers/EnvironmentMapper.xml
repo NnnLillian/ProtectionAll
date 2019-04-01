@@ -7,6 +7,9 @@
     <select id="GetEnvironment" resultType="com.example.entity.Environment">
         select * from environment_info where location_id = #{location_id} order by month_time
     </select>
+    <select id="GetEnvironmentByCasePosition" resultType="com.example.entity.Environment">
+        select * from environment_info where case_position = #{case_position} order by month_time
+    </select>
     <insert id="AddEnvironment" parameterType="com.example.entity.Environment">
         insert into environment_info(loactiond_id,month_time,temperature,rainfall,snowfall,sunshine,wind_level,corrosion)
         valus(#{location_id},#{month_time},#{temperature},#{rainfall},#{snowfall},#{sunshine},#{wind_level},#{corrosion})

@@ -23,6 +23,11 @@ public class EnvironmentServiceImpl implements EnvironmentService {
     }
 
     @Override
+    public List<Environment> GetEnvironmentByCasePosition(String case_position) {
+        return environmentMapper.GetEnvironmentByCasePosition(case_position);
+    }
+
+    @Override
     public List<Special_Case> GetSpecialCase(Special_Case special_case) {
         return special_caseMapper.GetSpecialCase(special_case);
     }

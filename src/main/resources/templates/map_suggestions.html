@@ -76,120 +76,18 @@
 <script src="js/echarts.js"></script>
 <section>
 
-    <div class="leftpanel">
-
-        <div class="logopanel">
-            <h1><span>[</span> 装备保障系统 <span>]</span></h1>
-        </div><!-- logopanel -->
-
-        <div class="leftpanelinner">
-
-            <!-- This is only visible to small devices -->
-            <div class="visible-xs hidden-sm hidden-md hidden-lg">
-                <div class="media userlogged">
-                    <img alt="" src="images/photos/loggeduser.png" class="media-object">
-                    <div class="media-body">
-                        <h4>小张</h4>
-                        <!--    <span>"Life is so..."</span> -->
-                    </div>
-                </div>
-
-                <h5 class="sidebartitle actitle">账户</h5>
-                <ul class="nav nav-pills nav-stacked nav-bracket mb30">
-                    <li><a href="profile.html"><i class="fa fa-user"></i> <span>个人信息</span></a></li>
-                    <li><a href=""><i class="fa fa-cog"></i> <span>个人信息修改</span></a></li>
-                    <li><a href=""><i class="fa fa-question-circle"></i> <span>帮助</span></a></li>
-                    <li><a href="signout.html"><i class="fa fa-sign-out"></i> <span>退出</span></a></li>
-                </ul>
-            </div>
-
-            <h3 class="sidebartitle">装备保障方案</h3>
-            <ul class="nav nav-pills nav-stacked nav-bracket">
-                <li class="active"><a href="completeness.html"><i class="fa fa-file-text"></i> <span>方案库</span></a></li>
-                <li><a href="scheme_model.html"><i class="fa fa-home"></i> <span>方案模板库</span></a></li>
-            </ul>
-
-
-            <h5 class="sidebartitle">保障方案资料</h5>
-            <ul class="nav nav-pills nav-stacked nav-bracket">
-                <!--<li class="nav-parent"><a href=""><i class="fa fa-flag"></i> <span>装备使用保障方案</span></a>-->
-                <!--<ul class="children">-->
-                <!--<li><a href="general-forms.html"><i class="fa fa-caret-right"></i> 任务类型</a></li>-->
-                <!--<li><a href="form-layouts.html"><i class="fa fa-caret-right"></i> 保障组类别</a></li>-->
-                <!--<li><a href="form-validation.html"><i class="fa fa-caret-right"></i> 器材保障组要求</a></li>-->
-                <!--<li><a href="form-wizards.html"><i class="fa fa-caret-right"></i> 保障计划类别</a></li>-->
-                <!--</ul>-->
-                <!--</li>-->
-                <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>装备维修保障方案</span></a>
-                    <ul class="children">
-                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i> 维修保障任务类型</a></li>
-                        <li><a href="icons.html"><i class="fa fa-caret-right"></i> 交通保障类型</a></li>
-                        <li><a href="typography.html"><i class="fa fa-caret-right"></i> 设备保障类型</a></li>
-                    </ul>
-                </li>
-                <li><a href="maps.html"><i class="fa fa-map-marker"></i> <span>气象水文保障信息</span></a></li>
-                <li class="nav-parent"><a href="tables.html"><i class="fa fa-th-list"></i> <span>特情处置预案</span></a>
-                    <ul class="children">
-                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i>特情处置原则</a></li>
-                        <li><a href="#"><i class="fa fa-caret-right"></i>伪装措施组织</a></li>
-                        <li><a href="#"><i class="fa fa-caret-right"></i>防护措施组织</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-        </div><!-- leftpanelinner -->
-    </div><!-- leftpanel -->
+    <div class="left"></div><!-- leftpanel -->
 
     <div class="mainpanel">
 
-        <div class="headerbar">
-
-            <a class="menutoggle"><i class="fa fa-bars"></i></a>
-
-            <form class="searchform" action="index.html" method="post">
-                <input type="text" class="form-control" name="keyword" placeholder="查找..."/>
-            </form>
-
-            <div class="header-right">
-                <ul class="headermenu">
-                    <li>
-                        <div class="btn-group">
-                            <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span class="badge">2</span>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-head pull-right">
-                                <h5 class="title">您有2条未读信息</h5>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <img src="images/photos/loggeduser.png" alt=""/>
-                                小张
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                                <li><a href="profile.html"><i class="glyphicon glyphicon-user"></i> 个人信息</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人信息修改 </a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> 帮助</a></li>
-                                <li><a href="signin.html"><i class="glyphicon glyphicon-log-out"></i> 退出</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div><!-- header-right -->
-
-        </div><!-- headerbar -->
+        <div class="head"></div><!-- headerbar -->
         <div class="pageheader">
-            <h2><i class="fa fa-map-marker"></i> 环境地点特情分析 </h2>
+            <h2><i class="fa  fa-edit"></i> 保障方案编辑</h2>
             <div class="breadcrumb-wrapper">
                 <span class="label">当前位置:</span>
                 <ol class="breadcrumb">
-                    <li><a href="index.html">装备保障系统</a></li>
-                    <li class="active"></li>
+                    <li><a href="#">装备保障系统</a></li>
+                    <li class="active">编辑保障方案</li>
                 </ol>
             </div>
         </div>
@@ -198,18 +96,19 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title">地图数据信息</h4>
+                    <h4 class="panel-title">环境地点特情分析</h4>
+                    <p>显示实地水文气象信息</p>
                 </div><!-- panel-heading -->
                 <div class="panel-body">
                     <div class="row">
                         <div class="panel panel-default col-md-12" style="height:800px">
-                            <button onclick="addPolyLine();" class="btn btn-primary mr10">生成折线</button>
-                            <button onclick="addLine()" class="btn btn-primary mr10">生成直线</button>
-                            <button onclick="calDegree()" class="btn btn-primary mr10">角度值</button>
-                            <button onclick="calDistance()" class="btn btn-primary mr10">距离值</button>
-                            <button onclick="removeLine()" class="btn btn-default mr10">清除</button>
+                            <!--<button onclick="addPolyLine();" class="btn btn-primary mr10">生成折线</button>-->
+                            <!--<button onclick="addLine()" class="btn btn-primary mr10">生成直线</button>-->
+                            <!--<button onclick="calDegree()" class="btn btn-primary mr10">角度值</button>-->
+                            <!--<button onclick="calDistance()" class="btn btn-primary mr10">距离值</button>-->
+                            <!--<button onclick="removeLine()" class="btn btn-default mr10">清除</button>-->
                             <div class="mb20"></div>
-                            <div class="mb10" id="map_demo">1</div>
+                            <div class="mb10" id="map_demo">MapDiv</div>
                         </div><!-- col-md-12 -->
                     </div><!-- row -->
 
@@ -217,18 +116,18 @@
                 <div class="panel-footer"></div>
             </div><!-- panel -->
             <!-- 外部引用，有问题，getLocation是新建立的Location -->
-            <!--<div class="panel panel-default">-->
-                <!--<div class="panel-heading">-->
-                    <!--<h5 class="panel-title">历史温度数据</h5>-->
-                <!--</div>-->
-                <!--<div class="panel-body">-->
-                    <!--<div class="row col-md-12">-->
-                            <!--<h5 class="subtitle mb5">温度图表</h5>-->
-                            <!--<p class="mb15"></p>-->
-                            <!--<div id="pressureTable" style="width: 100%; height: 500px; margin-bottom: 20px"></div>-->
-                    <!--</div>&lt;!&ndash; row &ndash;&gt;-->
-                <!--</div>&lt;!&ndash; panel-body &ndash;&gt;-->
-            <!--</div>&lt;!&ndash; panel &ndash;&gt;-->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">历史温度数据</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row col-md-12">
+                            <h5 class="subtitle mb5">温度图表</h5>
+                            <p class="mb15"></p>
+                            <div id="pressureTable" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
+                    </div><!-- row -->
+                </div><!-- panel-body -->
+            </div><!-- panel -->
 
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -372,7 +271,7 @@
                 console.log(data.group_id);
                 localStorage.setItem("group_id", data.group_id);
                 // alert("Add Group Success");
-                window.location.href = "/edit_people";
+                window.location.href = "";
             },
             error: function () {
                 console.log(arguments);
@@ -388,124 +287,124 @@
 </script>
 
 <!-- 折线图 -->
-<script type="text/javascript">
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('sandyDataTable'));
+<!--<script type="text/javascript">-->
+    <!--// 基于准备好的dom，初始化echarts实例-->
+    <!--var myChart = echarts.init(document.getElementById('sandyDataTable'));-->
 
-    // 指定图表的配置项和数据
-    var option = {
-        backgroundColor: '#FBFBFB',
-        tooltip: {
-            trigger: 'axis'
-        },
-        legend: {
-            data: ['沙尘数据']
-        },
+    <!--// 指定图表的配置项和数据-->
+    <!--var option = {-->
+        <!--backgroundColor: '#FBFBFB',-->
+        <!--tooltip: {-->
+            <!--trigger: 'axis'-->
+        <!--},-->
+        <!--legend: {-->
+            <!--data: ['沙尘数据']-->
+        <!--},-->
 
-        calculable: true,
+        <!--calculable: true,-->
 
 
-        xAxis: [
-            {
-                axisLabel: {
-                    rotate: 30,
-                    interval: 0
-                },
-                axisLine: {
-                    lineStyle: {
-//                        color: '#000080'
-                    }
-                },
-                type: 'category',
-                boundaryGap: false,
-                data: function () {
-                    var list = [];
-                    for (var i = 0; i <= 7; i++) {
-                        list.push('2017-' + (i - 0));
-                    }
-                    return list;
-                }()
-            }
-        ],
-        yAxis: [
-            {
+        <!--xAxis: [-->
+            <!--{-->
+                <!--axisLabel: {-->
+                    <!--rotate: 30,-->
+                    <!--interval: 0-->
+                <!--},-->
+                <!--axisLine: {-->
+                    <!--lineStyle: {-->
+<!--//                        color: '#000080'-->
+                    <!--}-->
+                <!--},-->
+                <!--type: 'category',-->
+                <!--boundaryGap: false,-->
+                <!--data: function () {-->
+                    <!--var list = [];-->
+                    <!--for (var i = 0; i <= 7; i++) {-->
+                        <!--list.push('2017-' + (i - 0));-->
+                    <!--}-->
+                    <!--return list;-->
+                <!--}()-->
+            <!--}-->
+        <!--],-->
+        <!--yAxis: [-->
+            <!--{-->
 
-                type: 'value',
-                axisLine: {
-                    lineStyle: {
-//                        color: '#000080'
-                    }
-                }
-            }
-        ],
-        series: [
-            {
-                name: '作战期间沙尘颗粒数据',
-                type: 'line',
-                symbol: 'none',
-                smooth: true,
-                color: ['#808000'],
-                data: [80, 140, 100, 35, 40, 50, 30, 45],
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: true,
-                            position: 'top',
-                            textStyle: {
-                                color: 'black',
-                                fontSize: 16
-                            }
-                        }
-                    }
-                }
-            }
-        ]
-    };
+                <!--type: 'value',-->
+                <!--axisLine: {-->
+                    <!--lineStyle: {-->
+<!--//                        color: '#000080'-->
+                    <!--}-->
+                <!--}-->
+            <!--}-->
+        <!--],-->
+        <!--series: [-->
+            <!--{-->
+                <!--name: '作战期间沙尘颗粒数据',-->
+                <!--type: 'line',-->
+                <!--symbol: 'none',-->
+                <!--smooth: true,-->
+                <!--color: ['#808000'],-->
+                <!--data: [80, 140, 100, 35, 40, 50, 30, 45],-->
+                <!--itemStyle: {-->
+                    <!--normal: {-->
+                        <!--label: {-->
+                            <!--show: true,-->
+                            <!--position: 'top',-->
+                            <!--textStyle: {-->
+                                <!--color: 'black',-->
+                                <!--fontSize: 16-->
+                            <!--}-->
+                        <!--}-->
+                    <!--}-->
+                <!--}-->
+            <!--}-->
+        <!--]-->
+    <!--};-->
 
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-</script>
+    <!--// 使用刚指定的配置项和数据显示图表。-->
+    <!--myChart.setOption(option);-->
+<!--</script>-->
 
 <!-- 柱状图 -->
-<script type="text/javascript">
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('rainyDataTable'));
+<!--<script type="text/javascript">-->
+    <!--// 基于准备好的dom，初始化echarts实例-->
+    <!--var myChart = echarts.init(document.getElementById('rainyDataTable'));-->
 
-    // 指定图表的配置项和数据
-    var option = {
-        // title: {
-        //     text: '历史雨雪数据'
-        // },
-        tooltip: {},
-        legend: {
-            data: ['每日平均', '小时最高', '月总降水量']
-        },
-        xAxis: {
-            data: ["2017年1月", "2月", "3月", "4月", "5月", "6月"],
-            type: 'category'
-        },
-        yAxis: {},
-        series: [{
-            name: '每日平均',
-            smooth: true,
-            type: 'bar',
-            data: [0.2, 0.5, 0.4, 0.5, 1, 0]
-        }, {
-            name: '小时最高',
-            smooth: true,
-            type: 'bar',
-            data: [0, 0, 0, 1, 2, 0]
-        }, {
-            name: '月总降水量',
-            smooth: true,
-            type: 'bar',
-            data: [0, 0, 3, 5, 20, 13]
-        }]
-    };
+    <!--// 指定图表的配置项和数据-->
+    <!--var option = {-->
+        <!--// title: {-->
+        <!--//     text: '历史雨雪数据'-->
+        <!--// },-->
+        <!--tooltip: {},-->
+        <!--legend: {-->
+            <!--data: ['每日平均', '小时最高', '月总降水量']-->
+        <!--},-->
+        <!--xAxis: {-->
+            <!--data: ["2017年1月", "2月", "3月", "4月", "5月", "6月"],-->
+            <!--type: 'category'-->
+        <!--},-->
+        <!--yAxis: {},-->
+        <!--series: [{-->
+            <!--name: '每日平均',-->
+            <!--smooth: true,-->
+            <!--type: 'bar',-->
+            <!--data: [0.2, 0.5, 0.4, 0.5, 1, 0]-->
+        <!--}, {-->
+            <!--name: '小时最高',-->
+            <!--smooth: true,-->
+            <!--type: 'bar',-->
+            <!--data: [0, 0, 0, 1, 2, 0]-->
+        <!--}, {-->
+            <!--name: '月总降水量',-->
+            <!--smooth: true,-->
+            <!--type: 'bar',-->
+            <!--data: [0, 0, 3, 5, 20, 13]-->
+        <!--}]-->
+    <!--};-->
 
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-</script>
+    <!--// 使用刚指定的配置项和数据显示图表。-->
+    <!--myChart.setOption(option);-->
+<!--</script>-->
 
 
 <!-- 百度地图APP　-->

@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Air pressure</title>
-</head>
-<body>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--<meta charset="UTF-8">-->
+<!--<title>Air pressure</title>-->
+<!--</head>-->
+<!--<body>-->
 <div id="table" style="width:64%;height:500px; float: left"></div>
 <div style="width: 36%;float: right">
     <ul id="descriptionTips">
     </ul>
 </div>
+<script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/echarts.js"></script>
-<!--<script src="js/jquery-1.11.1.min.js"></script>-->
 <script type="text/javascript">
     var myChart = echarts.init(document.getElementById('table'));
     var TemperatureDataList = [];
@@ -19,7 +19,7 @@
     $("#document").ready(function () {
         $.ajax({
             type: 'GET',
-            url: '/GetEnvironment?scheme_id='+localStorage.getItem("scheme_id")+'&month='+localStorage.getItem("month")+'&type=temperature',
+            url: '/GetEnvironment?scheme_id=' + localStorage.getItem("scheme_id") + '&month=' + localStorage.getItem("month") + '&type=temperature',
             contentType: 'application/json',
             dataType: 'JSON',
             data: {index: 0},
@@ -27,7 +27,7 @@
                 console.log(data);
                 var data_list = data.data_list;
                 console.log(data_list);
-                for (var i = 0 ; i<data_list.length; i++){
+                for (var i = 0; i < data_list.length; i++) {
                     TemperatureDataList.push(data_list[i].temperature);
                     DataList.push(data_list[i].month_time);
                 }
@@ -35,39 +35,57 @@
                 var option = {
                     backgroundColor: '#FBFBFB',
                     tooltip: {
-                        trigger: 'axis'
+                        trigger: 'axis',
+                        // axisPointer: {type: 'cross'}
+                        formatter:function(params)
+                        {
+                            var relVal = params[0].name;
+                            for (var i = 0, l = params.length; i < l; i++) {
+                                relVal += '月<br/>' + params[i].seriesName + ' : ' + params[i].value+"°C";
+                            }
+                            return relVal;
+                        }
                     },
                     legend: {
-                        data: ['沙尘数据']
+                        data: ['温度数据']
                     },
-
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
                     calculable: true,
-
-
                     xAxis: [
                         {
                             axisLabel: {
-                                rotate: 30,
-                                interval: 0
+                                // rotate: 30,
+                                // interval: 0
+                                formatter: '{value} 月'
                             },
                             axisLine: {
                                 lineStyle: {
-//                        color: '#000080'
+                                    // color: '#000080'
                                 }
                             },
                             type: 'category',
+                            axisTick: {
+                                alignWithLabel: true
+                            },
                             boundaryGap: false,
                             data: DataList
                         }
                     ],
                     yAxis: [
                         {
-
                             type: 'value',
+                            name: '温度',
                             axisLine: {
                                 lineStyle: {
-//                        color: '#000080'
+                                    // color: '#000080'
                                 }
+                            },
+                            axisLabel:{
+                                formatter: '{value} °C'
                             }
                         }
                     ],
@@ -75,23 +93,24 @@
                         {
                             name: '温度',
                             type: 'line',
-                            symbol: 'none',
+                            // symbol: 'none',  // 设置之后无小点
                             smooth: true,
-                            color: ['#808000'],
+                            color: ['#15971f'],
                             data: TemperatureDataList,
-                            itemStyle: {
-                                normal: {
-                                    label: {
-                                        show: true,
-                                        position: 'top',
-                                        textStyle: {
-                                            color: 'black',
-                                            fontSize: 16
-                                        }
-                                    }
-                                }
-                            }
-                        },
+                            // 在 轴 上显示数据
+                            // itemStyle: {
+                            //     normal: {
+                            //         label: {
+                            //             show: true,
+                            //             position: 'top',
+                            //             textStyle: {
+                            //                 color: 'black',
+                            //                 fontSize: 12
+                            //             },
+                            //         }
+                            //     }
+                            // }
+                        }
                     ]
                 };
                 // 使用刚指定的配置项和数据显示图表。
@@ -99,7 +118,7 @@
 
                 // 特情部分的获取
                 var case_list = data.case_list;
-                for (var i = 0; i<case_list.length; i++){
+                for (var i = 0; i < case_list.length; i++) {
                     var tips = $("<li>");
                     tips.text(case_list[i].description);
                     $("#descriptionTips").append(tips);
@@ -110,5 +129,5 @@
 
 
 </script>
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->

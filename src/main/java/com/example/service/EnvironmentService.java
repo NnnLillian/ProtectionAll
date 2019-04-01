@@ -10,6 +10,8 @@ public interface EnvironmentService {
 
     public List<Environment> GetEnvironment(Integer location_id);
 
+    public List<Environment> GetEnvironmentByCasePosition(String case_position);
+
     public List<Special_Case> GetSpecialCase(Special_Case special_case);
 
     public List<Category_Case> GetCategoryCase(Integer equipment_id, String case_position);

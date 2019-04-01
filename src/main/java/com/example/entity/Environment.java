@@ -2,6 +2,7 @@ package com.example.entity;
 
 public class Environment {
     private Integer environment_id;
+    private String case_position;
     private Integer location_id;
     private Integer month_time;
     private double temperature;
@@ -17,8 +18,9 @@ public class Environment {
 
     }
 
-    public Environment(Integer environment_id, Integer location_id, Integer month_time, double temperature, double rainfall, double snowfall, double sunshine, int wind_level, double pressure, double corrosion) {
+    public Environment(Integer environment_id, String case_position, Integer location_id, Integer month_time, double temperature, double rainfall, double snowfall, double sunshine, int wind_level, double pressure, double corrosion) {
         this.environment_id = environment_id;
+        this.case_position = case_position;
         this.location_id = location_id;
         this.month_time = month_time;
         this.temperature = temperature;
@@ -108,5 +110,13 @@ public class Environment {
 
     public void setCorrosion(double corrosion) {
         this.corrosion = corrosion;
+    }
+
+    public String getCase_position() {
+        return case_position;
+    }
+
+    public void setCase_position(String case_position) {
+        this.case_position = case_position;
     }
 }
