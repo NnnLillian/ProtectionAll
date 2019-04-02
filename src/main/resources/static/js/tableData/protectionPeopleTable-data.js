@@ -28,7 +28,17 @@ self.peopleDataInit = function (name) {
             url = "/GetPeopleMsg?army_type=expert";
             // url = "js/tableData/json/people.json";
             check = [{
-                radio: true
+                radio: true,
+                formatter: function (value, row, index) {
+                    let leader = parseInt(localStorage.getItem("selected_leader"));
+                    if (row.people_id === leader) {
+
+                        return {
+                            checked: true
+                        }
+                    }
+                    return value;
+                }
             }];
             columns = check.concat(basicColumns);
             break;
@@ -37,13 +47,24 @@ self.peopleDataInit = function (name) {
             url = "/GetPeopleMsg?army_type=both";
             // url = "js/tableData/json/people.json";
             check = [{
-                radio: true
+                radio: true,
+                formatter: function (value, row, index) {
+                    let leader = parseInt(localStorage.getItem("selected_leader"));
+                    if (row.people_id === leader) {
+                        return {
+                            disabled: true,
+                            // checked: true
+                        }
+                    } else {
+                        return {disabled: false}
+                    }
+                    return value;
+                }
             }];
             columns = check.concat(basicColumns);
             break;
         case 'teamMember':
             tableName = "teamMember-table";
-            // 队员需要从技术保障科中选择
             url = "/GetPeopleMsg?army_type=both";
             // url = "js/tableData/json/people.json";
             check = [{
@@ -52,18 +73,20 @@ self.peopleDataInit = function (name) {
                 checkbox: true,
                 formatter: function (value, row, index) {
                     console.log(row);
-                    var i = parseInt(localStorage.getItem("selected_people"));
-                    if (row.people_id === i) {
+                    let i = parseInt(localStorage.getItem("selected_people"));
+                    let j = parseInt(localStorage.getItem("selected_leader"));
+                    if (row.people_id === i || row.people_id === j) {
                         return {
                             disabled: true,
-                            checked:true
+                            checked: true
                         }
                     } else {
                         return {disabled: false}
                     }
                     return value;
-                }}];
-            columns =check.concat(basicColumns);
+                }
+            }];
+            columns = check.concat(basicColumns);
             break;
     }
     $('#' + tableName).empty();
@@ -165,6 +188,11 @@ self.peopleDataInit = function (name) {
             console.log(row);
         }
     });
+    $("#teamLeader-table").on('check.bs.table', function (e, row) {
+        localStorage.setItem("selected_leader", row.people_id);
+        $("#deputyHead-table").bootstrapTable('refresh');
+        $('#teamMember-table').bootstrapTable('refresh');
+    });
     $("#deputyHead-table").on('check.bs.table', function (e, row) {
         console.info("check row");
         localStorage.setItem("selected_people", row.people_id);
@@ -178,11 +206,13 @@ function getTeamLeaderId() {
         return row.people_id;
     });
 }
+
 function getDeputyHeadId() {
     return $.map($('#deputyHead-table').bootstrapTable('getSelections'), function (row) {
         return row.people_id;
     });
 }
+
 function getTeamMemberId() {
     return $.map($('#teamMember-table').bootstrapTable('getSelections'), function (row) {
         return row.people_id;
