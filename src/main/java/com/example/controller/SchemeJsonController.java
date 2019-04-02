@@ -86,15 +86,15 @@ public class SchemeJsonController {
     @ResponseBody
     @RequestMapping(value = "/AddSchemeGroup", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
     public String AddSchemeGroup(@RequestBody String jsonStr) {
-        Integer scheme_id = jsonPaser.ParseSchemeId(jsonStr);
-        //增加scheme中的group
-        Group group = new Group();
-        group.setScheme_id(scheme_id);
-        group.setGroup_name("保障机构编组");
-        group.setGroup_type("protectionGroup");
-
+        Group group = jsonPaser.ParseGroup(jsonStr);
         Integer group_id = schemeService.AddGroupIntoScheme(group);
-        return "{\"group_id\":" + group_id + "}";
+        if (group_id == null) {
+            System.out.println("error");
+            throw new AssertionError("该保障组在此方案中已存在");
+        } else {
+            return "{\"group_id\":" + group_id + "}";
+        }
+
     }
 
     @ResponseBody

@@ -102,6 +102,12 @@ public class JsonPaser {
         return jsonObj.getInt("scheme_id");
     }
 
+    public Group ParseGroup(String jsonStr) throws JSONException{
+        JSONObject jsonObject = new JSONObject(jsonStr);
+        Group group = new Group(null,jsonObject.getInt("scheme_id"),jsonObject.getString("group_name"),jsonObject.getString("group_type"),null);
+        return group;
+    }
+
     public Team ParseTeam(String jsonStr) throws JSONException {
         JSONObject jsonObject = new JSONObject(jsonStr);
         Team team = new Team(null, jsonObject.getInt("group_id"), null, null, jsonObject.getString("team_name"), null, null,null,null, jsonObject.getString("team_type"));

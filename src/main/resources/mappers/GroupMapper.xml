@@ -15,6 +15,10 @@
         select * from group_info where group_name = #{group_name}
     </select>
 
+    <select id="GetSchemeGroupBySchemeIdAndGroupType" resultType="Group">
+        select * from group_info where scheme_id= #{scheme_id} and group_type= #{group_type}
+    </select>
+
     <select id="GetTeamBySchemeIdAndTeamType" resultType="Team">
         select * from team_info where group_id = (select group_id from group_info where scheme_id = #{scheme_id}) and team_type = #{team_type}
     </select>

@@ -15,6 +15,8 @@ public interface GroupMapper {
 
     public Group GetGroupBySchemeId(Integer scheme_id);
 
+    public Group GetSchemeGroupBySchemeIdAndGroupType(@Param("scheme_id") Integer scheme_id, @Param("group_type") String group_type);
+
     public List<Team> GetTeamBySchemeIdAndTeamType(@Param("scheme_id") Integer scheme_id, @Param("team_type") String team_type);
 
     public void AddTeam(Team team);
