@@ -109,7 +109,8 @@ public class SchemeServiceImpl implements SchemeService {
         Group group1 = groupMapper.GetSchemeGroupBySchemeIdAndGroupType(group.getScheme_id(), group.getGroup_type());
         if (group1 != null) {
             System.out.println("group error");
-            return null;
+//            如果该保障组已经存在，则返回这个已经存在的保障组ID
+            return group1.getGroup_id();
         } else {
             schemeMapper.AddGroupIntoScheme(group);
             return groupMapper.GetSchemeGroupBySchemeIdAndGroupType(group.getScheme_id(), group.getGroup_type()).getGroup_id();

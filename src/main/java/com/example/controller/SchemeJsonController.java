@@ -88,12 +88,7 @@ public class SchemeJsonController {
     public String AddSchemeGroup(@RequestBody String jsonStr) {
         Group group = jsonPaser.ParseGroup(jsonStr);
         Integer group_id = schemeService.AddGroupIntoScheme(group);
-        if (group_id == null) {
-            System.out.println("error");
-            throw new AssertionError("该保障组在此方案中已存在");
-        } else {
-            return "{\"group_id\":" + group_id + "}";
-        }
+        return "{\"group_id\":" + group_id + "}";
 
     }
 
@@ -112,7 +107,7 @@ public class SchemeJsonController {
 
     @ResponseBody
     @RequestMapping(value = "/AddTeam", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
-    public String AddRepairTeam(@RequestBody String jsonStr) {
+    public String AddTeam(@RequestBody String jsonStr) {
         Team team = jsonPaser.ParseTeam(jsonStr);
         List<Team_Category> team_categoryList = jsonPaser.ParseTeamCategory(jsonStr);
         List<Team_Department> team_departmentList = jsonPaser.ParseTeamDepartment(jsonStr);
@@ -220,8 +215,8 @@ public class SchemeJsonController {
     @RequestMapping(value = "/GetPeopleMsg", method = {RequestMethod.GET})
     public String AddPeopleMsg(@Param("army_type") String army_type) {
         String Both = "both";
-        List<People> peopleList=peopleService.GetPeopleByArmyType("expert");
-        if (army_type.equals(Both)){
+        List<People> peopleList = peopleService.GetPeopleByArmyType("expert");
+        if (army_type.equals(Both)) {
             List<People> peopleList2 = peopleService.GetPeopleByArmyType("engineer");
             peopleList.addAll(peopleList2);
         }

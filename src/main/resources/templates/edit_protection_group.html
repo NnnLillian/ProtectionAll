@@ -243,7 +243,6 @@
         var a = $.trim(title);
         // 截取后四个字符串
         var groupName = a.slice(-5);
-        alert(groupName);
         var groupInfo = {
             scheme_id : localStorage.getItem("scheme_id"),
             group_name: groupName,
@@ -259,7 +258,8 @@
             async: false,
             success: function (data) {
                 console.log("groupId:"+ data.group_id);
-                alert("Add group success");
+                localStorage.setItem("group_id", data.group_id)
+                // alert("Add group success");
             },
             error: function () {
                 console.error("error");
