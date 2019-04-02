@@ -33,16 +33,14 @@
     <script src="js/jquery.cookies.js"></script>
     <script src="js/bootstrap-table.min.js"></script>
     <script src="js/bootstrap-table-zh-CN.js"></script>
-    <!--<script src="js/bootstrap-table-editable.js"></script>-->
+    <script src="js/bootstrap-editable.min.js"></script>
+    <script src="js/bootstrap-table-editable.js"></script>
 
     <script src="js/custom.js"></script>
     <script src="js/bootstrap-select.js"></script>
 
     <script src="js/tableData/protectionPeopleTable-data.js"></script>
-    <script src="js/tableData/repairTable-data.js"></script>
-    <script src="js/tableData/protectTable-data.js"></script>
-    <script src="js/tableData/elementRepairTable-data.js"></script>
-    <script src="js/tableData/finish.js"></script>
+    <script src="js/tableData/protectionCategoryTable-data.js"></script>
 
 
 </head>
@@ -153,7 +151,7 @@
             <div class="modal-body">
                 <span class="mr30">第&nbsp;&nbsp;<div style="width: 60px; display: inline-block"><input
                         class="form-control"
-                        id="protectTeamName"
+                        id="teamName"
                         type="number"/></div>&nbsp;&nbsp;器材保障组</span>
                 <!-- response team_name -->
                 <div class="mb10"></div>
@@ -191,15 +189,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane active" id="protectTeamCategory">
+
+                <div class="mb20">
+                    <label class="control-label col-md-2">职责:</label>
+                    <textarea rows="5" class="form-control" name="comment" placeholder="负责器材调整补充及请领下送"></textarea>
+                </div>
+                <div class="col-md-12 tab-pane active mb20" id="teamCategory">
                     <div class="table-responsive">
                         <table id="protectCategory-table"></table>
                     </div>
                 </div>
-                <div class="mb20"></div>
-                <label class="control-label col-md-2">职责:</label>
-                <textarea rows="5" class="form-control" name="comment" placeholder="负责器材调整补充及请领下送"></textarea>
-                <div class="mb20"></div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" id="newProtectTeam" type="button">保存</button>
                 </div>
@@ -226,25 +225,28 @@
         BtnId = $(this).attr("id");
     }
 
-    // 加载人员信息
+    // 加载人员信息并新增保障大组 GroupId
     $("#newTeamModal").on('show.bs.modal', function () {
+        // 加载保障人员信息
         peopleDataInit('teamLeader');
         peopleDataInit('deputyHead');
         peopleDataInit('teamMember');
 
+        // 加载保障器材信息
+        categoryDataInit('teamCategory');
         // console.log(getHtmlElementId());
         var title = $("#" + BtnId).text();
-        console.log(typeof title);
+        // console.log(typeof title);
         $('.modal-title').text(title);
         var describe = $("#" + BtnId).prev().text();
-        console.log(describe);
+        // console.log(describe);
         $('.modal-p').text(describe);
         // 去除title中的首尾空格
         var a = $.trim(title);
         // 截取后四个字符串
         var groupName = a.slice(-5);
         var groupInfo = {
-            scheme_id : localStorage.getItem("scheme_id"),
+            scheme_id: localStorage.getItem("scheme_id"),
             group_name: groupName,
             group_type: BtnId
         };
@@ -257,7 +259,7 @@
             dataType: 'json',
             async: false,
             success: function (data) {
-                console.log("groupId:"+ data.group_id);
+                console.log("groupId:" + data.group_id);
                 localStorage.setItem("group_id", data.group_id)
                 // alert("Add group success");
             },
@@ -268,14 +270,7 @@
         });
     });
 
-    // 增加保障机构编组
-    $("#newProtectTeam").click(function () {
-        var groupType = BtnId;
 
-        var leaderId = getTeamLeaderId();
-        var deputyHeadId = getDeputyHeadId();
-        var teamMemberIds = getTeamMemberId();
-    });
 
     $("#addProtectionGroup").click(function () {
         // 此处应该在success中实现跳转
