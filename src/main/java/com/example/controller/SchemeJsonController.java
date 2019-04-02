@@ -8,6 +8,7 @@ import com.example.service.SchemeService;
 import com.example.util.JsonBuilder;
 import com.example.util.JsonPaser;
 import org.apache.ibatis.annotations.Param;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -111,8 +112,10 @@ public class SchemeJsonController {
         Team team = jsonPaser.ParseTeam(jsonStr);
         List<Team_Category> team_categoryList = jsonPaser.ParseTeamCategory(jsonStr);
         List<Team_Department> team_departmentList = jsonPaser.ParseTeamDepartment(jsonStr);
+        List<Department> departmentList = jsonPaser.ParseDepartment(jsonStr);
         team.setTeam_category_list(team_categoryList);
         team.setTeam_department_list(team_departmentList);
+        team.setDepartmentList(departmentList);
         return schemeService.AddTeam(team);
     }
 

@@ -1,9 +1,6 @@
 package com.example.mappers;
 
-import com.example.entity.Group;
-import com.example.entity.Team;
-import com.example.entity.Team_Category;
-import com.example.entity.Team_Department;
+import com.example.entity.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +17,8 @@ public interface GroupMapper {
     public List<Team> GetTeamBySchemeIdAndTeamType(@Param("scheme_id") Integer scheme_id, @Param("team_type") String team_type);
 
     public void AddTeam(Team team);
+
+    public void AddDepartment(Department department);
 
     public void AddTeamDepartment(Team_Department team_department);
 

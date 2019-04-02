@@ -138,6 +138,11 @@ public class SchemeServiceImpl implements SchemeService {
                 team_department.setTeam_id(team_id1);
                 groupMapper.AddTeamDepartment(team_department);
             }
+            List<Department> departments = team.getDepartmentList();
+            for (int i=0; i<departments.size();i++){
+                Department department = departments.get(i);
+                groupMapper.AddDepartment(department);
+            }
             System.out.println("{\"tips\": \"success\",\"team_id\": " + team_id1 + "}");
             return "{\"tips\": \"success\",\"team_id\": " + team_id1 + "}";
         }

@@ -124,6 +124,10 @@
                             <div class="mb10"></div>
                             <div class="applyRepair"></div>
                         </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-pink" id="testBtn">TEST</button>
+                        </div>
                     </div><!-- panel-body -->
                     <div class="panel-footer" style="text-align: center; margin: 0 auto">
                         <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
@@ -162,8 +166,8 @@
                             <div class="table-responsive">
                                 <table id="teamLeader-table"></table>
                             </div>
-                            <label class="control-label">职责：</label>
-                            <textarea rows="2" class="form-control" placeholder="队长职责为……"></textarea>
+                            <!--<label class="control-label">职责：</label>-->
+                            <!--<textarea rows="2" class="form-control" placeholder="队长职责为……"></textarea>-->
                         </div>
                     </div>
 
@@ -173,8 +177,8 @@
                             <div class="table-responsive">
                                 <table id="deputyHead-table"></table>
                             </div>
-                            <label class="control-label">职责：</label>
-                            <textarea rows="2" class="form-control" placeholder="副队长职责为……"></textarea>
+                            <!--<label class="control-label">职责：</label>-->
+                            <!--<textarea rows="2" class="form-control" placeholder="副队长职责为……"></textarea>-->
                         </div>
                     </div>
 
@@ -184,14 +188,14 @@
                             <div class="table-responsive">
                                 <table id="teamMember-table"></table>
                             </div>
-                            <label class="control-label">职责：</label>
-                            <textarea rows="2" class="form-control" placeholder="队员职责为……"></textarea>
+                            <!--<label class="control-label">职责：</label>-->
+                            <!--<textarea rows="2" class="form-control" placeholder="队员职责为……"></textarea>-->
                         </div>
                     </div>
                 </div>
 
                 <div class="mb20">
-                    <label class="control-label col-md-2">职责:</label>
+                    <label class="control-label col-md-2">小组职责:</label>
                     <textarea rows="5" class="form-control" name="comment" placeholder="负责器材调整补充及请领下送"></textarea>
                 </div>
                 <div class="col-md-12 tab-pane active mb20" id="teamCategory">
@@ -224,6 +228,11 @@
     function getBtnId() {
         BtnId = $(this).attr("id");
     }
+
+    $("#testBtn").click(function () {
+        let test = getprotectCategoryId();
+        console.log(test);
+    });
 
     // 加载人员信息并新增保障大组 GroupId
     $("#newTeamModal").on('show.bs.modal', function () {
@@ -270,7 +279,51 @@
         });
     });
 
+    // 增加保障机构内小编组 TeamId
+    $("#newProtectTeam").click(function () {
+        var groupId = localStorage.getItem("group_id");
+        var teamName = $("#teamName").val();
+        var leaderId = getTeamLeaderId();
+        var deputyHeadId = getDeputyHeadId();
+        var teamMemberIds = getTeamMemberId();
 
+        var teamDepartment = [{
+            department_name: "组长",
+            department_people: leaderId
+        }, {
+            department_name: "副组长",
+            department_people: deputyHeadId
+        }, {
+            department_name: "组员",
+            department_people: teamMemberIds
+        }];
+
+        var teamCategoryRows = getCategoryList();
+
+        var Team = {
+            group_id: groupId,
+            team_type: BtnId,
+            team_name: teamName,
+            team_department: teamDepartment,
+            team_category: teamCategoryRows
+        };
+        var TeamStr = JSON.stringify(Team);
+        console.log(TeamStr);
+        $.ajax({
+            type:"POST",
+            data:TeamStr,
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            url:"/AddTeam",
+            async:false,
+            success:function (data) {
+                alert("Add a Scheme success");
+            },
+            error:function () {
+                console.error("error");
+            }
+        })
+    });
 
     $("#addProtectionGroup").click(function () {
         // 此处应该在success中实现跳转

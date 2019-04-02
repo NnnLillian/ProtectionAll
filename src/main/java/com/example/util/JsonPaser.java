@@ -65,7 +65,7 @@ public class JsonPaser {
         return scheme;
     }
 
-    public String ParseActionGroup(String jsonStr) throws JSONException{
+    public String ParseActionGroup(String jsonStr) throws JSONException {
         JSONObject jsonObject = new JSONObject(jsonStr);
         return jsonObject.getString("action_group_name");
     }
@@ -102,15 +102,15 @@ public class JsonPaser {
         return jsonObj.getInt("scheme_id");
     }
 
-    public Group ParseGroup(String jsonStr) throws JSONException{
+    public Group ParseGroup(String jsonStr) throws JSONException {
         JSONObject jsonObject = new JSONObject(jsonStr);
-        Group group = new Group(null,jsonObject.getInt("scheme_id"),jsonObject.getString("group_name"),jsonObject.getString("group_type"),null);
+        Group group = new Group(null, jsonObject.getInt("scheme_id"), jsonObject.getString("group_name"), jsonObject.getString("group_type"), null);
         return group;
     }
 
     public Team ParseTeam(String jsonStr) throws JSONException {
         JSONObject jsonObject = new JSONObject(jsonStr);
-        Team team = new Team(null, jsonObject.getInt("group_id"), null, null, jsonObject.getString("team_name"), null, null,null,null, jsonObject.getString("team_type"));
+        Team team = new Team(null, jsonObject.getInt("group_id"), null, null, jsonObject.getString("team_name"), null, null, null, null, jsonObject.getString("team_type"));
         return team;
     }
 
@@ -134,9 +134,26 @@ public class JsonPaser {
         JSONArray jsonArray = jsonObj.getJSONArray("team_department");
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
+            JSONArray jsonArray1 = jsonObject.getJSONArray("department_people");
+            String departmengPeople = jsonArray1.toString();
             Team_Department team_department
-                    = new Team_Department(null, jsonObject.getInt("department_id"), jsonObject.getInt("department_people"));
+                    = new Team_Department(null, null, departmengPeople);
             list.add(team_department);
+        }
+        return list;
+    }
+
+    public List<Department> ParseDepartment(String jsonStr) throws JSONException {
+        JSONObject jsonObj = new JSONObject(jsonStr);
+        List<Department> list = new ArrayList<>();
+        JSONArray jsonArray = jsonObj.getJSONArray("team_department");
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            JSONArray jsonArray1 = jsonObject.getJSONArray("department_people");
+            Integer People_max_number = jsonArray1.length();
+            Department department
+                    = new Department(null, jsonObject.getString("department_name"), People_max_number);
+            list.add(department);
         }
         return list;
     }

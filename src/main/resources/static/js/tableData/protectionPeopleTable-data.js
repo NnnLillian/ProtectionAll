@@ -4,12 +4,12 @@ self.peopleDataInit = function (name) {
         {
             field: 'people_id',
             title: '人员ID',
-            align: 'center',
+            align: 'center'
         }, {
             field: 'people_name',
             title: '姓名',
             // sortable:false,   //本列不可以排序
-            align: 'center',
+            align: 'center'
         }, {
             field: 'people_profession',
             title: '专业',
@@ -18,7 +18,7 @@ self.peopleDataInit = function (name) {
             field: 'people_army_name',
             title: '所属单位',
             align: 'center',
-            sortable: true,
+            // sortable: true
         }
     ];
     switch (name) {
@@ -171,3 +171,20 @@ self.peopleDataInit = function (name) {
         $('#teamMember-table').bootstrapTable('refresh');
     })
 };
+
+// 保障部队人员表的选择
+function getTeamLeaderId() {
+    return $.map($('#teamLeader-table').bootstrapTable('getSelections'), function (row) {
+        return row.people_id;
+    });
+}
+function getDeputyHeadId() {
+    return $.map($('#deputyHead-table').bootstrapTable('getSelections'), function (row) {
+        return row.people_id;
+    });
+}
+function getTeamMemberId() {
+    return $.map($('#teamMember-table').bootstrapTable('getSelections'), function (row) {
+        return row.people_id;
+    });
+}

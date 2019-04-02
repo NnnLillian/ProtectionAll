@@ -63,13 +63,9 @@ self.categoryDataInit = function (name) {
         striped: true,                      // 隔行加亮
         queryParamsType: "limit",           //設置為"undefined",可以獲取pageNumber，pageSize，searchText，sortName，sortOrder
                                             //設置為"limit",符合 RESTFul 格式的參數,可以獲取limit, offset, search, sort, order
-        // queryParams: queryParams,
         sidePagination: "client",           //分頁方式：client客户端分頁，server服務端分頁（*）
         sortable: true,                     //是否啟用排序;意味着整個表格都會排序
-        // sortName: 'uid',                    // 設置默認排序為 name
-        // sortOrder: "asc",                   //排序方式
         search: true,                       //是否顯示錶格搜索，此搜索是客户端搜索，不會進服務端，所以，個人感覺意義不大
-        // strictSearch: true,              //设置为true启用全匹配搜索
         showColumns: true,                  //是否顯示所有的列
         showRefresh: true,                  //是否顯示刷新按鈕
         showToggle: true,                    //是否顯示詳細視圖和列表視圖
@@ -83,7 +79,6 @@ self.categoryDataInit = function (name) {
         paginationNextText: ">",
         paginationFirstText: "第一页",
         paginationLastText: "最后一页",
-        // responseHandler: responseHandler,    // 如果json不是 {total:"2" row:{},{}} 的格式
         columns: columns,
         onClickCell: function (field, value, row, $element) {
             Request = value;
@@ -117,59 +112,16 @@ self.categoryDataInit = function (name) {
         }
     });
 };
-// $(function () {
-//     var scripts = [
-//             'js/bootstrap-table-locale-all.min.js',
-//             'js/bootstrap-table-export.min.js',
-//             'js/tableExport.min.js',
-//             'js/bootstrap-table-editable.js',
-//         ],
-//         eachSeries = function (arr, iterator, callback) {
-//             callback = callback || function () {
-//             };
-//             if (!arr.length) {
-//                 return callback();
-//             }
-//             var completed = 0;
-//             var iterate = function () {
-//                 iterator(arr[completed], function (err) {
-//                     if (err) {
-//                         callback(err);
-//                         callback = function () {
-//                         };
-//                     } else {
-//                         completed += 1;
-//                         if (completed >= arr.length) {
-//                             callback(null);
-//                         } else {
-//                             iterate();
-//                         }
-//                     }
-//                 });
-//             };
-//             iterate();
-//         };
-//     eachSeries(scripts, getScript, dataInit);
-// });
-//
-//
-// function getScript(url, callback) {
-//     var head = document.getElementsByTagName('head')[0];
-//     var script = document.createElement('script');
-//     script.src = url;
-//     var done = false;
-//     // Attach handlers for all browsers
-//     script.onload = script.onreadystatechange = function () {
-//         if (!done && (!this.readyState ||
-//             this.readyState == 'loaded' || this.readyState == 'complete')) {
-//             done = true;
-//             if (callback)
-//                 callback();
-//             // Handle memory leak in IE
-//             script.onload = script.onreadystatechange = null;
-//         }
-//     };
-//     // head.appendChild(script);
-//     // We handle everything using the script element injection
-//     return undefined;
-// }
+
+// 保障部队装备的选择
+function getCategoryList() {
+    return $.map($('#protectCategory-table').bootstrapTable('getSelections'), function (row) {
+        let categoryId = row.category_id;
+        let categoryCount = row.category_number;
+        let selectCategoryNumber = {
+            category_id: categoryId,
+            category_number: 1
+        };
+        return selectCategoryNumber
+    });
+}

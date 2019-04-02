@@ -27,6 +27,9 @@
         insert into team_info(group_id,army_id,team_name,team_type)values (#{group_id},#{army_id},#{team_name},#{team_type})
     </insert>
 
+    <insert id="AddDepartment" parameterType="Department">
+        insert into department_info(department_name, people_max_number) values (#{department_name},#{people_max_number})
+    </insert>
     <insert id="AddTeamDepartment" parameterType="Team_Department">
         insert into team_department_info values (#{team_id},#{department_id},#{department_people})
     </insert>
