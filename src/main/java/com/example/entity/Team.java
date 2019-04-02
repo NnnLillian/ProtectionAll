@@ -5,7 +5,7 @@ import java.util.List;
 public class Team {
     private Integer team_id;
     private Integer group_id;
-    private Integer army_id;
+    private String army_id;
     private Integer location_id;
     private String team_name;
     private List<Team_Department> team_department_list;
@@ -17,7 +17,7 @@ public class Team {
     public Team() {
     }
 
-    public Team(Integer team_id, Integer group_id, Integer army_id, Integer location_id, String team_name, List<Team_Department> team_department_list, List<Team_Category> team_category_list, List<Department> departmentList, List<Category> categoryList, String team_type) {
+    public Team(Integer team_id, Integer group_id, String army_id, Integer location_id, String team_name, List<Team_Department> team_department_list, List<Team_Category> team_category_list, List<Department> departmentList, List<Category> categoryList, String team_type) {
         this.team_id = team_id;
         this.group_id = group_id;
         this.army_id = army_id;
@@ -55,11 +55,11 @@ public class Team {
         this.group_id = group_id;
     }
 
-    public Integer getArmy_id() {
+    public String getArmy_id() {
         return army_id;
     }
 
-    public void setArmy_id(Integer army_id) {
+    public void setArmy_id(String army_id) {
         this.army_id = army_id;
     }
 

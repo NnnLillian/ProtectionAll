@@ -193,7 +193,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="mb20">
                     <label class="control-label col-md-2">小组职责:</label>
                     <textarea rows="5" class="form-control" name="comment" placeholder="负责器材调整补充及请领下送"></textarea>
@@ -201,6 +200,13 @@
                 <div class="col-md-12 tab-pane active mb20" id="teamCategory">
                     <div class="table-responsive">
                         <table id="protectCategory-table"></table>
+                    </div>
+                </div>
+                <label class="col-md-2 control-label">所负责部队</label>
+                <div class="col-md-6 mb30 tab-pane">
+                    <div class="ckbox ckbox-success" th:each="item:${army_list}">
+                        <input type="checkbox" name="checkBox" th:value="${item.getArmy_id()}" th:id="ck + ${item.getArmy_id()}">
+                        <label th:text="${item.getArmy_name()}" th:for="ck + ${item.getArmy_id()}"></label>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -230,8 +236,15 @@
     }
 
     $("#testBtn").click(function () {
-        let test = getprotectCategoryId();
-        console.log(test);
+        let armyList = document.getElementsByName("checkBox");
+        console.log(armyList);
+        var array = new Array();
+        for (let i=0 ;i< armyList.length;i++){
+            if (armyList[i].checked){
+                array.push(armyList[i].value);
+            }
+        }
+        var armyListStr = array.join(",");
     });
 
     // 加载人员信息并新增保障大组 GroupId
@@ -298,28 +311,39 @@
             department_people: teamMemberIds
         }];
 
+        var armyList = document.getElementsByName("checkBox");
+        console.log(armyList);
+        var array = new Array();
+        for (let i=0 ;i< armyList.length;i++){
+            if (armyList[i].checked){
+                array.push(armyList[i].value);
+            }
+        }
+        var armyListStr = array.join(",");
+
         var teamCategoryRows = getCategoryList();
 
         var Team = {
             group_id: groupId,
             team_type: BtnId,
             team_name: teamName,
+            army_id: armyListStr,
             team_department: teamDepartment,
             team_category: teamCategoryRows
         };
         var TeamStr = JSON.stringify(Team);
-        console.log(TeamStr);
+        // console.log(TeamStr);
         $.ajax({
-            type:"POST",
-            data:TeamStr,
+            type: "POST",
+            data: TeamStr,
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
-            url:"/AddTeam",
-            async:false,
-            success:function (data) {
+            url: "/AddTeam",
+            async: false,
+            success: function (data) {
                 alert("Add a Scheme success");
             },
-            error:function () {
+            error: function () {
                 console.error("error");
             }
         })
@@ -332,7 +356,7 @@
             type: 'POST',
             // data: schemeStr,
             contentType: "application/json;charset=UTF-8",
-            // url: "/AddSchemeEquipment",
+            url: "/AddSchemeEquipment",
             dataType: "json",
             async: false,     // 取消异步加载
             success: function (data) {

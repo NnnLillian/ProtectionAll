@@ -258,7 +258,7 @@
 
             var schemeStr = JSON.stringify(scheme);
 
-            location.href = "/edit_protection_group";
+            location.href = "/edit_protection_group?scheme_id="+localStorage.getItem("scheme_id");
 
             $.ajax({
                 type: 'POST',

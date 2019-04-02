@@ -98,7 +98,9 @@ public class SchemeHtmlController {
     public String GetEditProtection(){ return "edit_protection"; }
 
     @GetMapping("/edit_protection_group")
-    public String GetEditPeople() {
+    public String GetEditPeople(@RequestParam("scheme_id") Integer scheme_id, Model model) {
+        List<Army> armyList = schemeService.GetArmyBySchemeID(scheme_id);
+        model.addAttribute("army_list",armyList);
         return "edit_protection_group";
     }
 
