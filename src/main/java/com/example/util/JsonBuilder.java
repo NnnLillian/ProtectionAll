@@ -114,6 +114,14 @@ public class JsonBuilder {
         return resObj.toString();
     }
 
+    public String buildTeamStrList(List<TeamStr> teamStrs) throws JSONException
+    {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("total",teamStrs.size());
+        jsonObject.put("rows",teamStrs);
+        return jsonObject.toString();
+    }
+
     public String buildPeopleList(List<People> people_list)throws JSONException{
         JSONObject resPbj = new JSONObject();
         resPbj.put("total",people_list.size());

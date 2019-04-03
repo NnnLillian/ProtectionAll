@@ -9,6 +9,7 @@ import com.example.service.SchemeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,6 +41,32 @@ public class SchemeServiceImpl implements SchemeService {
     @Override
     public List<Army> RequestArmyByType(Integer platoon_id, String army_type) {
         return armyMapper.RequestArmyByType(platoon_id, army_type);
+    }
+
+    @Override
+    public List<TeamStr> RequestTeamBySchemeIdAndType(Integer scheme_id, String group_type) {
+        Group group = groupMapper.GetSchemeGroupBySchemeIdAndGroupType(scheme_id, group_type);
+        Integer groupId = group.getGroup_id();
+        String groupName = group.getGroup_name();
+        List<Team> teamList = groupMapper.GetTeamByGroupId(groupId);
+        List<TeamStr> teamStrList = new ArrayList<>();
+        for (int i = 0; i < teamList.size(); i++) {
+            TeamStr teamStr = new TeamStr();
+            teamStr.setTeam_id(teamList.get(i).getTeam_id());
+            String teamName = "第" + teamList.get(i).getTeam_name() + groupName;
+            teamStr.setTeam_name(teamName);
+            teamStr.setGroup_name(groupName);
+            String armyIds = teamList.get(i).getArmy_id();
+            String[] armyId = armyIds.split(",");
+            String armyNames = "";
+            for (int j = 0; j < armyId.length; j++) {
+                String armyName = armyMapper.GetArmyByArmyId(Integer.parseInt(armyId[j])).getArmy_name();
+                armyNames = armyName + "、" + armyNames;
+            }
+            teamStr.setArmy_name(armyNames);
+            teamStrList.add(teamStr);
+        }
+        return teamStrList;
     }
 
     @Override

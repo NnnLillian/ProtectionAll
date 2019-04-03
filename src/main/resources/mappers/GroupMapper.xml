@@ -46,6 +46,10 @@
         select team_id from team_info where group_id = #{group_id} and team_type = #{team_type} and team_name = #{team_name}
     </select>
 
+    <select id="GetTeamByGroupId" resultType="Team">
+        select * from team_info where group_id = #{group_id}
+    </select>
+
     <delete id="DeleteTeam">
         delete from team_info where team_id = #{team_id}
     </delete>

@@ -226,6 +226,14 @@ public class SchemeJsonController {
         return jsonBuilder.buildPeopleList(peopleList);
     }
 
+//    获取保障小分队的table，对应表格在Team_resultProtection中
+    @ResponseBody
+    @RequestMapping(value = "/GetTeamMsg", method = {RequestMethod.GET})
+    public String GetProtectionTeamMsg(@Param("scheme_id") Integer scheme_id, @Param("type") String type) {
+        List<TeamStr> teamList = schemeService.RequestTeamBySchemeIdAndType(scheme_id,type);
+        return jsonBuilder.buildTeamStrList(teamList);
+    }
+
     @ResponseBody
     @RequestMapping(value = "/DeleteTeam", method = {RequestMethod.POST})
     public String DeleteTeam(@RequestBody String jsonStr) {

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>生成的保障组结果</title>
+
+    <link href="css/sweetalert.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-table.css">
+
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-zh-CN.js"></script>
+    <script src="js/bootstrap-table-editable.js"></script>
+
+    <style>
+        .detail-icon {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h3 id="groupId">装备抢修组</h3>
+    <table id="groupsTable"></table>
+</div>
+
+<!-- 加载人员模态框 modal -->
+<div class="modal fade" id="peopleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title">保障人员表</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table id="teamDepartment"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 加载携带装备模态框 modal -->
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title">保障装备表</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table id="teamCategory"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 加载一次作战活动重的不同梯队
+    var $groupsTable = $('#groupsTable');
+    var $teamDepartment = $('#teamDepartment');
+    var $teamCategory = $('#teamCategory');
+    // 注意，此操作应该置于InitTable之前
+    window.operateEvents = {
+        'click #deleteActionGroup': function (e, value, row, index) {
+            console.log(value);
+            swal({
+                title: "确定删除吗？",
+                text: "你将无法恢复该操作！",
+                icon: "warning",
+                buttons: ["取消", "确认删除"],
+                dangerMode: true,
+            }).then(function (willDelte) {
+                if (willDelte) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "/DeleteActionGroup?groupId=" + row.action_group_id,
+                        success: function () {
+                            swal("删除！", "已经被删除。",
+                                "success");
+                            $groupsTable.bootstrapTable('refresh');
+                        },
+                        error: function () {
+                            swal("失败！", "请刷新后再试",
+                                "error");
+                        }
+                    })
+                }
+            })
+        },
+        'click #showPeople': function (e, value, row, index) {
+            $("#peopleModal").modal('show')
+        },
+        'click #showCategory': function (e, value, row, index) {
+            $("#categoryModal").modal('show')
+        }
+    };
+
+    initGroupsTable();
+
+    function initGroupsTable() {
+        $groupsTable.bootstrapTable('destroy');
+        $groupsTable.bootstrapTable({
+            method: 'GET',
+            // url: 'js/tableData/json/actionGroup.json',
+            url: 'GetTeamMsg?scheme_id=' + localStorage.getItem("scheme_id") + "&type=repair",
+            striped: false,
+            showRefresh: true,
+            showExport: true,
+            showColumns: false,
+            columns: [{
+                field: 'team_id',
+                title: '小组ID',
+                visible: false
+            }, {
+                field: 'team_name',
+                align: 'center',
+                valign: 'middle',
+                title: '保障组名称',
+            }, {
+                field: 'group_name',
+                align: 'center',
+                valign: 'middle',
+                title: '所属于保障类型',
+            },{
+                field:'army_name',
+                align:'center',
+                valign:'middle',
+                title:'目标单位'
+            }, {
+                field: 'operate',
+                title: '操作',
+                align: 'center',
+                width: '20%',
+                events: operateEvents,
+                formatter: operateFormatter
+            }],
+        });
+    }
+
+    InitSubTable1();
+
+    function InitSubTable1() {
+        $teamDepartment.bootstrapTable('destroy');
+        $teamDepartment.bootstrapTable({
+            url: 'js/tableData/json/armyList.json',
+//             url: '/GetArmyMsgBy?action_group_id=' + parentid,
+            method: 'get',
+            clickToSelect: true,
+            detailView: true,
+            editable: true,
+            pageSize: 10,
+            pageList: [10, 25],
+            columns: [{
+                field: 'department_id',
+                title: '队伍ID',
+                visible: false
+            }, {
+                field: 'department_name',
+                title: '组内分工'
+            }, {
+                field: 'departmentPeopleList',
+                title: '查看人员',
+                align: 'center',
+                formatter: function (value, row, index) {
+                    return [
+                        '<button type="button" class="btn btn-default tableed " onclick="view(\'' + index + '\')">查看</button> '
+                    ]
+                }
+            }],
+            onExpandRow: function (index, row, $detail) {
+                InitSonTable(index, row, $detail)
+            }
+        });
+    }
+
+    InitSonTable = function (index, row, $detail) {
+        var parentid = row.department_id;
+        var cur_table = $detail.html('<table></table>').find('table');
+        $(cur_table).bootstrapTable('destroy');
+        $(cur_table).bootstrapTable({
+            url: '',
+            method: 'get',
+            queryParams: {strParentID: parentid},
+            ajaxOptions: {strParentID: parentid},
+            clickToSelect: true,
+            pageSize: 10,
+            pageList: [10, 25],
+            columns: [{
+                field: 'people_id',
+                title: '队伍ID',
+                visible: false
+            },{
+                field:'people_name',
+                title:'姓名',
+                align:"center"
+            },{
+                field:'people_profession',
+                title:'专业',
+                align:'center'
+            }]
+        });
+    };
+
+    InitSubTable2();
+
+    function InitSubTable2() {
+        $teamCategory.bootstrapTable('destroy');
+        $teamCategory.bootstrapTable({
+            url: 'js/tableData/json/armyList.json',
+//             url: '/GetArmyMsgBy?action_group_id=' + parentid,
+            method: 'get',
+            clickToSelect: true,
+            pageSize: 10,
+            pageList: [10, 25],
+            columns: [{
+                field: 'category_id',
+                title: '队伍ID',
+                visible: false
+            }, {
+                field: 'category_name',
+                title: '装备名称',
+            }, {
+                field: 'category_number',
+                title: '装备数量'
+            }]
+        });
+    };
+
+    function view(str) {
+        var a = $('.tableed ').eq(str).html();
+        if (a == '查看') {
+            $('.tableed ').eq(str).html('收起');
+            $teamDepartment.bootstrapTable('expandRow', str);
+        }
+        else {
+            $('.tableed ').eq(str).html('查看');
+            $teamDepartment.bootstrapTable('collapseRow', str);
+        }
+        event.stopPropagation();
+    }
+
+    function operateFormatter(value, row, index) {
+        return [
+            '<button type="button" style="color: white" id="showPeople" class="btn btn-primary">查看人员</button> ' +
+            '&nbsp;' +
+            '<button type="button" style="color: white" id="showCategory" class="btn btn-success">查看装备</button> ' +
+            '&nbsp;' +
+            '<button class="btn btn-danger" id="deleteActionGroup" type="button">删除</button>'
+        ]
+    }
+</script>
+</body>
+</html>

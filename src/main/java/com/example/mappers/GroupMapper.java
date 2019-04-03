@@ -10,8 +10,6 @@ import java.util.List;
 public interface GroupMapper {
     public Group GetGroupByGroupId(Integer group_id);
 
-    public Group GetGroupBySchemeId(Integer scheme_id);
-
     public Group GetSchemeGroupBySchemeIdAndGroupType(@Param("scheme_id") Integer scheme_id, @Param("group_type") String group_type);
 
     public List<Team> GetTeamBySchemeIdAndTeamType(@Param("scheme_id") Integer scheme_id, @Param("team_type") String team_type);
@@ -27,6 +25,8 @@ public interface GroupMapper {
     public void AddTeamCategory(Team_Category team_category);
 
     public Integer GetTeamId(Team team);
+
+    public List<Team> GetTeamByGroupId(Integer group_id);
 
     public void DeleteTeam(Integer team_id);
 

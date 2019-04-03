@@ -17,6 +17,8 @@ public interface SchemeService {
 
     public List<Army> RequestArmyByType(Integer platoon_id, String army_type);
 
+    public List<TeamStr> RequestTeamBySchemeIdAndType(Integer scheme_id, String group_type);
+
     public Scheme GetSchemeBySchemeID(Integer scheme_id);
 
     public List<Army> GetArmyBySchemeID(Integer scheme_id);

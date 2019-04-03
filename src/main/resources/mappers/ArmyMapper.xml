@@ -12,6 +12,9 @@
     <select id="GetArmyBySchemeId" resultType="Army">
         select army_info.army_id,army_name,scheme_army_info.army_people from army_info,scheme_army_info where army_info.army_id = scheme_army_info.army_id and scheme_id = #{scheme_id}
     </select>
+    <select id="GetArmyByArmyId" resultType="Army">
+        select army_id,army_name,army_people from army_info where army_id=#{army_id}
+    </select>
     <insert id="AddActionGroup" parameterType="Action_Group">
         insert into action_group_info (action_group_id, action_group_name, location_id) values (#{action_group_id}, #{action_group_name}, #{location_id})
     </insert>

@@ -103,6 +103,8 @@ public class SchemeHtmlController {
         model.addAttribute("army_list",armyList);
         return "edit_protection_group";
     }
+    @GetMapping("/protectionTeam_result")
+    public String GetProtectionGroupResult(){ return "protectionTeam_result"; }
 
     @GetMapping("/edit_equipment")
     public String GetEditEquipment(@RequestParam("scheme_id") Integer scheme_id, Model model) {
