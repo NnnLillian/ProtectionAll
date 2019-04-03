@@ -22,6 +22,8 @@ public interface GroupMapper {
 
     public void AddTeamDepartment(Team_Department team_department);
 
+    public Integer GetDepartmentLastItem();
+
     public void AddTeamCategory(Team_Category team_category);
 
     public Integer GetTeamId(Team team);

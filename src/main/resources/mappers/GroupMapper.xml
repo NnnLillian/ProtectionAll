@@ -30,6 +30,10 @@
     <insert id="AddDepartment" parameterType="Department">
         insert into department_info(department_name, people_max_number) values (#{department_name},#{people_max_number})
     </insert>
+    <select id="GetDepartmentLastItem" resultType="Integer">
+        select department_id from department_info order by department_id DESC limit 1
+    </select>
+
     <insert id="AddTeamDepartment" parameterType="Team_Department">
         insert into team_department_info values (#{team_id},#{department_id},#{department_people})
     </insert>

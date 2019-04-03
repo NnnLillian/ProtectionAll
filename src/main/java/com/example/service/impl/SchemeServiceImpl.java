@@ -39,7 +39,7 @@ public class SchemeServiceImpl implements SchemeService {
 
     @Override
     public List<Army> RequestArmyByType(Integer platoon_id, String army_type) {
-        return armyMapper.RequestArmyByType(platoon_id,army_type);
+        return armyMapper.RequestArmyByType(platoon_id, army_type);
     }
 
     @Override
@@ -133,15 +133,16 @@ public class SchemeServiceImpl implements SchemeService {
                 groupMapper.AddTeamCategory(team_category);
             }
             List<Team_Department> team_departments = team.getTeam_department_list();
+            List<Department> departments = team.getDepartmentList();
+//            其实 departments.size() = team_departments.size()
             for (int i = 0; i < team_departments.size(); i++) {
                 Team_Department team_department = team_departments.get(i);
                 team_department.setTeam_id(team_id1);
-                groupMapper.AddTeamDepartment(team_department);
-            }
-            List<Department> departments = team.getDepartmentList();
-            for (int i=0; i<departments.size();i++){
                 Department department = departments.get(i);
                 groupMapper.AddDepartment(department);
+                Integer did = groupMapper.GetDepartmentLastItem();
+                team_department.setDepartment_id(did);
+                groupMapper.AddTeamDepartment(team_department);
             }
             System.out.println("{\"tips\": \"success\",\"team_id\": " + team_id1 + "}");
             return "{\"tips\": \"success\",\"team_id\": " + team_id1 + "}";
@@ -175,8 +176,8 @@ public class SchemeServiceImpl implements SchemeService {
     public List<Action_Group> GetActionGroups(Integer scheme_id) {
         List<Action_Group> groups = armyMapper.GetActionGroupBySchemeId(scheme_id);
 
-        for (int i=0; i<groups.size(); i++){
-            groups.get(i).setLocation("经度："+groups.get(i).getLongitude()+", 纬度："+groups.get(i).getLatitude());
+        for (int i = 0; i < groups.size(); i++) {
+            groups.get(i).setLocation("经度：" + groups.get(i).getLongitude() + ", 纬度：" + groups.get(i).getLatitude());
         }
         return groups;
     }
