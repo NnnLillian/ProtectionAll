@@ -1,40 +1,43 @@
 {
-	"total": "5",
-	"rows": [{
-		"equipment_id":1,
-		"equipment_name":"雷达指挥控制车",
-		"equipment_create":"2004-5-10",
-		"equipment-service_time": "14年10个月",
-			"equipment-repair_count": "5"
-	},
-		{
-			"equipment_id":2,
-			"equipment_name":"一号垂直发射车",
-			"equipment_create":"2004-5-10",
-			"equipment-service_time": "14年10个月",
-			"equipment-repair_count": "4"
-		},
-		{
-			"equipment_id":3,
-			"equipment_name":"二号垂直发射车",
-			"equipment_create":"2004-5-10",
-			"equipment-service_time": "14年10个月",
-			"equipment-repair_count": "3"
-		},
-		{
-			"equipment_id":4,
-			"equipment_name":"半自动运输装填车",
-			"equipment_create":"2005-3-5",
-			"equipment-service_time": "14年",
-			"equipment-repair_count": "3"
-		},
-		{
-			"equipment_id":5,
-			"equipment_name":"工频电源车",
-			"equipment_create":"2004-5-10",
-			"equipment-service_time": "14年10个月",
-			"equipment-repair_count": "6"
-		}]
+  "total": "5",
+  "rows": [
+    {
+      "equipment_id": 1,
+      "equipment_name": "雷达指挥控制车",
+      "equipment_create": "2004-5-10",
+      "equipment-service_time": "14年10个月",
+      "equipment-repair_count": "5",
+		"hello":"1"
+    },
+    {
+      "equipment_id": 2,
+      "equipment_name": "一号垂直发射车",
+      "equipment_create": "2004-5-10",
+      "equipment-service_time": "14年10个月",
+      "equipment-repair_count": "4"
+    },
+    {
+      "equipment_id": 3,
+      "equipment_name": "二号垂直发射车",
+      "equipment_create": "2004-5-10",
+      "equipment-service_time": "14年10个月",
+      "equipment-repair_count": "3"
+    },
+    {
+      "equipment_id": 4,
+      "equipment_name": "半自动运输装填车",
+      "equipment_create": "2005-3-5",
+      "equipment-service_time": "14年",
+      "equipment-repair_count": "3"
+    },
+    {
+      "equipment_id": 5,
+      "equipment_name": "工频电源车",
+      "equipment_create": "2004-5-10",
+      "equipment-service_time": "14年10个月",
+      "equipment-repair_count": "6"
+    }
+  ]
 }
 
 

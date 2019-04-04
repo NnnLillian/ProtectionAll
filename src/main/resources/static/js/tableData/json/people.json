@@ -1,0 +1,38 @@
+{
+  "total": "5",
+  "rows": [
+    {
+      "people_id": 1,
+      "people_name": "张真",
+      "people_profession": "发射",
+      "people_army_id": "5"
+    },
+    {
+      "people_id": 2,
+      "people_name": "李致力",
+      "people_profession": "发射",
+      "people_army_id": "4"
+    },
+    {
+      "people_id": 3,
+      "people_name": "淘云",
+      "people_profession": "雷达",
+      "people_army_id": "3"
+    },
+    {
+      "people_id": 4,
+      "people_name": "周文",
+      "people_profession": "测控",
+      "people_army_id": "3"
+    },
+    {
+      "people_id": 5,
+      "people_name": "吴于",
+      "people_profession": "测控",
+      "people_army_id": "6"
+    }
+  ]
+}
+
+
+

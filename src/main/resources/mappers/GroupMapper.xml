@@ -58,6 +58,10 @@
         select * from team_department_info where team_id = #{team_id}
     </select>
 
+    <select id="GetTeamCategoryByTeamId" resultType="Team_Category">
+        select * from team_category_info where team_id = #{team_id}
+    </select>
+
     <delete id="DeleteTeam">
         delete from team_info where team_id = #{team_id}
     </delete>

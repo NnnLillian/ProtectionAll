@@ -25,6 +25,8 @@ public interface EquipmentMapper {
 
     public List<Category> GetCategoryByPlatoonIdAndType(@Param("platoon_id") Integer platoon_id, @Param("category_type") String category_type);
 
+    public Category GetCategoryById(Integer category_id);
+
     public void AddTeamCategory(Team_Category team_category);
 
     public Integer GetCategoryEquipmentCount(Integer category_id);

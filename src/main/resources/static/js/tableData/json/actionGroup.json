@@ -1,0 +1,16 @@
+{
+  "total": "3",
+  "rows": [{
+    "action_group_id": 1,
+    "location": "第一营",
+    "armies": 1203
+  }, {
+    "action_group_id": 2,
+    "location": "第2营",
+    "armies": 1203
+  }, {
+    "action_group_id": 3,
+    "location": "第3营",
+    "armies": 1203
+  }]
+}

@@ -437,6 +437,7 @@
         },
         'click #showCategory': function (e, value, row, index) {
             $("#categoryModal").modal('show');
+            InitSubTable2(row.team_id);
             $('.modal-p').text(row.team_name);
         }
     };
@@ -511,9 +512,9 @@
             method: 'get',
             clickToSelect: true,
             detailView: true,
-            sortable:true,
-            sortName:'department_id',
-            sortOrder:"asc",
+            sortable: true,
+            sortName: 'department_id',
+            sortOrder: "asc",
             pageSize: 10,
             pageList: [10, 25],
             columns: [{
@@ -569,13 +570,10 @@
         });
     };
 
-    InitSubTable2();
-
-    function InitSubTable2() {
+    function InitSubTable2(teamId) {
         $teamCategory.bootstrapTable('destroy');
         $teamCategory.bootstrapTable({
-            url: 'js/tableData/json/armyList.json',
-//             url: '/GetArmyMsgBy?action_group_id=' + parentid,
+            url: '/GetTeamCategoryMsg?teamId=' + teamId,
             method: 'get',
             clickToSelect: true,
             pageSize: 10,
@@ -587,9 +585,17 @@
             }, {
                 field: 'category_name',
                 title: '装备名称',
+                align: 'center'
             }, {
                 field: 'category_number',
-                title: '装备数量'
+                title: '装备数量',
+                align:'center',
+                width: '15%'
+            },{
+                field:'category_unit',
+                title:"单位",
+                align:'center',
+                width:'10%'
             }]
         });
     };

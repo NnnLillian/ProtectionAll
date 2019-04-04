@@ -1,10 +1,7 @@
 package com.example.service.impl;
 
 import com.example.entity.*;
-import com.example.mappers.ArmyMapper;
-import com.example.mappers.GroupMapper;
-import com.example.mappers.LocationMapper;
-import com.example.mappers.SchemeMapper;
+import com.example.mappers.*;
 import com.example.service.SchemeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +19,8 @@ public class SchemeServiceImpl implements SchemeService {
     private LocationMapper locationMapper;
     @Autowired
     private GroupMapper groupMapper;
+    @Autowired
+    private EquipmentMapper equipmentMapper;
 
     @Override
     public List<Platoon> RequestPlatoon() {
@@ -73,11 +72,23 @@ public class SchemeServiceImpl implements SchemeService {
     public List<Department> RequestTeamDepartmentByTeamId(Integer team_id) {
         List<Team_Department> team_departmentList = groupMapper.GetTeamByTeamId(team_id);
         List<Department> departmentStrs = new ArrayList<>();
-        for (int i=0;i<team_departmentList.size();i++){
+        for (int i = 0; i < team_departmentList.size(); i++) {
             Department department = groupMapper.GetDepartmentById(team_departmentList.get(i).getDepartment_id());
             departmentStrs.add(department);
         }
         return departmentStrs;
+    }
+
+    @Override
+    public List<Category> RequestTeamCategoryByTeamId(Integer team_id) {
+        List<Team_Category> team_categoryList = groupMapper.GetTeamCategoryByTeamId(team_id);
+        List<Category> categoryList = new ArrayList<>();
+        for (int i = 0; i < team_categoryList.size(); i++){
+            Category category = equipmentMapper.GetCategoryById(team_categoryList.get(i).getCategory_id());
+            category.setCategory_number(team_categoryList.get(i).getCategory_number());
+            categoryList.add(category);
+        }
+            return categoryList;
     }
 
     @Override

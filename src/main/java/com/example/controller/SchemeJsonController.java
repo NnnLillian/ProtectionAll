@@ -242,6 +242,14 @@ public class SchemeJsonController {
         return jsonBuilder.buildDepartmentList(team_departmentList);
     }
 
+    //    获取保障小分队下的装备信息表，对应表格在edit_protection_group.html中的teamCategory
+    @ResponseBody
+    @RequestMapping(value = "/GetTeamCategoryMsg",method = {RequestMethod.GET})
+    public String GetProTeamCategoryMsg(@Param("teamId") Integer teamId){
+        List<Category> team_categoryList = schemeService.RequestTeamCategoryByTeamId(teamId);
+        return jsonBuilder.buildCategoryList(team_categoryList);
+    }
+
     @ResponseBody
     @RequestMapping(value = "/DeleteTeam", method = {RequestMethod.POST})
     public String DeleteTeam(@RequestBody String jsonStr) {

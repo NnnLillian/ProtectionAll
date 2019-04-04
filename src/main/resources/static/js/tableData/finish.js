@@ -11,12 +11,12 @@ self.dataInit = function (name) {
                     field: 'category_id',
                     title: '装备类ID',
                     align: 'center',
-                    width:300
+                    width: 300
                 }, {
                     field: 'category_name',
                     title: '装备类名称',
                     align: 'center',
-                    sortable:false   //本列不可以排序
+                    sortable: false   //本列不可以排序
                 }, {
                     field: 'category_number',
                     title: '装备类数目',
@@ -35,12 +35,12 @@ self.dataInit = function (name) {
                     title: '用户編號',
                     align: 'center',
 // formatter: uidHandle,//自定義方法設置uid跳轉鏈接
-                    width:300
+                    width: 300
                 }, {
                     field: 'name',
                     title: '姓名',
                     align: 'center',
-                    sortable:false   //本列不可以排序
+                    sortable: false   //本列不可以排序
                 }, {
                     field: 'sex',
                     title: '性別',
@@ -52,12 +52,12 @@ self.dataInit = function (name) {
                     sortable: true,
                     clickToSelect: false,
                     sortName: "age",
-                    order:"asc"
+                    order: "asc"
                 }, {
                     field: 'area',
                     title: '户籍所在地',
                     align: 'left',
-                    halign:'center' //設置表頭列居中對齊
+                    halign: 'center' //設置表頭列居中對齊
                 }, {
                     field: 'loginWay',
                     title: '登錄方式',
@@ -76,12 +76,12 @@ self.dataInit = function (name) {
                     title: '装备ID',
                     align: 'center',
 // formatter: uidHandle,//自定義方法設置uid跳轉鏈接
-                    width:300
+                    width: 300
                 }, {
                     field: 'equipment_name',
                     title: '装备名称 ',
                     align: 'center',
-                    sortable:false   //本列不可以排序
+                    sortable: false   //本列不可以排序
                 }, {
                     field: 'equipment_create',
                     title: '装备开始服役时间 ',
@@ -105,7 +105,7 @@ self.dataInit = function (name) {
         contentType: 'application/json,charset=utf-8',
         toolbar: "#toolbar",                //一個jQuery 選擇器，指明自定義的toolbar 例如:#toolbar, .toolbar.
         uniqueId: "id",                    //每一行的唯一標識，一般為主鍵列
-        height: document.body.clientHeight-165,   //動態獲取高度值，可以使表格自適應頁面
+        height: document.body.clientHeight - 165,   //動態獲取高度值，可以使表格自適應頁面
         cache: false,                       // 不緩存
         striped: true,                      // 隔行加亮
         queryParamsType: "limit",           //設置為"undefined",可以獲取pageNumber，pageSize，searchText，sortName，sortOrder
@@ -120,7 +120,7 @@ self.dataInit = function (name) {
         strictSearch: true,
         showColumns: true,                  //是否顯示所有的列
         showRefresh: true,                  //是否顯示刷新按鈕
-        showToggle:true,                    //是否顯示詳細視圖和列表視圖
+        showToggle: true,                    //是否顯示詳細視圖和列表視圖
         clickToSelect: true,                //是否啟用點擊選中行
         minimumCountColumns: 2,          //最少允許的列數 clickToSelect: true, //是否啟用點擊選中行
         pageNumber: 1,                   //初始化加載第一頁，默認第一頁
@@ -130,8 +130,35 @@ self.dataInit = function (name) {
         paginationNextText: "Next",
         paginationFirstText: "First",
         paginationLastText: "Last",
-// responseHandler: responseHandler,
+        responseHandler: responseHandler,
         columns: columns,
+        // 设置行样式
+        // rowStyle: function (row, index) {
+        //     var style = "";
+        //     if (index == 1) {
+        //         style ={css:{'background':'#f2951d'}};
+        //     }
+        //     return style
+        // },
+        //信息编辑后的提交方法统一放到onEditableSave事件里面统一处理。
+        // onEditableSave: function (field, row) {
+        //     $.ajax({
+        //         type: "post",
+        //         url: "/Editable/Edit",
+        //         data: row,
+        //         dataType: 'JSON',
+        //         success: function (data, status) {
+        //             if (status == "success") {
+        //                 alert('提交数据成功');
+        //             }
+        //         },
+        //         error: function () {
+        //             alert('编辑失败');
+        //         },
+        //         complete: function () {
+        //         }
+        //     });
+        // },
         onLoadSuccess: function (data) { //加載成功時執行
             console.log(data);
         },

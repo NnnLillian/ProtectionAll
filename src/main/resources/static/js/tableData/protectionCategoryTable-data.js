@@ -61,8 +61,6 @@ self.categoryDataInit = function (name) {
         // url: '../data/.json',   //url一般是請求後台的url地址,調用ajax獲取數據。此處我用本地的json數據來填充表格。
         contentType: 'application/json,charset=utf-8',
         striped: true,                      // 隔行加亮
-        queryParamsType: "limit",           //設置為"undefined",可以獲取pageNumber，pageSize，searchText，sortName，sortOrder
-                                            //設置為"limit",符合 RESTFul 格式的參數,可以獲取limit, offset, search, sort, order
         sidePagination: "client",           //分頁方式：client客户端分頁，server服務端分頁（*）
         sortable: true,                     //是否啟用排序;意味着整個表格都會排序
         search: true,                       //是否顯示錶格搜索，此搜索是客户端搜索，不會進服務端，所以，個人感覺意義不大
@@ -120,7 +118,7 @@ function getCategoryList() {
         let categoryCount = row.category_number;
         let selectCategoryNumber = {
             category_id: categoryId,
-            category_number: 1
+            category_number: categoryCount
         };
         return selectCategoryNumber
     });
