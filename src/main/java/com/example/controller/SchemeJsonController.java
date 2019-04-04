@@ -226,33 +226,34 @@ public class SchemeJsonController {
         return jsonBuilder.buildPeopleList(peopleList);
     }
 
-//    获取保障小分队的table，对应表格在Team_resultProtection中
+    //    获取保障小分队的table，对应表格在Team_resultProtection中
     @ResponseBody
     @RequestMapping(value = "/GetTeamMsg", method = {RequestMethod.GET})
     public String GetProtectionTeamMsg(@Param("scheme_id") Integer scheme_id, @Param("type") String type) {
-        List<TeamStr> teamList = schemeService.RequestTeamBySchemeIdAndType(scheme_id,type);
+        List<TeamStr> teamList = schemeService.RequestTeamBySchemeIdAndType(scheme_id, type);
         return jsonBuilder.buildTeamStrList(teamList);
     }
 
-//    获取保障小分队下的人员职责表，对应表格在edit_protection_group.html中的teamDepartment
+    //    获取保障小分队下的人员职责表，对应表格在edit_protection_group.html中的teamDepartment
     @ResponseBody
-    @RequestMapping(value = "/GetTeamDepartmentMsg",method = {RequestMethod.GET})
-    public String GetProTeamDepartmentMsg(@Param("teamId") Integer teamId){
+    @RequestMapping(value = "/GetTeamDepartmentMsg", method = {RequestMethod.GET})
+    public String GetProTeamDepartmentMsg(@Param("teamId") Integer teamId) {
         List<Department> team_departmentList = schemeService.RequestTeamDepartmentByTeamId(teamId);
         return jsonBuilder.buildDepartmentList(team_departmentList);
     }
+
     //    获取保障小分队下的人员信息表，对应表格在edit_protection_group.html中的InitSonTable，是一个子表，父表为teamDepartment
     @ResponseBody
-    @RequestMapping(value = "/GetDepartmentPeople",method = {RequestMethod.GET})
-    public String GetDepartmentPeopleMsg(@Param("departmentId") Integer departmentId){
+    @RequestMapping(value = "/GetDepartmentPeople", method = {RequestMethod.GET})
+    public String GetDepartmentPeopleMsg(@Param("departmentId") Integer departmentId) {
         List<People> peopleList = schemeService.RequestPeopleByDepartmentId(departmentId);
         return jsonBuilder.buildPeopleList(peopleList);
     }
 
     //    获取保障小分队下的装备信息表，对应表格在edit_protection_group.html中的teamCategory
     @ResponseBody
-    @RequestMapping(value = "/GetTeamCategoryMsg",method = {RequestMethod.GET})
-    public String GetProTeamCategoryMsg(@Param("teamId") Integer teamId){
+    @RequestMapping(value = "/GetTeamCategoryMsg", method = {RequestMethod.GET})
+    public String GetProTeamCategoryMsg(@Param("teamId") Integer teamId) {
         List<Category> team_categoryList = schemeService.RequestTeamCategoryByTeamId(teamId);
         return jsonBuilder.buildCategoryList(team_categoryList);
     }
@@ -260,11 +261,8 @@ public class SchemeJsonController {
     //  删除保障小分队
     @ResponseBody
     @RequestMapping(value = "/DeleteTeam", method = {RequestMethod.DELETE})
-    public String DeleteTeam(@RequestBody String jsonStr) {
-        System.out.println(jsonStr);
-        Integer team_id = jsonPaser.ParseTeamId(jsonStr);
-        schemeService.DeleteTeam(team_id);
-        return "{}";
+    public void DeleteTeam(@Param("teamId") Integer teamId) {
+        schemeService.DeleteTeam(teamId);
     }
 
     @ResponseBody

@@ -420,6 +420,7 @@
                         success: function () {
                             swal("删除！", "已经被删除。",
                                 "success");
+                            $('table[id$=GroupTable]').bootstrapTable('refresh');
                         },
                         error: function () {
                             swal("失败！", "请刷新后再试",
