@@ -416,11 +416,10 @@
                 if (willDelte) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "/DeleteActionGroup?groupId=" + row.action_group_id,
+                        url: "/DeleteTeam?teamId=" + row.team_id,
                         success: function () {
                             swal("删除！", "已经被删除。",
                                 "success");
-                            $repairGroupTable.bootstrapTable('refresh');
                         },
                         error: function () {
                             swal("失败！", "请刷新后再试",
@@ -543,14 +542,14 @@
     }
 
     InitSonTable = function (index, row, $detail) {
-        var parentid = row.department_id;
-        var cur_table = $detail.html('<table></table>').find('table');
+        let parentId = row.department_id;
+        let cur_table = $detail.html('<table></table>').find('table');
         $(cur_table).bootstrapTable('destroy');
         $(cur_table).bootstrapTable({
-            url: '',
+            url: '/GetDepartmentPeople?departmentId=' + parentId,
             method: 'GET',
-            queryParams: {strParentID: parentid},
-            ajaxOptions: {strParentID: parentid},
+            queryParams: {strParentID: parentId},
+            ajaxOptions: {strParentID: parentId},
             clickToSelect: true,
             pageSize: 10,
             pageList: [10, 25],
@@ -562,6 +561,18 @@
                 field: 'people_name',
                 title: '姓名',
                 align: "center"
+            }, {
+                field: 'people_profession',
+                title: '专业',
+                align: 'center'
+            }, {
+                field: 'people_job',
+                title: '职业',
+                align: 'center'
+            }, {
+                field: 'people_army_name',
+                title: '所属部队',
+                align: 'center'
             }, {
                 field: 'people_profession',
                 title: '专业',
@@ -589,13 +600,13 @@
             }, {
                 field: 'category_number',
                 title: '装备数量',
-                align:'center',
+                align: 'center',
                 width: '15%'
-            },{
-                field:'category_unit',
-                title:"单位",
-                align:'center',
-                width:'10%'
+            }, {
+                field: 'category_unit',
+                title: "单位",
+                align: 'center',
+                width: '10%'
             }]
         });
     };

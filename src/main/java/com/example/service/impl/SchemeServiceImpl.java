@@ -21,6 +21,8 @@ public class SchemeServiceImpl implements SchemeService {
     private GroupMapper groupMapper;
     @Autowired
     private EquipmentMapper equipmentMapper;
+    @Autowired
+    private PeopleMapper peopleMapper;
 
     @Override
     public List<Platoon> RequestPlatoon() {
@@ -80,15 +82,29 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
+    public List<People> RequestPeopleByDepartmentId(Integer department_id) {
+        Team_Department team_department = groupMapper.GetTeamDepartmentByDepartmentId(department_id);
+        String peopleStrs = team_department.getDepartment_people();
+        String peopleStr = peopleStrs.substring(1, peopleStrs.length() - 1);
+        String[] peopleListStr = peopleStr.split(",");
+        List<People> peopleList = new ArrayList<>();
+        for (int i = 0; i < peopleListStr.length; i++) {
+            Integer peopleId = Integer.parseInt(peopleListStr[i]);
+            peopleList.add(peopleMapper.GetPeopleByPeopleID(peopleId));
+        }
+        return peopleList;
+    }
+
+    @Override
     public List<Category> RequestTeamCategoryByTeamId(Integer team_id) {
         List<Team_Category> team_categoryList = groupMapper.GetTeamCategoryByTeamId(team_id);
         List<Category> categoryList = new ArrayList<>();
-        for (int i = 0; i < team_categoryList.size(); i++){
+        for (int i = 0; i < team_categoryList.size(); i++) {
             Category category = equipmentMapper.GetCategoryById(team_categoryList.get(i).getCategory_id());
             category.setCategory_number(team_categoryList.get(i).getCategory_number());
             categoryList.add(category);
         }
-            return categoryList;
+        return categoryList;
     }
 
     @Override

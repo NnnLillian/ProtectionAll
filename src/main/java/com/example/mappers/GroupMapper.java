@@ -18,6 +18,8 @@ public interface GroupMapper {
 
     public List<Team_Category> GetTeamCategoryByTeamId(Integer team_id);
 
+    public Team_Department GetTeamDepartmentByDepartmentId(Integer department_id);
+
     public void AddTeam(Team team);
 
     public void AddDepartment(Department department);

@@ -234,12 +234,19 @@ public class SchemeJsonController {
         return jsonBuilder.buildTeamStrList(teamList);
     }
 
-//    获取保障小分队下的人员信息表，对应表格在edit_protection_group.html中的teamDepartment
+//    获取保障小分队下的人员职责表，对应表格在edit_protection_group.html中的teamDepartment
     @ResponseBody
     @RequestMapping(value = "/GetTeamDepartmentMsg",method = {RequestMethod.GET})
     public String GetProTeamDepartmentMsg(@Param("teamId") Integer teamId){
         List<Department> team_departmentList = schemeService.RequestTeamDepartmentByTeamId(teamId);
         return jsonBuilder.buildDepartmentList(team_departmentList);
+    }
+    //    获取保障小分队下的人员信息表，对应表格在edit_protection_group.html中的InitSonTable，是一个子表，父表为teamDepartment
+    @ResponseBody
+    @RequestMapping(value = "/GetDepartmentPeople",method = {RequestMethod.GET})
+    public String GetDepartmentPeopleMsg(@Param("departmentId") Integer departmentId){
+        List<People> peopleList = schemeService.RequestPeopleByDepartmentId(departmentId);
+        return jsonBuilder.buildPeopleList(peopleList);
     }
 
     //    获取保障小分队下的装备信息表，对应表格在edit_protection_group.html中的teamCategory
@@ -250,8 +257,9 @@ public class SchemeJsonController {
         return jsonBuilder.buildCategoryList(team_categoryList);
     }
 
+    //  删除保障小分队
     @ResponseBody
-    @RequestMapping(value = "/DeleteTeam", method = {RequestMethod.POST})
+    @RequestMapping(value = "/DeleteTeam", method = {RequestMethod.DELETE})
     public String DeleteTeam(@RequestBody String jsonStr) {
         System.out.println(jsonStr);
         Integer team_id = jsonPaser.ParseTeamId(jsonStr);

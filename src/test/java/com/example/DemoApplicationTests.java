@@ -1,13 +1,12 @@
 package com.example;
 
-import com.example.entity.Category;
-import com.example.entity.Group;
-import com.example.entity.Team;
-import com.example.entity.TeamStr;
+import com.example.entity.*;
 import com.example.mappers.ArmyMapper;
 import com.example.mappers.EquipmentMapper;
 import com.example.mappers.GroupMapper;
+import com.example.mappers.PeopleMapper;
 import net.minidev.json.writer.ArraysMapper;
+import org.apache.ibatis.annotations.Param;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,8 @@ public class DemoApplicationTests {
     private EquipmentMapper equipmentMapper;
     @Autowired
     private ArmyMapper armyMapper;
+    @Autowired
+    private PeopleMapper peopleMapper;
 
 
     @Test
@@ -64,6 +65,19 @@ public class DemoApplicationTests {
             }
             teamStr.setArmy_name(armyNames);
             teamStrList.add(teamStr);
+        }
+    }
+
+    @Test
+    public void getPeople() {
+        Team_Department team_department = groupMapper.GetTeamDepartmentByDepartmentId(19);
+        String peopleStrs = team_department.getDepartment_people();
+        String peopleStr = peopleStrs.substring(1, peopleStrs.length() - 1);
+        String[] peopleListStr = peopleStr.split(",");
+        List<People> peopleList = new ArrayList<>();
+        for (int i = 0; i < peopleListStr.length; i++) {
+            Integer peopleId = Integer.parseInt(peopleListStr[i]);
+            peopleList.add(peopleMapper.GetPeopleByPeopleID(peopleId));
         }
     }
 }
