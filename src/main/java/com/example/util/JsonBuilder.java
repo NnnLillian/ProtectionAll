@@ -121,6 +121,13 @@ public class JsonBuilder {
         jsonObject.put("rows",teamStrs);
         return jsonObject.toString();
     }
+    public String buildDepartmentList(List<Department> departments) throws JSONException
+    {
+        JSONObject jsonObject =new JSONObject();
+        jsonObject.put("total",departments.size());
+        jsonObject.put("rows",departments);
+        return jsonObject.toString();
+    }
 
     public String buildPeopleList(List<People> people_list)throws JSONException{
         JSONObject resPbj = new JSONObject();

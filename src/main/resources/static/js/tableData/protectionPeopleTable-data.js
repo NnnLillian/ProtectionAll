@@ -1,23 +1,28 @@
+// var selections = []
 self.peopleDataInit = function (name) {
     var url, tableName, check, columns;
     var basicColumns = [
         {
             field: 'people_id',
             title: '人员ID',
-            align: 'center'
+            align: 'center',
+            width: '20%'
         }, {
             field: 'people_name',
             title: '姓名',
             // sortable:false,   //本列不可以排序
-            align: 'center'
+            align: 'center',
+            width: '20%'
         }, {
             field: 'people_profession',
             title: '专业',
-            align: 'center'
+            align: 'center',
+            width: '30%'
         }, {
             field: 'people_army_name',
             title: '所属单位',
             align: 'center',
+            width: '30%'
             // sortable: true
         }
     ];
@@ -68,8 +73,8 @@ self.peopleDataInit = function (name) {
             url = "/GetPeopleMsg?army_type=both";
             // url = "js/tableData/json/people.json";
             check = [{
-                field: 'checkStatus',
-                align: 'center',
+                // field: 'checkStatus',
+                // align: 'center',
                 checkbox: true,
                 formatter: function (value, row, index) {
                     console.log(row);
@@ -99,8 +104,6 @@ self.peopleDataInit = function (name) {
         cache: false,                       // 不緩存
         contentType: 'application/json,charset=utf-8',
         striped: false,                      // 隔行加亮
-        queryParamsType: "limit",           //設置為"undefined",可以獲取pageNumber，pageSize，searchText，sortName，sortOrder
-                                            //設置為"limit",符合 RESTFul 格式的參數,可以獲取limit, offset, search, sort, order
         sidePagination: "client",           //分頁方式：client客户端分頁，server服務端分頁（*）
         sortable: true,                     //是否啟用排序;意味着整個表格都會排序
         sortName: 'people_id',                    // 設置默認排序為 name
@@ -111,7 +114,6 @@ self.peopleDataInit = function (name) {
         showRefresh: true,                  //是否顯示刷新按鈕
         // showToggle:true,                    //是否顯示詳細視圖和列表視圖
         clickToSelect: true,                //是否啟用點擊選中行
-        minimumCountColumns: 2,          //最少允許的列數
         pagination: true,                   //是否顯示分頁（*）
         pageNumber: 1,                   //初始化加載第一頁，默認第一頁
         pageSize: 10,                    //每頁的記錄行數（*）
@@ -120,46 +122,8 @@ self.peopleDataInit = function (name) {
         paginationNextText: ">",
         paginationFirstText: "第一页",
         paginationLastText: "最后一页",
+        // responseHandler: responseHandler,
         columns: columns,
-        //     [{
-        //     field: 'checkStatus',
-        //     align: 'center',
-        //     checkbox: true,
-        //     formatter: function (value, row, index) {
-        //         console.log(row);
-        //         var i = parseInt(localStorage.getItem("selected_people"));
-        //         if (row.people_id === i) {
-        //             return {
-        //                 disabled: true,
-        //                 checked:true
-        //             }
-        //         } else {
-        //             return {disabled: false}
-        //         }
-        //         return value;
-        //     }
-        //     // formatter: format
-        // },
-        // {
-        //     field: 'people_id',
-        //     title: '人员ID',
-        //     align: 'center',
-        // }, {
-        //     field: 'people_name',
-        //     title: '姓名',
-        //     align: 'center',
-        //     // sortable:false   //本列不可以排序
-        // }, {
-        //     field: 'people_profession',
-        //     title: '专业',
-        //     align: 'center'
-        // }, {
-        //     field: 'people_army_id',
-        //     title: '所属单位',
-        //     align: 'center',
-        //     sortable: true,
-        // }
-        // ],
 
         onLoadSuccess: function (data) { //加載成功時執行
             console.log("success");
@@ -199,6 +163,25 @@ self.peopleDataInit = function (name) {
         $('#teamMember-table').bootstrapTable('refresh');
     })
 };
+
+// 翻页保留checkBox
+// function responseHandler(res) {
+//     $.each(res.rows, function (i, row) {
+//         row.state = $.inArray(row.id, selections) !== -1;
+//     });
+//     return res;
+// }
+//
+// function mounted() {
+//     $("#teamMember-table").on('check.bs.table check-all.bs.table ' +
+//         'uncheck.bs.table uncheck-all.bs.table', function (e, rows) {
+//         var ids = $.map(!$.isArray(rows) ? [rows] : rows, function (row) {
+//             return row.id
+//         });
+//         var func = $.inArray(e.type, ['check', 'check-all']) > -1 ? 'union' : 'difference'
+//         selections = window._[func](selections, ids)
+//     })
+// }
 
 // 保障部队人员表的选择
 function getTeamLeaderId() {

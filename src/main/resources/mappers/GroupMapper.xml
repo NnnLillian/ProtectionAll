@@ -34,6 +34,10 @@
         select department_id from department_info order by department_id DESC limit 1
     </select>
 
+    <select id="GetDepartmentById" resultType="Department">
+        select * from department_info where department_id = #{department_id}
+    </select>
+
     <insert id="AddTeamDepartment" parameterType="Team_Department">
         insert into team_department_info values (#{team_id},#{department_id},#{department_people})
     </insert>
@@ -48,6 +52,10 @@
 
     <select id="GetTeamByGroupId" resultType="Team">
         select * from team_info where group_id = #{group_id}
+    </select>
+
+    <select id="GetTeamByTeamId" resultType="Team_Department">
+        select * from team_department_info where team_id = #{team_id}
     </select>
 
     <delete id="DeleteTeam">

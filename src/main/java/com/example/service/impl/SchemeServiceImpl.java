@@ -70,6 +70,17 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
+    public List<Department> RequestTeamDepartmentByTeamId(Integer team_id) {
+        List<Team_Department> team_departmentList = groupMapper.GetTeamByTeamId(team_id);
+        List<Department> departmentStrs = new ArrayList<>();
+        for (int i=0;i<team_departmentList.size();i++){
+            Department department = groupMapper.GetDepartmentById(team_departmentList.get(i).getDepartment_id());
+            departmentStrs.add(department);
+        }
+        return departmentStrs;
+    }
+
+    @Override
     public Scheme GetSchemeBySchemeID(Integer scheme_id) {
         return schemeMapper.GetSchemeBySchemeID(scheme_id);
     }
