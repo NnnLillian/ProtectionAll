@@ -32,6 +32,7 @@ public class AdminUpLoadController {
     }
 
     @RequestMapping(value = "/importFile", method = {RequestMethod.POST})
+    @ResponseBody
     public List<Map<String, String>> UploadCategoryMsg(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
         String fileName = file.getOriginalFilename();
         System.out.println(fileName);
@@ -58,11 +59,16 @@ public class AdminUpLoadController {
 //        }
     }
 
-    @RequestMapping(value = "/IncreaseCategoryMsg",method = {RequestMethod.POST})
+    @RequestMapping(value = "/IncreaseCategoryMsg", method = {RequestMethod.POST})
     @ResponseBody
-    public Integer IncreaseCategory(@RequestBody Category category){
+    public Integer IncreaseCategory(@RequestBody List<Category> category) {
         // flag:1表示成功；2表示失败；
-        Integer flag = equipmentService.IncreaseCategory(category);
-        return flag;
+        for (int i = 0; i < category.size(); i++) {
+            Integer flag = equipmentService.IncreaseCategory(category.get(i));
+            if (flag != 1) {
+                return flag;
+            }
+        }
+        return 1;
     }
 }

@@ -203,9 +203,12 @@
             category_type: categoryType,
             category_unit: categoryUnit
         };
+        let categoryList=[];
+        categoryList.push(categoryMsg);
+        console.log(categoryList);
         $.ajax({
             type: 'POST',
-            data:  JSON.stringify(categoryMsg),
+            data:  JSON.stringify(categoryList),
             contentType: "application/json;charset=UTF-8",
             url: "/admin/IncreaseCategoryMsg",
             // dataType: "json",
@@ -247,6 +250,34 @@
                 // Show submit button here and/or inform user to click it.
             });
 
+        },
+        success: function (file, response, e) {
+            console.log(file);
+            console.log(response);
+            let newStr = response.map(function (obj) {
+                obj.sorce = 89;
+                return obj
+            });
+            console.log("hey");
+            console.log(newStr);
+            ///////////////////////////////////////////////
+            // let res = JSON.parse(response);
+            // if (res.error) {
+            //     $(file.previewTemplate).children('.dz-error-mark').css('opacity', '1')
+            // }
+            $.ajax({
+                type: 'POST',
+                data:  JSON.stringify(response),
+                contentType: "application/json;charset=UTF-8",
+                url: "/admin/IncreaseCategoryMsg",
+                // dataType: "json",
+                success: function (data) {
+                    alert("success"+ data);
+                },
+                error: function () {
+                    alert("sorry");
+                }
+            })
         }
     });
 </script>
