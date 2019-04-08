@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="/css/style.default.css"/>
     <link href="/css/style.katniss.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap-select.css">
 
     <link rel="stylesheet" href="/css/dropzone.css"/>
 
@@ -29,12 +30,29 @@
     <script src="/js/toggles.min.js"></script>
     <script src="/js/retina.min.js"></script>
     <script src="/js/jquery.cookies.js"></script>
+    <script src="/js/bootstrap-select.js"></script>
 
     <script src="/js/jquery.autogrow-textarea.js"></script>
     <script src="/js/jquery.mousewheel.js"></script>
     <script src="/js/dropzone.min.js"></script>
 
     <script src="/js/custom.js"></script>
+
+
+
+    <style type="text/css">
+        .cwts{height: 30px;line-height: 30px !important;text-indent: 1em;width: 60%;position: absolute;top: 5px;left: 30%;}
+        #pdfContainer{height:800px !important;width:100%;}
+        .buy_hui,.buy_hui:hover{background:#aaa;}
+        .btn_hot{bottom:30px;top:auto;height:50px;line-height:50px;font-size:16px;}
+        .pro_modal .modal-body{padding:0;height:auto}
+        .pro_modal .modal-body ul{padding:10px 50px;}
+        .buy_modal_pay{padding:0;box-shadow:none;height:2em;width:4em;border-radius:.7em;color:#1082ff;border:1px solid #1082ff;line-height:2em !important;background:none;float:right !important;margin-right:40px}
+        .modal-dialog{height:690px;}
+        .tan_a{display: inline-block;width: 14px;height: 14px;position: relative;top: 2px;}
+        .upgrade_title .close_title{position:absolute;width:20px;height:20px;top:20px;right:20px;z-index:100}
+        .upgrade_title .close_title img{width:100%;height:100%;}
+    </style>
 </head>
 
 <body>
@@ -42,7 +60,13 @@
 <div id="preloader">
     <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
 </div>
-
+<div class="modal fade" id="pdf_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 1000px;height: 1600px;z-index:1500">
+        <div class="modal-content pro_modal">
+            <iframe src="" id="pdfContainer" name="pdfContainer"></iframe>
+        </div>
+    </div>
+</div>
 
 <section>
 
@@ -121,7 +145,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">设备类型</label>
                             <div class="col-sm-6">
-                                <select type="text" placeholder="" id="categoryType" class="form-control">
+                                <select type="text" placeholder="" id="categoryType" class="form-control selectpicker show-tick">
                                     <option value="action">作战类</option>
                                     <option value="protect">保障类</option>
                                 </select>
@@ -131,7 +155,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">设备类型</label>
                             <div class="col-sm-6">
-                                <select type="text" placeholder="" id="categoryUnit" class="form-control">
+                                <select type="text" placeholder="" id="categoryUnit" class="form-control selectpicker show-tick">
                                     <option>台</option>
                                     <option>辆</option>
                                 </select>
@@ -167,14 +191,14 @@
                         <a href="" class="minimize">&minus;</a>
                     </div>
                     <h4 class="panel-title">文件上传</h4>
-                    <p>上传装备表
-                        <a href="http://dropzonejs.com/" target="_blank">http://dropzonejs.com/</a></p>
+                    <p>上传装备表。<a class="accordion-toggle" onClick="showPDF('/images/category.pdf')">装备类表范例<span>【点击查看】</span></a></p>
                 </div>
                 <div class="panel-body">
                     <p></p>
-                    <button id="submit-all">Submit all files</button>
-                    <br/>
-                    <div class="dropzone" id="myDropzone">
+                    <div class="dropzone mb20" id="myDropzone"></div>
+                    <div style="text-align: center; margin: 0 auto">
+                        <button id="submit-all" class="btn btn-primary" style="visibility: hidden">上传文件
+                        </button>
                     </div>
                 </div>
             </div>
@@ -192,6 +216,12 @@
 
     });
 
+    function showPDF(urlSrc){
+        var urlPre ="/pdfjs/web/viewer.html?file="+ urlSrc;
+        $("#pdfContainer").attr('src',urlPre);
+        $("#pdf_Modal").modal("show");
+    }
+
     $("#IncreaseCategory").click(function () {
         let categoryName = $("#categoryName").val();
         let categoryModal = $("#categoryModal").val();
@@ -203,17 +233,17 @@
             category_type: categoryType,
             category_unit: categoryUnit
         };
-        let categoryList=[];
+        let categoryList = [];
         categoryList.push(categoryMsg);
         console.log(categoryList);
         $.ajax({
             type: 'POST',
-            data:  JSON.stringify(categoryList),
+            data: JSON.stringify(categoryList),
             contentType: "application/json;charset=UTF-8",
             url: "/admin/IncreaseCategoryMsg",
             // dataType: "json",
             success: function (data) {
-                alert("success"+ data);
+                alert("success" + data);
             },
             error: function () {
                 alert("sorry");
@@ -248,7 +278,11 @@
             // files are dropped here:
             this.on("addedfile", function () {
                 // Show submit button here and/or inform user to click it.
+                submitButton.style.visibility = "visible";
             });
+            this.on("removedfile", function () {
+                submitButton.style.visibility = "hidden";
+            })
 
         },
         success: function (file, response, e) {
@@ -267,12 +301,12 @@
             // }
             $.ajax({
                 type: 'POST',
-                data:  JSON.stringify(response),
+                data: JSON.stringify(response),
                 contentType: "application/json;charset=UTF-8",
                 url: "/admin/IncreaseCategoryMsg",
                 // dataType: "json",
                 success: function (data) {
-                    alert("success"+ data);
+                    alert("success" + data);
                 },
                 error: function () {
                     alert("sorry");
