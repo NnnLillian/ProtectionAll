@@ -7,7 +7,16 @@
 <!--<body>-->
 <div id="rainfalltable" style="width:64%;height:500px; float: left"></div>
 <div style="width: 36%;float: right">
-    <ul id="descriptionTips">
+    <ul id="rainfallDescriptionTips">
+        <li>
+            架设便携式避雷针。在雷达阵地，发射阵地，技术保障阵地和库房要按技术要求设置避雪装置，并定期检查，确保接地良好
+        </li>
+        <li>
+            增加备件，针对潮湿环境下电气设备易打火，击穿的情况应尽可能多准备备件，尤其是高压部位备件一定要齐全，保证出现异常情况能及时处置
+        </li>
+        <li>
+            通风去除湿气。应将装备放置于通风位置，保持空气流通，晴朗或湿度较小的天气，应打开车厢门窗，进行自然通风去潮。
+        </li>
     </ul>
 </div>
 <!--<script src="js/jquery-1.11.1.min.js"></script>-->
@@ -127,7 +136,7 @@
                 for (var i = 0; i < case_list.length; i++) {
                     var tips = $("<li>");
                     tips.text(case_list[i].description);
-                    $("#descriptionTips").append(tips);
+                    $("#rainfallDescriptionTips").append(tips);
                 }
             },
         }, JSON)

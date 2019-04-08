@@ -119,6 +119,11 @@ public class SchemeHtmlController {
         return "edit_action_resource";
     }
 
+    @GetMapping("/edit_special")
+    public String GetEdiSpecialInfo() {
+        return "edit_special";
+    }
+
     @GetMapping("/edit_step")
     public String GetEditContent(@RequestParam("scheme_id") Integer scheme_id, Model model) {
         List<Scheme_Army> army_list = schemeService.GetSchemeArmyBySchemeId(scheme_id);

@@ -122,9 +122,9 @@
                 </div>
                 <div class="panel-body">
                     <div class="row col-md-12">
-                            <h5 class="subtitle mb5">温度图表</h5>
-                            <p class="mb15"></p>
-                            <div id="temperature" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
+                        <h5 class="subtitle mb5">温度图表</h5>
+                        <p class="mb15"></p>
+                        <div id="temperature" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
                     </div><!-- row -->
                 </div><!-- panel-body -->
             </div><!-- panel -->
@@ -205,110 +205,6 @@
                         <div id="windLevel" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
                     </div><!-- row -->
                 </div><!-- panel-body -->
-            </div><!-- panel -->
-
-            // 前端写死的部分
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h5 class="panel-title">历史气压数据</h5>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-8" id="try">
-                            <h5 class="subtitle mb5">气压图表</h5>
-                            <p class="mb15"></p>
-                            <div id="basicflot" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
-                        </div><!-- col-sm-8 -->
-                        <div class="col-sm-4">
-                            <h5 class="subtitle mb5">防低压</h5>
-                            <p class="mb15"></p>
-                            <ul>
-
-                                <li>
-                                    低气压条件下，要重点关注雷达的高电压，大功率器件，发射系统、显示器的高压电源等部位，一是在使用中要针对可能出现的打火，增加静电循环检查，器件外观检查，疑点部位测量检查、高压线路走向间隔检查。
-                                </li>
-                                <li>
-                                    对接触部分涂抹绝缘胶，防止打火放电；高压导线应尽量拉直平滑，远离低压线，
-                                </li>
-                                <li>
-                                    控制好雷达发射机升高压节奏，适当增加电子管预热时间，必要时调低发射机高压，将发射机高压置规定值下限，尽量限制引发发射机打火的诱因，
-                                </li>
-                                <li>
-                                    天馈线系统波导气压严格按照规定值充气，防止天馈线系统打火，发现打火应立即关机。
-                                </li>
-                                <li>
-                                    对接接触器、继电器等有触点的电器，要定期用酒精擦拭。
-                                </li>
-                                <li>
-                                    装备进高原后，空气中含氧量降低，动力系统效率低，供电系统输出功率降低和兵器载车承载能力降低，为了保证兵器装备的正常工作，应结合高原环境特点，加强装备动力系统调整维护工作，一是及时给水箱加满水并拧紧水箱盖，调整通风设施，降低发动机的工作环境温度，防止柴油机水箱开锅；可根据要求更换水箱内的冷却水，提高柴油机水箱冷却水的沸点。二是根据驻地海拔高度和空气密度，对发动机的柴油机供油提前角进行调整，使进入汽缸中的可燃混合气的密度适当，解决燃油燃烧不充分、发动机冒黑烟的问题，三是对电源车的手油泵及燃油管路用密封胶进行密封，防止燃油系统进空气，影响柴油机工作状态。
-                                </li>
-                            </ul>
-
-
-                        </div><!-- col-sm-4 -->
-                    </div><!-- row -->
-                </div><!-- panel-body -->
-            </div><!-- panel -->
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h5 class="panel-title">历史沙尘数据</h5>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <p class="mb15">沙尘颗粒表</p>
-                            <div id="sandyDataTable" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
-                        </div><!-- col-sm-8 -->
-
-                        <div class="col-sm-4">
-                            <h5 class="subtitle mb5">防沙尘</h5>
-                            <p class="mb15"></p>
-
-                            <ul>
-                                <li>
-                                    及时关紧车厢门窗，非工作状态下，装备外露的空调、冷却装置、通风口等要进行遮盖，防止沙尘侵入，动力系统的进气口要尽量避开风的来袭方向。
-                                </li>
-                                <li>
-                                    根据风力大小，适时加固兵器装备，加盖篷布，必要时，撤收易受损伤的旋转关节、雷达的升降导轨等要涂油，用帆布或油纸包裹，工作时及时除掉油脂，经常清洗空气清器，防止空气中的沙尘颗粒堵塞空气滤清器的进气孔。
-                                </li>
-                                <li>
-                                    视情组织装备的清洁保养，重点进行兵器内部除尘，电缆头维护，旋转机构润滑及滤尘网，空气滤清器清洗工作，风沙过后要对武器装备进行全面，彻底的维护擦拭，将沙土清除干净。
-                                </li>
-                            </ul>
-                        </div><!-- col-sm-4 -->
-                    </div><!-- row -->
-                </div><!-- panel-body -->
-            </div><!-- panel -->
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h5 class="panel-title">历史雨雪数据</h5>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <p class="mb15">雨雪量表</p>
-                            <div id="rainyDataTable" style="width: 100%; height: 500px; margin-bottom: 20px"></div>
-                        </div><!-- col-sm-8 -->
-
-                        <div class="col-sm-4">
-                            <h5 class="subtitle mb5">防潮湿、防雷暴</h5>
-                            <p class="mb15"></p>
-                            <ul>
-                                <li>
-                                    架设便携式避雷针。在雷达阵地，发射阵地，技术保障阵地和库房要按技术要求设置避雪装置，并定期检查，确保接地良好
-                                </li>
-                                <li>
-                                    增加备件，针对潮湿环境下电气设备易打火，击穿的情况应尽可能多准备备件，尤其是高压部位备件一定要齐全，保证出现异常情况能及时处置
-                                </li>
-                                <li>
-                                    通风去除湿气。应将装备放置于通风位置，保持空气流通，晴朗或湿度较小的天气，应打开车厢门窗，进行自然通风去潮。
-                                </li>
-                            </ul>
-                        </div><!-- col-sm-4 -->
-                    </div><!-- row -->
-                </div><!-- panel-body -->
                 <div class="panel-footer">
                     <div class="col-sm-12 col-sm-offset-3" style="text-align: center; margin: 0 auto">
                         <!--<button class="btn btn-primary">保存</button>&nbsp;-->
@@ -319,7 +215,6 @@
                     </div>
                 </div>
             </div><!-- panel -->
-
         </div><!-- mainpanel -->
 
     </div>
@@ -327,37 +222,11 @@
 </section>
 
 
-
-
 <script>
+    $('.left').load("left");
     // 跳转按钮
     $("#myGeographicSuggestions").click(function () {
-
-        var scheme = {
-            scheme_id:localStorage.getItem("scheme_id")
-        };
-
-        var schemeStr = JSON.stringify(scheme);
-        console.log(schemeStr);
-        $.ajax({
-            type: 'POST',
-            data: schemeStr,
-            contentType: "application/json;charset=UTF-8",
-            url: "/AddSchemeGroup",
-            dataType: "json",
-            async: false,     // 取消异步加载
-            success: function (data) {
-                console.log(data.group_id);
-                localStorage.setItem("group_id", data.group_id);
-                // alert("Add Group Success");
-                window.location.href = "";
-            },
-            error: function () {
-                console.log(arguments);
-                console.error("error");
-
-            }
-        })
+        window.location.href = "/edit_special";
     });
 
     // 加载数据图表

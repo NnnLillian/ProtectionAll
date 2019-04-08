@@ -247,9 +247,8 @@
             url: "/AddSchemeArmy",
             dataType: "json",
             async: false,     // 取消异步加载
-            success: function (data) {
-                window.location.href = "/edit_step?scheme_id=" + localStorage.getItem("scheme_id");
-                // window.location.href = "/edit_step";
+            success: function () {
+                window.location.href = "/edit_protection";
             },
             error: function () {
                 console.error("error");

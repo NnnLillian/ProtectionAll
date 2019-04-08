@@ -98,16 +98,16 @@
                     <!--原本版本 panel-body-nopadding editable-list-group作用未知-->
                     <!--<div class="panel-body panel-body-nopadding editable-list-group">-->
                     <div class="panel-body">
-                            <div class="tab-content">
-                                    <div id="specialInfo">
-                                    </div>
-                            </div><!-- tab-content -->
+                        <div class="tab-content">
+                            <div id="specialInfo">
+                            </div>
+                        </div><!-- tab-content -->
                     </div><!-- panel-body -->
                     <div class="panel-footer" style="text-align: center; margin: 0 auto">
                         <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
                             返回
                         </button>
-                        <button type="button" id="AddSchemeEquipment" class="btn btn-primary">继续</button>
+                        <button type="button" id="specialMsg" class="btn btn-primary">继续</button>
                     </div>
                 </div><!-- panel -->
             </div><!-- row -->
@@ -117,11 +117,14 @@
 
 <script>
     // 加载共同头部
-    $(function () {
-        $('.left').load("left");
-        // $('.head').load("head");
-        $('#specialInfo').load("special_info");
-    });
+    $('.left').load("left");
+    // $('.head').load("head");
+    $('#specialInfo').load("special_info");
+
+    // 跳转按钮
+    $("#specialMsg").click(function () {
+        window.location.href="/scheme_show"
+    })
 </script>
 
 

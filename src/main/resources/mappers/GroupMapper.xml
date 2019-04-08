@@ -20,7 +20,7 @@
     </select>
 
     <select id="GetTeamBySchemeIdAndTeamType" resultType="Team">
-        select * from team_info where group_id = (select group_id from group_info where scheme_id = #{scheme_id}) and team_type = #{team_type}
+        select * from team_info where group_id in (select group_id from group_info where scheme_id = #{scheme_id}) and team_type = #{team_type}
     </select>
 
     <insert id="AddTeam" parameterType="Team">

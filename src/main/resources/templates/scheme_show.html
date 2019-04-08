@@ -112,7 +112,6 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/modernizr.min.js"></script>
 <script src="js/jquery.sparkline.min.js"></script>
-<script src="js/toggles.min.js"></script>
 <script src="js/retina.min.js"></script>
 <script src="js/jquery.cookies.js"></script>
 
@@ -121,8 +120,8 @@
 <script>
     // 加载共同头部
     $(function () {
-        $('.left').load("left")
-        $('.head').load("head")
+        $('.left').load("left");
+        // $('.head').load("head")
         $('.scheme-content').load("text?scheme_id="+localStorage.getItem("scheme_id"))
     });
 
