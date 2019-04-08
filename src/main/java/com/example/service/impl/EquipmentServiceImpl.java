@@ -52,4 +52,17 @@ public class EquipmentServiceImpl implements EquipmentService {
         return equipmentMapper.GetCategoryByPlatoonIdAndType(platoon_id, category_type);
     }
 
+    @Override
+    public Integer IncreaseCategory(Category category) {
+        int flag; // flag:1表示成功；0表示失败；
+        Category category1 = equipmentMapper.GetCategoryByNameAndModel(category.getCategory_name(), category.getCategory_model());
+        if (category1 != null) {
+            flag = 0;
+        } else {
+            equipmentMapper.IncreaseCategory(category);
+            flag = 1;
+        }
+        return flag;
+    }
+
 }

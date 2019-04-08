@@ -77,8 +77,17 @@
         select * from category_info where category_type = #{category_type} and category_id in (select category_id from equipment_info where platoon_id = #{platoon_id})
     </select>
 
+    <select id="GetCategoryByNameAndModel" resultType="com.example.entity.Category">
+        select * from category_info where category_name=#{category_model} and category_model = #{category_model}
+    </select>
+
     <insert id="AddTeamCategory" parameterType="com.example.entity.Team_Category">
         insert into team_department_info values (#{team_id},#{category_id},#{category_number})
+    </insert>
+
+    <insert id="IncreaseCategory" parameterType="com.example.entity.Category">
+        insert into category_info(category_name, category_model, category_type, category_unit, category_comment)
+         values (#{category_name}, #{category_model}, #{category_type}, #{category_unit}, #{category_comment})
     </insert>
 
     <select id="GetCategoryEquipmentCount" resultType="Integer">

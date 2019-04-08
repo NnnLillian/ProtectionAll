@@ -2,18 +2,20 @@ package com.example.entity;
 
 public class Category {
     private Integer category_id;
-    private String  category_name;
-    private String  category_type;
-    private String  category_unit;
-    private String  category_comment;
-    private Integer  category_number;
+    private String category_name;
+    private String category_model;
+    private String category_type;
+    private String category_unit;
+    private String category_comment;
+    private Integer category_number;
 
     public Category() {
     }
 
-    public Category(Integer category_id, String category_name, String category_type, String category_unit, String category_comment, Integer category_number) {
+    public Category(Integer category_id, String category_name, String category_model, String category_type, String category_unit, String category_comment, Integer category_number) {
         this.category_id = category_id;
         this.category_name = category_name;
+        this.category_model = category_model;
         this.category_type = category_type;
         this.category_unit = category_unit;
         this.category_comment = category_comment;
@@ -58,6 +60,14 @@ public class Category {
 
     public void setCategory_comment(String category_comment) {
         this.category_comment = category_comment;
+    }
+
+    public String getCategory_model() {
+        return category_model;
+    }
+
+    public void setCategory_model(String category_model) {
+        this.category_model = category_model;
     }
 
     public Integer getCategory_number() {

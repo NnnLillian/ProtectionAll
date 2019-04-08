@@ -19,4 +19,6 @@ public interface EquipmentService {
 
     public  List<Category> GetCategoryByPlatoonIdAndType(Integer platoon_id,String category_type);
 
+    public Integer IncreaseCategory(Category category);
+
 }

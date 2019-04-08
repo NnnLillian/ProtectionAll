@@ -27,7 +27,11 @@ public interface EquipmentMapper {
 
     public Category GetCategoryById(Integer category_id);
 
+    public Category GetCategoryByNameAndModel(@Param("category_name") String category_name, @Param("category_model") String category_model);
+
     public void AddTeamCategory(Team_Category team_category);
+
+    public void IncreaseCategory(Category category);
 
     public Integer GetCategoryEquipmentCount(Integer category_id);
 

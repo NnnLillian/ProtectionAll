@@ -80,4 +80,24 @@ public class DemoApplicationTests {
             peopleList.add(peopleMapper.GetPeopleByPeopleID(peopleId));
         }
     }
+
+    @Test
+    public void IncreaseCategories() {
+        Category category = new Category();
+        category.setCategory_name("111");
+        category.setCategory_model("xk254");
+        category.setCategory_type("action");
+        category.setCategory_unit("台");
+        int flag; // flag:1表示成功；0表示失败；
+        Category category1 = equipmentMapper.GetCategoryByNameAndModel(category.getCategory_name(), category.getCategory_model());
+        if (category1 != null) {
+            flag = 0;
+        } else {
+            equipmentMapper.IncreaseCategory(category);
+            flag = 1;
+        }
+
+        System.out.println(flag);
+    }
+
 }

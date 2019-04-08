@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+
+    <title>后台信息录入</title>
+
+    <link rel="stylesheet" href="/css/style.default.css"/>
+    <link href="/css/style.katniss.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/dropzone.css"/>
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/js/jquery-ui-1.10.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script src="/js/toggles.min.js"></script>
+    <script src="/js/retina.min.js"></script>
+    <script src="/js/jquery.cookies.js"></script>
+
+    <script src="/js/jquery.autogrow-textarea.js"></script>
+    <script src="/js/jquery.mousewheel.js"></script>
+    <script src="/js/dropzone.min.js"></script>
+
+    <script src="/js/custom.js"></script>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1><span>[</span>装备保障系统<span>]</span></h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+            <h5 class="sidebartitle">系统录入</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li><a href="index.html"><i class="fa fa-home"></i> <span>主页</span></a></li>
+                <li><a href="admin_people.html">
+                    <!-- 右侧的数字提示 -->
+                    <!--<span class="pull-right badge badge-success">2</span>-->
+                    <i class="fa fa-group"></i> <span>人员录入</span></a></li>
+                <li class="nav-parent nav-active active"><a href=""><i class="fa fa-edit"></i> <span>装备信息录入</span></a>
+                    <ul class="children" style="display: block;">
+                        <li class="active"><a href="general-forms.html"><i class="fa fa-caret-right"></i>装备类</a>
+                        </li>
+                        <li><a href="form-layouts.html"><i class="fa fa-caret-right"></i> 装备</a></li>
+                        <li><a href="form-validation.html"><i class="fa fa-caret-right"></i> 仪器设备</a></li>
+                        <li><a href="form-wizards.html"><i class="fa fa-caret-right"></i> 器材</a></li>
+                    </ul>
+                </li>
+                <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>保养记录录入</span></a>
+                    <ul class="children">
+                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i> 维修信息</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- leftpanelinner -->
+    </div><!-- leftpanel -->
+
+    <div class="mainpanel">
+
+        <!-- headerbar -->
+
+        <div class="pageheader">
+            <h2><i class="fa fa-edit"></i> 信息录入 <span>管理员权限...</span></h2>
+        </div>
+
+        <div class="contentpanel">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a href="" class="panel-close">&times;</a>
+                        <a href="" class="minimize">&minus;</a>
+                    </div>
+                    <h4 class="panel-title">装备类信息录入</h4>
+                    <p>装备、设备类别信息</p>
+                </div>
+                <div class="panel-body panel-body-nopadding">
+
+                    <form class="form-horizontal form-bordered">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">装备名称</label>
+                            <div class="col-sm-6">
+                                <input type="text" placeholder="" id="categoryName" class="form-control"/>
+                                <span class="help-block">请输入装备类、设备类、器材类名称</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">设备型号</label>
+                            <div class="col-sm-6">
+                                <input type="text" placeholder="" id="categoryModal" class="form-control">
+                                <span class="help-block">为上述类型名称对应的型号</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">设备类型</label>
+                            <div class="col-sm-6">
+                                <select type="text" placeholder="" id="categoryType" class="form-control">
+                                    <option value="action">作战类</option>
+                                    <option value="protect">保障类</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">设备类型</label>
+                            <div class="col-sm-6">
+                                <select type="text" placeholder="" id="categoryUnit" class="form-control">
+                                    <option>台</option>
+                                    <option>辆</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">备注</label>
+                            <div class="col-sm-7">
+                                <textarea id="autoResizeTA" class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div><!-- panel-body -->
+
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <button class="btn btn-primary" id="IncreaseCategory">提交</button>&nbsp;
+                            <button class="btn btn-default">取消</button>
+                        </div>
+                    </div>
+                </div><!-- panel-footer -->
+
+            </div><!-- panel -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a href="" class="panel-close">&times;</a>
+                        <a href="" class="minimize">&minus;</a>
+                    </div>
+                    <h4 class="panel-title">文件上传</h4>
+                    <p>上传装备表
+                        <a href="http://dropzonejs.com/" target="_blank">http://dropzonejs.com/</a></p>
+                </div>
+                <div class="panel-body">
+                    <p></p>
+                    <button id="submit-all">Submit all files</button>
+                    <br/>
+                    <div class="dropzone" id="myDropzone">
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- contentpanel -->
+    </div><!-- mainpanel -->
+
+</section>
+
+
+<script>
+    jQuery(document).ready(function () {
+        // Textarea Autogrow
+        jQuery('#autoResizeTA').autogrow();
+
+    });
+
+    $("#IncreaseCategory").click(function () {
+        let categoryName = $("#categoryName").val();
+        let categoryModal = $("#categoryModal").val();
+        let categoryType = $("#categoryType option:selected").val();
+        let categoryUnit = $("#categoryUnit option:selected").text();
+        let categoryMsg = {
+            category_name: categoryName,
+            category_modal: categoryModal,
+            category_type: categoryType,
+            category_unit: categoryUnit
+        };
+        $.ajax({
+            type: 'POST',
+            data:  JSON.stringify(categoryMsg),
+            contentType: "application/json;charset=UTF-8",
+            url: "/admin/IncreaseCategoryMsg",
+            // dataType: "json",
+            success: function (data) {
+                alert("success"+ data);
+            },
+            error: function () {
+                alert("sorry");
+            }
+        })
+    });
+
+    Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone('div .dropzone', {
+        url: "/admin/importFile",
+        maxFiles: 1,
+        addRemoveLinks: true,
+        acceptedFiles: ".xls,.xlsx",
+        method: 'post',
+        filesizeBase: 1024,
+        dictRemoveLinks: '移除文件',
+        dictCancelUpload: '取消上传',
+        dictCancelUploadConfirmation: '你确定要取消上传吗？',
+        dictMaxFilesExceeded: "您最多只能上传{{maxFiles}}个文件！",
+        dictResponseError: '文件上传失败!',
+        dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.xls,*.xlsx。",
+        dictFallbackMessage: "浏览器不受支持",
+        dictFileTooBig: "文件过大({{filesize}}MB)，上传文件最大支持: {{maxFilesize}}MB..",
+        autoProcessQueue: false, //autoProcessQueue设置为true,那么队列是立即处理;设置为false,那么.processQueue()不会被隐式地调用。这意味着当你想上传目前队列中所有文件时你必须自己调用它。
+        init: function () {
+            myDropzone = this;
+            var submitButton = document.querySelector("#submit-all")
+            submitButton.addEventListener("click", function () {
+                myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+            });
+            // You might want to show the submit button only when
+            // files are dropped here:
+            this.on("addedfile", function () {
+                // Show submit button here and/or inform user to click it.
+            });
+
+        }
+    });
+</script>
+
+
+</body>
+</html>
