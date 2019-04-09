@@ -1,6 +1,8 @@
 package com.example.service.impl;
 
+import com.example.entity.Base;
 import com.example.entity.People;
+import com.example.mappers.ArmyMapper;
 import com.example.mappers.PeopleMapper;
 import com.example.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import java.util.List;
 public class PeopleServiceImpl implements PeopleService {
     @Autowired
     private PeopleMapper peopleMapper;
+    @Autowired
+    private ArmyMapper armyMapper;
 
 
     @Override
@@ -35,6 +39,17 @@ public class PeopleServiceImpl implements PeopleService {
         Integer id = people.getPeople_id();
         if (id == null) {
             peopleMapper.AddPeople(people);
+        }
+    }
+
+    @Override
+    public Integer IncreaseBase(String baseName) {
+        Base base = armyMapper.GetBaseByName(baseName);
+        if (base != null) {
+            return 0;
+        } else {
+            armyMapper.IncreaseBase(baseName);
+            return 1;
         }
     }
 }

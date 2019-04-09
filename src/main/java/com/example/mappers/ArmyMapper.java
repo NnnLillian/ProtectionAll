@@ -2,6 +2,7 @@ package com.example.mappers;
 
 import com.example.entity.Action_Group;
 import com.example.entity.Army;
+import com.example.entity.Base;
 import com.example.entity.Platoon;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -29,4 +30,8 @@ public interface ArmyMapper {
     public List<Army> RequestArmyByType(@Param("platoon_id") Integer platoon_id, @Param("army_type") String army_type);
 
     public void DeleteActionGroup(@Param("action_group_id") Integer action_group_id);
+
+    public Base GetBaseByName(String base_name);
+
+    public void IncreaseBase(String base_name);
 }

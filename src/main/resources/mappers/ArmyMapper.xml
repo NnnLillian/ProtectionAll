@@ -33,5 +33,11 @@
     <delete id="DeleteActionGroup">
         delete from action_group_info where action_group_id = #{action_group_id}
     </delete>
+    <select id="GetBaseByName" resultType="Base">
+        select * from base_info where base_name = #{base_name}
+    </select>
+    <insert id="IncreaseBase" parameterType="String">
+        insert into base_info (base_name) values (#{base_name})
+    </insert>
 
 </mapper>

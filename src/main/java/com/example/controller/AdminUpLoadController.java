@@ -1,12 +1,16 @@
 package com.example.controller;
 
 import com.example.entity.Category;
+import com.example.entity.Platoon;
 import com.example.service.EquipmentService;
+import com.example.service.PeopleService;
+import com.example.service.SchemeService;
 import com.example.util.ExcelUtil;
 import javafx.concurrent.Worker;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,10 +29,21 @@ public class AdminUpLoadController {
 
     @Autowired
     private EquipmentService equipmentService;
+    @Autowired
+    private SchemeService schemeService;
+    @Autowired
+    private PeopleService peopleService;
 
     @GetMapping("/category")
     public String InputCategoryMsg() {
         return "admin_form";
+    }
+
+    @GetMapping("/army")
+    public String InputArmyMsg(Model model){
+        List<Platoon> platoon_list = schemeService.RequestPlatoon();
+        model.addAttribute("platoon_list", platoon_list);
+        return "admin_army";
     }
 
     @RequestMapping(value = "/importFile", method = {RequestMethod.POST})
@@ -49,8 +64,9 @@ public class AdminUpLoadController {
         List<Map<String, String>> list = ExcelUtil.analysisWorkbook(workbook);
         System.out.println(list);
         return list;
-/////////////////////////////返回解析得到的list/////////////////////////////////////////////////
-////////////////////////////再去加入已知数据/////////////////////////////////////
+/////////////////////////////返回解析得到的list/////////////////////////////////////////////////////
+////////////////////////////再去加入已知数据////////////////////////////////////////////////////////
+////////////////////////////注释中为在后台加入已知数据///////////////////////////////////////////////
 //        for (Map<String, String> map : list) {
 //            map.put("platoon_id","1");
 //            for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -70,5 +86,12 @@ public class AdminUpLoadController {
             }
         }
         return 1;
+    }
+
+    @RequestMapping(value = "/IncreaseBaseMsg", method = {RequestMethod.POST})
+    @ResponseBody
+    public Integer IncreaseBase(@RequestBody String baseName){
+        Integer flag = peopleService.IncreaseBase(baseName);
+        return flag;
     }
 }

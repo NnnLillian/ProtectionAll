@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+
+    <title>后台信息录入</title>
+
+    <link rel="stylesheet" href="/css/style.default.css"/>
+    <link href="/css/style.katniss.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap-select.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/js/jquery-ui-1.10.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script src="/js/toggles.min.js"></script>
+    <script src="/js/retina.min.js"></script>
+    <script src="/js/jquery.cookies.js"></script>
+    <script src="/js/bootstrap-select.js"></script>
+
+    <script src="/js/jquery.mousewheel.js"></script>
+
+    <script src="/js/custom.js"></script>
+
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+<div class="modal fade" id="pdf_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 1000px;height: 1600px;z-index:1500">
+        <div class="modal-content pro_modal">
+            <iframe src="" id="pdfContainer" name="pdfContainer"></iframe>
+        </div>
+    </div>
+</div>
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1><span>[</span>装备保障系统<span>]</span></h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+            <h5 class="sidebartitle">系统录入</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li class="active"><a href="../index.html"><i class="fa fa-home"></i> <span>部队信息录入</span></a></li>
+                <li><a href="admin_people.html">
+                    <!-- 右侧的数字提示 -->
+                    <!--<span class="pull-right badge badge-success">2</span>-->
+                    <i class="fa fa-group"></i> <span>人员录入</span></a></li>
+                <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>装备信息录入</span></a>
+                    <ul class="children" style="display: block;">
+                        <li><a href="general-forms.html"><i class="fa fa-caret-right"></i>装备类</a>
+                        </li>
+                        <li><a href="form-layouts.html"><i class="fa fa-caret-right"></i> 装备</a></li>
+                        <li><a href="form-validation.html"><i class="fa fa-caret-right"></i> 仪器设备</a></li>
+                        <li><a href="form-wizards.html"><i class="fa fa-caret-right"></i> 器材</a></li>
+                    </ul>
+                </li>
+                <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>保养记录录入</span></a>
+                    <ul class="children">
+                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i> 维修信息</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- leftpanelinner -->
+    </div><!-- leftpanel -->
+
+    <div class="mainpanel">
+
+        <!-- headerbar -->
+
+        <div class="pageheader">
+            <h2><i class="fa fa-edit"></i> 信息录入 <span>管理员权限...</span></h2>
+        </div>
+
+        <div class="contentpanel">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a href="" class="panel-close">&times;</a>
+                        <a href="" class="minimize">&minus;</a>
+                    </div>
+                    <h4 class="panel-title">基地信息录入</h4>
+                    <p>基地信息录入</p>
+                </div>
+                <div class="panel-body">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="sr-only" for="baseName">基地单位名称: </label>
+                                <input type="text" placeholder="请输入基地单位名称" id="baseName" class="form-control"/>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="IncreaseBaseName">保存</button>
+                        <button type="reset" class="btn btn-default">清空</button>
+                    </form>
+                </div><!-- panel-body -->
+            </div><!-- panel -->
+            <div class="row">
+                <div class="col-md-6">
+                    <form id="form1" class="form-horizontal">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-btns">
+                                    <a href="" class="panel-close">&times;</a>
+                                    <a href="" class="minimize">&minus;</a>
+                                </div>
+                                <h4 class="panel-title">旅团信息录入</h4>
+                                <p>录入旅名称信息</p>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">旅单位名称:</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" name="name" id="platoonName" class="form-control"/>
+                                    </div>
+                                </div>
+
+                            </div><!-- panel-body -->
+                            <div class="panel-footer">
+                                <button class="btn btn-primary" id="IncreasePlatoon">提交</button>&nbsp;
+                                <button class="btn btn-default">取消</button>
+                            </div><!-- panel-footer -->
+                        </div><!-- panel-default -->
+                    </form>
+
+                </div><!-- col-md-6 -->
+
+                <div class="col-md-6">
+
+                    <form id="form2" class="form-horizontal">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-btns">
+                                    <a href="" class="panel-close">&times;</a>
+                                    <a href="" class="minimize">&minus;</a>
+                                </div>
+                                <h4 class="panel-title">营单位录入</h4>
+                                <p>先选择营所在单位(旅)名称，再录入营单位名称</p>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">所在旅名称:</label>
+                                    <div class="col-sm-7">
+                                        <select id="ArmyPlatoonId" class="form-control selectpicker show-tick">
+                                            <th:block th:each="item:${platoon_list}">
+                                                <option th:text="${item.getPlatoon_name()}" th:value="${item.getPlatoon_id()}">
+                                                    十二旅
+                                                </option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">营单位名称:</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" name="name" id="armyName" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div><!-- panel-body -->
+                            <div class="panel-footer">
+                                <button class="btn btn-primary" id="IncreaseArmy">提交</button>&nbsp;
+                                <button class="btn btn-default">取消</button>
+                            </div><!-- panel-footer -->
+                        </div><!-- panel-default -->
+                    </form>
+                </div><!-- col-md-6 -->
+            </div><!-- row -->
+
+        </div><!-- panel -->
+    </div><!-- contentpanel -->
+    </div><!-- mainpanel -->
+
+</section>
+
+
+<script>
+    jQuery(document).ready(function () {
+        // Textarea Autogrow
+        jQuery('#autoResizeTA').autogrow();
+
+    });
+
+    $("#IncreaseBaseName").click(function () {
+        let baseName = $("#baseName").val();
+        $.ajax({
+            type: 'POST',
+            data: baseName,
+            contentType: "application/json;charset=UTF-8",
+            url: "/admin/IncreaseBaseMsg",
+            // dataType: "json",
+            success: function (data) {
+                if (data==1){
+                    alert("success");
+                } else {
+                    alert("Has exist");
+                }
+            },
+            error: function () {
+                alert("sorry");
+            }
+        })
+    });
+</script>
+
+
+</body>
+</html>
