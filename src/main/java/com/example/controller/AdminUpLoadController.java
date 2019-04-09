@@ -67,6 +67,21 @@ public class AdminUpLoadController {
         return army_list;
     }
 
+    @GetMapping("/equipment")
+    public String InputEquipmentMsg() {
+        return "admin_equipment";
+    }
+
+    @GetMapping("/device")
+    public String InputDeviceMsg() {
+        return "admin_device";
+    }
+
+    @GetMapping("/element")
+    public String InputElementMsg() {
+        return "admin_element";
+    }
+
     @RequestMapping(value = "/importFile", method = {RequestMethod.POST})
     @ResponseBody
     public List<Map<String, String>> UploadCategoryMsg(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
