@@ -94,4 +94,11 @@ public class AdminUpLoadController {
         Integer flag = peopleService.IncreaseBase(baseName);
         return flag;
     }
+
+    @RequestMapping(value = "/IncreasePlatoonMsg", method = {RequestMethod.POST})
+    @ResponseBody
+    public Integer IncreasePlatoon(@RequestBody String platoonName){
+        Integer flag = peopleService.IncreasePlatoon(platoonName);
+        return flag;
+    }
 }

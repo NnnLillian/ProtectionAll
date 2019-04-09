@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -138,7 +138,7 @@
 
                             </div><!-- panel-body -->
                             <div class="panel-footer">
-                                <button class="btn btn-primary" id="IncreasePlatoon">提交</button>&nbsp;
+                                <button type="button" class="btn btn-primary" id="IncreasePlatoon">提交</button>&nbsp;
                                 <button class="btn btn-default">取消</button>
                             </div><!-- panel-footer -->
                         </div><!-- panel-default -->
@@ -165,7 +165,8 @@
                                     <div class="col-sm-7">
                                         <select id="ArmyPlatoonId" class="form-control selectpicker show-tick">
                                             <th:block th:each="item:${platoon_list}">
-                                                <option th:text="${item.getPlatoon_name()}" th:value="${item.getPlatoon_id()}">
+                                                <option th:text="${item.getPlatoon_name()}"
+                                                        th:value="${item.getPlatoon_id()}">
                                                     十二旅
                                                 </option>
                                             </th:block>
@@ -211,8 +212,29 @@
             url: "/admin/IncreaseBaseMsg",
             // dataType: "json",
             success: function (data) {
-                if (data==1){
+                if (data === 1) {
                     alert("success");
+                } else {
+                    alert("Has exist");
+                }
+            },
+            error: function () {
+                alert("sorry");
+            }
+        })
+    });
+
+    $("#IncreasePlatoon").click(function () {
+        let platoonName = $("#platoonName").val();
+        $.ajax({
+            type: 'POST',
+            data: platoonName,
+            contentType: "application/json;charset=UTF-8",
+            url: "/admin/IncreasePlatoonMsg",
+            // dataType: "json",
+            success: function (data) {
+                if (data === 1) {
+                    alert("添加成功，请刷新！");
                 } else {
                     alert("Has exist");
                 }

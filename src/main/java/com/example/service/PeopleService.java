@@ -14,4 +14,6 @@ public interface PeopleService {
     public void AddPeople(People people);
 
     public Integer IncreaseBase(String baseName);
+
+    public Integer IncreasePlatoon(String platoonName);
 }

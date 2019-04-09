@@ -2,6 +2,7 @@ package com.example.service.impl;
 
 import com.example.entity.Base;
 import com.example.entity.People;
+import com.example.entity.Platoon;
 import com.example.mappers.ArmyMapper;
 import com.example.mappers.PeopleMapper;
 import com.example.service.PeopleService;
@@ -49,6 +50,17 @@ public class PeopleServiceImpl implements PeopleService {
             return 0;
         } else {
             armyMapper.IncreaseBase(baseName);
+            return 1;
+        }
+    }
+
+    @Override
+    public Integer IncreasePlatoon(String platoonName) {
+        Platoon platoon = armyMapper.GetPlatoonByName(platoonName);
+        if (platoon != null) {
+            return 0;
+        } else {
+            armyMapper.IncreasePlatoon(platoonName);
             return 1;
         }
     }
