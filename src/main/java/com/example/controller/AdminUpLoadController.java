@@ -49,6 +49,21 @@ public class AdminUpLoadController {
         return "admin_army";
     }
 
+    @GetMapping("/people")
+    public String InputPeopleMsg(Model model){
+        List<Platoon> platoon_list = schemeService.RequestPlatoon();
+        model.addAttribute("platoon_list", platoon_list);
+        return "admin_people";
+    }
+
+    @RequestMapping("/findArmyList")
+    @ResponseBody
+    public List<Army> findArmyList(@RequestParam("platoon_id") Integer platoon_id){
+        System.out.println("findarmy");
+        List<Army> army_list=schemeService.RequestArmy(platoon_id);
+        return army_list;
+    }
+
     @RequestMapping(value = "/importFile", method = {RequestMethod.POST})
     @ResponseBody
     public List<Map<String, String>> UploadCategoryMsg(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {

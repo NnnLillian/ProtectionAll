@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+
+    <title>后台信息录入</title>
+
+    <link rel="stylesheet" href="/css/style.default.css"/>
+    <link href="/css/style.katniss.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap-select.css">
+
+    <link rel="stylesheet" href="/css/dropzone.css"/>
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/js/jquery-ui-1.10.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script src="/js/toggles.min.js"></script>
+    <script src="/js/retina.min.js"></script>
+    <script src="/js/jquery.cookies.js"></script>
+    <script src="/js/bootstrap-select.js"></script>
+
+    <script src="/js/jquery.autogrow-textarea.js"></script>
+    <script src="/js/jquery.mousewheel.js"></script>
+    <script src="/js/dropzone.min.js"></script>
+
+    <script src="/js/custom.js"></script>
+
+
+    <style type="text/css">
+        .cwts {
+            height: 30px;
+            line-height: 30px !important;
+            text-indent: 1em;
+            width: 60%;
+            position: absolute;
+            top: 5px;
+            left: 30%;
+        }
+
+        #pdfContainer {
+            height: 800px !important;
+            width: 100%;
+        }
+
+        .buy_hui, .buy_hui:hover {
+            background: #aaa;
+        }
+
+        .btn_hot {
+            bottom: 30px;
+            top: auto;
+            height: 50px;
+            line-height: 50px;
+            font-size: 16px;
+        }
+
+        .pro_modal .modal-body {
+            padding: 0;
+            height: auto
+        }
+
+        .pro_modal .modal-body ul {
+            padding: 10px 50px;
+        }
+
+        .buy_modal_pay {
+            padding: 0;
+            box-shadow: none;
+            height: 2em;
+            width: 4em;
+            border-radius: .7em;
+            color: #1082ff;
+            border: 1px solid #1082ff;
+            line-height: 2em !important;
+            background: none;
+            float: right !important;
+            margin-right: 40px
+        }
+
+        .modal-dialog {
+            height: 690px;
+        }
+
+        .tan_a {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            position: relative;
+            top: 2px;
+        }
+
+        .upgrade_title .close_title {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 20px;
+            right: 20px;
+            z-index: 100
+        }
+
+        .upgrade_title .close_title img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+<div class="modal fade" id="pdf_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 1000px;height: 1600px;z-index:1500">
+        <div class="modal-content pro_modal">
+            <iframe src="" id="pdfContainer" name="pdfContainer"></iframe>
+        </div>
+    </div>
+</div>
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1><span>[</span>装备保障系统<span>]</span></h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+            <h5 class="sidebartitle">系统录入</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li><a href="index.html"><i class="fa fa-home"></i> <span>部队信息录入</span></a></li>
+                <li class="active"><a href="admin_people.html">
+                    <!-- 右侧的数字提示 -->
+                    <!--<span class="pull-right badge badge-success">2</span>-->
+                    <i class="fa fa-group"></i> <span>人员录入</span></a></li>
+                <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>装备信息录入</span></a>
+                    <ul class="children" style="display: block;">
+                        <li class="active"><a href="general-forms.html"><i class="fa fa-caret-right"></i>装备类</a>
+                        </li>
+                        <li><a href="form-layouts.html"><i class="fa fa-caret-right"></i> 装备</a></li>
+                        <li><a href="form-validation.html"><i class="fa fa-caret-right"></i> 仪器设备</a></li>
+                        <li><a href="form-wizards.html"><i class="fa fa-caret-right"></i> 器材</a></li>
+                    </ul>
+                </li>
+                <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>保养记录录入</span></a>
+                    <ul class="children">
+                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i> 维修信息</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- leftpanelinner -->
+    </div><!-- leftpanel -->
+
+    <div class="mainpanel">
+
+        <!-- headerbar -->
+
+        <div class="pageheader">
+            <h2><i class="fa fa-edit"></i> 信息录入 <span>管理员权限...</span></h2>
+        </div>
+
+        <div class="contentpanel">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a href="" class="panel-close">&times;</a>
+                        <a href="" class="minimize">&minus;</a>
+                    </div>
+                    <h4 class="panel-title">人员信息录入</h4>
+                    <p>人员信息</p>
+                </div>
+                <div class="panel-body panel-body-nopadding">
+
+                    <form class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所在旅名称:</label>
+                            <div class="col-sm-6">
+                                <select id="ArmyPlatoonId" class="form-control">
+                                    <option value="">选择所在的旅</option>
+                                    <th:block th:each="item:${platoon_list}">
+                                        <option th:text="${item.getPlatoon_name()}"
+                                                th:value="${item.getPlatoon_id()}">
+                                            十二旅
+                                        </option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所在营名称:</label>
+                            <div class="col-sm-6">
+                                <select id="ArmyId" class="form-control"></select>
+                            </div>
+                        </div>
+                    </form>
+
+                </div><!-- panel-body -->
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <button class="btn btn-primary" id="IncreaseCategory">提交</button>&nbsp;
+                            <button class="btn btn-default">取消</button>
+                        </div>
+                    </div>
+                </div><!-- panel-footer -->
+
+            </div><!-- panel -->
+
+        </div><!-- contentpanel -->
+    </div><!-- mainpanel -->
+
+</section>
+
+
+<script>
+    $("#ArmyPlatoonId").change(function () {
+        console.log("armyplatoonId");
+        let armyPlatoonId = $("#ArmyPlatoonId option:selected").val();
+        $.ajax({
+            type: 'POST',
+            data: armyPlatoonId,
+            contentType: "application/json;charset=UTF-8",
+            url: "/admin/findArmyList?platoon_id=" + armyPlatoonId,
+            // dataType: "json",
+            success: function (data) {
+                console.log(data);
+                let contain = "<option>选择所属于的营</option>"
+                for (let i = 0; i < data.length; i++) {
+                    contain += "<option id=";
+                    contain += data[i].army_id;
+                    contain += ">";
+                    contain += data[i].army_name;
+                    contain += "</option>";
+                }
+                $("#ArmyId").html(contain);
+            },
+            error: function () {
+                alert("sorry");
+            }
+        })
+    });
+
+</script>
+
+
+</body>
+</html>
