@@ -33,8 +33,10 @@
     <script src="/js/bootstrap-select.js"></script>
 
     <script src="/js/jquery.autogrow-textarea.js"></script>
+    <script src="/js/jquery.maskedinput.min.js"></script>
     <script src="/js/jquery.mousewheel.js"></script>
     <script src="/js/dropzone.min.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
 
     <script src="/js/custom.js"></script>
 
@@ -175,24 +177,21 @@
         </div>
 
         <div class="contentpanel">
-
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-btns">
                         <a href="" class="panel-close">&times;</a>
                         <a href="" class="minimize">&minus;</a>
                     </div>
-                    <h4 class="panel-title">人员信息录入</h4>
-                    <p>人员信息</p>
+                    <h4 class="panel-title">所属单位</h4>
+                    <p>无论是单个录入、还是批量录入，都需要先选择人员所属单位，<span class="asterisk">必填！</span></p>
                 </div>
-                <div class="panel-body panel-body-nopadding">
-
-                    <form class="form-horizontal">
-
+                <div class="panel-body">
+                    <form id="ArmyForm" class="form-horizontal">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">所在旅名称:</label>
                             <div class="col-sm-6">
-                                <select id="ArmyPlatoonId" class="form-control">
+                                <select id="ArmyPlatoonId" class="form-control" required>
                                     <option value="">选择所在的旅</option>
                                     <th:block th:each="item:${platoon_list}">
                                         <option th:text="${item.getPlatoon_name()}"
@@ -207,7 +206,121 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">所在营名称:</label>
                             <div class="col-sm-6">
-                                <select id="ArmyId" class="form-control"></select>
+                                <select id="ArmyId" class="form-control" required></select>
+                            </div>
+                        </div>
+                    </form>
+
+                </div><!-- panel-body -->
+
+
+            </div><!-- panel -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a href="" class="panel-close">&times;</a>
+                        <a href="" class="minimize">&minus;</a>
+                    </div>
+                    <h4 class="panel-title">人员信息录入（单个录入）</h4>
+                    <p>人员信息</p>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">姓名: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="peopleName" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">职务: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="peopleJob" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <!--var radio = $('input:radio:checked').val();-->
+                            <label class="col-sm-3 control-label">性别: </label>
+                            <div class="col-sm-6">
+                                <div class="rdio rdio-primary">
+                                    <input type="radio" id="male" value="男" name="gender" required/>
+                                    <label for="male">男</label>
+                                </div><!-- rdio -->
+                                <div class="rdio rdio-primary">
+                                    <input type="radio" value="女" id="female" name="gender">
+                                    <label for="female">女</label>
+                                </div><!-- rdio -->
+                                <label class="error"></label>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">民族: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="peopleNationality" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">军衔: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="militaryRank" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">籍贯: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="birthplace" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">出生年月: </label>
+                            <div class="col-sm-6">
+                                <input type="text" placeholder="请按照格式: 1988/02/15 输入" id="birthday"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">入伍时间: </label>
+                            <div class="col-sm-6">
+                                <input type="text" placeholder="请按照格式: 2000/09/01 输入" id="enlistment"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">毕业院校: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="graduatedSchool" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所学专业: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="peopleProfession" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">学历: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="education" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">备注: </label>
+                            <div class="col-sm-6">
+                                <textarea id="autoResizeTA" class="form-control" rows="5"></textarea>
                             </div>
                         </div>
                     </form>
@@ -216,13 +329,33 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">
-                            <button class="btn btn-primary" id="IncreaseCategory">提交</button>&nbsp;
+                            <button class="btn btn-primary" id="IncreasePeople">提交</button>&nbsp;
                             <button class="btn btn-default">取消</button>
                         </div>
                     </div>
                 </div><!-- panel-footer -->
 
             </div><!-- panel -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a href="" class="panel-close">&times;</a>
+                        <a href="" class="minimize">&minus;</a>
+                    </div>
+                    <h4 class="panel-title">人员信息文件上传（批量录入）</h4>
+                    <p>上传人员列表。<a class="accordion-toggle"
+                                 onClick="showPDF('/images/people.pdf')">人员列表范例<span>【点击查看】</span></a></p>
+                </div>
+                <div class="panel-body">
+                    <p></p>
+                    <div class="dropzone mb20" id="myDropzone"></div>
+                    <div style="text-align: center; margin: 0 auto">
+                        <button id="submit-all" class="btn btn-primary" style="visibility: hidden">上传文件
+                        </button>
+                    </div>
+                </div>
+            </div>
 
         </div><!-- contentpanel -->
     </div><!-- mainpanel -->
@@ -231,6 +364,37 @@
 
 
 <script>
+    jQuery(document).ready(function () {
+        // Textarea Autogrow
+        jQuery('#autoResizeTA').autogrow();
+
+    });
+
+    // Date Picker
+    // $("#birthday").datepicker();
+    // $("#enlistment").datepicker();
+
+    // Input Masks
+    $("#birthday").mask("9999/99/99");
+    $("#enlistment").mask("9999/99/99");
+
+    // Validation with select boxes
+    jQuery("#ArmyForm").validate({
+        highlight: function(element) {
+            jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        success: function(element) {
+            jQuery(element).closest('.form-group').removeClass('has-error');
+        }
+    });
+
+    function showPDF(urlSrc) {
+        var urlPre = "/pdfjs/web/viewer.html?file=" + urlSrc;
+        $("#pdfContainer").attr('src', urlPre);
+        $("#pdf_Modal").modal("show");
+    }
+
+    // 二级联动，选择营之后自动更新旅。
     $("#ArmyPlatoonId").change(function () {
         console.log("armyplatoonId");
         let armyPlatoonId = $("#ArmyPlatoonId option:selected").val();
@@ -244,7 +408,7 @@
                 console.log(data);
                 let contain = "<option>选择所属于的营</option>"
                 for (let i = 0; i < data.length; i++) {
-                    contain += "<option id=";
+                    contain += "<option value=";
                     contain += data[i].army_id;
                     contain += ">";
                     contain += data[i].army_name;
@@ -258,6 +422,124 @@
         })
     });
 
+    $("#IncreasePeople").click(function () {
+        let selectArmy = $('#ArmyId option:selected');
+        let armyId = selectArmy.val();
+        let armyName = selectArmy.text();
+        let peopleName = $("#peopleName").val();
+        let peopleJob = $("#peopleJob").val();
+        let peopleSex = $('input:radio:checked').val();
+        let peopleNationality = $('#peopleNationality').val();
+        let militaryRank = $('#militaryRank').val();
+        let birthplace = $('#birthplace').val();
+        let birthday = $('#birthday').val();
+        let enlistment = $('#enlistment').val();
+        let graduatedSchool = $('#graduatedSchool').val();
+        let peopleProfession = $('#peopleProfession').val();
+        let education = $('#education').val();
+        let comment = $('#autoResizeTA').val();
+        let peopleMsg = {
+            people_army_id: armyId,
+            people_army_name: armyName,
+            people_name: peopleName,
+            people_job: peopleJob,
+            people_sex: peopleSex,
+            people_nationality: peopleNationality,
+            military_rank: militaryRank,
+            birthplace: birthplace,
+            birthday: birthday,
+            enlistment: enlistment,
+            graduated_school: graduatedSchool,
+            people_profession: peopleProfession,
+            education: education,
+            comment: comment
+        };
+        let peopleList = [];
+        peopleList.push(peopleMsg);
+        console.log(JSON.stringify(peopleMsg));
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(peopleList),
+            contentType: "application/json;charset=UTF-8",
+            url: "/admin/IncreasePeopleMsg",
+            // dataType: "json",
+            success: function (data) {
+                alert("添加成功");
+            },
+            error: function () {
+                alert("添加失败");
+            }
+        })
+    });
+
+
+    Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone('div .dropzone', {
+        url: "/admin/importFile",
+        maxFiles: 1,
+        addRemoveLinks: true,
+        acceptedFiles: ".xls,.xlsx",
+        method: 'post',
+        filesizeBase: 1024,
+        dictRemoveLinks: '移除文件',
+        dictCancelUpload: '取消上传',
+        dictCancelUploadConfirmation: '你确定要取消上传吗？',
+        dictMaxFilesExceeded: "您最多只能上传{{maxFiles}}个文件！",
+        dictResponseError: '文件上传失败!',
+        dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.xls,*.xlsx。",
+        dictFallbackMessage: "浏览器不受支持",
+        dictFileTooBig: "文件过大({{filesize}}MB)，上传文件最大支持: {{maxFilesize}}MB..",
+        autoProcessQueue: false, //autoProcessQueue设置为true,那么队列是立即处理;设置为false,那么.processQueue()不会被隐式地调用。这意味着当你想上传目前队列中所有文件时你必须自己调用它。
+        init: function () {
+            myDropzone = this;
+            var submitButton = document.querySelector("#submit-all")
+            submitButton.addEventListener("click", function () {
+                myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+            });
+            // You might want to show the submit button only when
+            // files are dropped here:
+            this.on("addedfile", function () {
+                // Show submit button here and/or inform user to click it.
+                submitButton.style.visibility = "visible";
+            });
+            this.on("removedfile", function () {
+                submitButton.style.visibility = "hidden";
+            })
+
+        },
+        success: function (file, response, e) {
+            let selectArmy = $('#ArmyId option:selected');
+            let armyId = selectArmy.val();
+            let armyName = selectArmy.text();
+            console.log(file);
+            console.log(response);
+            let newStr = response.map(function (obj) {
+                obj.people_army_id = armyId;
+                obj.people_army_name = armyName;
+                return obj
+            });
+            console.log("hey");
+            console.log(newStr);
+            ///////////////////////////////////////////////
+            // let res = JSON.parse(response);
+            // if (res.error) {
+            //     $(file.previewTemplate).children('.dz-error-mark').css('opacity', '1')
+            // }
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(newStr),
+                contentType: "application/json;charset=UTF-8",
+                url: "/admin/IncreasePeopleMsg",
+                // dataType: "json",
+                success: function (data) {
+                    alert("文件上传成功");
+                },
+                error: function () {
+                    alert("文件上传失败");
+                }
+            })
+        }
+    });
 </script>
 
 

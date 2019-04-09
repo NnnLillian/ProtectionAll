@@ -1,6 +1,6 @@
 package com.example.entity;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class People {
     private Integer people_id;
@@ -10,8 +10,8 @@ public class People {
     private String people_nationality;
     private String military_rank;
     private String birthplace;
-    private Timestamp birthday;
-    private Timestamp enlistment;
+    private String birthday;
+    private String enlistment;
     private String graduated_school;
     private String people_profession;
     private String education;
@@ -23,7 +23,7 @@ public class People {
 
     }
 
-    public People(Integer people_id, String people_name, String people_job, String people_sex, String people_nationality, String military_rank, String birthplace, Timestamp birthday, Timestamp enlistment, String graduated_school, String people_profession, String education, Integer people_army_id, String people_army_name, String comment) {
+    public People(Integer people_id, String people_name, String people_job, String people_sex, String people_nationality, String military_rank, String birthplace, String birthday, String enlistment, String graduated_school, String people_profession, String education, Integer people_army_id, String people_army_name, String comment) {
         this.people_id = people_id;
         this.people_name = people_name;
         this.people_job = people_job;
@@ -113,19 +113,19 @@ public class People {
         this.birthplace = birthplace;
     }
 
-    public Timestamp getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Timestamp birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
-    public Timestamp getEnlistment() {
+    public String getEnlistment() {
         return enlistment;
     }
 
-    public void setEnlistment(Timestamp enlistment) {
+    public void setEnlistment(String enlistment) {
         this.enlistment = enlistment;
     }
 

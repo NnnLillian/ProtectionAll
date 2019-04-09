@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.entity.Army;
 import com.example.entity.Category;
+import com.example.entity.People;
 import com.example.entity.Platoon;
 import com.example.service.EquipmentService;
 import com.example.service.PeopleService;
@@ -22,6 +23,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -43,14 +46,14 @@ public class AdminUpLoadController {
     }
 
     @GetMapping("/army")
-    public String InputArmyMsg(Model model){
+    public String InputArmyMsg(Model model) {
         List<Platoon> platoon_list = schemeService.RequestPlatoon();
         model.addAttribute("platoon_list", platoon_list);
         return "admin_army";
     }
 
     @GetMapping("/people")
-    public String InputPeopleMsg(Model model){
+    public String InputPeopleMsg(Model model) {
         List<Platoon> platoon_list = schemeService.RequestPlatoon();
         model.addAttribute("platoon_list", platoon_list);
         return "admin_people";
@@ -58,9 +61,9 @@ public class AdminUpLoadController {
 
     @RequestMapping("/findArmyList")
     @ResponseBody
-    public List<Army> findArmyList(@RequestParam("platoon_id") Integer platoon_id){
+    public List<Army> findArmyList(@RequestParam("platoon_id") Integer platoon_id) {
         System.out.println("findarmy");
-        List<Army> army_list=schemeService.RequestArmy(platoon_id);
+        List<Army> army_list = schemeService.RequestArmy(platoon_id);
         return army_list;
     }
 
@@ -108,22 +111,34 @@ public class AdminUpLoadController {
 
     @RequestMapping(value = "/IncreaseBaseMsg", method = {RequestMethod.POST})
     @ResponseBody
-    public Integer IncreaseBase(@RequestBody String baseName){
+    public Integer IncreaseBase(@RequestBody String baseName) {
         Integer flag = peopleService.IncreaseBase(baseName);
         return flag;
     }
 
     @RequestMapping(value = "/IncreasePlatoonMsg", method = {RequestMethod.POST})
     @ResponseBody
-    public Integer IncreasePlatoon(@RequestBody String platoonName){
+    public Integer IncreasePlatoon(@RequestBody String platoonName) {
         Integer flag = peopleService.IncreasePlatoon(platoonName);
         return flag;
     }
 
     @RequestMapping(value = "/IncreaseArmyMsg", method = {RequestMethod.POST})
     @ResponseBody
-    public Integer IncreaseArmy(@RequestBody Army army){
+    public Integer IncreaseArmy(@RequestBody Army army) {
         Integer flag = peopleService.IncreaseArmy(army);
         return flag;
+    }
+
+    @RequestMapping(value = "/IncreasePeopleMsg", method = {RequestMethod.POST})
+    @ResponseBody
+    public Integer IncreasePeople(@RequestBody List<People> people) {
+        for (int i = 0; i < people.size(); i++) {
+            Integer flag = peopleService.AddPeople(people.get(i));
+            if (flag != 1) {
+                return flag;
+            }
+        }
+        return 1;
     }
 }

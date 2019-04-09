@@ -37,10 +37,13 @@ public class PeopleServiceImpl implements PeopleService {
     }
 
     @Override
-    public void AddPeople(People people) {
-        Integer id = people.getPeople_id();
-        if (id == null) {
+    public Integer AddPeople(People people) {
+        String name = people.getPeople_name();
+        if (name != null) {
             peopleMapper.AddPeople(people);
+            return 1;
+        }else {
+            return 0;
         }
     }
 
