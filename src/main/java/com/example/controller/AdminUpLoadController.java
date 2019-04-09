@@ -1,11 +1,14 @@
 package com.example.controller;
 
+import com.example.entity.Army;
 import com.example.entity.Category;
 import com.example.entity.Platoon;
 import com.example.service.EquipmentService;
 import com.example.service.PeopleService;
 import com.example.service.SchemeService;
 import com.example.util.ExcelUtil;
+import com.example.util.JsonBuilder;
+import com.example.util.JsonPaser;
 import javafx.concurrent.Worker;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +102,13 @@ public class AdminUpLoadController {
     @ResponseBody
     public Integer IncreasePlatoon(@RequestBody String platoonName){
         Integer flag = peopleService.IncreasePlatoon(platoonName);
+        return flag;
+    }
+
+    @RequestMapping(value = "/IncreaseArmyMsg", method = {RequestMethod.POST})
+    @ResponseBody
+    public Integer IncreaseArmy(@RequestBody Army army){
+        Integer flag = peopleService.IncreaseArmy(army);
         return flag;
     }
 }

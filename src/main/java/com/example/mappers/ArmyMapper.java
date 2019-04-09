@@ -17,6 +17,10 @@ public interface ArmyMapper {
 
     public void IncreasePlatoon(String platoon_name);
 
+    public void IncreaseArmy(Army army);
+
+    public Army GetArmyByNameAndPlatooId(@Param("army_name") String army_name, @Param("platoon_id") Integer platoon_id);
+
     public List<Army> GetArmyByPlatoonId(@Param("platoon_id") Integer platoon_id);
 
     public List<Army> GetArmyBySchemeId(@Param("scheme_id") Integer scheme_id);

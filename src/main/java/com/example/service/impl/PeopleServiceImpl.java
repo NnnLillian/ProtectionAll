@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.entity.Army;
 import com.example.entity.Base;
 import com.example.entity.People;
 import com.example.entity.Platoon;
@@ -61,6 +62,17 @@ public class PeopleServiceImpl implements PeopleService {
             return 0;
         } else {
             armyMapper.IncreasePlatoon(platoonName);
+            return 1;
+        }
+    }
+
+    @Override
+    public Integer IncreaseArmy(Army army) {
+        Army army1 = armyMapper.GetArmyByNameAndPlatooId(army.getArmy_name(), army.getPlatoon_id());
+        if (army1!=null){
+            return 0;
+        }else {
+            armyMapper.IncreaseArmy(army);
             return 1;
         }
     }

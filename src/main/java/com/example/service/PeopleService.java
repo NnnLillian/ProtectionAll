@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.entity.Army;
 import com.example.entity.People;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface PeopleService {
     public Integer IncreaseBase(String baseName);
 
     public Integer IncreasePlatoon(String platoonName);
+
+    public Integer IncreaseArmy(Army army);
 }

@@ -12,6 +12,12 @@
     <insert id="IncreasePlatoon" parameterType="String">
         insert into platoon_info (platoon_name) values (#{platoon_name})
     </insert>
+    <insert id="IncreaseArmy" parameterType="Army">
+        insert into army_info (platoon_id, army_name, army_people, army_type) values (#{platoon_id}, #{army_name}, #{army_people}, #{army_type})
+    </insert>
+    <select id="GetArmyByNameAndPlatooId" resultType="Army">
+        select * from army_info where army_name = #{army_name} and platoon_id = #{platoon_id}
+    </select>
     <select id="GetArmyByPlatoonId" resultType="Army">
         select army_id,army_name,army_people from army_info where platoon_id = #{platoon_id}
     </select>

@@ -9,15 +9,17 @@ public class Army {
     private Integer platoon_id;
     private String army_name;
     private Integer army_people;
+    private String army_type;
 
     public Army() {
     }
 
-    public Army(Integer army_id, Integer platoon_id, String army_name, Integer army_people) {
+    public Army(Integer army_id, Integer platoon_id, String army_name, Integer army_people, String army_type) {
         this.army_id = army_id;
         this.platoon_id = platoon_id;
         this.army_name = army_name;
         this.army_people = army_people;
+        this.army_type = army_type;
     }
 
     public Integer getArmy_id() {
@@ -50,5 +52,13 @@ public class Army {
 
     public void setArmy_people(Integer army_people) {
         this.army_people = army_people;
+    }
+
+    public String getArmy_type() {
+        return army_type;
+    }
+
+    public void setArmy_type(String army_type) {
+        this.army_type = army_type;
     }
 }
