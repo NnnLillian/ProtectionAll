@@ -87,7 +87,7 @@
                     <i class="fa fa-group"></i> <span>人员录入</span></a></li>
                 <li class="nav-parent nav-active active"><a href=""><i class="fa fa-edit"></i> <span>装备信息录入</span></a>
                     <ul class="children" style="display: block;">
-                        <li class="active"><a href="/admin/category"><i class="fa fa-caret-right"></i>装备类</a>
+                        <li class="active"><a href="/admin/category"><i class="fa fa-caret-right"></i>设备类型</a>
                         </li>
                         <li><a href="/admin/equipment"><i class="fa fa-caret-right"></i> 装备</a></li>
                         <li><a href="/admin/device"><i class="fa fa-caret-right"></i> 仪器设备</a></li>
@@ -119,7 +119,7 @@
                         <a href="" class="panel-close">&times;</a>
                         <a href="" class="minimize">&minus;</a>
                     </div>
-                    <h4 class="panel-title">装备类信息录入</h4>
+                    <h4 class="panel-title">类型信息录入</h4>
                     <p>装备、设备类别信息</p>
                 </div>
                 <div class="panel-body panel-body-nopadding">
@@ -127,7 +127,7 @@
                     <form class="form-horizontal form-bordered">
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">装备名称</label>
+                            <label class="col-sm-3 control-label">类型名称</label>
                             <div class="col-sm-6">
                                 <input type="text" placeholder="" id="categoryName" class="form-control"/>
                                 <span class="help-block">请输入装备类、设备类、器材类名称</span>
@@ -148,6 +148,8 @@
                                 <select type="text" placeholder="" id="categoryType" class="form-control selectpicker show-tick">
                                     <option value="action">作战类</option>
                                     <option value="protect">保障类</option>
+                                    <option value="device">设备</option>
+                                    <option value="element">器材</option>
                                 </select>
                             </div>
                         </div>
