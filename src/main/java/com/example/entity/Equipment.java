@@ -5,16 +5,17 @@ import java.sql.Timestamp;
 public class Equipment {
     private String equipment_id;
     private Integer category_id;
+    private Integer platoon_id;
     private Integer army_id;
-    private String  equipment_name;
+    private String equipment_name;
     private String category_modal;
     private String category_unit;
-    private Integer  equipment_count;
-    private String equipment_classis_name;
+    private String equipment_chassis_name;
     private Integer maintain_whole_count;
+    private String maintain_whole_time;
     private String equipment_manufacturer;
-    private Timestamp equipment_producted_time;
-    private Timestamp equipment_entry_time;
+    private String equipment_product_time;
+    private String equipment_entry_time;
     private String equipment_state;
     private String equipment_quality;
     private String equipment_technology;
@@ -28,25 +29,27 @@ public class Equipment {
     private Integer maintain_whole_boot_time;
     private Integer maintain_part_boot_time;
     private Integer total_length_time;
-    private String total_specified_lfie;
+    private String total_specified_life;
     private String cumulative_working_time;
     private String post_extension_period;
+    private String comment;
 
     public Equipment() {
     }
 
-    public Equipment(String equipment_id, Integer category_id, Integer army_id, String equipment_name, String category_modal, String category_unit, Integer equipment_count, String equipment_classis_name, Integer maintain_whole_count, String equipment_manufacturer, Timestamp equipment_producted_time, Timestamp equipment_entry_time, String equipment_state, String equipment_quality, String equipment_technology, String maintain_whole_element, Integer upgrade_times, String upgrade_element, String maintain_part_time, Integer maintain_part_count, String maintain_part_element, String first_maintain_whole_time, Integer maintain_whole_boot_time, Integer maintain_part_boot_time, Integer total_length_time, String total_specified_lfie, String cumulative_working_time, String post_extension_period) {
+    public Equipment(String equipment_id, Integer category_id, Integer platoon_id, Integer army_id, String equipment_name, String category_modal, String category_unit, String equipment_chassis_name, Integer maintain_whole_count, String maintain_whole_time, String equipment_manufacturer, String equipment_product_time, String equipment_entry_time, String equipment_state, String equipment_quality, String equipment_technology, String maintain_whole_element, Integer upgrade_times, String upgrade_element, String maintain_part_time, Integer maintain_part_count, String maintain_part_element, String first_maintain_whole_time, Integer maintain_whole_boot_time, Integer maintain_part_boot_time, Integer total_length_time, String total_specified_life, String cumulative_working_time, String post_extension_period, String comment) {
         this.equipment_id = equipment_id;
         this.category_id = category_id;
+        this.platoon_id = platoon_id;
         this.army_id = army_id;
         this.equipment_name = equipment_name;
         this.category_modal = category_modal;
         this.category_unit = category_unit;
-        this.equipment_count = equipment_count;
-        this.equipment_classis_name = equipment_classis_name;
+        this.equipment_chassis_name = equipment_chassis_name;
         this.maintain_whole_count = maintain_whole_count;
+        this.maintain_whole_time = maintain_whole_time;
         this.equipment_manufacturer = equipment_manufacturer;
-        this.equipment_producted_time = equipment_producted_time;
+        this.equipment_product_time = equipment_product_time;
         this.equipment_entry_time = equipment_entry_time;
         this.equipment_state = equipment_state;
         this.equipment_quality = equipment_quality;
@@ -61,9 +64,10 @@ public class Equipment {
         this.maintain_whole_boot_time = maintain_whole_boot_time;
         this.maintain_part_boot_time = maintain_part_boot_time;
         this.total_length_time = total_length_time;
-        this.total_specified_lfie = total_specified_lfie;
+        this.total_specified_life = total_specified_life;
         this.cumulative_working_time = cumulative_working_time;
         this.post_extension_period = post_extension_period;
+        this.comment = comment;
     }
 
     public String getEquipment_id() {
@@ -114,22 +118,6 @@ public class Equipment {
         this.category_unit = category_unit;
     }
 
-    public Integer getEquipment_count() {
-        return equipment_count;
-    }
-
-    public void setEquipment_count(Integer equipment_count) {
-        this.equipment_count = equipment_count;
-    }
-
-    public String getEquipment_classis_name() {
-        return equipment_classis_name;
-    }
-
-    public void setEquipment_classis_name(String equipment_classis_name) {
-        this.equipment_classis_name = equipment_classis_name;
-    }
-
     public Integer getMaintain_whole_count() {
         return maintain_whole_count;
     }
@@ -144,22 +132,6 @@ public class Equipment {
 
     public void setEquipment_manufacturer(String equipment_manufacturer) {
         this.equipment_manufacturer = equipment_manufacturer;
-    }
-
-    public Timestamp getEquipment_producted_time() {
-        return equipment_producted_time;
-    }
-
-    public void setEquipment_producted_time(Timestamp equipment_producted_time) {
-        this.equipment_producted_time = equipment_producted_time;
-    }
-
-    public Timestamp getEquipment_entry_time() {
-        return equipment_entry_time;
-    }
-
-    public void setEquipment_entry_time(Timestamp equipment_entry_time) {
-        this.equipment_entry_time = equipment_entry_time;
     }
 
     public String getEquipment_state() {
@@ -266,13 +238,6 @@ public class Equipment {
         this.total_length_time = total_length_time;
     }
 
-    public String getTotal_specified_lfie() {
-        return total_specified_lfie;
-    }
-
-    public void setTotal_specified_lfie(String total_specified_lfie) {
-        this.total_specified_lfie = total_specified_lfie;
-    }
 
     public String getCumulative_working_time() {
         return cumulative_working_time;
@@ -280,6 +245,62 @@ public class Equipment {
 
     public void setCumulative_working_time(String cumulative_working_time) {
         this.cumulative_working_time = cumulative_working_time;
+    }
+
+    public Integer getPlatoon_id() {
+        return platoon_id;
+    }
+
+    public void setPlatoon_id(Integer platoon_id) {
+        this.platoon_id = platoon_id;
+    }
+
+    public String getEquipment_chassis_name() {
+        return equipment_chassis_name;
+    }
+
+    public void setEquipment_chassis_name(String equipment_chassis_name) {
+        this.equipment_chassis_name = equipment_chassis_name;
+    }
+
+    public String getMaintain_whole_time() {
+        return maintain_whole_time;
+    }
+
+    public void setMaintain_whole_time(String maintain_whole_time) {
+        this.maintain_whole_time = maintain_whole_time;
+    }
+
+    public String getEquipment_product_time() {
+        return equipment_product_time;
+    }
+
+    public void setEquipment_product_time(String equipment_product_time) {
+        this.equipment_product_time = equipment_product_time;
+    }
+
+    public String getEquipment_entry_time() {
+        return equipment_entry_time;
+    }
+
+    public void setEquipment_entry_time(String equipment_entry_time) {
+        this.equipment_entry_time = equipment_entry_time;
+    }
+
+    public String getTotal_specified_life() {
+        return total_specified_life;
+    }
+
+    public void setTotal_specified_life(String total_specified_life) {
+        this.total_specified_life = total_specified_life;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getPost_extension_period() {

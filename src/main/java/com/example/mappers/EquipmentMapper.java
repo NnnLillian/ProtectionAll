@@ -23,6 +23,8 @@ public interface EquipmentMapper {
 
     public List<Category> GetCategoryByArmyIdAndType(@Param("army_id") Integer army_id, @Param("category_type") String category_type);
 
+    public List<Category> RequestCategoryByType(@Param("category_type") String category_type);
+
     public List<Category> GetCategoryByPlatoonIdAndType(@Param("platoon_id") Integer platoon_id, @Param("category_type") String category_type);
 
     public Category GetCategoryById(Integer category_id);
@@ -32,6 +34,8 @@ public interface EquipmentMapper {
     public void AddTeamCategory(Team_Category team_category);
 
     public void IncreaseCategory(Category category);
+
+    public void IncreaseEquipment(Equipment equipment);
 
     public Integer GetCategoryEquipmentCount(Integer category_id);
 

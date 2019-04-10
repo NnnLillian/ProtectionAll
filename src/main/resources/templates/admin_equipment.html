@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+
+    <title>后台信息录入</title>
+
+    <link rel="stylesheet" href="/css/style.default.css"/>
+    <link href="/css/style.katniss.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap-select.css">
+
+    <link rel="stylesheet" href="/css/dropzone.css"/>
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/js/jquery-ui-1.10.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script src="/js/toggles.min.js"></script>
+    <script src="/js/retina.min.js"></script>
+    <script src="/js/jquery.cookies.js"></script>
+    <script src="/js/bootstrap-select.js"></script>
+    <script src="/js/select2.min.js"></script>
+
+    <script src="/js/jquery.autogrow-textarea.js"></script>
+    <script src="/js/jquery.maskedinput.min.js"></script>
+    <script src="/js/jquery.mousewheel.js"></script>
+    <script src="/js/dropzone.min.js"></script>
+
+    <script src="/js/custom.js"></script>
+
+
+    <style type="text/css">
+        .cwts {
+            height: 30px;
+            line-height: 30px !important;
+            text-indent: 1em;
+            width: 60%;
+            position: absolute;
+            top: 5px;
+            left: 30%;
+        }
+
+        #pdfContainer {
+            height: 800px !important;
+            width: 100%;
+        }
+
+        .buy_hui, .buy_hui:hover {
+            background: #aaa;
+        }
+
+        .btn_hot {
+            bottom: 30px;
+            top: auto;
+            height: 50px;
+            line-height: 50px;
+            font-size: 16px;
+        }
+
+        .pro_modal .modal-body {
+            padding: 0;
+            height: auto
+        }
+
+        .pro_modal .modal-body ul {
+            padding: 10px 50px;
+        }
+
+        .buy_modal_pay {
+            padding: 0;
+            box-shadow: none;
+            height: 2em;
+            width: 4em;
+            border-radius: .7em;
+            color: #1082ff;
+            border: 1px solid #1082ff;
+            line-height: 2em !important;
+            background: none;
+            float: right !important;
+            margin-right: 40px
+        }
+
+        .modal-dialog {
+            height: 690px;
+        }
+
+        .tan_a {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            position: relative;
+            top: 2px;
+        }
+
+        .upgrade_title .close_title {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 20px;
+            right: 20px;
+            z-index: 100
+        }
+
+        .upgrade_title .close_title img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+<div class="modal fade" id="pdf_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 1000px;height: 1600px;z-index:1500">
+        <div class="modal-content pro_modal">
+            <iframe src="" id="pdfContainer" name="pdfContainer"></iframe>
+        </div>
+    </div>
+</div>
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1><span>[</span>装备保障系统<span>]</span></h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+            <h5 class="sidebartitle">系统录入</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li><a href="/admin/army"><i class="fa fa-home"></i> <span>主页</span></a></li>
+                <li><a href="/admin/people">
+                    <!-- 右侧的数字提示 -->
+                    <!--<span class="pull-right badge badge-success">2</span>-->
+                    <i class="fa fa-group"></i> <span>人员录入</span></a></li>
+                <li class="nav-parent nav-active active"><a href=""><i class="fa fa-edit"></i> <span>装备信息录入</span></a>
+                    <ul class="children" style="display: block;">
+                        <li><a href="/admin/category"><i class="fa fa-caret-right"></i>设备类型</a></li>
+                        <li class="active"><a href="/admin/equipment"><i class="fa fa-caret-right"></i> 装备</a></li>
+                        <li><a href="/admin/device"><i class="fa fa-caret-right"></i> 仪器设备</a></li>
+                        <li><a href="/admin/element"><i class="fa fa-caret-right"></i> 器材</a></li>
+                    </ul>
+                </li>
+                <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>保养记录录入</span></a>
+                    <ul class="children">
+                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i> 维修信息</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- leftpanelinner -->
+    </div><!-- leftpanel -->
+
+    <div class="mainpanel">
+
+        <!-- headerbar -->
+
+        <div class="pageheader">
+            <h2><i class="fa fa-edit"></i> 信息录入 <span>管理员权限...</span></h2>
+        </div>
+
+        <div class="contentpanel">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a href="" class="panel-close">&times;</a>
+                        <a href="" class="minimize">&minus;</a>
+                    </div>
+                    <h4 class="panel-title">装备类信息录入</h4>
+                    <p>无论是单个录入、还是批量上传，均需先选择装备所属于的旅、营以及类型信息，<span class="asterisk">必填！</span></p>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所在旅名称:</label>
+                            <div class="col-sm-6">
+                                <select id="ArmyPlatoonId" class="form-control">
+                                    <option value="">选择所在的旅</option>
+                                    <th:block th:each="item:${platoon_list}">
+                                        <option th:text="${item.getPlatoon_name()}"
+                                                th:value="${item.getPlatoon_id()}">
+                                            十二旅
+                                        </option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所在营名称:</label>
+                            <div class="col-sm-6">
+                                <select id="ArmyId" class="form-control"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">类型名称: </label>
+                            <div class="col-sm-6">
+                                <select type="text" data-placeholder="选择装备类型号..." id="categoryId"
+                                        class="select2">
+                                    <option value=""></option>
+                                    <th:block th:each="item:${category_list}">
+                                        <option th:text="${item.getCategory_name()}"
+                                                th:value="${item.getCategory_id()}"
+                                                th:name="${item.getCategory_model()}">
+                                            十二旅
+                                        </option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </div>
+
+                    </form>
+                </div><!-- panel-body -->
+            </div><!-- panel -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a href="" class="panel-close">&times;</a>
+                        <a href="" class="minimize">&minus;</a>
+                    </div>
+                    <h4 class="panel-title">装备信息录入（单个录入）</h4>
+                    <p>装备信息</p>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">装备名称: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="equipmentName" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">装备底盘名称: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="equipmentChassisName" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">设备类型</label>
+                            <div class="col-sm-6">
+                                <select type="text" placeholder="" id="categoryUnit"
+                                        class="form-control selectpicker show-tick">
+                                    <option>台</option>
+                                    <option>辆</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">大修次数: </label>
+                            <div class="col-sm-6">
+                                <input type="number" id="maintainWholeCount" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">末次大修日期: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="maintainWholeTime" placeholder="请按照格式: 1998/02/15 输入"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">生产厂家: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="equipmentManufacturer" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">出厂年月: </label>
+                            <div class="col-sm-6">
+                                <input type="text" placeholder="请按照格式: 1988/02/15 输入" id="equipmentProductTime"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">入伍年月: </label>
+                            <div class="col-sm-6">
+                                <input type="text" placeholder="请按照格式: 2000/09/01 输入" id="equipmentEntryTime"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">现处状态: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="equipmentState" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">质量状况: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="equipmentQuality" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">技术状态: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="equipmentTechnology" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">末次大修承修单位: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="maintainWholeElement" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">升级次数: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="upgradeTimes" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">升级承制单位: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="upgradeElement" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">末次中修日期: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="maintainPartTime" placeholder="请按照格式: 2000/09/01 输入"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">中修日期: </label>
+                            <div class="col-sm-6">
+                                <input type="number" id="maintainPartCount" placeholder="请按照格式: 2000/09/01 输入"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">末次中修承修单位: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="maintainPartElement" placeholder="请按照格式: 2000/09/01 输入"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">首次大修日期: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="firstMaintainWholeTime" placeholder="请按照格式: 2000/09/01 输入"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">末次大修后累计开机时间: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="maintainWholeBootTime" placeholder=""
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">末次中修后累计开机时间: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="maintainPartBootTime" placeholder=""
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">总规定年限: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="totalLengthTime" placeholder=""
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">总规定寿命: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="totalSpecifiedLife" placeholder=""
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">累计工作时间: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="cumulativeWorkingTime" placeholder=""
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">延期后使用期限: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="postExtensionPeriod" placeholder=""
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">备注: </label>
+                            <div class="col-sm-6">
+                                <textarea id="autoResizeTA" class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </form>
+
+                </div><!-- panel-body -->
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <button class="btn btn-primary" id="IncreaseEquipment">提交</button>&nbsp;
+                            <button class="btn btn-default">取消</button>
+                        </div>
+                    </div>
+                </div><!-- panel-footer -->
+
+            </div><!-- panel -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a href="" class="panel-close">&times;</a>
+                        <a href="" class="minimize">&minus;</a>
+                    </div>
+                    <h4 class="panel-title">文件上传</h4>
+                    <p>上传装备表。<a class="accordion-toggle"
+                                onClick="showPDF('/images/category.pdf')">装备类表范例<span>【点击查看】</span></a></p>
+                </div>
+                <div class="panel-body">
+                    <p></p>
+                    <div class="dropzone mb20" id="myDropzone"></div>
+                    <div style="text-align: center; margin: 0 auto">
+                        <button id="submit-all" class="btn btn-primary" style="visibility: hidden">上传文件
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- contentpanel -->
+    </div><!-- mainpanel -->
+
+</section>
+
+
+<script>
+    jQuery(document).ready(function () {
+        // Textarea Autogrow
+        jQuery('#autoResizeTA').autogrow();
+
+    });
+
+    function showPDF(urlSrc) {
+        var urlPre = "/pdfjs/web/viewer.html?file=" + urlSrc;
+        $("#pdfContainer").attr('src', urlPre);
+        $("#pdf_Modal").modal("show");
+    }
+
+    // Select2
+    jQuery(".select2").select2({
+        width: '100%'
+    });
+
+    // Input Masks
+    $('#maintainWholeTime').mask("9999/99/99");
+    $('#equipmentProductTime').mask("9999/99/99");
+    $('#equipmentEntryTime').mask("9999/99/99");
+    $('#maintainPartTime').mask("9999/99/99");
+    $('#firstMaintainWholeTime').mask("9999/99/99");
+
+    // 二级联动，选择营之后自动更新旅。
+    $("#ArmyPlatoonId").change(function () {
+        console.log("armyplatoonId");
+        let armyPlatoonId = $("#ArmyPlatoonId option:selected").val();
+        $.ajax({
+            type: 'POST',
+            data: armyPlatoonId,
+            contentType: "application/json;charset=UTF-8",
+            url: "/admin/findArmyList?platoon_id=" + armyPlatoonId,
+            // dataType: "json",
+            success: function (data) {
+                console.log(data);
+                let contain = "<option>选择所属于的营</option>"
+                for (let i = 0; i < data.length; i++) {
+                    contain += "<option value=";
+                    contain += data[i].army_id;
+                    contain += ">";
+                    contain += data[i].army_name;
+                    contain += "</option>";
+                }
+                $("#ArmyId").html(contain);
+            },
+            error: function () {
+                alert("sorry");
+            }
+        })
+    });
+
+    $("#IncreaseEquipment").click(function () {
+        let selectArmy = $('#ArmyId option:selected');
+        let platoonId = $("#ArmyPlatoonId option:selected").val();
+        let armyId = selectArmy.val();
+        let selectCategory = $('#categoryId option:selected');
+        let categoryId = selectCategory.val();
+        let categoryName = selectCategory.text();
+        let categoryModal = selectCategory.name();
+        let categoryUnit = $("#categoryUnit option:selected").text();
+        let equipmentName = $('#equipmentName').val();
+        let equipmentChassisName = $('#equipmentChassisName').val();
+        let maintainWholeCount = $('#maintainWholeCount').val();
+        let maintainWholeTime = $('#maintainWholeTime').val();
+        let equipmentManufacturer = $('#equipmentManufacturer').val();
+        let equipmentProductTime = $('#equipmentProductTime').val();
+        let equipmentEntryTime = $('#equipmentEntryTime').val();
+        let equipmentState = $('#equipmentState').val();
+        let equipmentQuality = $('#equipmentQuality').val();
+        let equipmentTechnology = $('#equipmentTechnology').val();
+        let maintainWholeElement = $('#maintainWholeElement').val();
+        let upgradeTimes = $('#upgradeTimes').val();
+        let upgradeElement = $('#upgradeElement').val();
+        let maintainPartTime = $('#maintainPartTime').val();
+        let maintainPartCount = $('#maintainPartCount').val();
+        let maintainPartElement = $('#maintainPartElement').val();
+        let firstMaintainWholeTime = $('#firstMaintainWholeTime').val();
+        let maintainWholeBootTime = $('#maintainWholeBootTime').val();
+        let maintainPartBootTime = $('#maintainPartBootTime').val();
+        let totalLengthTime = $('#totalLengthTime').val();
+        let totalSpecifiedLife = $('#totalSpecifiedLife').val();
+        let cumulativeWorkingTime = $('#cumulativeWorkingTime').val();
+        let postExtensionPeriod = $('#postExtensionPeriod').val();
+        let comment = $('#autoResizeTA').val();
+        let equipmentMsg = {
+            equipment_name: equipmentName,
+            category_id: categoryId,
+            category_modal: categoryModal,
+            platoon_id: platoonId,
+            army_id: armyId,
+            category_unit: categoryUnit,
+            equipment_chassis_name: equipmentChassisName,
+            maintain_whole_count: maintainWholeCount,
+            maintain_whole_time: maintainWholeTime,
+            equipment_manufacturer: equipmentManufacturer,
+            equipment_product_time: equipmentProductTime,
+            equipment_entry_time: equipmentEntryTime,
+            equipment_state: equipmentState,
+            equipment_quality: equipmentQuality,
+            equipment_technology: equipmentTechnology,
+            maintain_whole_element: maintainWholeElement,
+            upgrade_times: upgradeTimes,
+            upgrade_element: upgradeElement,
+            maintain_part_time: maintainPartTime,
+            maintain_part_count: maintainPartCount,
+            maintain_part_element: maintainPartElement,
+            first_maintain_whole_time: firstMaintainWholeTime,
+            maintain_whole_boot_time: maintainWholeBootTime,
+            maintain_part_boot_time: maintainPartBootTime,
+            total_length_time: totalLengthTime,
+            total_specified_life: totalSpecifiedLife,
+            cumulative_working_time: cumulativeWorkingTime,
+            post_extension_period: postExtensionPeriod,
+            comment: comment
+        };
+        let equipmentList = [];
+        equipmentList.push(equipmentMsg);
+        console.log(equipmentList);
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(equipmentList),
+            contentType: "application/json;charset=UTF-8",
+            url: "/admin/IncreaseEquipmentMsg",
+            // dataType: "json",
+            success: function (data) {
+                alert("success" + data);
+            },
+            error: function () {
+                alert("sorry");
+            }
+        })
+    });
+
+    Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone('div .dropzone', {
+        url: "/admin/importFile",
+        maxFiles: 1,
+        addRemoveLinks: true,
+        acceptedFiles: ".xls,.xlsx",
+        method: 'post',
+        filesizeBase: 1024,
+        dictRemoveLinks: '移除文件',
+        dictCancelUpload: '取消上传',
+        dictCancelUploadConfirmation: '你确定要取消上传吗？',
+        dictMaxFilesExceeded: "您最多只能上传{{maxFiles}}个文件！",
+        dictResponseError: '文件上传失败!',
+        dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.xls,*.xlsx。",
+        dictFallbackMessage: "浏览器不受支持",
+        dictFileTooBig: "文件过大({{filesize}}MB)，上传文件最大支持: {{maxFilesize}}MB..",
+        autoProcessQueue: false, //autoProcessQueue设置为true,那么队列是立即处理;设置为false,那么.processQueue()不会被隐式地调用。这意味着当你想上传目前队列中所有文件时你必须自己调用它。
+        init: function () {
+            myDropzone = this;
+            var submitButton = document.querySelector("#submit-all")
+            submitButton.addEventListener("click", function () {
+                myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+            });
+            // You might want to show the submit button only when
+            // files are dropped here:
+            this.on("addedfile", function () {
+                // Show submit button here and/or inform user to click it.
+                submitButton.style.visibility = "visible";
+            });
+            this.on("removedfile", function () {
+                submitButton.style.visibility = "hidden";
+            })
+
+        },
+        success: function (file, response, e) {
+            let platoonId = $("#ArmyPlatoonId option:selected").val();
+            let armyId = $('#ArmyId option:selected').val();
+            let categoryId = $('#categoryId option:selected').val();
+            console.log(file);
+            console.log(response);
+            let newStr = response.map(function (obj) {
+                obj.category_id = categoryId;
+                obj.army_id = armyId;
+                obj.platoon_id = platoonId;
+                return obj
+            });
+            console.log("hey");
+            console.log(newStr);
+            ///////////////////////////////////////////////
+            // let res = JSON.parse(response);
+            // if (res.error) {
+            //     $(file.previewTemplate).children('.dz-error-mark').css('opacity', '1')
+            // }
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(newStr),
+                contentType: "application/json;charset=UTF-8",
+                url: "/admin/IncreaseEquipmentMsg",
+                // dataType: "json",
+                success: function (data) {
+                    alert("success" + data);
+                },
+                error: function () {
+                    alert("sorry");
+                }
+            })
+        }
+    });
+</script>
+
+
+</body>
+</html>

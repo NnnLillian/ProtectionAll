@@ -6,13 +6,16 @@
 
 
 
-    <resultMap id="ElementDate" type="com.example.entity.Element">
+    <resultMap id="ElementData" type="com.example.entity.Element">
         <result property="equipment_id" column="equipment_id"></result>
         <result property="category_id" column="category_id"></result>
         <result property="element_id" column="element_id"></result>
         <result property="element_type" column="element_type"></result>
         <result property="maintenance_date" column="equipment_name"></result>
         <result property="element_name" column="element_name"></result>
+        <result property="element_modal" column="element_modal"></result>
+        <result property="element_unit" column="element_unit"></result>
+        <result property="work_time" column="work_time"></result>
         <association property="maintenance_date" column="equipment_element_id"
                      select="com.example.mappers.EquipmentMapper.GetElementMaintainDate"></association>
     </resultMap>
@@ -73,6 +76,10 @@
         select * from category_info where category_type = #{category_type} and category_id in (select category_id from equipment_info where army_id = #{army_id})
     </select>
 
+    <select id="RequestCategoryByType" resultMap="CategoryDate">
+        select * from category_info where category_type = #{category_type}
+    </select>
+
     <select id="GetCategoryByPlatoonIdAndType" resultMap="CategoryDate">
         select * from category_info where category_type = #{category_type} and category_id in (select category_id from equipment_info where platoon_id = #{platoon_id})
     </select>
@@ -88,6 +95,11 @@
     <insert id="IncreaseCategory" parameterType="com.example.entity.Category">
         insert into category_info(category_name, category_model, category_type, category_unit, category_comment)
          values (#{category_name}, #{category_model}, #{category_type}, #{category_unit}, #{category_comment})
+    </insert>
+
+    <insert id="IncreaseEquipment" parameterType="com.example.entity.Equipment">
+        insert into equipment_info (equipment_name, category_id, category_modal, platoon_id, army_id, category_unit, equipment_classis_name, maintain_whole_count, maintain_whole_time, equipment_manufacturer, equipment_producted_time, equipment_entry_time, equipment_state, equipment_quality, equipment_technology, maintain_whole_element, upgrade_times, upgrade_element, maintain_part_time, maintain_part_count, maintain_part_element, first_maintain_whole_time, maintain_whole_boot_time, maintain_part_boot_time, total_length_time, total_specified_lfie, cumulative_working_time, post_extension_period, deviceOrNot, device_source_channel, device_configuration_location, device_financing_division_of_labor, device_metering_cycle, comment)
+        values (#{equipment_name}, #{category_id}, #{category_modal}, #{platoon_id}, #{army_id}, #{category_unit}, #{equipment_classis_name}, #{maintain_whole_count}, #{maintain_whole_time}, #{equipment_manufacturer}, #{equipment_producted_time}, #{equipment_entry_time}, #{equipment_state}, #{equipment_quality}, #{equipment_technology}, #{maintain_whole_element}, #{upgrade_times}, #{upgrade_element}, #{maintain_part_time}, #{maintain_part_count}, #{maintain_part_element}, #{first_maintain_whole_time}, #{maintain_whole_boot_time}, #{maintain_part_boot_time}, #{total_length_time}, #{total_specified_lfie}, #{cumulative_working_time}, #{post_extension_period}, #{deviceOrNot}, #{device_source_channel}, #{device_configuration_location}, #{device_financing_division_of_labor}, #{device_metering_cycle}, #{comment})
     </insert>
 
     <select id="GetCategoryEquipmentCount" resultType="Integer">

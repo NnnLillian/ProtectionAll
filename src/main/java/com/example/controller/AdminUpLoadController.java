@@ -1,9 +1,6 @@
 package com.example.controller;
 
-import com.example.entity.Army;
-import com.example.entity.Category;
-import com.example.entity.People;
-import com.example.entity.Platoon;
+import com.example.entity.*;
 import com.example.service.EquipmentService;
 import com.example.service.PeopleService;
 import com.example.service.SchemeService;
@@ -68,7 +65,13 @@ public class AdminUpLoadController {
     }
 
     @GetMapping("/equipment")
-    public String InputEquipmentMsg() {
+    public String InputEquipmentMsg(Model model) {
+        List<Platoon> platoon_list = schemeService.RequestPlatoon();
+        model.addAttribute("platoon_list", platoon_list);
+        List<Category> categoryActionList = equipmentService.RequestCategoryByType("action");
+        List<Category> categoryProtectList = equipmentService.RequestCategoryByType("protect");
+        categoryActionList.addAll(categoryProtectList);     //此时的categoryActionList包括了action和protect类型装备
+        model.addAttribute("category_list", categoryActionList);
         return "admin_equipment";
     }
 
@@ -150,6 +153,18 @@ public class AdminUpLoadController {
     public Integer IncreasePeople(@RequestBody List<People> people) {
         for (int i = 0; i < people.size(); i++) {
             Integer flag = peopleService.AddPeople(people.get(i));
+            if (flag != 1) {
+                return flag;
+            }
+        }
+        return 1;
+    }
+
+    @RequestMapping(value = "/IncreaseEquipmentMsg", method = {RequestMethod.POST})
+    @ResponseBody
+    public Integer IncreaseEquipment(@RequestBody List<Equipment> equipment) {
+        for (int i = 0; i < equipment.size(); i++) {
+            Integer flag = equipmentService.IncreaseEquipment(equipment.get(i));
             if (flag != 1) {
                 return flag;
             }

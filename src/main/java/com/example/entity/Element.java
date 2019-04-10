@@ -31,11 +31,12 @@ public class Element {
     private String  importOrNot;
     private String  comment;
     private double  reliability;
+    private Integer work_time;
 
     public Element() {
     }
 
-    public Element(String element_id, Integer category_id, String equipment_id, String element_modal, String element_product_identification, String element_unit, float reference_unit_price, float contract_unit_price, Integer units_installed_number, String installed_location, String element_manufacutrer, String element_supplier, String element_financing_division_of_labor, String updateOrNot, Integer maintenance_type, Integer army_reserve_standard, Integer platoon_reserve_standard, Integer random_number, Integer army_initial_number, Integer platoon_initial_number, String element_name, String element_type, String repairOrNot, String secretOrNot, String repair_factory, Integer detection_cycle, String importantOrNot, String importOrNot, String comment, double reliability) {
+    public Element(String element_id, Integer category_id, String equipment_id, String element_modal, String element_product_identification, String element_unit, float reference_unit_price, float contract_unit_price, Integer units_installed_number, String installed_location, String element_manufacutrer, String element_supplier, String element_financing_division_of_labor, String updateOrNot, Integer maintenance_type, Integer army_reserve_standard, Integer platoon_reserve_standard, Integer random_number, Integer army_initial_number, Integer platoon_initial_number, String element_name, String element_type, String repairOrNot, String secretOrNot, String repair_factory, Integer detection_cycle, String importantOrNot, String importOrNot, String comment, double reliability, Integer work_time) {
         this.element_id = element_id;
         this.category_id = category_id;
         this.equipment_id = equipment_id;
@@ -66,6 +67,7 @@ public class Element {
         this.importOrNot = importOrNot;
         this.comment = comment;
         this.reliability = reliability;
+        this.work_time = work_time;
     }
 
     public String getElement_id() {
@@ -307,5 +309,13 @@ public class Element {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Integer getWork_time() {
+        return work_time;
+    }
+
+    public void setWork_time(Integer work_time) {
+        this.work_time = work_time;
     }
 }

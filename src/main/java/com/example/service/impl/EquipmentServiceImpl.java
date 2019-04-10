@@ -43,6 +43,11 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
+    public List<Category> RequestCategoryByType(String category_type) {
+        return equipmentMapper.RequestCategoryByType(category_type);
+    }
+
+    @Override
     public List<Supplier> GetSupplierByPosition(String position) {
         return equipmentMapper.GetSupplierByPosition(position);
     }
@@ -63,6 +68,12 @@ public class EquipmentServiceImpl implements EquipmentService {
             flag = 1;
         }
         return flag;
+    }
+
+    @Override
+    public Integer IncreaseEquipment(Equipment equipment) {
+        equipmentMapper.IncreaseEquipment(equipment);
+        return 1;
     }
 
 }

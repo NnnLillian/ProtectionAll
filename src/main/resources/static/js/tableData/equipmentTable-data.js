@@ -30,7 +30,7 @@ self.equipmentDataInit = function (name) {
                     title: '计量单位',
                     align: 'center',
                 }, {
-                    field: 'equipment_classis_name',
+                    field: 'equipment_chassis_name',
                     title: '底盘名称 ',
                     align: 'center'
                 }, {
@@ -46,7 +46,7 @@ self.equipmentDataInit = function (name) {
                     title: '生产厂家 ',
                     align: 'center'
                 }, {
-                    field: 'equipment_producted_time',
+                    field: 'equipment_product_time',
                     title: '出厂年月 ',
                     align: 'center'
                 }, {
@@ -106,7 +106,7 @@ self.equipmentDataInit = function (name) {
                     title: '总规定年限',
                     align: 'center'
                 }, {
-                    field: 'total_specified_lfie',
+                    field: 'total_specified_life',
                     title: '总规定寿命',
                     align: 'center'
                 }, {
