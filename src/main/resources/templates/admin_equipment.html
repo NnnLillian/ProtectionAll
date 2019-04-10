@@ -218,8 +218,7 @@
                                     <option value=""></option>
                                     <th:block th:each="item:${category_list}">
                                         <option th:text="${item.getCategory_name()}"
-                                                th:value="${item.getCategory_id()}"
-                                                th:name="${item.getCategory_model()}">
+                                                th:value="${item.getCategory_id()}">
                                             十二旅
                                         </option>
                                     </th:block>
@@ -457,7 +456,7 @@
                     </div>
                     <h4 class="panel-title">文件上传</h4>
                     <p>上传装备表。<a class="accordion-toggle"
-                                onClick="showPDF('/images/category.pdf')">装备类表范例<span>【点击查看】</span></a></p>
+                                onClick="showPDF('/images/equipment.pdf')">装备表范例<span>【点击查看】</span></a></p>
                 </div>
                 <div class="panel-body">
                     <p></p>
@@ -535,7 +534,7 @@
         let selectCategory = $('#categoryId option:selected');
         let categoryId = selectCategory.val();
         let categoryName = selectCategory.text();
-        let categoryModal = selectCategory.name();
+        // let categoryModal = selectCategory.name();
         let categoryUnit = $("#categoryUnit option:selected").text();
         let equipmentName = $('#equipmentName').val();
         let equipmentChassisName = $('#equipmentChassisName').val();
@@ -564,7 +563,7 @@
         let equipmentMsg = {
             equipment_name: equipmentName,
             category_id: categoryId,
-            category_modal: categoryModal,
+            // category_modal: categoryModal,
             platoon_id: platoonId,
             army_id: armyId,
             category_unit: categoryUnit,
@@ -648,12 +647,16 @@
             let platoonId = $("#ArmyPlatoonId option:selected").val();
             let armyId = $('#ArmyId option:selected').val();
             let categoryId = $('#categoryId option:selected').val();
+            // let categoryName = $('#categoryId option:selected').name();
             console.log(file);
             console.log(response);
+            // let res = JSON.parse(response);
+            // console.log(res);
             let newStr = response.map(function (obj) {
                 obj.category_id = categoryId;
                 obj.army_id = armyId;
                 obj.platoon_id = platoonId;
+                // obj.category_modal = categoryName;
                 return obj
             });
             console.log("hey");

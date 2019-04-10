@@ -37,6 +37,8 @@ public interface EquipmentMapper {
 
     public void IncreaseEquipment(Equipment equipment);
 
+    public void IncreaseElement(Element element);
+
     public Integer GetCategoryEquipmentCount(Integer category_id);
 
     public String GetSparePartName(Integer spare_part_id);

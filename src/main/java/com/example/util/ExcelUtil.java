@@ -63,9 +63,9 @@ public class ExcelUtil {
         return workbook;
     }
 
-    public static List<Map<String, String>> analysisWorkbook(Workbook workbook){
+    public static List<Map<String, Object>> analysisWorkbook(Workbook workbook){
         if(workbook == null) return null;
-        List<Map<String,String>> result = new ArrayList<>();
+        List<Map<String,Object>> result = new ArrayList<>();
         //定义excel有哪些字段
 //        String[] colunms = {"name","age","score"};
         String[] colunms;
@@ -83,10 +83,10 @@ public class ExcelUtil {
 
         for(int i=1;i<rowNums;i++) {
             row = firstSheet.getRow(i);
-            Map<String,String> cellMap = new HashMap<>();
+            Map<String,Object> cellMap = new HashMap<>();
             if(row!=null) {
                 for(int j=0;j<colunmNums;j++) {
-                    cellMap.put(colunms[j],(String) getCellValue(row.getCell(j)));
+                    cellMap.put(colunms[j], getCellValue(row.getCell(j)));
                 }
             }
             result.add(cellMap);
@@ -112,7 +112,7 @@ public class ExcelUtil {
                     String stringDate = sdf.format(cell.getDateCellValue());
                     result = stringDate;
                 }else {
-                    result = String.valueOf(cell.getNumericCellValue());
+                    result = (int)cell.getNumericCellValue();
                 }
                 break;
             case FORMULA:
@@ -120,7 +120,7 @@ public class ExcelUtil {
                 if(DateUtil.isCellDateFormatted(cell)) {
                     result = cell.getDateCellValue();
                 }else {
-                    result = String.valueOf(cell.getNumericCellValue());
+                    result = (int)cell.getNumericCellValue();
                 }
                 break;
             case STRING:

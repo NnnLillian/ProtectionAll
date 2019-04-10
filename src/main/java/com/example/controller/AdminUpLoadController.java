@@ -8,8 +8,10 @@ import com.example.util.ExcelUtil;
 import com.example.util.JsonBuilder;
 import com.example.util.JsonPaser;
 import javafx.concurrent.Worker;
+import org.apache.ibatis.annotations.Param;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import net.sf.cglib.beans.BeanMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -80,14 +83,23 @@ public class AdminUpLoadController {
         return "admin_device";
     }
 
+    @GetMapping("/importFile")
+    public String importFile() {
+        return "importFile";
+    }
+
     @GetMapping("/element")
-    public String InputElementMsg() {
+    public String InputElementMsg(Model model) {
+        List<Category> categoryActionList = equipmentService.RequestCategoryByType("action");
+        List<Category> categoryProtectList = equipmentService.RequestCategoryByType("protect");
+        categoryActionList.addAll(categoryProtectList);     //此时的categoryActionList包括了action和protect类型装备
+        model.addAttribute("category_list", categoryActionList);
         return "admin_element";
     }
 
     @RequestMapping(value = "/importFile", method = {RequestMethod.POST})
     @ResponseBody
-    public List<Map<String, String>> UploadCategoryMsg(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
+    public List<Map<String, Object>> UploadCategoryMsg(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
         String fileName = file.getOriginalFilename();
         System.out.println(fileName);
         String contentPath = request.getSession().getServletContext().getRealPath("/");
@@ -100,7 +112,7 @@ public class AdminUpLoadController {
         // 解析
         InputStream in = new FileInputStream(excelFile);
         Workbook workbook = ExcelUtil.readExcel(in);
-        List<Map<String, String>> list = ExcelUtil.analysisWorkbook(workbook);
+        List<Map<String, Object>> list = ExcelUtil.analysisWorkbook(workbook);
         System.out.println(list);
         return list;
 /////////////////////////////返回解析得到的list/////////////////////////////////////////////////////
@@ -170,5 +182,53 @@ public class AdminUpLoadController {
             }
         }
         return 1;
+    }
+
+    @RequestMapping(value = "/IncreaseElementMsg", method = {RequestMethod.POST})
+    @ResponseBody
+    public Integer IncreaseElement(@RequestBody List<Element> elements) {
+        System.out.println(elements);
+        for (int i = 0; i < elements.size(); i++) {
+            Integer flag = equipmentService.IncreaseElement(elements.get(i));
+            if (flag != 1) {
+                return flag;
+            }
+        }
+        return 1;
+    }
+
+//   成功的
+    @RequestMapping(value = "/importElementFile", method = {RequestMethod.POST})
+    @ResponseBody
+    public void UploadElementMsg(@RequestParam("file") MultipartFile file, @Param("category_id") Integer category_id, HttpServletRequest request) throws IOException {
+        Element element = new Element();
+        String fileName = file.getOriginalFilename();
+        System.out.println(fileName);
+        String contentPath = request.getSession().getServletContext().getRealPath("/");
+        System.out.println(contentPath);
+        File excelFile = new File(contentPath + fileName);
+        if (excelFile.exists()) {
+            excelFile.delete();
+        }
+        file.transferTo(excelFile);
+        // 解析
+        InputStream in = new FileInputStream(excelFile);
+        Workbook workbook = ExcelUtil.readExcel(in);
+        List<Map<String, Object>> list = ExcelUtil.analysisWorkbook(workbook);
+        System.out.println(list);
+
+        for (Map<String, Object> map : list) {
+            map.put("category_id",category_id);
+            mapToBean(map, element);
+//            equipmentService.IncreaseElement(element);
+        }
+    }
+
+
+
+    public static <T> T mapToBean(Map<String, Object> map,T bean) {
+        BeanMap beanMap = BeanMap.create(bean);
+        beanMap.putAll(map);
+        return bean;
     }
 }
