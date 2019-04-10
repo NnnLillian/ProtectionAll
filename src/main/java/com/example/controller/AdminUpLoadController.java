@@ -79,12 +79,20 @@ public class AdminUpLoadController {
     }
 
     @GetMapping("/device")
-    public String InputDeviceMsg() {
+    public String InputDeviceMsg(Model model) {
+        List<Platoon> platoon_list = schemeService.RequestPlatoon();
+        model.addAttribute("platoon_list", platoon_list);
+        List<Category> categoryActionList = equipmentService.RequestCategoryByType("action");
+        List<Category> categoryProtectList = equipmentService.RequestCategoryByType("protect");
+        categoryActionList.addAll(categoryProtectList);     //此时的categoryActionList包括了action和protect类型装备
+        model.addAttribute("category_list", categoryActionList);
         return "admin_device";
     }
 
     @GetMapping("/element")
     public String InputElementMsg(Model model) {
+        List<Platoon> platoon_list = schemeService.RequestPlatoon();
+        model.addAttribute("platoon_list", platoon_list);
         List<Category> categoryActionList = equipmentService.RequestCategoryByType("action");
         List<Category> categoryProtectList = equipmentService.RequestCategoryByType("protect");
         categoryActionList.addAll(categoryProtectList);     //此时的categoryActionList包括了action和protect类型装备
@@ -192,7 +200,20 @@ public class AdminUpLoadController {
         return 1;
     }
 
-//   成功的
+    @RequestMapping(value = "/IncreaseDeviceMsg", method = {RequestMethod.POST})
+    @ResponseBody
+    public Integer IncreaseDevice(@RequestBody List<Device> devices) {
+        System.out.println(devices);
+        for (int i = 0; i < devices.size(); i++) {
+            Integer flag = equipmentService.IncreaseDevice(devices.get(i));
+            if (flag != 1) {
+                return flag;
+            }
+        }
+        return 1;
+    }
+
+//   成功的直接导入
     @RequestMapping(value = "/importElementFile", method = {RequestMethod.POST})
     @ResponseBody
     public void UploadElementMsg(@RequestParam("file") MultipartFile file, @Param("category_id") Integer category_id, HttpServletRequest request) throws IOException {
@@ -220,7 +241,7 @@ public class AdminUpLoadController {
     }
 
 
-
+//  将 map 转换为 Object
     public static <T> T mapToBean(Map<String, Object> map,T bean) {
         BeanMap beanMap = BeanMap.create(bean);
         beanMap.putAll(map);

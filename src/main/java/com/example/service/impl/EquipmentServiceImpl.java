@@ -82,4 +82,10 @@ public class EquipmentServiceImpl implements EquipmentService {
         return 1;
     }
 
+    @Override
+    public Integer IncreaseDevice(Device device) {
+        equipmentMapper.IncreaseDevice(device);
+        return 1;
+    }
+
 }

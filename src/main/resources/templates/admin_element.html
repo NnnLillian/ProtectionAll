@@ -145,11 +145,8 @@
 
             <h5 class="sidebartitle">系统录入</h5>
             <ul class="nav nav-pills nav-stacked nav-bracket">
-                <li><a href="/admin/army"><i class="fa fa-home"></i> <span>主页</span></a></li>
-                <li><a href="/admin/people">
-                    <!-- 右侧的数字提示 -->
-                    <!--<span class="pull-right badge badge-success">2</span>-->
-                    <i class="fa fa-group"></i> <span>人员录入</span></a></li>
+                <li><a href="/admin/army"><i class="fa fa-home"></i> <span>部队信息录入</span></a></li>
+                <li><a href="/admin/people"><i class="fa fa-group"></i> <span>人员录入</span></a></li>
                 <li class="nav-parent nav-active active"><a href=""><i class="fa fa-edit"></i> <span>装备信息录入</span></a>
                     <ul class="children" style="display: block;">
                         <li><a href="/admin/category"><i class="fa fa-caret-right"></i>设备类型</a></li>
@@ -184,10 +181,32 @@
                         <a href="" class="minimize">&minus;</a>
                     </div>
                     <h4 class="panel-title">装备信息录入</h4>
-                    <p>无论是单个录入、还是批量上传，均需先选择器材所安装的装备信息，<span class="asterisk">必填！</span></p>
+                    <p>无论是单个录入、还是批量上传，均需先选择器材所安装的装备信息，以及所属的部队信息<span class="asterisk">必填！</span></p>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所在旅名称:</label>
+                            <div class="col-sm-6">
+                                <select id="ArmyPlatoonId" class="form-control">
+                                    <option value="">选择所在的旅</option>
+                                    <th:block th:each="item:${platoon_list}">
+                                        <option th:text="${item.getPlatoon_name()}"
+                                                th:value="${item.getPlatoon_id()}">
+                                            十二旅
+                                        </option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所在营名称:</label>
+                            <div class="col-sm-6">
+                                <select id="ArmyId" class="form-control"></select>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-sm-3 control-label">类型名称: </label>
                             <div class="col-sm-6">
@@ -219,6 +238,13 @@
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">器材编号: </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="elementId" placeholder="" class="form-control"/>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">器材名称: </label>
@@ -490,7 +516,33 @@
         $("#pdfContainer").attr('src', urlPre);
         $("#pdf_Modal").modal("show");
     }
-
+    // 二级联动，选择营之后自动更新旅。
+    $("#ArmyPlatoonId").change(function () {
+        console.log("armyplatoonId");
+        let armyPlatoonId = $("#ArmyPlatoonId option:selected").val();
+        $.ajax({
+            type: 'POST',
+            data: armyPlatoonId,
+            contentType: "application/json;charset=UTF-8",
+            url: "/admin/findArmyList?platoon_id=" + armyPlatoonId,
+            // dataType: "json",
+            success: function (data) {
+                console.log(data);
+                let contain = "<option>选择所属于的营</option>"
+                for (let i = 0; i < data.length; i++) {
+                    contain += "<option value=";
+                    contain += data[i].army_id;
+                    contain += ">";
+                    contain += data[i].army_name;
+                    contain += "</option>";
+                }
+                $("#ArmyId").html(contain);
+            },
+            error: function () {
+                alert("sorry");
+            }
+        })
+    });
     // Select2
     jQuery(".select2").select2({
         width: '100%'
@@ -500,7 +552,8 @@
     $("#IncreaseElement").click(function () {
         let selectCategory = $('#categoryId option:selected');
         let categoryId = selectCategory.val();
-        let categoryModal = selectCategory.name();
+        let armyId =  $('#ArmyId option:selected').val();
+        let elementId = $('#elementId').val();
         let elementName = $('#elementName').val();
         let elementModal = $('#elementModal').val();
         let elementProductIdentification = $('#elementProductIdentification').val();
@@ -526,7 +579,9 @@
         let importOrNot = $('input[name="import"]:checked').text();
         let comment = $('#autoResizeTA').val();
         let elementMsg = {
+            element_id: elementId,
             category_id: categoryId,
+            army_id: armyId,
             element_name: elementName,
             element_modal: elementModal,
             element_product_identification: elementProductIdentification,
@@ -552,9 +607,8 @@
             importOrNot: importOrNot,
             comment: comment
         };
-        let element = {elementMsg: elementMsg}
         let elementList = [];
-        elementList.push(element);
+        elementList.push(elementMsg);
         console.log(elementList);
         $.ajax({
             type: 'POST',
@@ -571,13 +625,6 @@
         })
     });
 
-    //
-    $("#categoryId").change(function () {
-        let categoryId = $('#categoryId option:selected').val();
-        localStorage.setItem("category_id", categoryId);
-        // location.reload();
-        // $('#myPanel-body').load("importFile");
-    });
     Dropzone.autoDiscover = false;
     var myDropzone = new Dropzone('div .dropzone', {
         url: "/admin/importFile",
@@ -615,10 +662,12 @@
         },
         success: function (file, response, e) {
             let categoryId = $('#categoryId option:selected').val();
+            let armyId =  $('#ArmyId option:selected').val();
             console.log(file);
             console.log(response);
             let newStr = response.map(function (obj) {
                 obj.category_id = categoryId;
+                obj.army_id = armyId;
                 return obj
             });
             console.log("hey");

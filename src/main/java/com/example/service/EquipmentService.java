@@ -27,4 +27,6 @@ public interface EquipmentService {
 
     public Integer IncreaseElement(Element element);
 
+    public Integer IncreaseDevice(Device device);
+
 }

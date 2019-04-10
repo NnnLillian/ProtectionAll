@@ -5,7 +5,6 @@
 <mapper namespace="com.example.mappers.EquipmentMapper">
 
 
-
     <resultMap id="ElementData" type="com.example.entity.Element">
         <result property="equipment_id" column="equipment_id"></result>
         <result property="category_id" column="category_id"></result>
@@ -103,8 +102,13 @@
     </insert>
 
     <insert id="IncreaseElement" parameterType="com.example.entity.Element">
-        insert into element_info (element_id, category_id, element_name, element_modal, element_product_identification, element_unit, reference_unit_price, contract_unit_price, units_installed_number, installed_location, element_manufacturer, element_supplier, element_financing_division_of_labor, updateOrNot, army_reserve_standard, platoon_reserve_standard, random_number, army_initial_number, platoon_initial_number, repairOrNot, secretOrNot, repair_factory, detection_cycle, importantOrNot, importOrNot, comment) VALUES
-        (#{element_id}, #{category_id}, #{element_name}, #{element_modal}, #{element_product_identification}, #{element_unit}, #{reference_unit_price}, #{contract_unit_price}, #{units_installed_number}, #{installed_location}, #{element_manufacturer}, #{element_supplier}, #{element_financing_division_of_labor}, #{updateOrNot}, #{army_reserve_standard}, #{platoon_reserve_standard}, #{random_number}, #{army_initial_number}, #{platoon_initial_number}, #{repairOrNot}, #{secretOrNot}, #{repair_factory}, #{detection_cycle}, #{importantOrNot}, #{importOrNot}, #{comment})
+        insert into element_info (element_id, category_id,army_id, element_name, element_modal, element_product_identification, element_unit, reference_unit_price, contract_unit_price, units_installed_number, installed_location, element_manufacturer, element_supplier, element_financing_division_of_labor, updateOrNot, army_reserve_standard, platoon_reserve_standard, random_number, army_initial_number, platoon_initial_number, repairOrNot, secretOrNot, repair_factory, detection_cycle, importantOrNot, importOrNot, comment) VALUES
+        (#{element_id}, #{category_id},#{army_id}, #{element_name}, #{element_modal}, #{element_product_identification}, #{element_unit}, #{reference_unit_price}, #{contract_unit_price}, #{units_installed_number}, #{installed_location}, #{element_manufacturer}, #{element_supplier}, #{element_financing_division_of_labor}, #{updateOrNot}, #{army_reserve_standard}, #{platoon_reserve_standard}, #{random_number}, #{army_initial_number}, #{platoon_initial_number}, #{repairOrNot}, #{secretOrNot}, #{repair_factory}, #{detection_cycle}, #{importantOrNot}, #{importOrNot}, #{comment})
+    </insert>
+
+    <insert id="IncreaseDevice" parameterType="com.example.entity.Device">
+        insert into device_info(device_name, army_id, device_product_id, device_modal, device_manufacturer, device_product_time, device_entry_time, device_source, device_state, device_quality, device_configuration_location, device_financing_division_of_labor, device_metering_cycle,comment)
+        VALUES(#{device_name}, #{army_id}, #{device_product_id}, #{device_modal}, #{device_manufacturer}, #{device_product_time}, #{device_entry_time}, #{device_source}, #{device_state}, #{device_quality}, #{device_configuration_location}, #{device_financing_division_of_labor}, #{device_metering_cycle}, #{comment})
     </insert>
 
     <select id="GetCategoryEquipmentCount" resultType="Integer">
