@@ -76,4 +76,10 @@ public class EquipmentServiceImpl implements EquipmentService {
         return 1;
     }
 
+    @Override
+    public Integer IncreaseElement(Element element) {
+        equipmentMapper.IncreaseElement(element);
+        return 1;
+    }
+
 }

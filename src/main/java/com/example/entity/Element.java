@@ -11,7 +11,7 @@ public class Element {
     private float  contract_unit_price;
     private Integer units_installed_number;
     private String  installed_location;
-    private String  element_manufacutrer;
+    private String  element_manufacturer;
     private String  element_supplier;
     private String  element_financing_division_of_labor;
     private String  updateOrNot;
@@ -36,7 +36,7 @@ public class Element {
     public Element() {
     }
 
-    public Element(String element_id, Integer category_id, String equipment_id, String element_modal, String element_product_identification, String element_unit, float reference_unit_price, float contract_unit_price, Integer units_installed_number, String installed_location, String element_manufacutrer, String element_supplier, String element_financing_division_of_labor, String updateOrNot, Integer maintenance_type, Integer army_reserve_standard, Integer platoon_reserve_standard, Integer random_number, Integer army_initial_number, Integer platoon_initial_number, String element_name, String element_type, String repairOrNot, String secretOrNot, String repair_factory, Integer detection_cycle, String importantOrNot, String importOrNot, String comment, double reliability, Integer work_time) {
+    public Element(String element_id, Integer category_id, String equipment_id, String element_modal, String element_product_identification, String element_unit, float reference_unit_price, float contract_unit_price, Integer units_installed_number, String installed_location, String element_manufacturer, String element_supplier, String element_financing_division_of_labor, String updateOrNot, Integer maintenance_type, Integer army_reserve_standard, Integer platoon_reserve_standard, Integer random_number, Integer army_initial_number, Integer platoon_initial_number, String element_name, String element_type, String repairOrNot, String secretOrNot, String repair_factory, Integer detection_cycle, String importantOrNot, String importOrNot, String comment, double reliability, Integer work_time) {
         this.element_id = element_id;
         this.category_id = category_id;
         this.equipment_id = equipment_id;
@@ -47,7 +47,7 @@ public class Element {
         this.contract_unit_price = contract_unit_price;
         this.units_installed_number = units_installed_number;
         this.installed_location = installed_location;
-        this.element_manufacutrer = element_manufacutrer;
+        this.element_manufacturer = element_manufacturer;
         this.element_supplier = element_supplier;
         this.element_financing_division_of_labor = element_financing_division_of_labor;
         this.updateOrNot = updateOrNot;
@@ -175,12 +175,12 @@ public class Element {
         this.installed_location = installed_location;
     }
 
-    public String getElement_manufacutrer() {
-        return element_manufacutrer;
+    public String getElement_manufacturer() {
+        return element_manufacturer;
     }
 
-    public void setElement_manufacutrer(String element_manufacutrer) {
-        this.element_manufacutrer = element_manufacutrer;
+    public void setElement_manufacturer(String element_manufacturer) {
+        this.element_manufacturer = element_manufacturer;
     }
 
     public String getElement_supplier() {

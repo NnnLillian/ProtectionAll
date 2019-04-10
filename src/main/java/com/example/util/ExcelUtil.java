@@ -111,6 +111,8 @@ public class ExcelUtil {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String stringDate = sdf.format(cell.getDateCellValue());
                     result = stringDate;
+                }else if (cell.getNumericCellValue()>2147483647){
+                    result = String.valueOf(cell.getNumericCellValue());
                 }else {
                     result = (int)cell.getNumericCellValue();
                 }

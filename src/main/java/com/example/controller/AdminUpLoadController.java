@@ -83,11 +83,6 @@ public class AdminUpLoadController {
         return "admin_device";
     }
 
-    @GetMapping("/importFile")
-    public String importFile() {
-        return "importFile";
-    }
-
     @GetMapping("/element")
     public String InputElementMsg(Model model) {
         List<Category> categoryActionList = equipmentService.RequestCategoryByType("action");
