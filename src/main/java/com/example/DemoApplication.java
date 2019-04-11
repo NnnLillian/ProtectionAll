@@ -7,7 +7,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 @SpringBootApplication
 @MapperScan(basePackages = "com.example.mappers")
@@ -19,7 +19,7 @@ public class DemoApplication {
     }
 }
 @Component
-class WebConfigurer extends WebMvcConfigurerAdapter
+class WebConfigurer extends WebMvcConfigurationSupport
 {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry)
