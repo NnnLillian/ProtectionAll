@@ -85,6 +85,22 @@ public class SchemeJsonController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/AddSchemeSafeguard", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+    public String AddSchemeSafe(@RequestBody String jsonStr) {
+        Integer scheme_id = jsonPaser.ParseSchemeId(jsonStr);
+        Integer safeguard_mode = jsonPaser.ParseSafeguardMode(jsonStr);
+        Integer carry_method = jsonPaser.ParseCarryMethod(jsonStr);
+        Integer base_id=jsonPaser.ParseBaseId(jsonStr);
+        List<Platoon> platoons = jsonPaser.ParseSafeguardPlatoon(jsonStr);
+        for (int i=0;i<platoons.size();i++){
+            Scheme_Safeguard scheme_safeguard = new Scheme_Safeguard(null,scheme_id,safeguard_mode,base_id,platoons.get(i).getPlatoon_id(),carry_method);
+            schemeService.AddSchemeSafeGuard(scheme_safeguard);
+            System.out.println("Add a scheme safe success");
+        }
+        return "{\"message\":" + "\"success\"" + "}";
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/AddSchemeGroup", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
     public String AddSchemeGroup(@RequestBody String jsonStr) {
         Group group = jsonPaser.ParseGroup(jsonStr);

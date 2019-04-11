@@ -33,6 +33,8 @@ public interface SchemeMapper {
 
     public void ModifySchemeArmy(Scheme_Army scheme_army);
 
+    public void AddSchemeSafeGuard(Scheme_Safeguard scheme_safeguard);
+
     public void DeleteSchemeEquipment(@Param("scheme_id") Integer scheme_id, @Param("equipment_id") Integer equipment_id);
 
     public void DeleteScheme(@Param("scheme_id") Integer scheme_id);

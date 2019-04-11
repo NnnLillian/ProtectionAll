@@ -83,6 +83,18 @@ public class JsonPaser {
         return list;
     }
 
+    public List<Platoon> ParseSafeguardPlatoon(String jsonStr) throws JSONException {
+        JSONObject jsonObj = new JSONObject(jsonStr);
+        List<Platoon> list = new ArrayList<>();
+        JSONArray scheme_safeguard = jsonObj.getJSONArray("scheme_safeguard");
+        for (int i = 0; i < scheme_safeguard.length(); i++) {
+            JSONObject platoonJson = scheme_safeguard.getJSONObject(i);
+            Platoon platoon = new Platoon(platoonJson.getInt("platoon_id"),null);
+            list.add(platoon);
+        }
+        return list;
+    }
+
     public List<Scheme_Equipment> ParseSchemeEquipment(String jsonStr) {
         JSONObject jsonObj = new JSONObject(jsonStr);
         List<Scheme_Equipment> list = new ArrayList<>();
@@ -100,6 +112,21 @@ public class JsonPaser {
     public Integer ParseSchemeId(String jsonStr) throws JSONException {
         JSONObject jsonObj = new JSONObject(jsonStr);
         return jsonObj.getInt("scheme_id");
+    }
+
+    public Integer ParseSafeguardMode(String jsonStr) throws JSONException {
+        JSONObject jsonObj = new JSONObject(jsonStr);
+        return jsonObj.getInt("safeguard_mode");
+    }
+
+    public Integer ParseBaseId(String jsonStr) throws JSONException {
+        JSONObject jsonObj = new JSONObject(jsonStr);
+        return jsonObj.getInt("base_id");
+    }
+
+    public Integer ParseCarryMethod(String jsonStr) throws JSONException {
+        JSONObject jsonObj = new JSONObject(jsonStr);
+        return jsonObj.getInt("carry_method");
     }
 
     public Group ParseGroup(String jsonStr) throws JSONException {

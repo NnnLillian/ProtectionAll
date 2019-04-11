@@ -41,6 +41,8 @@ public interface SchemeService {
 
     public void AddActionGroup(Action_Group action_group);
 
+    public void AddSchemeSafeGuard(Scheme_Safeguard scheme_safeguard);
+
     public List<Scheme_Army> GetSchemeArmyBySchemeId(Integer scheme_id);
 
     public List<Equipment> GetEquipmentBySchemeId(Integer scheme_id);

@@ -160,6 +160,11 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
+    public void AddSchemeSafeGuard(Scheme_Safeguard scheme_safeguard) {
+        schemeMapper.AddSchemeSafeGuard(scheme_safeguard);
+    }
+
+    @Override
     public List<Scheme_Army> GetSchemeArmyBySchemeId(Integer scheme_id) {
         return schemeMapper.GetSchemeArmyBySchemeId(scheme_id);
     }

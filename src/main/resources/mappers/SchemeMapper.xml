@@ -38,7 +38,10 @@
         insert into scheme_army_info(scheme_id,army_id,army_people,army_action_group)
         values(#{scheme_id},#{army_id},#{army_people},#{army_action_group})
     </insert>
-
+    <insert id="AddSchemeSafeGuard">
+        insert into scheme_safeguard_info(scheme_id, safeguard_mode, base_id, platoon_id, carry_method)
+        values (#{scheme_id}, #{safeguard_mode}, #{base_id}, #{platoon_id}, #{carry_method})
+    </insert>
     <insert id="AddGroupIntoScheme" parameterType="com.example.entity.Group">
         insert into group_info(scheme_id,group_name,group_type)
         values (#{scheme_id},#{group_name},#{group_type})

@@ -112,11 +112,11 @@
                                     <!--</option>-->
                                     <option>无</option>
                                     <option value="1">乌鲁木齐基地</option>
-                                    <option>拉萨基地</option>
-                                    <option>兰州基地</option>
-                                    <option>大同基地</option>
-                                    <option>济南基地</option>
-                                    <option>南宁基地</option>
+                                    <option value="2">拉萨基地</option>
+                                    <option value="3">兰州基地</option>
+                                    <option value="4">大同基地</option>
+                                    <option value="5">济南基地</option>
+                                    <option value="6">南宁基地</option>
                                     <option>昆明基地</option>
                                     <option>武汉基地</option>
                                     <option>福州基地</option>
@@ -152,7 +152,7 @@
                                 <div class="col-sm-12 col-sm-offset-3" style="text-align: center; margin: 0 auto">
                                     <!--<button class="btn btn-primary">保存</button>&nbsp;-->
                                     <button type="button" class="btn btn-primary" id="newSchemeProtectionBtn">保存
-                                    </button>&nbsp;
+                                    </button>&nbsp
                                     <button class="btn btn-default" onclick="javascript:history.go(-1);">
                                         取消
                                     </button>
@@ -259,6 +259,7 @@
 
             var schemeStr = JSON.stringify(scheme);
 
+            console.log(schemeStr);
 
             $.ajax({
                 type: 'POST',
