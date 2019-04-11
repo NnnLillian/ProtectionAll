@@ -30,6 +30,11 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
+    public List<Base> RequestBase() {
+        return armyMapper.RequestBase();
+    }
+
+    @Override
     public List<Army> RequestArmy(Integer platoon_id) {
         return armyMapper.GetArmyByPlatoonId(platoon_id);
     }

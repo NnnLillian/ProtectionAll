@@ -111,17 +111,11 @@
                                     <!--<option th:text="${item.getBase_name()}" th:value="${item.getBase_Id()}">无-->
                                     <!--</option>-->
                                     <option>无</option>
-                                    <option value="1">乌鲁木齐基地</option>
-                                    <option value="2">拉萨基地</option>
-                                    <option value="3">兰州基地</option>
-                                    <option value="4">大同基地</option>
-                                    <option value="5">济南基地</option>
-                                    <option value="6">南宁基地</option>
-                                    <option>昆明基地</option>
-                                    <option>武汉基地</option>
-                                    <option>福州基地</option>
-                                    <option>大连基地</option>
-                                    <option>上海基地</option>
+                                    <th:block th:each="item:${base_list}">
+                                        <option th:text="${item.getBase_name()}"
+                                                th:value="${item.getBase_id()}">
+                                        </option>
+                                    </th:block>
                                     <!--</th:block>-->
                                 </select>
                             </div>
@@ -131,9 +125,12 @@
                             <div class="col-sm-6">
                                 <select id="sameLevel" class="select2 selectpicker show-tick filter-option" multiple>
                                     <option>无</option>
-                                    <option value="1">第1旅</option>
-                                    <option value="2">第2旅</option>
-                                    <option value="3">第3旅</option>
+                                    <th:block th:each="item:${platoon_list}">
+                                        <option th:text="${item.getPlatoon_name()}"
+                                                th:value="${item.getPlatoon_id()}">
+                                            十二旅
+                                        </option>
+                                    </th:block>
                                 </select>
                             </div>
                         </div>

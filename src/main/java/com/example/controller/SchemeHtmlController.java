@@ -47,26 +47,32 @@ public class SchemeHtmlController {
     public String GetTem() {
         return "geographic_temperature";
     }
+
     @GetMapping("/geographic_rainfall")
     public String GetRain() {
         return "geographic_rainfall";
     }
+
     @GetMapping("/geographic_snowfall")
     public String GetSnow() {
         return "geographic_snowfall";
     }
+
     @GetMapping("/geographic_sunshine")
     public String GetSunshine() {
         return "geographic_sunshine";
     }
+
     @GetMapping("/geographic_windLevel")
     public String GetWind() {
         return "geographic_windLevel";
     }
+
     @GetMapping("/geographic_AirPressure")
     public String GetPress() {
         return "geographic_AirPressure";
     }
+
     @GetMapping("/geographic_corrosion")
     public String GetCorrosion() {
         return "geographic_corrosion";
@@ -85,26 +91,35 @@ public class SchemeHtmlController {
     }
 
     @GetMapping("/edit_people_Groups")
-    public String GetEditPeopleGroups(){
+    public String GetEditPeopleGroups() {
         return "edit_people_Groups";
     }
 
     @GetMapping("/edit_people_oneGroup")
-    public String GetEditPeopleOneGroup(){
+    public String GetEditPeopleOneGroup() {
         return "edit_people_oneGroup";
     }
 
     @GetMapping("/edit_protection")
-    public String GetEditProtection(){ return "edit_protection"; }
+    public String GetEditProtection(Model model) {
+        List<Platoon> platoon_list = schemeService.RequestPlatoon();
+        List<Base> baseList = schemeService.RequestBase();
+        model.addAttribute("base_list", baseList);
+        model.addAttribute("platoon_list", platoon_list);
+        return "edit_protection";
+    }
 
     @GetMapping("/edit_protection_group")
     public String GetEditPeople(@RequestParam("scheme_id") Integer scheme_id, Model model) {
         List<Army> armyList = schemeService.GetArmyBySchemeID(scheme_id);
-        model.addAttribute("army_list",armyList);
+        model.addAttribute("army_list", armyList);
         return "edit_protection_group";
     }
+
     @GetMapping("/protectionTeam_result")
-    public String GetProtectionGroupResult(){ return "protectionTeam_result"; }
+    public String GetProtectionGroupResult() {
+        return "protectionTeam_result";
+    }
 
     @GetMapping("/edit_equipment")
     public String GetEditEquipment(@RequestParam("scheme_id") Integer scheme_id, Model model) {
@@ -147,12 +162,12 @@ public class SchemeHtmlController {
         List<Team> protectTeamList = schemeService.GetTeamBySchemeIdAndTeamType(scheme_id, "protect");
         Integer repairTeamCount = repairTeamList.size();
         Integer protectTeamCount = protectTeamList.size();
-        model.addAttribute("army_list",armyList);
-        model.addAttribute("equipment_list",equipmentList);
-        model.addAttribute("repair_team_list",repairTeamList);
-        model.addAttribute("protect_team_list",protectTeamList);
+        model.addAttribute("army_list", armyList);
+        model.addAttribute("equipment_list", equipmentList);
+        model.addAttribute("repair_team_list", repairTeamList);
+        model.addAttribute("protect_team_list", protectTeamList);
         model.addAttribute("repairTeamCount", repairTeamCount);
-        model.addAttribute("protectTeamCount",protectTeamCount);
+        model.addAttribute("protectTeamCount", protectTeamCount);
         return "text";
     }
 
@@ -162,7 +177,10 @@ public class SchemeHtmlController {
     }
 
     @GetMapping("/people_directory")
-    public String GetPeopleMsg(){return "people_directory";}
+    public String GetPeopleMsg() {
+        return "people_directory";
+    }
+
     @GetMapping("/try")
     public String Try() {
         return "try";

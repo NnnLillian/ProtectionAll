@@ -13,6 +13,8 @@ import java.util.List;
 public interface ArmyMapper {
     public List<Platoon> GetPlatoon();
 
+    public List<Base> RequestBase();
+
     public Platoon GetPlatoonByName(String platoon_name);
 
     public void IncreasePlatoon(String platoon_name);

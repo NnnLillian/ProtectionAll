@@ -11,6 +11,8 @@ public interface SchemeService {
 
     public List<Platoon> RequestPlatoon();
 
+    public List<Base> RequestBase();
+
     public List<Army> RequestArmy(Integer platoon_id);
 
     public List<Army> RequestGroupArmy(Integer action_group_id);
