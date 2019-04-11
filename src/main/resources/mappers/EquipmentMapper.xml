@@ -126,4 +126,8 @@
     <select id="GetSupplierByPosition" resultType="com.example.entity.Supplier">
         select supplier_info.*,location_info.* from supplier_info,location_info where supplier_info.location_id = location_info.location_id and case_position = #{case_position}
     </select>
+
+    <select id="GetSupplierByBase" resultType="com.example.entity.Supplier">
+        select * from supplier_info where supplier_belong =  #{base_id}
+    </select>
 </mapper>

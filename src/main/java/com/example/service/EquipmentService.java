@@ -19,6 +19,8 @@ public interface EquipmentService {
 
     public List<Supplier> GetSupplierByPosition(String position);
 
+    public List<Supplier> GetSupplierByBase(Integer base_id);
+
     public List<Category> GetCategoryByPlatoonIdAndType(Integer platoon_id, String category_type);
 
     public Integer IncreaseCategory(Category category);

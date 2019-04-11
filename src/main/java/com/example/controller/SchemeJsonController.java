@@ -220,6 +220,15 @@ public class SchemeJsonController {
         return jsonBuilder.buildPlatoonCategoryList(categoryList);
     }
 
+    //    获得依托保障资源
+    @ResponseBody
+    @RequestMapping(value = "/GetBaseResource", method = {RequestMethod.GET})
+    public String GetSupplierMsg(@Param("baseId") Integer baseId) {
+        System.out.println("baseId:"+ baseId);
+        List<Supplier> supplier_list = equipmentService.GetSupplierByBase(baseId);
+        return jsonBuilder.buildSupplierList(supplier_list);
+    }
+
     //    获得民用保障资源
     @ResponseBody
     @RequestMapping(value = "/GetSupplierMsg", method = {RequestMethod.GET})

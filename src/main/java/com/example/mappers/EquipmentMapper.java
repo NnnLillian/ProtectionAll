@@ -47,4 +47,6 @@ public interface EquipmentMapper {
 
     public List<Supplier> GetSupplierByPosition(String position);
 
+    public List<Supplier> GetSupplierByBase(Integer base_id);
+
 }

@@ -2,19 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <link href="images/favicon.png" rel="shortcut icon" type="image/png">
 
     <title>方案库-装备保障方案</title>
 
     <link href="css/style.default.css" rel="stylesheet">
     <link href="css/jquery.datatables.css" rel="stylesheet">
     <!-- datepicker -->
-    <link rel='stylesheet' type='text/css' href='css/core.css'>
+    <link href='css/core.css' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <link href="css/bootstrap-select.css" rel="stylesheet">
     <link href="css/bootstrap-table.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -69,12 +69,12 @@
 
         <div class="contentpanel">
 
-            <form id="basicForm2" class="form-horizontal">
+            <form class="form-horizontal" id="basicForm2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-btns">
-                            <a href="" class="panel-close">&times;</a>
-                            <a href="" class="minimize">&minus;</a>
+                            <a class="panel-close" href="">&times;</a>
+                            <a class="minimize" href="">&minus;</a>
                         </div>
                         <h4 class="panel-title">保障任务</h4>
                         <p></p>
@@ -106,12 +106,13 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label"> 上级保障单位<span class="asterisk">*</span></label>
                             <div class="col-sm-6">
-                                <select id="highLevel" class="form-control selectpicker show-tick ">
+                                <select class="form-control selectpicker show-tick " id="highLevel">
                                     <!--<th:block th:each="item:${base_list}">-->
                                     <!--<option th:text="${item.getBase_name()}" th:value="${item.getBase_Id()}">无-->
                                     <!--</option>-->
                                     <option>无</option>
                                     <th:block th:each="item:${base_list}">
+                                        <!--/*@thymesVar id="getBase_name" type=""*/-->
                                         <option th:text="${item.getBase_name()}"
                                                 th:value="${item.getBase_id()}">
                                         </option>
@@ -123,7 +124,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label"> 同级保障单位<span class="asterisk">*</span></label>
                             <div class="col-sm-6">
-                                <select id="sameLevel" class="select2 selectpicker show-tick filter-option" multiple>
+                                <select class="select2 selectpicker show-tick filter-option" id="sameLevel" multiple>
                                     <option>无</option>
                                     <th:block th:each="item:${platoon_list}">
                                         <option th:text="${item.getPlatoon_name()}"
@@ -148,8 +149,9 @@
                             <div class="row">
                                 <div class="col-sm-12 col-sm-offset-3" style="text-align: center; margin: 0 auto">
                                     <!--<button class="btn btn-primary">保存</button>&nbsp;-->
-                                    <button type="button" class="btn btn-primary" id="newSchemeProtectionBtn">保存
-                                    </button>&nbsp
+                                    <button class="btn btn-primary" id="newSchemeProtectionBtn" type="button">保存
+                                    </button>
+                                    &nbsp
                                     <button class="btn btn-default" onclick="javascript:history.go(-1);">
                                         取消
                                     </button>
@@ -173,7 +175,7 @@
         $('.left').load("left");
         // $('.head').load("head")
 
-        initTable();
+        // initTable();
     });
 
     jQuery(document).ready(function () {
@@ -188,15 +190,21 @@
 
     });
 
+    $('#highLevel').change(function () {
+        let baseId = $('#highLevel option:selected').val();
+        initTable(baseId);
+    });
+
     var $safeguardRes = $('#safeguardRes');
 
-    function initTable() {
-        $safeguardRes.bootstrapTable({
-            url: "/GetBaseResource",
+    function initTable(baseId) {
+        $safeguardRes.empty();
+        $safeguardRes.bootstrapTable('destroy').bootstrapTable({
+            url: "/GetBaseResource?baseId=" + baseId,
             striped: true,
             showRefresh: true,
             pagination: true,
-            sidePagination: "client",
+            sidePagination: "service",
             pageNumber: 1,
             pageSize: 20,
             pageList: [20, 45, 80],
@@ -211,11 +219,11 @@
             columns: [{
                 checkbox: true
             }, {
-                field: '_id',
+                field: 'supplier_id',
                 title: '保障资源ID',
                 visible: false
             }, {
-                field: '_name',
+                field: 'supplier_name',
                 title: '保障资源名称'
             }]
         })

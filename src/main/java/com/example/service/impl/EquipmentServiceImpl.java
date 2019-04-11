@@ -53,6 +53,11 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
+    public List<Supplier> GetSupplierByBase(Integer base_id) {
+        return equipmentMapper.GetSupplierByBase(base_id);
+    }
+
+    @Override
     public List<Category> GetCategoryByPlatoonIdAndType(Integer platoon_id, String category_type) {
         return equipmentMapper.GetCategoryByPlatoonIdAndType(platoon_id, category_type);
     }
