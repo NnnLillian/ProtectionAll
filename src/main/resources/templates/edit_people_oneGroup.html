@@ -221,10 +221,11 @@
         for (var i = 0; i < $onePlatoonTable.bootstrapTable('getSelections').length; i++) {
             var army_id = $onePlatoonTable.bootstrapTable('getSelections')[i].army_id;
             var army_people = parseInt($onePlatoonTable.bootstrapTable('getSelections')[i].army_people);
+            var onActionGroup = localStorage.getItem("onActionGroupId");
             var scheme_army_list = {
                 army_id: army_id,
                 army_people: army_people,
-                army_action_group: 0
+                army_action_group: parseInt(onActionGroup)
             };
             var scheme_army = {
                 scheme_army: scheme_army_list

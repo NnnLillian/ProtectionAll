@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <link href="images/favicon.png" rel="shortcut icon" type="image/png">
 
     <title>方案-装备保障方案</title>
 
@@ -17,7 +17,7 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
     <style>
-        td{
+        td {
             vertical-align: middle;
             text-align: center;
         }
@@ -119,11 +119,9 @@
 <script src="js/custom.js"></script>
 <script>
     // 加载共同头部
-    $(function () {
-        $('.left').load("left");
-        // $('.head').load("head")
-        $('.scheme-content').load("text?scheme_id="+localStorage.getItem("scheme_id"))
-    });
+    $('.left').load("left");
+    // $('.head').load("head")
+    $('.scheme-content').load("text?scheme_id=" + localStorage.getItem("scheme_id"))
 
     jQuery(window).load(function () {
 
