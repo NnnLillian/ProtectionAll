@@ -1,18 +1,18 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">-->
-<!--    <meta content="" name="description">-->
-<!--    <meta content="" name="author">-->
-<!--    <title>Title</title>-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <title>Title</title>
 
-<!--    <script src="js/html5shiv.js"></script>-->
-<!--    <script src="js/respond.min.js"></script>-->
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
 
-<!--</head>-->
-<!--<body>-->
-<div id="pagecontent" xmlns:th="http://www.w3.org/1999/xhtml">
+</head>
+<body>
+<div id="pageContent">
 
     <h1 style="text-align: center">装备保障方案</h1>
     <h3>作战任务</h3>
@@ -30,12 +30,15 @@
         进行作战任务。
         </span>
         <span th:unless="${#lists.size(action_group_list)} == 1">
-        分为<span th:text="${#lists.size(action_group_list)}"></span>个梯队进行，其中
-        <th:block th:each="ActionGroup:${action_group_list}">
-            <code th:text="${ActionGroup.getAction_group_name()}"></code>
-            到达<span th:text="${ActionGroup.getLocation()}"></span>
-            的地点进行作战任务；
-        </th:block>
+            将到达经度：<span id="lng"></span>，纬度：<span id="lat"></span>的地点进行作战，并且分为
+            <span th:text="${#lists.size(action_group_list)}"></span>
+            个梯队进行，其中
+            <th:block th:each="ActionGroup:${action_group_list}">
+                <code th:text="${ActionGroup.getAction_group_name()}"></code>
+                到达
+                <span th:text="${ActionGroup.getLocation()}"></span>
+                的地点进行作战任务；
+            </th:block>
         </span>
         携带
         <th:block th:each="item:${equipment_list}">
@@ -43,6 +46,30 @@
             <span th:text="${item.getEquipment_name()}"></span>、
         </th:block>
         等装备向作战地区机动，于规定时间到达预定阵地展开部署，担负作战任务。
+    </div>
+
+    <h3>保障任务</h3>
+    <div>
+        此次作战任务的保障模式为
+        <span th:text="${oneScheme_safeguard.getSafeguardMode_name()}"></span>
+        <span th:if="${oneScheme_safeguard.getSafeguardMode_flag()==2}">
+            需要同级单位的保障力量支持，其中同级保障单位分别为
+            <th:block th:each="safeguard:${scheme_safeguard}">
+                <span th:text="${safeguard.getPlatoon_name()}"></span>
+            </th:block>，
+        </span>
+        <span th:if="${oneScheme_safeguard.getSafeguardMode_flag()==3}">
+            需要上级单位的保障力量支持，其中
+            <span th:text="${oneScheme_safeguard.getBase_name()}"></span>。
+        </span>
+        <span th:if="${oneScheme_safeguard.getSafeguardMode_flag()==4}">
+            需要同级和上级单位的保障力量支持，其中同级保障单位分别为
+            <th:block th:each="safeguard:${scheme_safeguard}">
+                <span th:text="${safeguard.getPlatoon_name()}"></span>
+            </th:block>
+            ，上级保障单位为
+            <span th:text="${oneScheme_safeguard.getBase_name()}"></span>。
+        </span>
     </div>
     <h3>4.1 装备保障方案</h3>
     <h4> 4.1.1 任务</h4>
@@ -1395,7 +1422,7 @@
         导出为.doc文档
     </a>
 </div>
-<!--<script src="js/jquery-1.11.1.min.js"></script>-->
+<script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/FileSaver.js" type="text/javascript"></script>
 <script src="js/jquery.wordexport.js" type="text/javascript"></script>
 
@@ -1403,7 +1430,7 @@
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
         $("a.jquery-word-export").click(function (event) {
-            $("#pagecontent").wordExport();
+            $("#pageContent").wordExport();
         });
     });
 
@@ -1411,9 +1438,11 @@
     $("#equipmentBusiness").text(localStorage.getItem("equipmentBusiness"));
     $("#autoRepairCrew").text(localStorage.getItem("autoRepairCrew"));
     $("#platoon_name").text(localStorage.getItem("platoon_name"));
+    $("#lng").text(localStorage.getItem("lng"));
+    $("#lat").text(localStorage.getItem("lat"));
 
-    for (var i = 1; i <= 5; i++) {
-        var res = localStorage.getItem("army_list_" + i)
+    for (let i = 1; i <= 5; i++) {
+        let res = localStorage.getItem("army_list_" + i);
         if (res != null) {
             $("#army_list_" + i).text(localStorage.getItem("army_list_" + i));
             $("#army_list1_" + i).text(localStorage.getItem("army_list_" + i));
@@ -1421,5 +1450,5 @@
         }
     }
 </script>
-<!--</body>-->
-<!--</html>-->
+</body>
+</html>

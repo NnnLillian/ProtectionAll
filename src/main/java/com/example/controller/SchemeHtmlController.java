@@ -164,10 +164,13 @@ public class SchemeHtmlController {
         List<Team> protectTeamList = schemeService.GetTeamBySchemeIdAndTeamType(scheme_id, "protect");
         Integer repairTeamCount = repairTeamList.size();
         Integer protectTeamCount = protectTeamList.size();
-//        String platoonName = schemeService.GetSchemeBySchemeID(scheme_id).
+        List<Scheme_Safeguard> scheme_safeguardList = schemeService.GetSchemeSafeguardBySchemeID(scheme_id);
+        Scheme_Safeguard scheme_safeguard1 = scheme_safeguardList.get(0);
         model.addAttribute("army_list", armyList);
         model.addAttribute("action_group_list",action_groupList);
         model.addAttribute("scheme_army_list", scheme_armyList);
+        model.addAttribute("scheme_safeguard", scheme_safeguardList);
+        model.addAttribute("oneScheme_safeguard",scheme_safeguard1);
         model.addAttribute("equipment_list", equipmentList);
         model.addAttribute("repair_team_list", repairTeamList);
         model.addAttribute("protect_team_list", protectTeamList);

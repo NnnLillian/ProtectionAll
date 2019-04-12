@@ -93,7 +93,7 @@ public class SchemeJsonController {
         Integer base_id=jsonPaser.ParseBaseId(jsonStr);
         List<Platoon> platoons = jsonPaser.ParseSafeguardPlatoon(jsonStr);
         for (int i=0;i<platoons.size();i++){
-            Scheme_Safeguard scheme_safeguard = new Scheme_Safeguard(null,scheme_id,safeguard_mode,base_id,platoons.get(i).getPlatoon_id(),carry_method);
+            Scheme_Safeguard scheme_safeguard = new Scheme_Safeguard(null,scheme_id,safeguard_mode,null,null,base_id,null,platoons.get(i).getPlatoon_id(),null,carry_method,null);
             schemeService.AddSchemeSafeGuard(scheme_safeguard);
             System.out.println("Add a scheme safe success");
         }

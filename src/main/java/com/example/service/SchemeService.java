@@ -34,6 +34,10 @@ public interface SchemeService {
 
     public List<Army> GetArmyBySchemeID(Integer scheme_id);
 
+    public List<Scheme_Safeguard> GetSchemeSafeguardBySchemeID(Integer scheme_id);
+
+    public Scheme_Safeguard GetOneSchemeSafeguardBySchemeId(Integer scheme_id);
+
     //如果添加成功，则返回scheme_id；失败则返回null
     public Integer AddScheme(Scheme scheme);
 

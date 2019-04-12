@@ -4,16 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mappers.SchemeMapper">
 
-    <select id="GetSchemeBySchemeID"  resultType="com.example.entity.Scheme">
+    <select id="GetSchemeBySchemeID" resultType="com.example.entity.Scheme">
         select * from scheme_info where scheme_id = #{scheme_id}
     </select>
-    <select id="GetSchemeBySchemeName"  resultType="com.example.entity.Scheme">
+    <select id="GetSchemeBySchemeName" resultType="com.example.entity.Scheme">
         select * from scheme_info where scheme_name = #{scheme_name}
     </select>
-    <select id="GetSchemeBySchemeCode"  resultType="com.example.entity.Scheme">
+    <select id="GetSchemeBySchemeCode" resultType="com.example.entity.Scheme">
         select * from scheme_info where scheme_Code = #{scheme_Code}
     </select>
-    <select id="GetSchemeEquipment"  resultType="com.example.entity.Equipment">
+    <select id="GetSchemeEquipment" resultType="com.example.entity.Equipment">
         select * from equipment_info where equipment_id in (select equipment_id from scheme_equipment_info where scheme_id =  #{scheme_id})
     </select>
     <select id="GetSchemeArmyBySchemeId" resultType="com.example.entity.Scheme_Army">
@@ -25,6 +25,12 @@
 
     <select id="GetSchemeEquipmentBySchemeId" resultType="com.example.entity.Equipment">
         select * from equipment_info where equipment_id in (select equipment_id from scheme_equipment_info where scheme_id = #{scheme_id})
+    </select>
+    <select id="GetSchemeSafeguardBySchemeID" resultType="com.example.entity.Scheme_Safeguard">
+        select * from scheme_safeguard_info,base_info,platoon_info where scheme_safeguard_info.base_id = base_info.base_id and scheme_safeguard_info.platoon_id = platoon_info.platoon_id and scheme_id = #{scheme_id}
+    </select>
+    <select id="GetOneSchemeSafeguardMsyBySchemeId" resultType="com.example.entity.Scheme_Safeguard">
+        select * from scheme_safeguard_info where safeguard_id = (select MAX(safeguard_id) from scheme_safeguard_info where scheme_id = #{scheme_id})
     </select>
     <insert id="AddScheme" parameterType="com.example.entity.Scheme">
         insert into scheme_info(scheme_name,scheme_code,location_id,scheme_type,combat_direction,scheme_begin_time,scheme_end_time)

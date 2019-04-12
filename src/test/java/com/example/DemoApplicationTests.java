@@ -1,10 +1,7 @@
 package com.example;
 
 import com.example.entity.*;
-import com.example.mappers.ArmyMapper;
-import com.example.mappers.EquipmentMapper;
-import com.example.mappers.GroupMapper;
-import com.example.mappers.PeopleMapper;
+import com.example.mappers.*;
 import net.minidev.json.writer.ArraysMapper;
 import org.apache.ibatis.annotations.Param;
 import org.junit.Test;
@@ -29,6 +26,8 @@ public class DemoApplicationTests {
     private ArmyMapper armyMapper;
     @Autowired
     private PeopleMapper peopleMapper;
+    @Autowired
+    private SchemeMapper schemeMapper;
 
 
     @Test
@@ -98,6 +97,13 @@ public class DemoApplicationTests {
         }
 
         System.out.println(flag);
+    }
+
+    @Test
+    public void AboutSafeguard(){
+        Scheme_Safeguard scheme_safeguard = schemeMapper.GetSchemeSafeguardBySchemeID(16).get(0);
+        System.out.println(scheme_safeguard.getBase_id());
+        System.out.println(scheme_safeguard.getBase_name());
     }
 
 }

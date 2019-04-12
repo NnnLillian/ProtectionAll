@@ -123,6 +123,17 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
+    public List<Scheme_Safeguard>  GetSchemeSafeguardBySchemeID(Integer scheme_id) {
+        return schemeMapper.GetSchemeSafeguardBySchemeID(scheme_id);
+    }
+
+    @Override
+    public Scheme_Safeguard GetOneSchemeSafeguardBySchemeId(Integer scheme_id) {
+        return schemeMapper.GetSchemeSafeguardBySchemeID(scheme_id).get(0);
+    }
+
+
+    @Override
     public Integer AddScheme(Scheme scheme) {
         Scheme scheme1 = schemeMapper.GetSchemeBySchemeCode(scheme.getScheme_code());
         if (scheme1 != null) {

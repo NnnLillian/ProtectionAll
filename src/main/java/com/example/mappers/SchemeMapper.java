@@ -21,6 +21,10 @@ public interface SchemeMapper {
 
     public List<Equipment> GetSchemeEquipmentBySchemeId(Integer scheme_id);
 
+    public List<Scheme_Safeguard> GetSchemeSafeguardBySchemeID(Integer scheme_id);
+
+//    public Scheme_Safeguard GetOneSchemeSafeguardMsyBySchemeId(Integer scheme_id);
+
     public void AddScheme(Scheme scheme);
 
     public void AddSchemeArmy(Scheme_Army scheme_army);
