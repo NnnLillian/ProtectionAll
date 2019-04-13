@@ -137,7 +137,7 @@ public class JsonPaser {
 
     public Team ParseTeam(String jsonStr) throws JSONException {
         JSONObject jsonObject = new JSONObject(jsonStr);
-        Team team = new Team(null, jsonObject.getInt("group_id"), jsonObject.getString("army_id"), null, jsonObject.getString("team_name"), null, null, null, null, jsonObject.getString("team_type"));
+        Team team = new Team(null, jsonObject.getInt("group_id"), jsonObject.getString("army_id"), null, jsonObject.getString("team_name"), null, null, null, null,jsonObject.getString("team_duty"), jsonObject.getString("team_type"));
         return team;
     }
 

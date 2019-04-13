@@ -70,6 +70,7 @@ public class SchemeServiceImpl implements SchemeService {
                 armyNames = armyName + "、" + armyNames;
             }
             teamStr.setArmy_name(armyNames);
+            teamStr.setTeam_duty(teamList.get(i).getTeam_duty());
             teamStrList.add(teamStr);
         }
         return teamStrList;
@@ -194,7 +195,7 @@ public class SchemeServiceImpl implements SchemeService {
     public Integer AddGroupIntoScheme(Group group) {
         Group group1 = groupMapper.GetSchemeGroupBySchemeIdAndGroupType(group.getScheme_id(), group.getGroup_type());
         if (group1 != null) {
-            System.out.println("group error");
+            System.out.println("group has exist");
 //            如果该保障组已经存在，则返回这个已经存在的保障组ID
             return group1.getGroup_id();
         } else {

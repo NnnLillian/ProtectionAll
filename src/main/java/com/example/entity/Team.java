@@ -12,12 +12,13 @@ public class Team {
     private List<Team_Category> team_category_list;
     private List<Department> departmentList;
     private List<Category> categoryList;
+    private String team_duty;
     private String team_type;
 
     public Team() {
     }
 
-    public Team(Integer team_id, Integer group_id, String army_id, Integer location_id, String team_name, List<Team_Department> team_department_list, List<Team_Category> team_category_list, List<Department> departmentList, List<Category> categoryList, String team_type) {
+    public Team(Integer team_id, Integer group_id, String army_id, Integer location_id, String team_name, List<Team_Department> team_department_list, List<Team_Category> team_category_list, List<Department> departmentList, List<Category> categoryList, String team_duty, String team_type) {
         this.team_id = team_id;
         this.group_id = group_id;
         this.army_id = army_id;
@@ -27,9 +28,9 @@ public class Team {
         this.team_category_list = team_category_list;
         this.departmentList = departmentList;
         this.categoryList = categoryList;
+        this.team_duty = team_duty;
         this.team_type = team_type;
     }
-
 
     public String getTeam_type() {
         return team_type;
@@ -101,6 +102,14 @@ public class Team {
 
     public void setDepartmentList(List<Department> departmentList) {
         this.departmentList = departmentList;
+    }
+
+    public String getTeam_duty() {
+        return team_duty;
+    }
+
+    public void setTeam_duty(String team_duty) {
+        this.team_duty = team_duty;
     }
 
     public List<Category> getCategoryList() {

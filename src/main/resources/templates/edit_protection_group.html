@@ -90,9 +90,9 @@
                         <div class="form-group">
                             <h4>装备抢修组</h4>
                             <p>装备抢修组负责与上级业务部门协调处理装备问题，参与上级业务部门工作</p>
-                            <div id="repairToolbar" class="btn-group">
+                            <div class="btn-group" id="repairToolbar">
                                 <button class="btn btn-default" data-target="#newTeamModal"
-                                        data-toggle="modal" name="modalRepairDepartment" id="repair">
+                                        data-toggle="modal" id="repair" name="modalRepairDepartment">
                                     <span aria-hidden="true" class="glyphicon glyphicon-plus"> </span>
                                     新增装备抢修组
                                 </button>
@@ -103,9 +103,9 @@
                         <div class="form-group">
                             <h4>器材保障组</h4>
                             <p>负责器材调整补充及请领下送</p>
-                            <div id="protectToolbar" class="btn-group">
+                            <div class="btn-group" id="protectToolbar">
                                 <button class="btn btn-default" data-target="#newTeamModal"
-                                        data-toggle="modal" name="modalProtectDepartment" id="protect">
+                                        data-toggle="modal" id="protect" name="modalProtectDepartment">
                                     <span aria-hidden="true" class="glyphicon glyphicon-plus"> </span>新增器材保障组
                                 </button>
                             </div>
@@ -115,9 +115,9 @@
                         <div class="form-group">
                             <h4>支援保障组</h4>
                             <p>负责战地的资源保障</p>
-                            <div id="supplyToolbar" class="btn-group">
+                            <div class="btn-group" id="supplyToolbar">
                                 <button class="btn btn-default" data-target="#newTeamModal"
-                                        data-toggle="modal" name="modalSupplyDepartment" id="supply">
+                                        data-toggle="modal" id="supply" name="modalSupplyDepartment">
                                     <span aria-hidden="true" class="glyphicon glyphicon-plus"> </span>新增支援保障组
                                 </button>
                             </div>
@@ -131,7 +131,7 @@
                         <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
                             返回
                         </button>
-                        <button type="button" id="addProtectionGroup" class="btn btn-primary">继续</button>
+                        <button class="btn btn-primary" id="addProtectionGroup" type="button">继续</button>
                     </div>
                 </div><!-- panel -->
             </div><!-- row -->
@@ -193,7 +193,8 @@
                 </div>
                 <div class="mb20">
                     <label class="control-label col-md-2">小组职责:</label>
-                    <textarea rows="5" class="form-control" name="comment" placeholder="负责器材调整补充及请领下送"></textarea>
+                    <textarea class="form-control" id="TeamDuty" name="comment" placeholder="该小组职责"
+                              rows="5"></textarea>
                 </div>
                 <div class="col-md-12 tab-pane active mb20">
                     <div class="table-responsive">
@@ -204,9 +205,9 @@
                 <label class="col-md-2 control-label">所负责部队<span class="asterisk">*</span></label>
                 <div class="col-md-6 mb30 tab-pane">
                     <div class="ckbox ckbox-success" th:each="item:${army_list}">
-                        <input type="checkbox" name="checkBox" th:value="${item.getArmy_id()}"
-                               th:id="ck + ${item.getArmy_id()}" required>
-                        <label th:text="${item.getArmy_name()}" th:for="ck + ${item.getArmy_id()}"></label>
+                        <input name="checkBox" required th:id="ck + ${item.getArmy_id()}"
+                               th:value="${item.getArmy_id()}" type="checkbox">
+                        <label th:for="ck + ${item.getArmy_id()}" th:text="${item.getArmy_name()}"></label>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -219,11 +220,11 @@
 </div>
 
 <!-- 加载人员模态框 modal -->
-<div class="modal fade" id="peopleModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="peopleModal" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <button class="close" data-dismiss="modal" type="button"><span>&times;</span></button>
                 <h4 class="modal-title">保障人员表</h4>
                 <p class="modal-p"></p>
             </div>
@@ -237,11 +238,11 @@
 </div>
 
 <!-- 加载携带装备模态框 modal -->
-<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="categoryModal" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <button class="close" data-dismiss="modal" type="button"><span>&times;</span></button>
                 <h4 class="modal-title">装备表</h4>
                 <p class="modal-p"></p>
             </div>
@@ -338,6 +339,7 @@
     $("#newProtectTeam").click(function () {
         var groupId = localStorage.getItem("group_id");
         var teamName = $("#teamName").val();
+        var teamDuty = $("#TeamDuty").val();
         var leaderId = getTeamLeaderId();
         var deputyHeadId = getDeputyHeadId();
         var teamMemberIds = getTeamMemberId();
@@ -371,7 +373,8 @@
             team_name: teamName,
             army_id: armyListStr,
             team_department: teamDepartment,
-            team_category: teamCategoryRows
+            team_category: teamCategoryRows,
+            team_duty: teamDuty
         };
         var TeamStr = JSON.stringify(Team);
         // console.log(TeamStr);
@@ -495,6 +498,11 @@
                 valign: 'middle',
                 title: '目标单位'
             }, {
+                field: 'team_duty',
+                align: 'center',
+                valign: 'middle',
+                title: '保障组职责'
+            }, {
                 field: 'operate',
                 title: '操作',
                 align: 'center',
@@ -617,8 +625,7 @@
         if (a == '查看') {
             $('.tableed ').eq(str).html('收起');
             $teamDepartment.bootstrapTable('expandRow', str);
-        }
-        else {
+        } else {
             $('.tableed ').eq(str).html('查看');
             $teamDepartment.bootstrapTable('collapseRow', str);
         }

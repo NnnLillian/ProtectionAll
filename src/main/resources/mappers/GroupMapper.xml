@@ -24,7 +24,7 @@
     </select>
 
     <insert id="AddTeam" parameterType="Team">
-        insert into team_info(group_id,army_id,team_name,team_type)values (#{group_id},#{army_id},#{team_name},#{team_type})
+        insert into team_info(group_id,army_id,team_name,team_type,team_duty)values (#{group_id},#{army_id},#{team_name},#{team_type},#{team_duty})
     </insert>
 
     <insert id="AddDepartment" parameterType="Department">
