@@ -148,7 +148,7 @@ public class JsonPaser {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             Team_Category team_category
-                    = new Team_Category(null, jsonObject.getInt("category_id"), jsonObject.getInt("category_number"));
+                    = new Team_Category(null, jsonObject.getInt("category_id"),null, jsonObject.getInt("category_number"),null);
             team_category_list.add(team_category);
         }
 

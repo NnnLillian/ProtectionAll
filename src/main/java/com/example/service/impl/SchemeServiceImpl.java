@@ -58,7 +58,8 @@ public class SchemeServiceImpl implements SchemeService {
         List<TeamStr> teamStrList = new ArrayList<>();
         for (int i = 0; i < teamList.size(); i++) {
             TeamStr teamStr = new TeamStr();
-            teamStr.setTeam_id(teamList.get(i).getTeam_id());
+            Integer teamId = teamList.get(i).getTeam_id();
+            teamStr.setTeam_id(teamId);
             String teamName = "第" + teamList.get(i).getTeam_name() + groupName;
             teamStr.setTeam_name(teamName);
             teamStr.setGroup_name(groupName);
@@ -71,6 +72,17 @@ public class SchemeServiceImpl implements SchemeService {
             }
             teamStr.setArmy_name(armyNames);
             teamStr.setTeam_duty(teamList.get(i).getTeam_duty());
+            List<Team_Department> teamDepartmentList = groupMapper.GetTeamDepartmentByTeamId(teamId);
+            String memberMsg = teamDepartmentList.get(2).getDepartment_people();
+            String[] memberList = memberMsg.split(",");
+            Integer memberCount = memberList.length;
+            teamStr.setTeam_people_count(memberCount + 2);
+            String categoryMsg = "";
+            List<Team_Category> teamCategoryList = groupMapper.GetTeamCategoryByTeamId(teamId);
+            for (Team_Category teamCategory : teamCategoryList) {
+                categoryMsg = categoryMsg + teamCategory.getCategory_name() + " " + teamCategory.getCategory_number() + teamCategory.getCategory_unit() + "、";
+            }
+            teamStr.setTeam_category_msg(categoryMsg);
             teamStrList.add(teamStr);
         }
         return teamStrList;
@@ -124,7 +136,7 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
-    public List<Scheme_Safeguard>  GetSchemeSafeguardBySchemeID(Integer scheme_id) {
+    public List<Scheme_Safeguard> GetSchemeSafeguardBySchemeID(Integer scheme_id) {
         return schemeMapper.GetSchemeSafeguardBySchemeID(scheme_id);
     }
 

@@ -20,6 +20,8 @@ public interface GroupMapper {
 
     public Team_Department GetTeamDepartmentByDepartmentId(Integer department_id);
 
+    public List<Team_Department> GetTeamDepartmentByTeamId(Integer team_id);
+
     public void AddTeam(Team team);
 
     public void AddDepartment(Department department);

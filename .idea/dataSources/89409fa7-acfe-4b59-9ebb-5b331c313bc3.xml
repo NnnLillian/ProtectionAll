@@ -1237,7 +1237,7 @@
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="314" parent="279" name="army_type">
@@ -2258,7 +2258,7 @@ type为2时，表示中修</Comment>
     <column id="487" parent="292" name="check">
       <Position>15</Position>
       <DataType>tinyint(4)|0s</DataType>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="488" parent="292" name="comment">
@@ -2362,7 +2362,7 @@ army_action_group</ColNames>
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="506" parent="295" name="equipment_id">
@@ -2629,14 +2629,14 @@ equipment_id</ColNames>
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="554" parent="300" name="special_solve_number">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="555" parent="300" name="special_solve_body">
@@ -2735,7 +2735,7 @@ special_solve_number</ColNames>
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="573" parent="302" name="category_id">
@@ -2826,20 +2826,26 @@ category_id</ColNames>
       <DataType>varchar(32)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="589" parent="304" name="group_id">
+    <column id="589" parent="304" name="team_duty">
+      <Position>6</Position>
+      <Comment>队伍的职责</Comment>
+      <DataType>varchar(2048)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="590" parent="304" name="group_id">
       <ColNames>group_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="590" parent="304" name="army_id">
+    <index id="591" parent="304" name="army_id">
       <ColNames>army_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="591" parent="304" name="PRIMARY">
+    <key id="592" parent="304" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>team_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="592" parent="304" name="team_info_ibfk_1">
+    <foreign-key id="593" parent="304" name="team_info_ibfk_1">
       <ColNames>group_id</ColNames>
       <RefSchemaName>test</RefSchemaName>
       <RefTableName>group_info</RefTableName>

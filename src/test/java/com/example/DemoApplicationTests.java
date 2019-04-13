@@ -43,31 +43,6 @@ public class DemoApplicationTests {
     }
 
     @Test
-    public void getTeamMsg() {
-        Group group = groupMapper.GetSchemeGroupBySchemeIdAndGroupType(12, "repair");
-        Integer groupId = group.getGroup_id();
-        String groupName = group.getGroup_name();
-        List<Team> teamList = groupMapper.GetTeamByGroupId(groupId);
-        List<TeamStr> teamStrList = new ArrayList<>();
-        for (int i = 0; i < teamList.size(); i++) {
-            TeamStr teamStr = new TeamStr();
-            teamStr.setTeam_id(teamList.get(i).getTeam_id());
-            String teamName = "第" + teamList.get(i).getTeam_name() + "装备抢修组";
-            teamStr.setTeam_name(teamName);
-            teamStr.setGroup_name(groupName);
-            String armyIds = teamList.get(i).getArmy_id();
-            String[] armyId = armyIds.split(",");
-            String armyNames = "";
-            for (int j = 0; j < armyId.length; j++) {
-                String armyName = armyMapper.GetArmyByArmyId(Integer.parseInt(armyId[j])).getArmy_name();
-                armyNames = armyName + "、" + armyNames;
-            }
-            teamStr.setArmy_name(armyNames);
-            teamStrList.add(teamStr);
-        }
-    }
-
-    @Test
     public void getPeople() {
         Team_Department team_department = groupMapper.GetTeamDepartmentByDepartmentId(19);
         String peopleStrs = team_department.getDepartment_people();
@@ -100,10 +75,48 @@ public class DemoApplicationTests {
     }
 
     @Test
-    public void AboutSafeguard(){
+    public void AboutSafeguard() {
         Scheme_Safeguard scheme_safeguard = schemeMapper.GetSchemeSafeguardBySchemeID(16).get(0);
         System.out.println(scheme_safeguard.getBase_id());
         System.out.println(scheme_safeguard.getBase_name());
+    }
+
+    @Test
+    public void TeamStrMsg() {
+        Group group = groupMapper.GetSchemeGroupBySchemeIdAndGroupType(16, "repair");
+        Integer groupId = group.getGroup_id();
+        String groupName = group.getGroup_name();
+        List<Team> teamList = groupMapper.GetTeamByGroupId(groupId);
+        List<TeamStr> teamStrList = new ArrayList<>();
+        for (int i = 0; i < teamList.size(); i++) {
+            TeamStr teamStr = new TeamStr();
+            Integer teamId = teamList.get(i).getTeam_id();
+            teamStr.setTeam_id(teamId);
+            String teamName = "第" + teamList.get(i).getTeam_name() + groupName;
+            teamStr.setTeam_name(teamName);
+            teamStr.setGroup_name(groupName);
+            String armyIds = teamList.get(i).getArmy_id();
+            String[] armyId = armyIds.split(",");
+            String armyNames = "";
+            for (int j = 0; j < armyId.length; j++) {
+                String armyName = armyMapper.GetArmyByArmyId(Integer.parseInt(armyId[j])).getArmy_name();
+                armyNames = armyName + "、" + armyNames;
+            }
+            teamStr.setArmy_name(armyNames);
+            teamStr.setTeam_duty(teamList.get(i).getTeam_duty());
+            List<Team_Department> teamDepartmentList = groupMapper.GetTeamDepartmentByTeamId(teamId);
+            String memberMsg = teamDepartmentList.get(2).getDepartment_people();
+            String[] memberList = memberMsg.split(",");
+            Integer memberCount = memberList.length;
+            teamStr.setTeam_people_count(memberCount + 2);
+            String categoryMsg = "";
+            List<Team_Category> teamCategoryList = groupMapper.GetTeamCategoryByTeamId(teamId);
+            for (Team_Category teamCategory : teamCategoryList) {
+                categoryMsg = categoryMsg + teamCategory.getCategory_name() + " " + teamCategory.getCategory_number() + teamCategory.getCategory_unit() + "、";
+            }
+            teamStr.setTeam_category_msg(categoryMsg);
+            teamStrList.add(teamStr);
+        }
     }
 
 }

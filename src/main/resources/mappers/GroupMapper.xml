@@ -59,11 +59,15 @@
     </select>
 
     <select id="GetTeamCategoryByTeamId" resultType="Team_Category">
-        select * from team_category_info where team_id = #{team_id}
+        select * from team_category_info, category_info where team_id = #{team_id} and team_category_info.category_id = category_info.category_id
     </select>
 
     <select id="GetTeamDepartmentByDepartmentId" resultType="Team_Department">
         select * from team_department_info where department_id = #{department_id}
+    </select>
+
+    <select id="GetTeamDepartmentByTeamId" resultType="Team_Department">
+        select * from team_department_info where team_id = #{team_id}
     </select>
 
     <delete id="DeleteTeam">

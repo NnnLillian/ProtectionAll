@@ -83,37 +83,50 @@
 
     <br>
     <h4>4.1.2 装备保障机构编组 </h4>
-    <h5>（一）装备指挥组 </h5>
-    <ul>
-        <li>旅装备保障指挥分为基本装备指挥组和预备装备指挥组，基本装备指挥组及下设的装备保障小组，部署于机场,负责组织实施
-            <th:block th:each="item:${army_list}">
-                <code th:text="${item.getArmy_name()}"></code>
-            </th:block>
-            的作战装备保障；
-        </li>
-        <li>预备装备指挥组及下设的装备保障小组，部署于机场,负责组织实施
-            <th:block th:each="item:${army_list}">
-                <code th:text="${item.getArmy_name()}"></code>
-            </th:block>
-            营作战装备保障。
-        </li>
-        <li>各营装备保障小组配置于各营作战阵地（见附件1、2）。</li>
-    </ul>
-    <h5>（二）装备抢修组 </h5>
-    <p>组建<span th:text="${repairTeamCount}"></span>支装备抢修组（见附件3）。</p>
+    <h5>（一）装备抢修组 </h5>
+    <p>组建<span th:text="${#lists.size(repair_team_list)}"></span>支装备抢修组。</p>
     <ol>
-        <li>第一装备抢修组
-            。各类保障人员30人（装备技术科5人、技术保障队20人、汽车修理分队5人），携行保障装备7台、仪器设备30台（件）、车辆维修设备1套、通装车辆战储器材1个基数，担负旅xx技术保障、战损评估及装备、车辆应急抢修任务，申请空军支援抢修分队实施装备支援抢修，与上级业务部门协调处理装备问题。
-        </li>
-        <li>
-            第二装备抢修组。各类保障人员21人（装备技术科3人、技术保障队15人、汽车修理分队5人），携行保障装备5台、仪器设备22台（件）、车辆维修设备1套、通装车辆战储器材1个基数，担负xx营技术保障、战损评估及装备、车辆应急抢修任务。与上级业务部门协调处理装备问题，参与上级业务部门工作。
-        </li>
+        <th:block  th:each="repairTeam:${repair_team_list}">
+            <li>
+                <p><b th:text="${repairTeam.getTeam_name()}"></b></p>
+                <p>
+                    各类保障人员<span th:text="${repairTeam.getTeam_people_count()}"></span>人；
+                    携型装备<span th:text="${repairTeam.getTeam_category_msg()}"></span>；
+                    担负：<span th:text="${repairTeam.getArmy_name()}"></span>
+                    的 <span th:text="${repairTeam.getTeam_duty()}"></span>
+                </p>
+            </li>
+        </th:block>
     </ol>
-    <h5>（三）器材保障组 </h5>
-    <p>组建<span th:text="${protectTeamCount}"></span>支器材保障组（见附件4）。</p>
+    <h5>（二）器材保障组 </h5>
+    <p>组建<span th:text="${#lists.size(protect_team_list)}"></span>支器材保障组。</p>
     <ol>
-        <li>1.第一器材保障组。器材保障人员7人（装备器材科2人、技术保障队1人、营技勤参谋4人），旅携行周转器材1套，负责xx器材弹药调整补充及请领下送。</li>
-        <li>2.第二器材保障组。器材保障人员5人（装备器材科1人、技术保障队1人、营技勤参谋3人），旅携行器材储运车1辆，负责xx营器材弹药调整补充及请领下送。</li>
+        <th:block th:each="protectTeam:${protect_team_list}">
+            <li>
+                <p><b th:text="${protectTeam.getTeam_name()}"></b></p>
+                <p>
+                    各类保障人员<span th:text="${protectTeam.getTeam_people_count()}"></span>人；
+                    携型装备<span th:text="${protectTeam.getTeam_category_msg()}"></span>；
+                    担负：<span th:text="${protectTeam.getArmy_name()}"></span>
+                    的 <span th:text="${protectTeam.getTeam_duty()}"></span>
+                </p>
+            </li>
+        </th:block>
+    </ol>
+    <h5>（三）支援保障组 </h5>
+    <p>组建<span th:text="${#lists.size(supply_team_list)}"></span>支支援保障组。</p>
+    <ol>
+        <th:block th:each="supplyTeam:${supply_team_list}">
+            <li>
+                <p><b th:text="${supplyTeam.getTeam_name()}"></b></p>
+                <p>
+                    各类保障人员<span th:text="${supplyTeam.getTeam_people_count()}"></span>人；
+                    携型装备<span th:text="${supplyTeam.getTeam_category_msg()}"></span>；
+                    担负：<span th:text="${supplyTeam.getArmy_name()}"></span>
+                    的 <span th:text="${supplyTeam.getTeam_duty()}"></span>
+                </p>
+            </li>
+        </th:block>
     </ol>
     <h4>4.1.3 保障人员、装备及物资 </h4>
     <h5>（一）保障人员 </h5>
@@ -1435,7 +1448,6 @@
     });
 
     $("#technicalPeople").text(localStorage.getItem("technicalPeople"));
-    $("#equipmentBusiness").text(localStorage.getItem("equipmentBusiness"));
     $("#autoRepairCrew").text(localStorage.getItem("autoRepairCrew"));
     $("#platoon_name").text(localStorage.getItem("platoon_name"));
     $("#lng").text(localStorage.getItem("lng"));

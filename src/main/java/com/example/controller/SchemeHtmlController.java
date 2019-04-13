@@ -160,22 +160,20 @@ public class SchemeHtmlController {
         List<Scheme_Army> scheme_armyList = schemeService.GetSchemeArmyBySchemeId(scheme_id);
         List<Action_Group> action_groupList = schemeService.GetActionGroups(scheme_id);
         List<Equipment> equipmentList = schemeService.GetEquipmentBySchemeId(scheme_id);
-        List<Team> repairTeamList = schemeService.GetTeamBySchemeIdAndTeamType(scheme_id, "repair");
-        List<Team> protectTeamList = schemeService.GetTeamBySchemeIdAndTeamType(scheme_id, "protect");
-        Integer repairTeamCount = repairTeamList.size();
-        Integer protectTeamCount = protectTeamList.size();
+        List<TeamStr> repairTeamStrList = schemeService.RequestTeamBySchemeIdAndType(scheme_id, "repair");
+        List<TeamStr> protectTeamList = schemeService.RequestTeamBySchemeIdAndType(scheme_id, "protect");
+        List<TeamStr> supplyTeamList = schemeService.RequestTeamBySchemeIdAndType(scheme_id, "supply");
         List<Scheme_Safeguard> scheme_safeguardList = schemeService.GetSchemeSafeguardBySchemeID(scheme_id);
         Scheme_Safeguard scheme_safeguard1 = scheme_safeguardList.get(0);
         model.addAttribute("army_list", armyList);
-        model.addAttribute("action_group_list",action_groupList);
+        model.addAttribute("action_group_list", action_groupList);
         model.addAttribute("scheme_army_list", scheme_armyList);
         model.addAttribute("scheme_safeguard", scheme_safeguardList);
-        model.addAttribute("oneScheme_safeguard",scheme_safeguard1);
+        model.addAttribute("oneScheme_safeguard", scheme_safeguard1);
         model.addAttribute("equipment_list", equipmentList);
-        model.addAttribute("repair_team_list", repairTeamList);
+        model.addAttribute("repair_team_list", repairTeamStrList);
         model.addAttribute("protect_team_list", protectTeamList);
-        model.addAttribute("repairTeamCount", repairTeamCount);
-        model.addAttribute("protectTeamCount", protectTeamCount);
+        model.addAttribute("supply_team_list", supplyTeamList);
         return "text";
     }
 
