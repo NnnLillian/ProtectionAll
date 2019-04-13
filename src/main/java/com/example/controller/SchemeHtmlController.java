@@ -161,8 +161,26 @@ public class SchemeHtmlController {
         List<Action_Group> action_groupList = schemeService.GetActionGroups(scheme_id);
         List<Equipment> equipmentList = schemeService.GetEquipmentBySchemeId(scheme_id);
         List<TeamStr> repairTeamStrList = schemeService.RequestTeamBySchemeIdAndType(scheme_id, "repair");
+        Integer repairTeamPeople = 0;
+        String repairTeamCategory = "";
+        for (TeamStr repairTeamStr : repairTeamStrList) {
+            repairTeamPeople += repairTeamStr.getTeam_people_count();
+            repairTeamCategory += repairTeamStr.getTeam_category_msg();
+        }
         List<TeamStr> protectTeamList = schemeService.RequestTeamBySchemeIdAndType(scheme_id, "protect");
+        Integer protectTeamPeople = 0;
+        String protectTeamCategory = "";
+        for (TeamStr protectTeamStr : protectTeamList) {
+            protectTeamPeople += protectTeamStr.getTeam_people_count();
+            repairTeamCategory += protectTeamStr.getTeam_category_msg();
+        }
         List<TeamStr> supplyTeamList = schemeService.RequestTeamBySchemeIdAndType(scheme_id, "supply");
+        Integer supplyTeamPeople = 0;
+        String supplyTeamCategory = "";
+        for (TeamStr supplyTeamStr : supplyTeamList) {
+            supplyTeamPeople += supplyTeamStr.getTeam_people_count();
+            repairTeamCategory += supplyTeamStr.getTeam_category_msg();
+        }
         List<Scheme_Safeguard> scheme_safeguardList = schemeService.GetSchemeSafeguardBySchemeID(scheme_id);
         Scheme_Safeguard scheme_safeguard1 = scheme_safeguardList.get(0);
         model.addAttribute("army_list", armyList);
@@ -172,8 +190,14 @@ public class SchemeHtmlController {
         model.addAttribute("oneScheme_safeguard", scheme_safeguard1);
         model.addAttribute("equipment_list", equipmentList);
         model.addAttribute("repair_team_list", repairTeamStrList);
+        model.addAttribute("repair_people_count", repairTeamPeople);
+        model.addAttribute("repair_team_category", repairTeamCategory);
         model.addAttribute("protect_team_list", protectTeamList);
+        model.addAttribute("protect_people_count", protectTeamPeople);
+        model.addAttribute("protect_team_category", protectTeamCategory);
         model.addAttribute("supply_team_list", supplyTeamList);
+        model.addAttribute("supply_people_count", supplyTeamPeople);
+        model.addAttribute("supply_team_category", supplyTeamCategory);
         return "text";
     }
 
