@@ -33,7 +33,7 @@
 <script type="text/javascript">
     var pressureChart = echarts.init(document.getElementById('pressuretable'));
     var PressureDataList = [];
-    var pressureMonthList = [];
+    var DataList = [];
     $("#document").ready(function () {
         $.ajax({
             type: 'GET',
@@ -47,7 +47,7 @@
                 console.log(data_list);
                 for (var i = 0; i < data_list.length; i++) {
                     PressureDataList.push(data_list[i].pressure);
-                    pressureMonthList.push(data_list[i].month_time);
+                    DataList.push(data_list[i].month_time);
                 }
                 // 指定图表的配置项和数据
                 var option = {
@@ -90,7 +90,7 @@
                                 alignWithLabel: true
                             },
                             boundaryGap: false,
-                            data: pressureMonthList
+                            data: DataList
                         }
                     ],
                     yAxis: [
