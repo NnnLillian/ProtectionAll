@@ -22,6 +22,8 @@ public interface GroupMapper {
 
     public List<Team_Department> GetTeamDepartmentByTeamId(Integer team_id);
 
+    public List<Team_People> GetTeamPeopleByGroupId(Integer group_id);
+
     public void AddTeam(Team team);
 
     public void AddDepartment(Department department);

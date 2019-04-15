@@ -83,7 +83,7 @@ self.peopleDataInit = function (name) {
                     if (row.people_id === i || row.people_id === j) {
                         return {
                             disabled: true,
-                            checked: true
+                            // checked: true
                         }
                     } else {
                         return {disabled: false}

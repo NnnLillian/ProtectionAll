@@ -70,6 +70,10 @@
         select * from team_department_info where team_id = #{team_id}
     </select>
 
+    <select id="GetTeamPeopleByGroupId" resultType="Team_People">
+        select * from team_info, team_department_info, department_info where group_id = #{group_id} and team_info.team_id=team_department_info.team_id and department_info.department_id = team_department_info.department_id;
+    </select>
+
     <delete id="DeleteTeam">
         delete from team_info where team_id = #{team_id}
     </delete>

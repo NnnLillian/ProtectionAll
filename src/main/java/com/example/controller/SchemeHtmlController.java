@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.entity.*;
 import com.example.entity.Scheme_Army;
+import com.example.service.EquipmentService;
 import com.example.service.SchemeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ public class SchemeHtmlController {
 
     @Autowired
     private SchemeService schemeService;
+    @Autowired
+    private EquipmentService equipmentService;
 
     @GetMapping("/GetPlatoonMsg")
     public String GetPlatoonMsg(Model model) {
@@ -156,6 +159,7 @@ public class SchemeHtmlController {
 
     @GetMapping("/text")
     public String GetTextContent(@RequestParam("scheme_id") Integer scheme_id, Model model) {
+        Scheme scheme = schemeService.GetSchemeBySchemeID(scheme_id);
         List<Army> armyList = schemeService.GetArmyBySchemeID(scheme_id);
         List<Scheme_Army> scheme_armyList = schemeService.GetSchemeArmyBySchemeId(scheme_id);
         List<Action_Group> action_groupList = schemeService.GetActionGroups(scheme_id);
@@ -183,6 +187,10 @@ public class SchemeHtmlController {
         }
         List<Scheme_Safeguard> scheme_safeguardList = schemeService.GetSchemeSafeguardBySchemeID(scheme_id);
         Scheme_Safeguard scheme_safeguard1 = scheme_safeguardList.get(0);
+        List<Team_People> repairTeamPeopleList = schemeService.RequestTeamPeopleBySchemeIdAndType(scheme_id, "repair");
+        List<Team_People> protectTeamPeopleList = schemeService.RequestTeamPeopleBySchemeIdAndType(scheme_id, "protect");
+        List<Team_People> supplyTeamPeopleList = schemeService.RequestTeamPeopleBySchemeIdAndType(scheme_id, "supply");
+        List<Supplier> supplierList = equipmentService.GetSupplierByPosition(scheme.getCombat_direction());
         model.addAttribute("army_list", armyList);
         model.addAttribute("action_group_list", action_groupList);
         model.addAttribute("scheme_army_list", scheme_armyList);
@@ -198,6 +206,10 @@ public class SchemeHtmlController {
         model.addAttribute("supply_team_list", supplyTeamList);
         model.addAttribute("supply_people_count", supplyTeamPeople);
         model.addAttribute("supply_team_category", supplyTeamCategory);
+        model.addAttribute("repair_teamPeople_list", repairTeamPeopleList);
+        model.addAttribute("protect_teamPeople_list", protectTeamPeopleList);
+        model.addAttribute("supply_teamPeople_list", supplyTeamPeopleList);
+        model.addAttribute("supply_list", supplierList);
         return "text";
     }
 

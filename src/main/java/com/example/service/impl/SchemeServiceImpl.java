@@ -89,6 +89,32 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
+    public List<Team_People> RequestTeamPeopleBySchemeIdAndType(Integer scheme_id, String group_type) {
+        Group group = groupMapper.GetSchemeGroupBySchemeIdAndGroupType(scheme_id, group_type);
+        List<Team_People> teamPeopleList = groupMapper.GetTeamPeopleByGroupId(group.getGroup_id());
+        List<Team_People> teamPeopleList1 = new ArrayList<>();
+        String groupName = group.getGroup_name();
+        for (Team_People teamPeople : teamPeopleList) {
+            String teamName = "第" + teamPeople.getTeam_name() + groupName;
+            List<People> peopleList = RequestPeopleByDepartmentId(teamPeople.getDepartment_id());
+            for (People people : peopleList) {
+                Team_People team_people = new Team_People();
+                team_people.setPeople_id(teamPeople.getTeam_id());
+                team_people.setTeam_name(teamName);
+                team_people.setTeam_duty(teamPeople.getTeam_duty());
+                team_people.setDepartment_id(teamPeople.getDepartment_id());
+                team_people.setDepartment_name(teamPeople.getDepartment_name());
+                team_people.setPeople_id(people.getPeople_id());
+                team_people.setPeople_name(people.getPeople_name());
+                team_people.setPeople_job(people.getPeople_job());
+                team_people.setPeople_profession(people.getPeople_profession());
+                teamPeopleList1.add(team_people);
+            }
+        }
+        return teamPeopleList1;
+    }
+
+    @Override
     public List<Department> RequestTeamDepartmentByTeamId(Integer team_id) {
         List<Team_Department> team_departmentList = groupMapper.GetTeamByTeamId(team_id);
         List<Department> departmentStrs = new ArrayList<>();

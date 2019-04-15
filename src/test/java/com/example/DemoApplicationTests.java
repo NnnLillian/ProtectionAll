@@ -2,6 +2,8 @@ package com.example;
 
 import com.example.entity.*;
 import com.example.mappers.*;
+import com.example.service.SchemeService;
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import net.minidev.json.writer.ArraysMapper;
 import org.apache.ibatis.annotations.Param;
 import org.junit.Test;
@@ -28,6 +30,8 @@ public class DemoApplicationTests {
     private PeopleMapper peopleMapper;
     @Autowired
     private SchemeMapper schemeMapper;
+    @Autowired
+    private SchemeService schemeService;
 
 
     @Test
@@ -117,6 +121,11 @@ public class DemoApplicationTests {
             teamStr.setTeam_category_msg(categoryMsg);
             teamStrList.add(teamStr);
         }
+    }
+
+    @Test
+    public void TeamPeopleMsg() {
+        Group group = groupMapper.GetSchemeGroupBySchemeIdAndGroupType(16, "repair");
     }
 
 }

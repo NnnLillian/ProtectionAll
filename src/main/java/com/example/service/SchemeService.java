@@ -21,6 +21,9 @@ public interface SchemeService {
 
     public List<TeamStr> RequestTeamBySchemeIdAndType(Integer scheme_id, String group_type);
 
+    //  获得保障小分队及其人员信息
+    public List<Team_People> RequestTeamPeopleBySchemeIdAndType(Integer scheme_id, String group_type);
+
     //  获得保障小分队内的人员职位信息
     public List<Department> RequestTeamDepartmentByTeamId(Integer team_id);
 

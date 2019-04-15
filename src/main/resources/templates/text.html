@@ -14,6 +14,11 @@
         .data {
             color: #c30000;
         }
+
+        th {
+            height: 50px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -145,7 +150,7 @@
         <li>旅支援保障组编配维修保障装备<span class="data" th:text="${supply_team_category}"></span>各营携行随机器材，可满足作战装备保障需求。</li>
     </ol>
     <h5>（三）弹药</h5>
-    <p>全旅携行枪支xx支，子弹xx发(见附件6)，各营按1个基数携行筒弹，共计xx枚。</p>
+    <p>全旅携行携带作战装备，详见附件6。</p>
     <h4>4.1.4 兵器抢修的组织实施</h4>
     <p style="color: red;">按照“立足现有，统筹全局，突出重点，精确保障”的原则，以建制保障为主、支援保障为辅，针对作战进程变化，准确预测保障需求，合理调配保障力量，确保持续、高效地实施作战装备保障。</p>
     <h5>（一）筹划展开阶段</h5>
@@ -239,7 +244,7 @@
     <span>附件1</span>
     <h5 align="center">基本装备保障机构编组和任务分工</h5>
 
-    <table align="center" border="1" cellpadding="0" height="100" id="" width="700">
+    <table align="center" border="1" cellpadding="5" height="100" id="" width="700">
         <tr>
             <td colspan="2">机构编成</td>
             <td width="110">负责人</td>
@@ -291,7 +296,7 @@
     <br>
     <p>附件2</p>
     <h5 align="center">预备装备保障机构编组和任务分工</h5>
-    <table align="center" border="1" cellpadding="0" width="700">
+    <table align="center" border="1" cellpadding="5" width="700">
         <tr>
             <td align="left" colspan="2">机构编成</td>
             <td width="110">负责人</td>
@@ -343,665 +348,110 @@
     <br>
     <p>附件3</p>
     <h5 align="center">装备抢修组编成与部署表</h5>
-    <table align="center" border="1" cellpadding="0" width="700">
+    <table align="center" border="1" cellpadding="5" width="80%">
         <tr>
-            <td height="50" width="100">分组</td>
-            <td width="120">职务</td>
-            <td width="80">姓名</td>
-            <td width="100">负责专业</td>
-            <td width="100">岗位</td>
-            <td>备注</td>
+            <th>分组</th>
+            <th>职务</th>
+            <th>姓名</th>
+            <th>负责专业</th>
+            <th>岗位</th>
+            <th>备注</th>
         </tr>
-        <tr>
-            <td height="50" rowspan="6">第一装备抢修组</td>
-            <td height="50">技术科长</td>
-            <td></td>
-            <td>制造雷达</td>
-            <td>组长</td>
-            <td rowspan="6">主要负责xx营装备保障，部署于xx，携带装备7台，仪器设备30台，野战维修设备1套。<br>组员含技术保障队人员20人，汽车修理分队5人。</td>
-        </tr>
-        <tr>
-            <td height="50">军交运输科长</td>
-            <td></td>
-            <td>车辆抢修</td>
-            <td>副组长</td>
-        </tr>
-        <tr>
-            <td height="50">高级工程师</td>
-            <td></td>
-            <td>雷达系统</td>
-            <td rowspan="4">组员</td>
-        </tr>
-        <tr>
-            <td height="50">高级工程师</td>
-            <td></td>
-            <td>发射装置</td>
-        </tr>
-        <tr>
-            <td height="50">工程师</td>
-            <td></td>
-            <td>电源系统</td>
-        </tr>
-        <tr>
-            <td height="50">技保队队长</td>
-            <td></td>
-            <td>军械修理</td>
-        </tr>
-        <tr>
-            <td height="50" rowspan="6">第二装备抢修组</td>
-            <td height="50">高级工程师</td>
-            <td></td>
-            <td>雷达系统</td>
-            <td>组长</td>
-            <td rowspan="6">主要负责xx营装备保障，部署于xx，携带装备5台，仪器设备22台，野战维修设备1套。组员含技术保障队15人，汽车修理分队5人。</td>
-        </tr>
-        <tr>
-            <td height="50">军交运输科助理</td>
-            <td></td>
-            <td>车辆抢修</td>
-            <td>副组长</td>
-        </tr>
-        <tr>
-            <td height="50">高级工程师</td>
-            <td></td>
-            <td>筒弹系统</td>
-            <td rowspan="4">组员</td>
-        </tr>
-        <tr>
-            <td height="50">高级工程师</td>
-            <td></td>
-            <td>305B雷达</td>
-        </tr>
-        <tr>
-            <td height="50">高级工程师</td>
-            <td></td>
-            <td>雷达系统</td>
-        </tr>
-        <tr>
-            <td height="50">技保队副队长</td>
-            <td></td>
-            <td>军械修理</td>
-        </tr>
-        <tr>
-            <td colspan="5" height="50">建制营的保障力量由相关专业保障人员构成</td>
-            <td>负责本营的装备保障。</td>
-        </tr>
+        <!--合并单元格写法，过于复杂，之后优化-->
+        <!--        <th:block th:each="repairPeopleItem:${repair_teamPeople_list}">-->
+        <!--            <tr>-->
+        <!--                <th:block th:if="${repairPeopleItem.getTeam_name()}=='第1装备抢修组'">-->
+        <!--                    <td class="data" name="1rteamName" th:text="${repairPeopleItem.getTeam_name()}"></td>-->
+        <!--                    <td class="data" th:text="${repairPeopleItem.getDepartment_name()}"></td>-->
+        <!--                    <td class="data" th:text="${repairPeopleItem.getPeople_job()}"></td>-->
+        <!--                    <td class="data" th:text="${repairPeopleItem.getPeople_name()}"></td>-->
+        <!--                    <td class="data" th:text="${repairPeopleItem.getPeople_profession()}"></td>-->
+        <!--                    <td class="data" name="1rteamDuty" th:text="${repairPeopleItem.getTeam_duty()}">-->
+        <!--                    </td>-->
+        <!--                </th:block>-->
+        <!--            </tr>-->
+        <!--        </th:block>-->
 
-
+        <th:block th:each="repairPeopleItem:${repair_teamPeople_list}">
+            <tr>
+                <td class="data" th:text="${repairPeopleItem.getTeam_name()}"></td>
+                <td class="data" th:text="${repairPeopleItem.getDepartment_name()}"></td>
+                <td class="data" th:text="${repairPeopleItem.getPeople_job()}"></td>
+                <td class="data" th:text="${repairPeopleItem.getPeople_name()}"></td>
+                <td class="data" th:text="${repairPeopleItem.getPeople_profession()}"></td>
+                <td class="data" th:text="${repairPeopleItem.getTeam_duty()}">
+                </td>
+            </tr>
+        </th:block>
     </table>
     <br>
     <p>附件4</p>
     <h5 align="center">器材保障组编成与部署表</h5>
-    <table align="center" border="1" cellpadding="0" width="700">
+    <table align="center" border="1" cellpadding="5" width="80%">
         <tr>
-            <td height="50" width="100">分组</td>
-            <td width="120">职务</td>
-            <td width="80">姓名</td>
-            <td width="100">岗位</td>
-            <td>备注</td>
+            <th>分组</th>
+            <th>职务</th>
+            <th>姓名</th>
+            <th>负责专业</th>
+            <th>岗位</th>
+            <th>备注</th>
         </tr>
-        <tr>
-            <td height="50" rowspan="7">第一器材保障组</td>
-            <td height="50">器材科科长</td>
-            <td></td>
-            <td>组长</td>
-            <td rowspan="7">携行周转器材1套，负责xx营器材调整补充及请领下送。
-        <tr>
-            <td height="50">技保队队长</td>
-            <td></td>
-            <td>副组长</td>
-        </tr>
-        <tr>
-            <td height="50">器材助理</td>
-            <td></td>
-            <td rowspan="5">组员</td>
-        </tr>
-        <tr>
-            <td height="50">指挥营参谋</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td height="50">xx营参谋</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td height="50">xxxx营参谋</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td height="50">xx营参谋</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td height="50" rowspan="5">第二器材保障组</td>
-            <td height="50">器材科助理</td>
-            <td></td>
-            <td>组长</td>
-            <td rowspan="5">担负xx营器材弹药调整补充及请领下送任务。携行周转器材1套，负责xx营器材调整补充及请领下送。
-        <tr>
-            <td height="50">技保队队长</td>
-            <td></td>
-            <td rowspan="4">组员</td>
-        </tr>
-
-        <tr>
-            <td height="50">xx营参谋</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td height="50">xx营参谋</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td height="50">xx营参谋</td>
-            <td></td>
-        </tr>
-
-
+        <th:block th:each="protectPeopleItem:${protect_teamPeople_list}">
+            <tr>
+                <td class="data" th:text="${protectPeopleItem.getTeam_name()}"></td>
+                <td class="data" th:text="${protectPeopleItem.getDepartment_name()}"></td>
+                <td class="data" th:text="${protectPeopleItem.getPeople_job()}"></td>
+                <td class="data" th:text="${protectPeopleItem.getPeople_name()}"></td>
+                <td class="data" th:text="${protectPeopleItem.getPeople_profession()}"></td>
+                <td class="data" th:text="${protectPeopleItem.getTeam_duty()}">
+                </td>
+            </tr>
+        </th:block>
     </table>
     <br>
     <p>附件5</p>
-    <h5 align="center">旅、营携行军械车辆维修装（设）备表</h5>
-    <table align="center" border="1" cellpadding="5">
-        <tr>
-            <td height="50" width="80">序号</td>
-            <td width="120">装备名称</td>
-            <td width="80">型号</td>
-            <td width="80">单位</td>
-            <td width="80">编配数量</td>
-        </tr>
-        <tr>
-            <td align="center" colspan="5">旅携行军械车辆维修装（设）备</td>
-        </tr>
-        <tr>
-            <td>一</td>
-            <td align="center" colspan="4">机动保障装备</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>指挥车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>机械维修车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>机械备件车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>电子维修车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>电子备件车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>50KW工频电源车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td>制氮充氮车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>8</td>
-            <td>筒弹测试车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>9</td>
-            <td>便携式防空导弹检测车指挥车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>10</td>
-            <td>野战器材储运车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>11</td>
-            <td>运输车</td>
-            <td></td>
-            <td>辆</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>合计</td>
-            <td></td>
-            <td></td>
-            <td>辆</td>
-            <td>12</td>
-        </tr>
-        <tr>
-            <td>二</td>
-            <td align="center" colspan="4">机动维修设备</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>100M示波器</td>
-            <td>XJ4362A</td>
-            <td>台</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>雷达测试仪</td>
-            <td>DH122D</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>三用表</td>
-            <td>MF18</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>三用表</td>
-            <td>MF14</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>示波器校准仪</td>
-            <td>NH4608</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>微波频率计数器</td>
-            <td>SH3382A</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td>信号发生器</td>
-            <td>3831</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>8</td>
-            <td>功率计</td>
-            <td>HPE4418B</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>9</td>
-            <td>指针式三用表</td>
-            <td></td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>10</td>
-            <td>高频毫伏表</td>
-            <td>MV-19C</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>11</td>
-            <td>数字式三用表校验仪</td>
-            <td>D030</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>12</td>
-            <td>半导体特性图示仪</td>
-            <td>XJ4810</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>13</td>
-            <td>双路支流稳压电源</td>
-            <td>LPS202</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-
-        <tr>
-            <td>14</td>
-            <td>LCR电桥</td>
-            <td>TH2818</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-
-        <tr>
-            <td>15</td>
-            <td>数字示波器</td>
-            <td>泰克TDS3032B</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-
-        <tr>
-            <td>16</td>
-            <td>频谱分析仪</td>
-            <td>安立MS2665C</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-
-        <tr>
-            <td>17</td>
-            <td>射频功率计</td>
-            <td>安立ML2437A</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-
-        <tr>
-            <td>18</td>
-            <td>射频信号源</td>
-            <td>安立MG3692B</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-
-        <tr>
-            <td>19</td>
-            <td>函数信号发生器</td>
-            <td>泰克AFG31010</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-
-        <tr>
-            <td>20</td>
-            <td>数字式电压表</td>
-            <td>安捷伦A-34401A</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-
-        <tr>
-            <td>21</td>
-            <td>电压表检定仪</td>
-            <td>北京DYB-3</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>22</td>
-            <td>数字三用表</td>
-            <td>深圳胜利VC980+</td>
-            <td>台</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>23</td>
-            <td>直流稳压电源</td>
-            <td>大华DH1719A-3D030</td>
-            <td>台</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>24</td>
-            <td>频率特性测试仪</td>
-            <td>南京BT3G</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>25</td>
-            <td>数字式三用表校验仪</td>
-            <td>华光电子DO30-E</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>26</td>
-            <td>示波器校准仪</td>
-            <td>南通南峰NF4608A</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>27</td>
-            <td>交流净化电源</td>
-            <td>扬州JSW-6KVA</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>28</td>
-            <td>兆欧表</td>
-            <td>ZC-7</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>29</td>
-            <td>模拟示波器</td>
-            <td>VP5567D</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>30</td>
-            <td>接地电阻测试仪</td>
-            <td>ZC-8</td>
-            <td>台</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>31</td>
-            <td>便携式氧割机</td>
-            <td></td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>32</td>
-            <td>直流电焊机</td>
-            <td>ZX5-500</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>33</td>
-            <td>脚踏式油脂泵</td>
-            <td>GZ-2</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>34</td>
-            <td>电动拉铆枪</td>
-            <td></td>
-            <td>支</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>35</td>
-            <td>野战阵地工具抢修箱</td>
-            <td>GZX-Ⅱ</td>
-            <td>台</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>36</td>
-            <td>液压三抓拉马</td>
-            <td>316AB</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>37</td>
-            <td>机械式升降卸轮器</td>
-            <td>326</td>
-            <td>台</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>38</td>
-            <td>高压注油机</td>
-            <td>419FJZ-160</td>
-            <td>台</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>39</td>
-            <td>便携式汽车千斤顶轮胎充气机</td>
-            <td></td>
-            <td>台</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td width="50">40</td>
-            <td>筒式气门研磨机</td>
-            <td>适用135MM\105MM\110MM柴油机和柴油车</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>合计</td>
-            <td></td>
-            <td></td>
-            <td>台</td>
-            <td>52</td>
-        </tr>
-        <tr>
-            <td align="center" colspan="5">营携行军械车辆维修装（设）备</td>
-        </tr>
-        <tr>
-            <td>一</td>
-            <td colspan="4">保障装备</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>机械维修车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>电子备件车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>机械备件车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>50kw工频电源车</td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>合计</td>
-            <td></td>
-            <td></td>
-            <td>辆</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>二</td>
-            <td colspan="4">仪器设备</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>便携式氧割机</td>
-            <td></td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>充电机</td>
-            <td>KDCG-V/100A</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>模拟万用表</td>
-            <td>MF-18</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>接地电阻测试仪</td>
-            <td>ZC-8</td>
-            <td>台</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>液压三抓拉马</td>
-            <td>316AB</td>
-            <td>台</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>脚踏式油脂泵</td>
-            <td>GZ-2</td>
-            <td>台</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td>逻辑笔</td>
-            <td></td>
-            <td>支</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>合计</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>10</td>
-        </tr>
+    <h5 align="center">支援保障组编成与部署表</h5>
+    <table align="center" border="1" cellpadding="5" width="80%">
+        <tr>
+            <th>分组</th>
+            <th>职务</th>
+            <th>姓名</th>
+            <th>负责专业</th>
+            <th>岗位</th>
+            <th>备注</th>
+        </tr>
+        <th:block th:each="supplyPeopleItem:${supply_teamPeople_list}">
+            <tr>
+                <td class="data" th:text="${supplyPeopleItem.getTeam_name()}"></td>
+                <td class="data" th:text="${supplyPeopleItem.getDepartment_name()}"></td>
+                <td class="data" th:text="${supplyPeopleItem.getPeople_job()}"></td>
+                <td class="data" th:text="${supplyPeopleItem.getPeople_name()}"></td>
+                <td class="data" th:text="${supplyPeopleItem.getPeople_profession()}"></td>
+                <td class="data" th:text="${supplyPeopleItem.getTeam_duty()}">
+                </td>
+            </tr>
+        </th:block>
+    </table>
+    <br>
+    <p>附件6</p>
+    <h5 align="center">旅、营携行军械车辆装（设）备表</h5>
+    <table align="center" border="1" cellpadding="5" width="80%">
+        <tr>
+            <th>序号</th>
+            <th>装备名称</th>
+            <th>型号</th>
+            <th>单位</th>
+            <th>编配数量</th>
+        </tr>
+        <th:block th:each="equipment:${equipment_list}">
+            <tr>
+                <td class="data" th:text="${equipment.getEquipment_id()}"></td>
+                <td class="data" th:text="${equipment.getEquipment_name()}"></td>
+                <td class="data" th:text="${equipment.getCategory_modal()}"></td>
+                <td class="data" th:text="${equipment.getCategory_unit()}"></td>
+                <td class="data" th:text="1"></td>
+            </tr>
+        </th:block>
 
     </table>
 
@@ -1049,246 +499,24 @@
     <br>
     <h5 align=center style='text-align:center'>民用资源表</h5>
 
-    <table align="center" border=1 cellpadding=0 cellspacing=0
-           style='border-collapse:collapse;border:none'>
+    <table align="center" border=1 cellpadding=5
+           style='border-collapse:collapse; border:none; width: 80%'>
         <tr>
-            <td style='width:49.4pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt' width=66>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>序号</span></p>
-            </td>
-            <td style='width:77.95pt;border:solid windowtext 1.0pt;border-left:
-  none;padding:0cm 5.4pt 0cm 5.4pt' width=104>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>名称</span></p>
-            </td>
-            <td style='width:148.85pt;border:solid windowtext 1.0pt;border-left:
-  none;padding:0cm 5.4pt 0cm 5.4pt' width=198>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>地址</span></p>
-            </td>
-            <td style='width:55.6pt;border:solid windowtext 1.0pt;border-left:
-  none;padding:0cm 5.4pt 0cm 5.4pt' width=74>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>联系人</span></p>
-            </td>
-            <td style='width:83.0pt;border:solid windowtext 1.0pt;border-left:
-  none;padding:0cm 5.4pt 0cm 5.4pt' width=111>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>联系电话</span></p>
-            </td>
+            <th>名称</th>
+            <th>地址</th>
+            <th>联系人</th>
+            <th>联系电话</th>
         </tr>
-        <tr>
-            <td style='width:49.4pt;border:solid windowtext 1.0pt;border-top:
-  none;padding:0cm 5.4pt 0cm 5.4pt' width=66>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>1</span></p>
-            </td>
-            <td style='width:77.95pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=104>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>合众进口汽修厂</span></p>
-            </td>
-            <td style='width:148.85pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=198>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>西藏自治区日喀则市扎德东路</span><span lang=EN-US>8</span><span
-                        style='font-family:宋体'>号</span></p>
-            </td>
-            <td style='width:55.6pt;border-top:none;border-left:none;border-bottom:
-  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt' width=74>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>王先生</span></p>
-            </td>
-            <td style='width:83.0pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=111>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>0892-8824930</span>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td style='width:49.4pt;border:solid windowtext 1.0pt;border-top:
-  none;padding:0cm 5.4pt 0cm 5.4pt' width=66>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>2</span></p>
-            </td>
-            <td style='width:77.95pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=104>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>东雷汽车维修有限公司</span></p>
-            </td>
-            <td style='width:148.85pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=198>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>西藏自治区桑珠孜区日喀则市吉林南路</span></p>
-            </td>
-            <td style='width:55.6pt;border-top:none;border-left:none;border-bottom:
-  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt' width=74>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>刘先生</span></p>
-            </td>
-            <td style='width:83.0pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=111>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>0892-8825199</span>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td style='width:49.4pt;border:solid windowtext 1.0pt;border-top:
-  none;padding:0cm 5.4pt 0cm 5.4pt' width=66>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>3</span></p>
-            </td>
-            <td style='width:77.95pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=104>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>日喀则市东娇汽修城</span></p>
-            </td>
-            <td style='width:148.85pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=198>
-                <p class=MsoNormal><span style='font-family:宋体'>西藏自治区日喀则市桑珠孜区几吉郎卡路</span></p>
-            </td>
-            <td style='width:55.6pt;border-top:none;border-left:none;border-bottom:
-  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt' width=74>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>李先生</span></p>
-            </td>
-            <td style='width:83.0pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=111>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>(0892)8823278</span>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td style='width:49.4pt;border:solid windowtext 1.0pt;border-top:
-  none;padding:0cm 5.4pt 0cm 5.4pt' width=66>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>4</span></p>
-            </td>
-            <td style='width:77.95pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=104>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>天源液压油管制作</span></p>
-            </td>
-            <td style='width:148.85pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=198>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>西藏自治区桑珠孜区日喀则市几吉朗卡路</span><span lang=EN-US>24</span><span
-                        style='font-family:宋体'>附</span><span lang=EN-US>77</span><span
-                        style='font-family:宋体'>南</span><span lang=EN-US>50</span><span
-                        style='font-family:宋体'>米</span></p>
-            </td>
-            <td style='width:55.6pt;border-top:none;border-left:none;border-bottom:
-  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt' width=74>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>李先生</span></p>
-            </td>
-            <td style='width:83.0pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=111>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>13989021706</span>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td style='width:49.4pt;border:solid windowtext 1.0pt;border-top:
-  none;padding:0cm 5.4pt 0cm 5.4pt' width=66>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>5</span></p>
-            </td>
-            <td style='width:77.95pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=104>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>盛达液压油管加工部</span></p>
-            </td>
-            <td style='width:148.85pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=198>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>西藏自治区桑珠孜区日喀则市几吉朗卡路</span><span lang=EN-US>24-</span><span
-                        style='font-family:宋体'>附</span><span lang=EN-US>77</span><span
-                        style='font-family:宋体'>东</span><span lang=EN-US>50</span><span
-                        style='font-family:宋体'>米</span></p>
-            </td>
-            <td style='width:55.6pt;border-top:none;border-left:none;border-bottom:
-  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt' width=74>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>赵先生</span></p>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-            </td>
-            <td style='width:83.0pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=111>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>13618920956</span>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td style='width:49.4pt;border:solid windowtext 1.0pt;border-top:
-  none;padding:0cm 5.4pt 0cm 5.4pt' width=66>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>6</span></p>
-            </td>
-            <td style='width:77.95pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=104>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>西藏天富工程机械有限公司</span></p>
-            </td>
-            <td style='width:148.85pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=198>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>西藏自治区拉萨市和平路东嘎村工程机械商业街</span><span lang=EN-US>2</span><span
-                        style='font-family:宋体'>号</span></p>
-            </td>
-            <td style='width:55.6pt;border-top:none;border-left:none;border-bottom:
-  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt' width=74>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>孙先生</span></p>
-            </td>
-            <td style='width:83.0pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=111>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>0891-6151186</span>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td style='width:49.4pt;border:solid windowtext 1.0pt;border-top:
-  none;padding:0cm 5.4pt 0cm 5.4pt' width=66>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>7</span></p>
-            </td>
-            <td style='width:77.95pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=104>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>拉萨鸿飞工贸有限公司</span></p>
-            </td>
-            <td style='width:148.85pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=198>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>西藏拉萨市堆龙德庆县团结路</span><span lang=EN-US>13</span><span
-                        style='font-family:宋体'>号</span></p>
-            </td>
-            <td style='width:55.6pt;border-top:none;border-left:none;border-bottom:
-  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt' width=74>
-                <p align=center class=MsoNormal style='text-align:center'><span
-                        style='font-family:宋体'>刘先生</span></p>
-            </td>
-            <td style='width:83.0pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt' width=111>
-                <p align=center class=MsoNormal style='text-align:center'><span lang=EN-US>0891-6159000</span>
-                </p>
-            </td>
-        </tr>
+        <th:block th:each="supply:${supply_list}">
+            <tr>
+                <td class="data" th:text="${supply.getSupplier_name()}"></td>
+                <td class="data" th:text="${supply.getPosition_name()}"></td>
+                <td class="data" th:text="${supply.getSupplier_head()}"></td>
+                <td class="data" th:text="${supply.getSupplier_phone()}"></td>
+            </tr>
+        </th:block>
+
+
     </table>
     <h3>4.3 特情处置预案</h3>
     <h4>4.3.1 装备保障特情处置指挥</h4>
@@ -1459,14 +687,16 @@
     $("#lng").text(localStorage.getItem("lng"));
     $("#lat").text(localStorage.getItem("lat"));
 
-    for (let i = 1; i <= 5; i++) {
-        let res = localStorage.getItem("army_list_" + i);
-        if (res != null) {
-            $("#army_list_" + i).text(localStorage.getItem("army_list_" + i));
-            $("#army_list1_" + i).text(localStorage.getItem("army_list_" + i));
-            $("#army_list2_" + i).text(localStorage.getItem("army_list_" + i));
-        }
+    let rteamName1 = document.getElementsByName("1rteamName");
+    let rteamDuty1 = document.getElementsByName("1rteamDuty");
+    const l = rteamName1.length;
+
+    for (let i = l; i > 1; i--) {
+        rteamName1[i - 1].remove();//remove为jQuery方法。
+        rteamDuty1[i - 1].remove();
     }
+    rteamName1[0].setAttribute("rowspan", l);
+    rteamDuty1[0].setAttribute("rowspan", l);
 </script>
 </body>
 </html>
