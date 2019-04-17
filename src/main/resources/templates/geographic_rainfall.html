@@ -9,13 +9,34 @@
 <div style="width: 36%;float: right">
     <ul id="rainfallDescriptionTips">
         <li>
-            架设便携式避雷针。在雷达阵地，发射阵地，技术保障阵地和库房要按技术要求设置避雪装置，并定期检查，确保接地良好
+            西藏地区全年多晴朗天气，降雨稀少，降水集中在6—9月份，多夜雨，为雨季。
         </li>
         <li>
-            增加备件，针对潮湿环境下电气设备易打火，击穿的情况应尽可能多准备备件，尤其是高压部位备件一定要齐全，保证出现异常情况能及时处置
+            干燥的环境会导致装备接地性能不好，影响装备工作的稳定性，导致故障率提高，同时干燥的环境也会导致静电的产生，导致维护难度的增加；
         </li>
         <li>
-            通风去除湿气。应将装备放置于通风位置，保持空气流通，晴朗或湿度较小的天气，应打开车厢门窗，进行自然通风去潮。
+            雨季降雨频繁，空气湿度大，需注意非密封结构器件受潮进水容易导致装备出现各类故障；
+        </li>
+        <li>
+            电气设备进水，受潮后绝缘性能下降。容易产生漏电，短路、打火，严重时会击穿烧坏元器件，高频电缆受潮后驻波系数变化，造成高频信号产生畸变，影响兵器性能；野战条件下执行任务，条件简陋，装备处于露天状态存放，各种金属构件进水、受潮或接触腐蚀介质后，会造成腐蚀、生绣，导致机件运转不灵活，卡滞，以致构件的机械强度降低，构造构件断裂；
+        </li>
+        <li>
+            武器装备开机前应酌情通风加温去潮，雨后要及时清除武器装备内外和阵地周围的积水，天气晴朗时，及时去掉装备的盖布，打开车门、窗口，自然通风去潮；
+        </li>
+        <li>
+            平时关好车门，窗门，盖好盖布和防水套。加强检查维护，对动力电源接插头要加强检查防护，防止因潮湿导致烧蚀；
+        </li>
+        <li>
+            对裸露的金属表面要涂油；车辆电瓶适时进行充电，防止因潮湿漏电而导致车辆不能正常启动，对电瓶极柱适当涂油，进行防锈处理；
+        </li>
+        <li>
+            突出对高压电路的检查，当发现高压器件发霉或线缆发粘时，应及时晾干；
+        </li>
+        <li>
+            导线发粘时，要及时包扎或更换；
+        </li>
+        <li>
+            对裸露电缆头进行密封，防止巨大温差凝露导致电缆接口短路，天气条件允许时注意通风去潮。
         </li>
     </ul>
 </div>
@@ -24,7 +45,7 @@
 <script type="text/javascript">
     var rainfallChart = echarts.init(document.getElementById('rainfalltable'));
     var RainfalleDataList = [];
-    var EveryRainfalleDataList =[];
+    var EveryRainfalleDataList = [];
     // var DataList = [];
     $("#document").ready(function () {
         $.ajax({
@@ -40,41 +61,50 @@
                 for (var i = 0; i < data_list.length; i++) {
                     var rainfall = data_list[i].rainfall;
                     var month = data_list[i].month_time;
-                    var Rain;
-                    RainfalleDataList.push(rainfall);
+                    // var Rain;
+                    var RainWhole;
+                    EveryRainfalleDataList.push(rainfall);
                     // DataList.push(month);
                     switch (month) {
                         case 2:
-                            Rain = Math.round(rainfall/28);
+                            // Rain = Math.round(rainfall / 28);
+                            RainWhole = rainfall * 28;
                             break;
                         case 4:
                         case 6:
                         case 9:
                         case 11:
-                            Rain = Math.round(rainfall/30);
+                            // Rain = Math.round(rainfall / 30);
+                            RainWhole = rainfall * 30;
                             break;
                         default:
-                           Rain = Math.round(rainfall/31);
+                            // Rain = Math.round(rainfall / 31);
+                            RainWhole = rainfall * 31;
                     }
-                    EveryRainfalleDataList.push(Rain);
+                    RainfalleDataList.push(RainWhole.toFixed(2));
                 }
                 // 指定图表的配置项和数据
                 var option = {
                     backgroundColor: '#FBFBFB',
+                    title: {
+                        text: '往年降雨量变化',
+                        // subtext: '说明性文字',
+                        x: 'center'
+                    },
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {type: 'shadow'},
-                        formatter:function(params)
-                        {
+                        formatter: function (params) {
                             var relVal = params[0].name + '月';
                             for (var i = 0, l = params.length; i < l; i++) {
-                                relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value+" ml";
+                                relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value + " mm";
                             }
                             return relVal;
                         }
                     },
                     legend: {
-                        data: ['月总降雨量','每日平均雨量']
+                        data: ['月总降雨量', '每日平均雨量'],
+                        x: 'left'
                     },
                     toolbox: {
                         feature: {
@@ -82,6 +112,10 @@
                         }
                     },
                     calculable: true,
+                    grid: {
+                        left: 60,
+                        right: 50,
+                    },
                     xAxis: [
                         {
                             axisLabel: {
@@ -104,8 +138,8 @@
                                     // color: '#000080'
                                 }
                             },
-                            axisLabel:{
-                                formatter: '{value} ml'
+                            axisLabel: {
+                                formatter: '{value} mm'
                             }
                         }
                     ],
@@ -113,17 +147,17 @@
                         {
                             name: '月总降雨量',
                             type: 'bar',
-                            barGap:0.1,
-                            barWidth:'20%',
+                            barGap: 0.1,
+                            barWidth: '20%',
                             // smooth: true,
                             color: ['#003366'],
                             data: RainfalleDataList
-                        },{
+                        }, {
                             name: '每日平均雨量',
                             type: 'bar',
                             // smooth: true,
                             color: ['#006699'],
-                            barWidth:'20%',
+                            barWidth: '20%',
                             data: EveryRainfalleDataList
                         }
                     ]

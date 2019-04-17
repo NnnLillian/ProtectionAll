@@ -9,16 +9,17 @@ public class Environment {
     private double rainfall;
     private double snowfall;
     private double sunshine;
-    private int wind_level;
+    private double wind_level;
     private double pressure;
     private double corrosion;
+    private double humidity;
 
     public  Environment()
     {
 
     }
 
-    public Environment(Integer environment_id, String case_position, Integer location_id, Integer month_time, double temperature, double rainfall, double snowfall, double sunshine, int wind_level, double pressure, double corrosion) {
+    public Environment(Integer environment_id, String case_position, Integer location_id, Integer month_time, double temperature, double rainfall, double snowfall, double sunshine, double wind_level, double pressure, double corrosion, double humidity) {
         this.environment_id = environment_id;
         this.case_position = case_position;
         this.location_id = location_id;
@@ -30,6 +31,7 @@ public class Environment {
         this.wind_level = wind_level;
         this.pressure = pressure;
         this.corrosion = corrosion;
+        this.humidity = humidity;
     }
 
     public Integer getEnvironment_id() {
@@ -88,11 +90,11 @@ public class Environment {
         this.sunshine = sunshine;
     }
 
-    public int getWind_level() {
+    public double getWind_level() {
         return wind_level;
     }
 
-    public void setWind_level(int wind_level) {
+    public void setWind_level(double wind_level) {
         this.wind_level = wind_level;
     }
 
@@ -110,6 +112,14 @@ public class Environment {
 
     public void setCorrosion(double corrosion) {
         this.corrosion = corrosion;
+    }
+
+    public double getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(double humidity) {
+        this.humidity = humidity;
     }
 
     public String getCase_position() {

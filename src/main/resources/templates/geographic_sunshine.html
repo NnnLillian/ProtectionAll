@@ -8,8 +8,10 @@
 <div id="sunshinetable" style="width:64%;height:500px; float: left"></div>
 <div style="width: 36%;float: right">
     <ul id="sunshineDescriptionTips">
-        <li>在发射机发生高压故障时，首先要根据故障现象判断是高压电源本身的故障还是发射机高压部分打火引起的高压故障。若“高压”故障的同时，钛泵电源组合电流变大，则说明多注速调管有打火现象，需对管子进行老练；若报“高压”故障，钛泵电源组合电流没有变化，复位后高压还能加上，则说明发射机内高压部分有放电现象，需要对发射机进行除尘和检查；当确定是高压电源本身故障后，再进一步检查高压电源。</li>
-        <li>首先切换到模拟状态，差2领示显示正常，模拟目标跟踪正常，说明接收机组合2后的系统工作正常；通过在高频接收机1输出端进行差1支路和差2支路电缆的交换检查，发现搜索台监视器的差1支路领示消失，说明故障问题集中到高频接收机1内；打开高频接收机1组合，检查电缆连接没有问题后，更换差2前中盒后，领示显示正常。</li>
+        <li>西藏地区太阳辐射强，高原地区强烈的日晒及高温可能导致某些非金属部件加速老化，缩短寿命，电瓶电解液蒸发快，极板化学反应加剧，加速了电瓶老化，空气的热传导和对流作用的有效性降低，热交换能力降低，造成设备温度过高而引起性能下降和老化过快；</li>
+        <li>防强光暴晒和地表高温，到阵地后，及时架设随机配备的制式伪装网，阵地电缆一律用电缆套包裹，并用电缆架支起，进行装备维护时，应尽量选择温度较低的时间组织；</li>
+        <li>开机前，根据实际情况，造当延长空调通风时间；</li>
+        <li>由于高温蓄电瓶电解液蒸发快，容易引起电解液外溢，因此要视情补充蒸馏水，并用苏打水清洗通气螺塞和电瓶四周，保证液面高度适当及通气孔顺畅，防止电解液对电瓶外壳造成腐蚀，要定期检查电机轴承有无漏油，电子器件有无过热变色，橡胶机件有无发粘等现象，有此问题时，要及时查明原因，并采取相应的修复措施。</li>
     </ul>
 </div>
 <!--<script src="js/jquery-1.11.1.min.js"></script>-->
@@ -49,11 +51,16 @@
                         default:
                             wholeSun = 31*sunshine;
                     }
-                    WholeSunshineList.push(wholeSun);
+                    WholeSunshineList.push(wholeSun.toFixed(2));
                 }
                 // 指定图表的配置项和数据
                 var option = {
                     backgroundColor: '#FBFBFB',
+                    title: {
+                        text: '往年日照情况',
+                        // subtext: '说明性文字',
+                        x: 'center'
+                    },
                     tooltip: {
                         trigger: 'axis',
                         // axisPointer: {type: 'cross'}
@@ -61,18 +68,23 @@
                         {
                             var relVal = params[0].name+'月';
                             for (var i = 0, l = params.length; i < l; i++) {
-                                relVal += '<br/>'+ params[i].seriesName + ' : '+ params[i].value;
+                                relVal += '<br/>'+ params[i].seriesName + ' : '+ params[i].value + " 小时";
                             }
                             return relVal;
                         }
                     },
                     legend: {
-                        data: ['总日照','平均日照']
+                        data: ['总日照','平均日照'],
+                        x: 'left'
                     },
                     toolbox: {
                         feature: {
                             saveAsImage: {}
                         }
+                    },
+                    grid: {
+                        left: 50,
+                        right: 50,
                     },
                     // calculable: true,
                     xAxis: [
@@ -100,23 +112,30 @@
                             type: 'value',
                             name: '总日照',
                             min:0,
-                            max:300,
+                            max:720,
                             position: 'right',
                             axisLine: {
                                 lineStyle: {
                                     color: '#0d60b7'
                                 }
+                            },
+                            axisLabel: {
+                                formatter: '{value} h'
                             }
                         },
                         {
                             type: 'value',
                             name: '平均日照',
                             min:0,
-                            max:10,
+                            max:24,
                             axisLine: {
                                 lineStyle: {
                                     color: '#e97817'
                                 }
+                            }
+                            ,
+                            axisLabel: {
+                                formatter: '{value} h'
                             }
                         }
                     ],

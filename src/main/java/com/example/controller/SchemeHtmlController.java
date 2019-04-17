@@ -58,7 +58,7 @@ public class SchemeHtmlController {
 
     @GetMapping("/geographic_snowfall")
     public String GetSnow() {
-        return "geographic_snowfall";
+        return "geographic_humidity";
     }
 
     @GetMapping("/geographic_sunshine")
@@ -79,6 +79,11 @@ public class SchemeHtmlController {
     @GetMapping("/geographic_corrosion")
     public String GetCorrosion() {
         return "geographic_corrosion";
+    }
+
+    @GetMapping("/geographic_humidity")
+    public String GetHumidity() {
+        return "geographic_humidity";
     }
 
     @GetMapping("/next")

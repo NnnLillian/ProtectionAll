@@ -1,0 +1,158 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--<meta charset="UTF-8">-->
+<!--<title>Air pressure</title>-->
+<!--</head>-->
+<!--<body>-->
+<div id="humiditytable" style="width:64%;height:500px; float: left"></div>
+<div style="width: 36%;float: right">
+    <ul id="humidityDescriptionTips">
+        <li>西藏地区气候干燥，湿度低，导致植被较少，多为砂石土质地面，影响装备的接地防护，且云层低，为雷电多发地带。</li>
+        <li>雷击可能使武器系统遭受严重损坏，装备避雷、接地设备若采用通常连接方式，阻值一般在70欧以上，部分地段在200欧以上。</li>
+        <li>装备接地阻值要求高，接地阻值不符合要求，对装备使用安全影响很大，也会影响装备技术状态。</li>
+        <li>
+            做好装备降阻基础工作。通常采用的方法是在装备周围的合适处，挖掘若干面积约4平方米，深度约2.5米的土坑，每个坑内均深埋铁桶和铁丝网，填充工业盐、降阻剂的粘土，然后用水浇灌，在此基础上，可将所有深埋铁桶和铁丝网接成接地网。接入接地线后，用电阻仪测量接地电阻，如果不满足要求，继续向坑里灌充盐水，直到接地电阻符合规定要求为止，后需要密切跟踪接地电阻的变化情况，掌握规律，根据需要定期向坑里灌充盐水，确保接地电阻始终满足要求。
+        </li>
+        <li>充分利用避雷设施，保证装备避雷安全。合理布置放置点，使其能有效防雷，兵器的高压设备，遭受雷击后，容易造成高压击穿，雷电天气时应关机去电，关紧舱门，使方处于屏蔽状态，必要时断开拔掉舱外连接电缆。
+        </li>
+    </ul>
+</div>
+<!--<script src="js/jquery-1.11.1.min.js"></script>-->
+<!--<script src="js/echarts.js"></script>-->
+<script type="text/javascript">
+    var humidityChart = echarts.init(document.getElementById('humiditytable'));
+    var HumidityDataList = [];
+    var EveryHumidityDataList = [];
+    // var DataList = [];
+    $("#document").ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/GetEnvironment?scheme_id=' + localStorage.getItem("scheme_id") + '&month=' + localStorage.getItem("month") + '&type=humidity',
+            contentType: 'application/json',
+            dataType: 'JSON',
+            data: {index: 0},
+            success: function (data) {
+                console.log(data);
+                var data_list = data.data_list;
+                console.log(data_list);
+                for (var i = 0; i < data_list.length; i++) {
+                    var humidity = data_list[i].humidity;
+                    var month = data_list[i].month_time;
+                    var humi;
+                    HumidityDataList.push(humidity);
+                    // DataList.push(month);
+                    switch (month) {
+                        case 2:
+                            humi = Math.round(humidity / 28);
+                            break;
+                        case 4:
+                        case 6:
+                        case 9:
+                        case 11:
+                            humi = Math.round(humidity / 30);
+                            break;
+                        default:
+                            humi = Math.round(humidity / 31);
+                    }
+                    EveryHumidityDataList.push(humi);
+                }
+                // 指定图表的配置项和数据
+                var option = {
+                    backgroundColor: '#FBFBFB',
+                    title: {
+                        text: '往年湿度状况',
+                        // subtext: '说明性文字',
+                        x: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {type: 'shadow'},
+                        formatter: function (params) {
+                            var relVal = params[0].name + '月';
+                            for (var i = 0, l = params.length; i < l; i++) {
+                                relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value + " %";
+                            }
+                            return relVal;
+                        }
+                    },
+                    legend: {
+                        data: ['每日平均湿度'],
+                        x: 'left'
+                        // data: ['月总降雪量','每日平均雪量']
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    calculable: true,
+                    grid: {
+                        left: 50,
+                        right: 50,
+                    },
+                    xAxis: [
+                        {
+                            axisLabel: {
+                                formatter: '{value} 月'
+                            },
+                            type: 'category',
+                            axisTick: {
+                                // alignWithLabel: true
+                                show: false
+                            },
+                            data: DataList
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value',
+                            name: '湿度',
+                            axisLine: {
+                                lineStyle: {
+                                    // color: '#000080'
+                                }
+                            },
+                            axisLabel: {
+                                formatter: '{value} %'
+                            }
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '每日平均湿度',
+                            type: 'bar',
+                            barGap: 0.1,
+                            barWidth: '30%',
+                            // smooth: true,
+                            color: ['#0d60b7'],
+                            data: HumidityDataList
+                        }
+                        // ,{
+                        //     name: '每日平均雪量',
+                        //     type: 'bar',
+                        //     // smooth: true,
+                        //     color: ['#6ed4ee'],
+                        //     barWidth:'20%',
+                        //     data: EveryHumidityDataList
+                        // }
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                humidityChart.setOption(option);
+
+                // 特情部分的获取
+                var case_list = data.case_list;
+                for (var i = 0; i < case_list.length; i++) {
+                    var tips = $("<li>");
+                    tips.text(case_list[i].description);
+                    $("#descriptionTips").append(tips);
+                }
+            },
+        }, JSON)
+    })
+
+
+</script>
+<!--</body>-->
+<!--</html>-->
