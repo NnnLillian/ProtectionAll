@@ -67,37 +67,37 @@ public class AdminUpLoadController {
         return army_list;
     }
 
-    @GetMapping("/equipment")
-    public String InputEquipmentMsg(Model model) {
+    private void showBelong(Model model) {
         List<Platoon> platoon_list = schemeService.RequestPlatoon();
         model.addAttribute("platoon_list", platoon_list);
         List<Category> categoryActionList = equipmentService.RequestCategoryByType("action");
         List<Category> categoryProtectList = equipmentService.RequestCategoryByType("protect");
         categoryActionList.addAll(categoryProtectList);     //此时的categoryActionList包括了action和protect类型装备
         model.addAttribute("category_list", categoryActionList);
+    }
+
+    @GetMapping("/equipment")
+    public String InputEquipmentMsg(Model model) {
+        showBelong(model);
         return "admin_equipment";
     }
 
     @GetMapping("/device")
     public String InputDeviceMsg(Model model) {
-        List<Platoon> platoon_list = schemeService.RequestPlatoon();
-        model.addAttribute("platoon_list", platoon_list);
-        List<Category> categoryActionList = equipmentService.RequestCategoryByType("action");
-        List<Category> categoryProtectList = equipmentService.RequestCategoryByType("protect");
-        categoryActionList.addAll(categoryProtectList);     //此时的categoryActionList包括了action和protect类型装备
-        model.addAttribute("category_list", categoryActionList);
+        showBelong(model);
         return "admin_device";
     }
 
     @GetMapping("/element")
     public String InputElementMsg(Model model) {
-        List<Platoon> platoon_list = schemeService.RequestPlatoon();
-        model.addAttribute("platoon_list", platoon_list);
-        List<Category> categoryActionList = equipmentService.RequestCategoryByType("action");
-        List<Category> categoryProtectList = equipmentService.RequestCategoryByType("protect");
-        categoryActionList.addAll(categoryProtectList);     //此时的categoryActionList包括了action和protect类型装备
-        model.addAttribute("category_list", categoryActionList);
+        showBelong(model);
         return "admin_element";
+    }
+
+    @GetMapping("/maintain")
+    public String InputMaintainMsg(Model model) {
+        showBelong(model);
+        return "admin_maintain";
     }
 
     @RequestMapping(value = "/importFile", method = {RequestMethod.POST})

@@ -200,7 +200,7 @@ public class SchemeJsonController {
 
     @ResponseBody
     @RequestMapping(value = "/GetMaintainMsg", method = {RequestMethod.GET})
-    public String GetMaintainMsg(@Param("equipment_id") Integer equipment_id) {
+    public String GetMaintainMsg(@Param("equipment_id") String equipment_id) {
         List<Element_Maintain> element_maintain_list = equipmentService.GetElementMaintainByEquipmentId(equipment_id);
         return jsonBuilder.buildMaintainList(element_maintain_list);
     }

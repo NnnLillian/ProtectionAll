@@ -33,7 +33,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public List<Element_Maintain> GetElementMaintainByEquipmentId(Integer equipment_id) {
+    public List<Element_Maintain> GetElementMaintainByEquipmentId(String equipment_id) {
         return equipmentMapper.GetElementMaintainByEquipmentId(equipment_id);
     }
 

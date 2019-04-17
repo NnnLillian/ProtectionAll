@@ -11,7 +11,7 @@ public interface EquipmentService {
 
     public List<Element> GetElementByEquipmentId(String equipment_id);
 
-    public List<Element_Maintain> GetElementMaintainByEquipmentId(Integer equipment_id);
+    public List<Element_Maintain> GetElementMaintainByEquipmentId(String equipment_id);
 
     public List<Category> GetCategoryByArmyIdAndType(Integer army_id, String category_type);
 

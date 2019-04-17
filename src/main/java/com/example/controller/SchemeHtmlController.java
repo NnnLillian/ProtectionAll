@@ -126,8 +126,10 @@ public class SchemeHtmlController {
 
     @GetMapping("/edit_equipment")
     public String GetEditEquipment(@RequestParam("scheme_id") Integer scheme_id, Model model) {
-        List<Scheme_Army> army_list = schemeService.GetSchemeArmyBySchemeId(scheme_id);
         System.out.println(scheme_id);
+        List<Scheme_Army> army_list = schemeService.GetSchemeArmyBySchemeId(scheme_id);
+        List<Action_Group> action_groupList = schemeService.GetActionGroups(scheme_id);
+        model.addAttribute("action_group_list", action_groupList);
         model.addAttribute("army_list", army_list);
         return "edit_equipment";
     }
