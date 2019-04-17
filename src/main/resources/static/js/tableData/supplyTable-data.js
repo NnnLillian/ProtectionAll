@@ -21,10 +21,14 @@ self.SupplyInit = function (name) {
                     field: 'position_name',
                     title: '地址',
                     align: 'center'
-                },{
-                field:'supplier_type_name',
-                    title:'资源类型',
-                    align:'center'
+                }, {
+                    field: 'supplier_type_name',
+                    title: '资源类型',
+                    align: 'center'
+                }, {
+                    field: 'supplier_type',
+                    title: '资源类型ID',
+                    visible: false
                 }
             ];
             break;
@@ -63,18 +67,26 @@ self.SupplyInit = function (name) {
         },
 
         onCheckAll: function (row) {  //获取全部选择的数据
-            console.log("clickall")
+            console.log("clickall");
             console.log(row);
         },
 
         onUncheck: function (row) {
-            console.log("uncheck")
+            console.log("uncheck");
             console.log(row);
         },
 
         onUncheckAll: function (row) {
-            console.log("uncheckall")
+            console.log("uncheckall");
             console.log(row);
+        },
+
+        rowStyle: function (row) {
+            if (row.supplier_type === 2) {
+                return {css: {"background-color": "#e8ffeb63"}}
+            } else {
+                return {css: {"background-color": "#ffdddf63"}}
+            }
         }
     });
 };
