@@ -20,6 +20,7 @@
         td {
             vertical-align: middle;
             text-align: center;
+            padding: 10px 8px;
         }
     </style>
 </head>
@@ -68,9 +69,11 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-sm-offset-3" style="text-align: center; margin: 0 auto">
                                         <button class="btn btn-primary"
-                                                onclick="window.location.href='edit_struct.html'"></button>&nbsp;
+                                                onclick="window.location.href='/edit_action'">完成
+                                        </button>&nbsp;
                                         <button class="btn btn-default"
-                                                onclick="window.location.href='edit_struct.html'"></button>
+                                                onclick="javascript:history.go(-1);">返回
+                                        </button>
                                     </div>
                                 </div>
                             </div><!-- panel-footer -->
@@ -79,24 +82,23 @@
                 </div><!-- col-sm-8 -->
 
                 <div class="col-sm-2">
-                    <div class="blog-sidebar">
+                    <div class="blog-sidebar" id="menu" style="position: fixed">
 
-                        <h5 class="subtitle"> 特情处理 </h5>
-                        <p></p>
-
-                        <div class="mb30"></div>
+<!--                        <h5 class="subtitle"></h5>-->
+<!--                        <p></p>-->
+<!--                        <div class="mb30"></div>-->
 
                         <h5 class="subtitle">目录</h5>
                         <ul class="sidebar-list">
-                            <li><a href=""><i class="fa fa-angle-right"></i> 装备保障方案 </a></li>
-                            <li><a href=""><i class="fa fa-angle-right"></i> 器材保障预案</a></li>
-                            <li><a href=""><i class="fa fa-angle-right"></i> 特情处置预案 </a></li>
-                            <li><a href=""><i class="fa fa-angle-right"></i> 野战修理所预案 </a></li>
+                            <li><a href="#4.1"><i class="fa fa-angle-right"></i> 装备保障方案 </a></li>
+                            <li><a href="#4.2"><i class="fa fa-angle-right"></i> 器材保障预案</a></li>
+                            <li><a href="#4.3"><i class="fa fa-angle-right"></i> 特情处置预案 </a></li>
+                            <li><a href="#4.4"><i class="fa fa-angle-right"></i> 野战修理所预案 </a></li>
                         </ul>
 
                     </div><!-- blog-sidebar -->
 
-                </div><!-- col-sm-4 -->
+                </div><!-- col-sm-2 -->
 
             </div><!-- row -->
 
@@ -108,8 +110,10 @@
 
 
 <script src="js/jquery-1.11.1.min.js"></script>
+
 <script src="js/jquery-migrate-1.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/toggles.min.js"></script>
 <script src="js/modernizr.min.js"></script>
 <script src="js/jquery.sparkline.min.js"></script>
 <script src="js/retina.min.js"></script>
@@ -123,18 +127,17 @@
     // $('.head').load("head")
     $('.scheme-content').load("text?scheme_id=" + localStorage.getItem("scheme_id"))
 
-    jQuery(window).load(function () {
+    // jQuery(window).load(function () {
+    //     "use strict";
+        // var container = document.querySelector('#bloglist');
+        // Masonry 是自动排序
+        // var msnry = new Masonry(container, {
+        //     // options
+        //     columnWidth: '.col-xs-6',
+        //     itemSelector: '.col-xs-6'
+        // });
+    // });
 
-        "use strict";
-
-        var container = document.querySelector('#bloglist');
-        var msnry = new Masonry(container, {
-            // options
-            columnWidth: '.col-xs-6',
-            itemSelector: '.col-xs-6'
-        });
-
-    });
 </script>
 
 <!--<script th:inline="javascript">-->

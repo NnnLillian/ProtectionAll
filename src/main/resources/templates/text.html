@@ -81,7 +81,7 @@
             <span class="data" th:text="${oneScheme_safeguard.getBase_name()}"></span>。
         </span>
     </div>
-    <h3>4.1 装备保障方案</h3>
+    <h3 class="item" id="4.1">4.1 装备保障方案</h3>
     <h4> 4.1.1 任务</h4>
     <h5>(一）装备保障任务</h5>
     <ol>
@@ -235,120 +235,15 @@
     <p>战时组织实施装备保障时，装备保障指挥命令指示与保障信息的传递，通常以有线电话为主，无线电话为辅，有线电话中断时，采取无线电话（报）。</p>
     <p>当与上级装备保障机构通信中断时，旅按作战装备保障计划，独立自主实施指挥。营通信中断时，按照防空作战计划积极果断地实施指挥。</p>
     <p>附件:</p>
-    <a style="display: block">1.基本装备保障机构编组和任务分工</a>
-    <a style="display: block">2.预备装备保障机构编组和任务分工</a>
-    <a style="display: block">3.装备抢修组编成与部署表</a>
-    <a style="display: block">4.器材保障组编成与部署表</a>
-    <a style="display: block">5.旅、营携行军械车辆维修装（设）备表</a>
-    <a style="display: block">6.枪支弹药携行情况</a>
-    <span>附件1</span>
-    <h5 align="center">基本装备保障机构编组和任务分工</h5>
+    <a style="display: block" href="#table1">1.装备抢修组编成与部署表</a>
+    <a style="display: block" href="#table2">2.器材保障组编成与部署表</a>
+    <a style="display: block" href="#table3">3.支援保障组编成与部署表</a>
+    <a style="display: block" href="#table4">4.旅、营携行军械车辆维修装（设）备表</a>
+    <a style="display: block" href="#table5">5.枪支弹药携行情况</a>
 
-    <table align="center" border="1" cellpadding="5" height="100" id="" width="700">
-        <tr>
-            <td colspan="2">机构编成</td>
-            <td width="110">负责人</td>
-            <td width="100">组员</td>
-            <td>任务分工</td>
-
-        </tr>
-        <tr>
-            <td colspan="2" width="200"><br>基本指挥所<br>装备保障指挥组</td>
-            <td>保障部长</td>
-            <td><br>战勤科副科长<br>装备技术科长<br>装备器材科长<br>军交运输科长<br>各营营长，技术保障队长
-            </td>
-            <td>全面负责装备保障工作，指导中继级各保障小组开展装备保障工作，并协调有关事项。</td>
-        </tr>
-        <tr>
-            <td height="100" rowspan="4">中继级</td>
-            <td>兵器装备抢修小组</td>
-            <td>技术科长</td>
-            <td>装备技术科高工，工程师</td>
-            <td>负责装备故障的抢修和指导基层及时恢复装备技术状态。</td>
-        </tr>
-        <tr>
-            <td height="100">车辆抢修小组</td>
-            <td>军交科长</td>
-            <td>军交运输科助理、汽车连连长、技术保障队汽车修理中队</td>
-            <td>负责车辆故障的抢修，并组织基层搞好故障排查，确保所有车辆技术状态良好和安全。</td>
-        </tr>
-        <tr>
-            <td height="100">军械器材保障小组</td>
-            <td>器材科长</td>
-            <td>器材科助理，技术保障队器材保管员</td>
-            <td>负责请领、调拨、管理所有器材，确保器材供应质效。</td>
-        </tr>
-        <tr>
-            <td height="100">装备弹药调整补充小组</td>
-            <td>器材科长</td>
-            <td>器材科器材助理</td>
-            <td>负责弹药的请领、调拨、管理，了解掌握弹药消耗情况。</td>
-        </tr>
-        <tr>
-            <td height="100">基层级</td>
-            <td>营装备保障小组</td>
-            <td>各营副营长</td>
-            <td>各营各连连长、技勤参谋、车管助理、工程师、助理工程师</td>
-            <td>负责全营的装备保障工作。</td>
-        </tr>
-
-    </table>
-    <br>
-    <p>附件2</p>
-    <h5 align="center">预备装备保障机构编组和任务分工</h5>
-    <table align="center" border="1" cellpadding="5" width="700">
-        <tr>
-            <td align="left" colspan="2">机构编成</td>
-            <td width="110">负责人</td>
-            <td width="100">组员</td>
-            <td>任务分工</td>
-
-        </tr>
-        <tr>
-            <td colspan="2" width="200"><br>预备指挥所<br>装备保障指挥组</td>
-            <td>旅总工程师</td>
-            <td><br>战勤科<br>装备技术科<br>装备器材科<br>军交运输科<br>各营副营长，技术保障副队长
-            </td>
-            <td>协助基本装备保障机构负责装备保障工作，指导中继级各保障小组开展装备保障工作，并协调有关事项。</td>
-        </tr>
-        <tr>
-            <td height="100" rowspan="4">中继级</td>
-            <td>兵器装备抢修小组</td>
-            <td>装备技术科高工</td>
-            <td>装备技术科高工，工程师、助理工程师</td>
-            <td>协助进行装备故障的抢修和帮助基层及时恢复装备技术状态。</td>
-        </tr>
-        <tr>
-            <td height="100">车辆抢修小组</td>
-            <td>军交运输科助理</td>
-            <td>汽车连副连长技术保障队汽车修理中队、各营修理工</td>
-            <td>协助进行车辆故障的抢修，并帮助基层搞好故障排查，确保所有车辆技术状态良好和安全。</td>
-        </tr>
-        <tr>
-            <td height="100">军械器材保障小组</td>
-            <td>装备器材科助理李荣</td>
-            <td>各营技勤参谋，技术保障队器材保管员</td>
-            <td>协助进行请领、调拨、管理所有器材，确保器材供应质效。</td>
-        </tr>
-        <tr>
-            <td height="100">装备弹药调整补充小组</td>
-            <td>装备器材科助理</td>
-            <td>各营技勤参谋、军械保管员</td>
-            <td>协助装备弹药的请领、调拨、管理，了解掌握装备弹药消耗情况。</td>
-        </tr>
-        <tr>
-            <td height="100">基层级</td>
-            <td>营装备保障小组</td>
-            <td>各营技勤参谋</td>
-            <td>各连副连长、技勤参谋、车管助理、工程师、助理工程师</td>
-            <td>协助全营的装备保障工作</td>
-        </tr>
-
-    </table>
-    <br>
-    <p>附件3</p>
+    <p>附件1</p>
     <h5 align="center">装备抢修组编成与部署表</h5>
-    <table align="center" border="1" cellpadding="5" width="80%">
+    <table id="table1" align="center" border="1" cellpadding="5" width="80%">
         <tr>
             <th>分组</th>
             <th>职务</th>
@@ -385,9 +280,9 @@
         </th:block>
     </table>
     <br>
-    <p>附件4</p>
+    <p>附件2</p>
     <h5 align="center">器材保障组编成与部署表</h5>
-    <table align="center" border="1" cellpadding="5" width="80%">
+    <table id="table2" align="center" border="1" cellpadding="5" width="80%">
         <tr>
             <th>分组</th>
             <th>职务</th>
@@ -409,9 +304,9 @@
         </th:block>
     </table>
     <br>
-    <p>附件5</p>
+    <p>附件3</p>
     <h5 align="center">支援保障组编成与部署表</h5>
-    <table align="center" border="1" cellpadding="5" width="80%">
+    <table id="table3" align="center" border="1" cellpadding="5" width="80%">
         <tr>
             <th>分组</th>
             <th>职务</th>
@@ -433,9 +328,9 @@
         </th:block>
     </table>
     <br>
-    <p>附件6</p>
+    <p>附件4</p>
     <h5 align="center">旅、营携行军械车辆装（设）备表</h5>
-    <table align="center" border="1" cellpadding="5" width="80%">
+    <table id="table4" align="center" border="1" cellpadding="5" width="80%">
         <tr>
             <th>序号</th>
             <th>装备名称</th>
@@ -455,21 +350,21 @@
 
     </table>
 
-    <h3>4.2 器材保障预案(plan)</h3>
+    <h3 class="item" id="4.2">4.2 器材保障预案</h3>
     <h4>4.2.1 保障任务</h4>
     <p>（一）作战物资器材调整补充的领导指挥管理、制订物资调整补充工作计划并督促落实；</p>
     <p>（二）拟制器材筹措、供应计划，组织物资器材的筹措、调剂、管理；物资器材的紧急发付和前送；</p>
-    <p> （三）组织所属人员完成器材数质量清查，统计上报器材消耗情况，拟制物资器材补充需求计划，物资器材的请领、分发和管理。</p>
+    <p>（三）组织所属人员完成器材数质量清查，统计上报器材消耗情况，拟制物资器材补充需求计划，物资器材的请领、分发和管理。</p>
     <h4>4.2.2 组织领导</h4>
-    <p>组长：装备器材科科长xx。</p>
-    <p>组员：装备器材科助理xx，技术保障队队长xx及各营技勤参谋。</p>
+    <p>组长：装备器材科科长。</p>
+    <p>组员：装备器材科助理，技术保障队队长及各营技勤参谋。</p>
     <p>职责：</p>
     <p>（一）贯彻落实旅装备保障组的指示，组织对印作战物资器材快速调整补充,确保部队战斗任务顺利完成；</p>
     <p>（二）掌握物资器材数质量情况和储备、消耗情况，及时提出调整、补充建议；</p>
     <p>（三）根据作战需要，组织制定物资器材调整补充计划；组织物资器材的筹措、储备、供应和管理工作，检查、督促物资器材调整补充情况。</p>
     <h4>4.2.3 保障措施</h4>
     <p>（一）物资器材的筹措</p>
-    <p>1.机动前旅器材保障组向军区空军装备部上报申请计划，请求协调装备保障工厂完成缺项物资器材的补充，确保随机器材、周转器材齐全配套；</p>
+    <p> 1.机动前旅器材保障组向军区空军装备部上报申请计划，请求协调装备保障工厂完成缺项物资器材的补充，确保随机器材、周转器材齐全配套；</p>
     <p> 2.机动至指定地域后，建立保障关系，上报装备、物资器材保障情况；</p>
     <p> 3.战斗进程中消耗物资器材的补充按隶属关系向西北方向空中作战集群指挥部装备保障中心上报请领；</p>
     <p> 4.部分物资器材，可由器材保障组采取就便采购、函购或向工业部门（见附件1）及友邻部队紧急求助。</p>
@@ -479,7 +374,7 @@
     <p> 单个导弹营按满编配齐电子备件车（）、机械备件车（）的备件和各车的随机器材（）。</p>
     <p> 2.旅周转储备</p>
     <p> 按编配齐技术保障队电子备件车（）和机械备件车（）配备的周转器材。储备物资油料xx项， xx升。</p>
-    <p>3.战术储备</p>
+    <p> 3.战术储备</p>
     <p> 请领1套红九战术储备器材，储备于旅技术保障队。</p>
     <p> （三）物资器材的请领</p>
     <p> 根据作战消耗，采取按级请领程序组织实施，特殊情况可越级请领。营申请器材由技勤参谋统一汇总，向旅器材保障组请领。旅周转器材补充，由器材保障组向西北方向空中作战集群指挥部装备保障中心请领。</p>
@@ -497,10 +392,10 @@
     <p> （二）严密组织，充分准备。要加强组织领导，制定相应的实施方案，有组织有计划的组织预想和准备，做到万无一失。</p>
     <p> （三）落实制度，确保安全。在方案落实过程中，要严格执行安全规则，确保人员兵器安全。</p>
     <br>
-    <h5 align=center style='text-align:center'>民用资源表</h5>
-
-    <table align="center" border=1 cellpadding=5
-           style='border-collapse:collapse; border:none; width: 80%'>
+    <p>附件5</p>
+    <h5 align=center style='text-align:center'>军地资源表</h5>
+    <table align="center" border=1 cellpadding=5 id="table5"
+           style='width: 80%'>
         <tr>
             <th>名称</th>
             <th>地址</th>
@@ -518,7 +413,7 @@
 
 
     </table>
-    <h3>4.3 特情处置预案</h3>
+    <h3 class="item" id="4.3">4.3 特情处置预案</h3>
     <h4>4.3.1 装备保障特情处置指挥</h4>
     <p>旅装备保障指挥组统一组织各营做好红九装备特情处置工作。</p>
     <h4>4.3.2 特情分析</h4>
@@ -613,7 +508,7 @@
     <p>（三）严密组织，确保安全。要认真组织保障人员学习兵器知识、各类规章制度和相关特情处置措施，提高人员专业素质，增强法规意识和装备特情处置能力。实施中要严格落实各项安全制度，加强督导，防止发生事故，确保安全。</p>
 
 
-    <h3>4.4 野战修理所开设预案</h3>
+    <h3 class="item" id="4.4">4.4 野战修理所开设预案</h3>
     <h4>4.4.1 组织领导与分工</h4>
     <p>在技术保障队队长领导下，成立野战修理所战勤班，共31人。分为指挥组、制配组、电子维修组、电源修理组和汽车修理组，具体任务分工如下：</p>
     <p>（一）指挥组（4人）。由技术保障队队长（1）任组长，组员有：各中队长（2）、专业工程师（1），负责执行任务时野战修理所开设工作的动员部署、方案修订、任务下达及整个开设工作的组织领导。</p>
@@ -665,8 +560,8 @@
 
 <div class="mb30"></div>
 
-<div>
-    <a class="btn btn-default jquery-word-export" href="javascript:void(0)" style="color:#1caf9a">
+<div style="text-align:right; margin:20px 10px">
+    <a class="btn btn-default jquery-word-export" href="javascript:void(0)" style="color:#1caf9a;">
         <i class="fa fa-file-word-o"></i>
         导出为.doc文档
     </a>
@@ -687,16 +582,17 @@
     $("#lng").text(localStorage.getItem("lng"));
     $("#lat").text(localStorage.getItem("lat"));
 
-    let rteamName1 = document.getElementsByName("1rteamName");
-    let rteamDuty1 = document.getElementsByName("1rteamDuty");
-    const l = rteamName1.length;
-
-    for (let i = l; i > 1; i--) {
-        rteamName1[i - 1].remove();//remove为jQuery方法。
-        rteamDuty1[i - 1].remove();
-    }
-    rteamName1[0].setAttribute("rowspan", l);
-    rteamDuty1[0].setAttribute("rowspan", l);
+    //  这里是表格合并单元格代码
+    // let rteamName1 = document.getElementsByName("1rteamName");
+    // let rteamDuty1 = document.getElementsByName("1rteamDuty");
+    // const l = rteamName1.length;
+    //
+    // for (let i = l; i > 1; i--) {
+    //     rteamName1[i - 1].remove();//remove为jQuery方法。
+    //     rteamDuty1[i - 1].remove();
+    // }
+    // rteamName1[0].setAttribute("rowspan", l);
+    // rteamDuty1[0].setAttribute("rowspan", l);
 </script>
 </body>
 </html>
