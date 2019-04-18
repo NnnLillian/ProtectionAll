@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <link href="images/favicon.png" rel="shortcut icon" type="image/png">
+
+    <title>编辑方案-装备保障方案</title>
+
+    <link href="css/style.default.css" rel="stylesheet">
+    <link href="css/jquery.datatables.css" rel="stylesheet">
+    <!-- datepicker -->
+    <!--<link rel='stylesheet' type='text/css' href='css/core.css'>-->
+
+    <link href="css/bootstrap-select.css" rel="stylesheet">
+    <link href="css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- 生成的大型故障信息，载入维修方案 -->
+    <div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade bs-example-modal-lg"
+         data-backdrop="static"
+         id="solutionModal" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                    <h4 class="modal-title">处置方法</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="tab-pane active" id="solutionList">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal" type="button">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/jquery.sparkline.min.js"></script>
+    <script src="js/toggles.min.js"></script>
+    <script src="js/retina.min.js"></script>
+    <script src="js/jquery.cookies.js"></script>
+
+    <script src="js/morris.min.js"></script>
+    <script src="js/raphael-2.1.0.min.js"></script>
+
+    <script src="js/custom.js"></script>
+
+    <script src="applicationTable/application.js"></script>
+    <script src="js/echarts.js"></script>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="left"></div>
+
+    <div class="mainpanel">
+
+        <div class="head"></div>
+        <div class="pageheader">
+            <h2><i class="fa  fa-edit"></i> 保障方案编辑</h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="#">装备保障系统</a></li>
+                    <li class="active">编辑保障方案</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">液压系统大概率故障特情计算</h4>
+                        <p></p>
+                    </div><!-- panel-heading -->
+                    <div class="panel-body">
+                        <!--                        <input type="button" id="calculationReliability" class="btn btn-default" value="计算故障概率"-->
+                        <!--                               style="float: right">-->
+                        <div id="calculationDiv" style="width: 100%;height:700px;"></div>
+                    </div><!-- panel-body -->
+                    <div class="panel-footer" style="text-align: center; margin: 0 auto">
+                        <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
+                            返回
+                        </button>
+                        <button class="btn btn-primary"
+                                onclick="location.href = '/edit_action_resource?scheme_id=' + localStorage.getItem('scheme_id')"
+                                type="button">
+                            继续
+                        </button>
+                    </div>
+                </div><!-- panel -->
+
+
+            </div><!-- row -->
+        </div><!-- contentpanel -->
+    </div><!-- mainpanel -->
+</section>
+
+<script>
+    // 加载共同头部
+    $(function () {
+        $('.left').load("left");
+    });
+
+    // $('#calculationReliability').click(function () {
+    echart();
+
+    // });
+
+    function echart() {
+        <!-- 计算可靠度页面载入 -->
+        let myChart = echarts.init(document.getElementById('calculationDiv'));
+
+        var base = [64, 33, 40, 46, 53];
+
+        var warningValue = 10;   //警告值
+        var errorValue = 50;    //错误值
+
+        var normal = [];	//正常范围 0~60
+        var warning = [];  //警告范围 60~80
+        var error = [];	//错误范围 80~
+
+        base.forEach(function (value, index, data) {
+            normal[index] = data[index] > warningValue ? warningValue : data[index];
+        });
+        base.forEach(function (value, index, data) {
+            error[index] = data[index] < errorValue ? 0 : data[index] - errorValue;
+        });
+        base.forEach(function (value, index, data) {
+            warning[index] = data[index] - normal[index] - error[index] < 0 ? 0 : data[index] - normal[index] - error[index];
+        });
+
+        myChart.on('click', function (param) {
+            console.log(param);
+            localStorage.setItem("malfunctionSolution", param.dataIndex);
+            $("#solutionModal").modal('show');
+            $("#solutionModal").on('shown.bs.modal', function () {
+                let modal = $(this);
+                modal.find('.modal-title').text(param.name);
+                $("#solutionList").load("solutionList/solution" + localStorage.getItem("malfunctionSolution") + ".html");
+            })
+        });
+
+        function hideLoad() {
+            myChart.hideLoading();
+            var labelOption = {
+                normal: {
+                    show: true,
+                    position: 'insideLeft',
+                    distance: 10,
+                    align: 'left',
+                    verticalAlign: 'middle',
+                    rotate: 0,
+                    formatter: '{c} %',
+                    fontSize: 16,
+                    fontWeight: 800,
+                    color: 'rgb(0,112,192)',
+                }
+            };
+            let option = {
+                title: {
+                    text: '大概率故障事件列表',
+                    x: 'center',
+                    textStyle: {
+                        fontSize: '28'
+                    }
+                },
+                // tooltip: {},
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                grid: {
+                    left: 200,
+                    right: 50,
+                },
+                // legend: {
+                //     show:true,
+                //     data: ['最高','最低'],
+                //     textStyle: {
+                //         fontSize: 18
+                //     }
+                // },
+                xAxis: {
+                    type: 'value',
+                    max: 100,
+                    axisLabel: {
+                        formatter: '{value} %',
+                        textStyle: {
+                            fontSize: '16'
+                        }
+                    },
+                },
+                yAxis: {
+                    type: 'category',
+                    data: ["滤油器故障", "汇油环故障", "发射车起竖油缸", "发射车调平油缸故障", "发射车侧移油缸故障"],
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#000',
+                            fontWeight: 700,
+                            fontSize: '16'
+                        }
+                    }
+                },
+                series: [
+
+                    // 正常范围数据
+                    {
+                        name: 'normal',
+                        type: 'bar',
+                        stack: 'a',
+                        barWidth: 60,
+                        data: normal,
+                        color: function (p) {
+                            return 'rgb(0,112,192)';	// 蓝色
+                        },
+                        animationEasing: 'normal',
+                        animationThreshold: false,
+                        //  label: labelOption,
+
+                    },
+                    // 警告范围数据
+                    {
+                        name: 'warning',
+                        type: 'bar',
+                        barWidth: 30,
+                        stack: 'a',	//同一分组  数据叠加
+                        data: warning,
+                        animationEasing: 'warning',
+                        animationDuration: 600,
+                        //  label: labelOption,
+                        /* 该范围内颜色为渐变效果 */
+                        /* 渐变的结束色分两种情况：
+                            1：超过警告值一半：三色渐变，结束颜色为黄色与红色之间的某种颜色
+                            2：未超过警告值一半：两个渐变，结束颜色为绿色与黄色之间的某种颜色
+                            ★ 并且，三色渐变情况下需要计算恰好到黄色时，黄色所在的位置比例
+                       */
+
+                        color: function (p) {
+                            let color;
+                            mid = (errorValue - warningValue) / 2;
+                            //三色渐变
+                            if (warning[p.dataIndex] > mid) {
+                                //颜色范围   0,255,0  -->  255,255,0    &  255,255,0 -->  255,0,0     255*2
+                                //值范围      (warningValue, errorValue)
+                                //颜色单位变化（前半段变化固定 只计算后半段(黄 - 红)变化）
+                                ps = 192 / ((errorValue - warningValue) / 2);
+                                //计算渐变比例
+                                pb = mid / warning[p.dataIndex] * 1.0;
+                                //计算第二段变色
+                                startColor = 'rgb(254,192,0)';//后半段起始色
+                                endColor = 'rgb(254,' + (192 - ((warning[p.dataIndex] - mid) * ps)) + ',0)';//后半段结束色
+                                color = new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    {offset: 0, color: 'rgb(0,112,192)'},
+                                    {offset: pb, color: startColor},
+                                    {offset: 1, color: endColor}
+                                ]);
+                            }
+                            //双色渐变
+                            else {
+                                //颜色范围   0,255,0  -- >  255,255,0       Y --> G         255
+                                //值范围      (warningValue, (errorValue-warningValue)/2)
+                                //颜色单位变化
+                                ps = 112 / ((errorValue - warningValue) / 2);
+                                //双色不需要计算渐变比例
+                                //起始色固定 计算终止色
+                                startColor = 'rgb(0,112,192)';
+                                endColor = 'rgb(' + (ps * warning[p.dataIndex]) + ', 192, 0)'; // G --> Y 255,255,0
+                                //console.log(startColor, endColor);
+                                //返回渐变值
+                                color = new echarts.graphic.LinearGradient(0, 0, 1, 0,
+                                    [
+                                        {offset: 0, color: startColor},
+                                        {offset: 0.5, color: endColor}
+                                    ]
+                                );
+                            }
+                            return color;
+                        }
+                    },
+                    {
+                        name: 'error',
+                        type: 'bar',
+                        barWidth: 30,
+                        stack: 'a',
+                        data: error,
+                        color: 'rgb(255,0,0)',
+                        animationEasing: 'error',
+                        animationDurationUpdate: 10,
+                        animationDelay: 600,
+
+                    },
+                    {
+                        name: 'total',
+                        type: 'bar',
+                        data: base,
+                        stack: 'a',
+                        color: 'rgba(0,0,0,0)',
+                        label: labelOption,
+                    }
+                ]
+            };
+            myChart.setOption(option);
+        }
+
+        setTimeout(hideLoad, 3000);
+        // 基于准备好的dom，初始化echarts实例
+        //    var myChart = echarts.init(document.getElementById('main'));
+        myChart.showLoading({
+            text: '数据计算中'
+        })
+        // 指定图表的配置项和数据
+        // 使用刚指定的配置项和数据显示图表。
+    }
+</script>
+
+
+<!-- 对于大型故障的解决方案 -->
+<script>
+
+</script>
+</body>
+</html>

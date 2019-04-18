@@ -139,6 +139,11 @@ public class SchemeHtmlController {
         return "edit_equipment";
     }
 
+    @GetMapping("/edit_hydraulic_reliability")
+    public String GetHydraulicReliability(@RequestParam("scheme_id") Integer scheme_id, Model model) {
+        return "edit_hydraulic_reliability";
+    }
+
     @GetMapping("/edit_action_resource")
     public String GetEditActionResource(@RequestParam("scheme_id") Integer scheme_id, Model model) {
         return "edit_action_resource";
