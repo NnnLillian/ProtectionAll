@@ -36,29 +36,31 @@
     <script src="js/bootstrap-select.js"></script>
 
     <style type="text/css">
-        body, html, #map_demo, #tab, #mapfrm {
-            width: 100%;
-            height: 100%;
-            /*overflow: hidden;*/
-            margin: 0;
-            font-family: "微软雅黑";
+        table, table tr th, table tr td {
+            border: 1px solid #333333;
         }
 
-        #menu {
-            height: 100%;
-            overflow-y: auto
+        table {
+            cellspacing: 0;
+            padding: 5px;
+            margin: 40px 40px;
+            width: 80%;
+            font-size: 16px;
+        }
+
+        th {
+            text-align: center;
+            padding: 10px;
         }
 
         td {
-            font-size: 14px
+            vertical-align: middle;
+            padding: 10px 8px;
         }
 
-        h4 {
-            margin: 0;
-        }
-
-        #map_demo1, #map_demo2 {
-            height: 50%
+        #specialInfo > p {
+            font-size: 18px;
+            line-height: normal;
         }
     </style>
 </head>
@@ -92,31 +94,19 @@
             <div class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title">特情信息</h4>
-                        <p></p>
+                        <h4 class="panel-title">装备保障特情处置预案</h4>
+                        <!--                        <p></p>-->
                     </div><!-- panel-heading -->
                     <!--原本版本 panel-body-nopadding editable-list-group作用未知-->
                     <!--<div class="panel-body panel-body-nopadding editable-list-group">-->
                     <div class="panel-body">
-                        <!-- BASIC WIZARD -->
-<!--                        <div id="basicWizard" class="basic-wizard">-->
-
-<!--                            <ul class="nav nav-pills nav-justified">-->
-<!--                                <li><a href="#tab1" data-toggle="tab"><span>Step 1:</span> 地域特情</a></li>-->
-<!--                                <li><a href="#tab2" data-toggle="tab"><span>Step 2:</span> 装备特情</a></li>-->
-<!--                                <li><a href="#tab3" data-toggle="tab"><span>Step 3:</span> </a></li>-->
-<!--                            </ul>-->
-                            <div class="tab-content">
-                                <div id="specialInfo">
-<!--                                </div>-->
-                            </div><!-- tab-content -->
-                        </div>
+                        <div id="specialInfo" class="col-md-12"></div>
                     </div><!-- panel-body -->
                     <div class="panel-footer" style="text-align: center; margin: 0 auto">
                         <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
                             返回
                         </button>
-                        <button type="button" id="specialMsg" class="btn btn-primary">继续</button>
+                        <button class="btn btn-primary" id="specialMsg" type="button">继续</button>
                     </div>
                 </div><!-- panel -->
             </div><!-- row -->
@@ -132,7 +122,7 @@
 
     // 跳转按钮
     $("#specialMsg").click(function () {
-        window.location.href="/scheme_show?scheme_id="+localStorage.getItem("scheme_id");
+        window.location.href = "/scheme_show?scheme_id=" + localStorage.getItem("scheme_id");
     })
 </script>
 
