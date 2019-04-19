@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.Similar_SchemeMapper">
+    <select id="GetSimilarActionSchemeId" resultType="Integer">
+        SELECT scheme_id from scheme_info where combat_direction = #{combat_direction} and scheme_type = #{scheme_type};
+    </select>
+    <select id="GetSimilarSafeguardSchemeId" resultType="Integer">
+        SELECT scheme_id FROM scheme_safeguard_info WHERE carry_method = #{carry_method} and safeguard_mode = #{safeguard_mode};
+    </select>
+    <select id="GetSchemeArmyCountBySchemeId" resultType="Integer">
+        SELECT COUNT(*)as armyCount, scheme_id FROM scheme_army_info WHERE scheme_id = #{scheme_id} GROUP BY scheme_id;
+    </select>
+</mapper>
