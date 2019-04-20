@@ -3,6 +3,7 @@ package com.example.entity;
 public class Element {
     private String element_id;
     private Integer category_id;
+    private String category_name;
     private Integer army_id;
     private String equipment_id;
     private String  element_modal;
@@ -37,39 +38,12 @@ public class Element {
     public Element() {
     }
 
-    public Element(String element_id, Integer category_id, Integer army_id, String equipment_id, String element_modal, String element_product_identification, String element_unit, float reference_unit_price, float contract_unit_price, Integer units_installed_number, String installed_location, String element_manufacturer, String element_supplier, String element_financing_division_of_labor, String updateOrNot, Integer maintenance_type, Integer army_reserve_standard, Integer platoon_reserve_standard, Integer random_number, Integer army_initial_number, Integer platoon_initial_number, String element_name, String element_type, String repairOrNot, String secretOrNot, String repair_factory, Integer detection_cycle, String importantOrNot, String importOrNot, String comment, double reliability, Integer work_time) {
-        this.element_id = element_id;
-        this.category_id = category_id;
-        this.army_id = army_id;
-        this.equipment_id = equipment_id;
-        this.element_modal = element_modal;
-        this.element_product_identification = element_product_identification;
-        this.element_unit = element_unit;
-        this.reference_unit_price = reference_unit_price;
-        this.contract_unit_price = contract_unit_price;
-        this.units_installed_number = units_installed_number;
-        this.installed_location = installed_location;
-        this.element_manufacturer = element_manufacturer;
-        this.element_supplier = element_supplier;
-        this.element_financing_division_of_labor = element_financing_division_of_labor;
-        this.updateOrNot = updateOrNot;
-        this.maintenance_type = maintenance_type;
-        this.army_reserve_standard = army_reserve_standard;
-        this.platoon_reserve_standard = platoon_reserve_standard;
-        this.random_number = random_number;
-        this.army_initial_number = army_initial_number;
-        this.platoon_initial_number = platoon_initial_number;
-        this.element_name = element_name;
-        this.element_type = element_type;
-        this.repairOrNot = repairOrNot;
-        this.secretOrNot = secretOrNot;
-        this.repair_factory = repair_factory;
-        this.detection_cycle = detection_cycle;
-        this.importantOrNot = importantOrNot;
-        this.importOrNot = importOrNot;
-        this.comment = comment;
-        this.reliability = reliability;
-        this.work_time = work_time;
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
     }
 
     public String getElement_id() {

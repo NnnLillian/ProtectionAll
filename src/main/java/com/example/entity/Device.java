@@ -2,6 +2,8 @@ package com.example.entity;
 
 public class Device {
     private Integer device_id;
+    private String category_name;
+    private Integer category_id;
     private String device_name;
     private String device_product_id;
     private String device_modal;
@@ -20,8 +22,10 @@ public class Device {
 
     public Device(){}
 
-    public Device(Integer device_id, String device_name, String device_product_id, String device_modal, Integer platoon_id, Integer army_id, String device_manufacturer, String device_product_time, String device_entry_time, String device_source, String device_state, String device_quality, String device_configuration_location, String device_financing_division_of_labor, String device_metering_cycle, String comment) {
+    public Device(Integer device_id, String category_name, Integer category_id, String device_name, String device_product_id, String device_modal, Integer platoon_id, Integer army_id, String device_manufacturer, String device_product_time, String device_entry_time, String device_source, String device_state, String device_quality, String device_configuration_location, String device_financing_division_of_labor, String device_metering_cycle, String comment) {
         this.device_id = device_id;
+        this.category_name = category_name;
+        this.category_id = category_id;
         this.device_name = device_name;
         this.device_product_id = device_product_id;
         this.device_modal = device_modal;
@@ -37,6 +41,22 @@ public class Device {
         this.device_financing_division_of_labor = device_financing_division_of_labor;
         this.device_metering_cycle = device_metering_cycle;
         this.comment = comment;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public Integer getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(Integer category_id) {
+        this.category_id = category_id;
     }
 
     public Integer getDevice_id() {

@@ -1,7 +1,6 @@
 package com.example.util;
 
 import com.example.entity.*;
-import com.mysql.cj.xdevapi.JsonArray;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

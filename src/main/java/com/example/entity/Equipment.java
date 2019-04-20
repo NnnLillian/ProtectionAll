@@ -5,8 +5,11 @@ import java.sql.Timestamp;
 public class Equipment {
     private String equipment_id;
     private Integer category_id;
+    private String category_name;
     private Integer platoon_id;
     private Integer army_id;
+    private String army_name;
+    private String equipment_type;
     private String equipment_name;
     private String category_modal;
     private String category_unit;
@@ -37,11 +40,14 @@ public class Equipment {
     public Equipment() {
     }
 
-    public Equipment(String equipment_id, Integer category_id, Integer platoon_id, Integer army_id, String equipment_name, String category_modal, String category_unit, String equipment_chassis_name, Integer maintain_whole_count, String maintain_whole_time, String equipment_manufacturer, String equipment_product_time, String equipment_entry_time, String equipment_state, String equipment_quality, String equipment_technology, String maintain_whole_element, Integer upgrade_times, String upgrade_element, String maintain_part_time, Integer maintain_part_count, String maintain_part_element, String first_maintain_whole_time, Integer maintain_whole_boot_time, Integer maintain_part_boot_time, Integer total_length_time, String total_specified_life, String cumulative_working_time, String post_extension_period, String comment) {
+    public Equipment(String equipment_id, Integer category_id, String category_name, Integer platoon_id, Integer army_id, String army_name, String equipment_type, String equipment_name, String category_modal, String category_unit, String equipment_chassis_name, Integer maintain_whole_count, String maintain_whole_time, String equipment_manufacturer, String equipment_product_time, String equipment_entry_time, String equipment_state, String equipment_quality, String equipment_technology, String maintain_whole_element, Integer upgrade_times, String upgrade_element, String maintain_part_time, Integer maintain_part_count, String maintain_part_element, String first_maintain_whole_time, Integer maintain_whole_boot_time, Integer maintain_part_boot_time, Integer total_length_time, String total_specified_life, String cumulative_working_time, String post_extension_period, String comment) {
         this.equipment_id = equipment_id;
         this.category_id = category_id;
+        this.category_name = category_name;
         this.platoon_id = platoon_id;
         this.army_id = army_id;
+        this.army_name = army_name;
+        this.equipment_type = equipment_type;
         this.equipment_name = equipment_name;
         this.category_modal = category_modal;
         this.category_unit = category_unit;
@@ -68,6 +74,30 @@ public class Equipment {
         this.cumulative_working_time = cumulative_working_time;
         this.post_extension_period = post_extension_period;
         this.comment = comment;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public String getArmy_name() {
+        return army_name;
+    }
+
+    public void setArmy_name(String army_name) {
+        this.army_name = army_name;
+    }
+
+    public String getEquipment_type() {
+        return equipment_type;
+    }
+
+    public void setEquipment_type(String equipment_type) {
+        this.equipment_type = equipment_type;
     }
 
     public String getEquipment_id() {
