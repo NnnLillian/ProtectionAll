@@ -260,13 +260,13 @@
     $("#testBtn").click(function () {
         let armyList = document.getElementsByName("checkBox");
         console.log(armyList);
-        var array = new Array();
+        let array = new Array();
         for (let i = 0; i < armyList.length; i++) {
             if (armyList[i].checked) {
                 array.push(armyList[i].value);
             }
         }
-        var armyListStr = array.join(",");
+        let armyListStr = array.join(",");
     });
 </script>
 
@@ -278,7 +278,7 @@
     });
 
     // 存储点击控件的ID
-    var BtnId;
+    let BtnId;
     $("button[name^='modal']").on('click', getBtnId);
 
     function getBtnId() {
@@ -299,23 +299,23 @@
         // 加载保障器材信息
         categoryDataInit('teamCategory');
         // console.log(getHtmlElementId());
-        var title = $("#" + BtnId).text();
+        let title = $("#" + BtnId).text();
         // console.log(typeof title);
         $('.myModal-title').text(title);
-        var describe = $("#" + BtnId + "Toolbar").parents(".bootstrap-table").prev().text();
+        let describe = $("#" + BtnId + "Toolbar").parents(".bootstrap-table").prev().text();
         console.log("describe" + describe);
         $('.myModal-p').text(describe);
         // 去除title中的首尾空格
-        var a = $.trim(title);
+        let a = $.trim(title);
         // 截取后五个字符串
-        var groupName = a.slice(-5);
+        let groupName = a.slice(-5);
         $('.myModal-span').text(groupName);
-        var groupInfo = {
+        let groupInfo = {
             scheme_id: localStorage.getItem("scheme_id"),
             group_name: groupName,
             group_type: BtnId
         };
-        var groupStr = JSON.stringify(groupInfo);
+        let groupStr = JSON.stringify(groupInfo);
         $.ajax({
             type: 'POST',
             data: groupStr,
@@ -337,14 +337,14 @@
 
     // 增加保障机构内小编组 TeamId
     $("#newProtectTeam").click(function () {
-        var groupId = localStorage.getItem("group_id");
-        var teamName = $("#teamName").val();
-        var teamDuty = $("#TeamDuty").val();
-        var leaderId = getTeamLeaderId();
-        var deputyHeadId = getDeputyHeadId();
-        var teamMemberIds = getTeamMemberId();
+        let groupId = localStorage.getItem("group_id");
+        let teamName = $("#teamName").val();
+        let teamDuty = $("#TeamDuty").val();
+        let leaderId = getTeamLeaderId();
+        let deputyHeadId = getDeputyHeadId();
+        let teamMemberIds = getTeamMemberId();
 
-        var teamDepartment = [{
+        let teamDepartment = [{
             department_name: "组长",
             department_people: leaderId
         }, {
@@ -363,11 +363,11 @@
                 array.push(armyList[i].value);
             }
         }
-        var armyListStr = array.join(",");
+        let armyListStr = array.join(",");
 
-        var teamCategoryRows = getCategoryList();
+        let teamCategoryRows = getCategoryList();
 
-        var Team = {
+        let Team = {
             group_id: groupId,
             team_type: BtnId,
             team_name: teamName,
@@ -376,7 +376,7 @@
             team_category: teamCategoryRows,
             team_duty: teamDuty
         };
-        var TeamStr = JSON.stringify(Team);
+        let TeamStr = JSON.stringify(Team);
         // console.log(TeamStr);
         $.ajax({
             type: "POST",
@@ -618,7 +618,7 @@
                 width: '10%'
             }]
         });
-    };
+    }
 
     function view(str) {
         var a = $('.tableed ').eq(str).html();

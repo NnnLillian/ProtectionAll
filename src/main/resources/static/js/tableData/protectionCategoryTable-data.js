@@ -1,5 +1,5 @@
 self.categoryDataInit = function (name) {
-    var url, columns, tableName, clickToSelect, Request;
+    let url, columns, tableName, clickToSelect, Request;
     switch (name) {
         case 'teamCategory':
             tableName = "protectCategory-table";
@@ -16,7 +16,8 @@ self.categoryDataInit = function (name) {
                 {
                     field: 'category_id',
                     title: '装备ID',
-                    align: 'center'
+                    align: 'center',
+                    visible: false
                     // width:300
                 }, {
                     field: 'category_name',
@@ -80,6 +81,7 @@ self.categoryDataInit = function (name) {
         columns: columns,
         onClickCell: function (field, value, row, $element) {
             Request = value;
+
             // console.log(Request);
         },
         onLoadSuccess: function (data) { //加載成功時執行
