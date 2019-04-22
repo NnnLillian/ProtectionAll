@@ -19,7 +19,7 @@ self.equipmentDataInit = function (name) {
                     align: 'center',
                     sortable: true,
                     // formatter: uidHandle,//自定義方法設置uid跳轉鏈接
-                    width: 300
+                    // width: 300
                 }, {
                     field: 'equipment_name',
                     title: '装备名称 ',
@@ -33,14 +33,14 @@ self.equipmentDataInit = function (name) {
                     field: 'equipment_chassis_name',
                     title: '底盘名称 ',
                     align: 'center'
-                }, {
-                    field: 'maintain_whole_count',
-                    title: '大修次数 ',
-                    align: 'center'
-                }, {
-                    field: 'maintain_whole_time',
-                    title: '末次大修日期 ',
-                    align: 'center'
+                // }, {
+                //     field: 'maintain_whole_count',
+                //     title: '大修次数 ',
+                //     align: 'center'
+                // }, {
+                //     field: 'maintain_whole_time',
+                //     title: '末次大修日期 ',
+                //     align: 'center'
                 }, {
                     field: 'equipment_manufacturer',
                     title: '生产厂家 ',
@@ -65,10 +65,10 @@ self.equipmentDataInit = function (name) {
                     field: 'equipment_technology',
                     title: '技术状态',
                     align: 'center'
-                }, {
-                    field: 'maintain_whole_element',
-                    title: '末次大修承修单位',
-                    align: 'center'
+                // }, {
+                //     field: 'maintain_whole_element',
+                //     title: '末次大修承修单位',
+                //     align: 'center'
                 }, {
                     field: 'upgrade_times',
                     title: '升级次数',
@@ -77,37 +77,37 @@ self.equipmentDataInit = function (name) {
                     field: 'upgrade_element',
                     title: '升级承制单位',
                     align: 'center'
-                }, {
-                    field: 'maintain_part_time',
-                    title: '末次中修日期',
-                    align: 'center'
-                }, {
-                    field: 'maintain_part_count',
-                    title: '中修次数',
-                    align: 'center'
-                }, {
-                    field: 'maintain_part_element',
-                    title: '末次中修承制单位',
-                    align: 'center'
-                }, {
-                    field: 'first_maintain_whole_time',
-                    title: '首次大修日期',
-                    align: 'center'
-                }, {
-                    field: 'maintain_whole_boot_time',
-                    title: '末次大修后累计开机时间',
-                    align: 'center'
-                }, {
-                    field: 'maintain_part_boot_time',
-                    title: '末次中修后累计开机时间',
-                    align: 'center'
+                // }, {
+                //     field: 'maintain_part_time',
+                //     title: '末次中修日期',
+                //     align: 'center'
+                // }, {
+                //     field: 'maintain_part_count',
+                //     title: '中修次数',
+                //     align: 'center'
+                // }, {
+                //     field: 'maintain_part_element',
+                //     title: '末次中修承制单位',
+                //     align: 'center'
+                // }, {
+                //     field: 'first_maintain_whole_time',
+                //     title: '首次大修日期',
+                //     align: 'center'
+                // }, {
+                //     field: 'maintain_whole_boot_time',
+                //     title: '末次大修后累计开机时间',
+                //     align: 'center'
+                // }, {
+                //     field: 'maintain_part_boot_time',
+                //     title: '末次中修后累计开机时间',
+                //     align: 'center'
                 }, {
                     field: 'total_length_time',
-                    title: '总规定年限',
+                    title: '总规定年限（年）',
                     align: 'center'
                 }, {
                     field: 'total_specified_life',
-                    title: '总规定寿命',
+                    title: '总规定寿命（小时）',
                     align: 'center'
                 }, {
                     field: 'cumulative_working_time',

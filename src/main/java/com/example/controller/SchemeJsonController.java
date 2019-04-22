@@ -1,10 +1,8 @@
 package com.example.controller;
 
 import com.example.entity.*;
-import com.example.service.EnvironmentService;
-import com.example.service.EquipmentService;
-import com.example.service.PeopleService;
-import com.example.service.SchemeService;
+import com.example.mappers.Similar_SchemeMapper;
+import com.example.service.*;
 import com.example.util.JsonBuilder;
 import com.example.util.JsonPaser;
 import org.apache.ibatis.annotations.Param;
@@ -31,6 +29,9 @@ public class SchemeJsonController {
 
     @Autowired
     private PeopleService peopleService;
+
+    @Autowired
+    private SimilarSchemeService similarSchemeService;
 
     private JsonBuilder jsonBuilder = new JsonBuilder();
 
@@ -86,18 +87,23 @@ public class SchemeJsonController {
 
     @ResponseBody
     @RequestMapping(value = "/AddSchemeSafeguard", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
-    public String AddSchemeSafe(@RequestBody String jsonStr) {
+    public List<Integer> AddSchemeSafe(@RequestBody String jsonStr) {
         Integer scheme_id = jsonPaser.ParseSchemeId(jsonStr);
         Integer safeguard_mode = jsonPaser.ParseSafeguardMode(jsonStr);
         Integer carry_method = jsonPaser.ParseCarryMethod(jsonStr);
-        Integer base_id=jsonPaser.ParseBaseId(jsonStr);
+        Integer base_id = jsonPaser.ParseBaseId(jsonStr);
         List<Platoon> platoons = jsonPaser.ParseSafeguardPlatoon(jsonStr);
-        for (int i=0;i<platoons.size();i++){
-            Scheme_Safeguard scheme_safeguard = new Scheme_Safeguard(null,scheme_id,safeguard_mode,null,null,base_id,null,platoons.get(i).getPlatoon_id(),null,carry_method,null);
+        for (int i = 0; i < platoons.size(); i++) {
+            Scheme_Safeguard scheme_safeguard = new Scheme_Safeguard(null, scheme_id, safeguard_mode, null, null, base_id, null, platoons.get(i).getPlatoon_id(), null, carry_method, null);
             schemeService.AddSchemeSafeGuard(scheme_safeguard);
             System.out.println("Add a scheme safe success");
         }
-        return "{\"message\":" + "\"success\"" + "}";
+
+//        完成scheme_Safeguard的填写后，返回推荐内容
+        List<Integer> similarSchemeIds = similarSchemeService.GetSimilarSchemeService(scheme_id);
+        System.out.println("similarSchemeIds: " + similarSchemeIds);
+//        return "{\"message\":" + "\"success\"" + "}";
+        return similarSchemeIds;
     }
 
     @ResponseBody
@@ -224,7 +230,7 @@ public class SchemeJsonController {
     @ResponseBody
     @RequestMapping(value = "/GetBaseResource", method = {RequestMethod.GET})
     public String GetSupplierMsg(@Param("baseId") Integer baseId) {
-        System.out.println("baseId:"+ baseId);
+        System.out.println("baseId:" + baseId);
         List<Supplier> supplier_list = equipmentService.GetSupplierByBase(baseId);
         return jsonBuilder.buildSupplierList(supplier_list);
     }

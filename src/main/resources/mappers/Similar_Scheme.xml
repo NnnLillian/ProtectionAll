@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mappers.Similar_SchemeMapper">
     <select id="GetSimilarActionSchemeId" resultType="Integer">
-        SELECT scheme_id from scheme_info where combat_direction = #{combat_direction} and scheme_type = #{scheme_type};
+        SELECT scheme_id from scheme_info where combat_direction = #{combat_direction} and scheme_type = #{scheme_type} and MONTH(scheme_begin_time)= #{scheme_begin_month} AND MONTH(scheme_end_time)= #{scheme_end_month};
     </select>
     <select id="GetSimilarSafeguardSchemeId" resultType="Integer">
         SELECT scheme_id FROM scheme_safeguard_info WHERE carry_method = #{carry_method} and safeguard_mode = #{safeguard_mode};

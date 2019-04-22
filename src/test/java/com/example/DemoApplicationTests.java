@@ -3,6 +3,7 @@ package com.example;
 import com.example.entity.*;
 import com.example.mappers.*;
 import com.example.service.SchemeService;
+import com.example.service.SimilarSchemeService;
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import net.minidev.json.writer.ArraysMapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -31,7 +33,9 @@ public class DemoApplicationTests {
     @Autowired
     private SchemeMapper schemeMapper;
     @Autowired
-    private SchemeService schemeService;
+    private SimilarSchemeService similarSchemeService;
+    @Autowired
+    private Similar_SchemeMapper similarSchemeMapper;
 
 
     @Test
@@ -128,4 +132,51 @@ public class DemoApplicationTests {
         Group group = groupMapper.GetSchemeGroupBySchemeIdAndGroupType(16, "repair");
     }
 
+    @Test
+    public void SelectSimilarScheme() {
+//        选择出Action相似的schemeId
+        List<Integer> schemeIdList1 = similarSchemeMapper.GetSimilarActionSchemeId("1", "1", "4", "5");
+        System.out.println("action: " + schemeIdList1);
+//        选择出Safeguards相似的schemeId
+        List<Integer> schemeIdList2 = similarSchemeMapper.GetSimilarSafeguardSchemeId(1, 6);
+        System.out.println("safeguard: " + schemeIdList2);
+
+//        选择出两个数组中相同的部分并输出
+        HashSet<Integer> sameHash = new HashSet(schemeIdList1);
+        sameHash.retainAll(schemeIdList2);
+        System.out.println(sameHash);
+
+//        将HashSet转化为Array
+        Integer[] sameList = new Integer[sameHash.size()];
+        sameList = sameHash.toArray(sameList);
+
+//        存放相似内容的schemeId List
+        List<Integer> similarSchemeId = new ArrayList<>();
+        for (int i = 0; i < sameList.length; i++) {
+//            输出不同scheme的作战规模（作战队伍数量）
+            Integer armyCount = similarSchemeMapper.GetSchemeArmyCountBySchemeId(sameList[i]);
+//            如果作战规模相似，则加入similarSchemeId
+            if (armyCount == 3) {
+                similarSchemeId.add(sameList[i]);
+            }
+        }
+    }
+
+    @Test
+    public void ReturnSimilarSchemeId(){
+        System.out.println(similarSchemeService.GetSimilarSchemeService(18));
+    }
+
+    @Test
+    public void RemoveList(){
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("beijing");
+        list.add("shanghai");
+        list.add("shanghai");
+        list.add("guangzhou");
+        list.add("shenzhen");
+        list.add("hangzhou");
+        list.remove("shanghai");
+        System.out.println(list);
+    }
 }
