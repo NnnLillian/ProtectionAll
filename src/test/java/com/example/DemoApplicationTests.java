@@ -164,7 +164,12 @@ public class DemoApplicationTests {
 
     @Test
     public void ReturnSimilarSchemeId(){
-        System.out.println(similarSchemeService.GetSimilarSchemeService(18));
+       List<Integer> similarSchemeIds =similarSchemeService.GetSimilarSchemeService(18);
+        List<Scheme> similarSchemeList = new ArrayList<>();
+        for(Integer m : similarSchemeIds){
+            similarSchemeList.add(schemeMapper.GetSchemeBySchemeID(m));
+        }
+        System.out.println(similarSchemeList);
     }
 
     @Test
