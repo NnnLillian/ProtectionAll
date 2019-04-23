@@ -48,6 +48,12 @@ public class JsonBuilder {
 
     }
 
+    public String buildScheme(List<Scheme> schemeList) throws JSONException {
+        JSONObject resObj = new JSONObject();
+        resObj.put("scheme", schemeList);
+        return resObj.toString();
+    }
+
     public String buildArmyList(List<Army> army_list) throws JSONException {
         JSONObject resObj = new JSONObject();
         resObj.put("total", army_list.size());

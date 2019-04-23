@@ -42,7 +42,6 @@ public class SchemeJsonController {
     public String AddScheme(@RequestBody String jsonStr) {
         System.out.println(jsonStr);
         Scheme scheme = jsonPaser.ParseScheme(jsonStr);
-        scheme.setScheme_name("方案");
         Location location = jsonPaser.ParseLocation(jsonStr);
         Integer locationID = schemeService.GetLocationID(location.getLongitude(), location.getLatitude());
 
@@ -87,7 +86,7 @@ public class SchemeJsonController {
 
     @ResponseBody
     @RequestMapping(value = "/AddSchemeSafeguard", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
-    public List<Integer> AddSchemeSafe(@RequestBody String jsonStr) {
+    public String AddSchemeSafe(@RequestBody String jsonStr) {
         Integer scheme_id = jsonPaser.ParseSchemeId(jsonStr);
         Integer safeguard_mode = jsonPaser.ParseSafeguardMode(jsonStr);
         Integer carry_method = jsonPaser.ParseCarryMethod(jsonStr);
@@ -98,12 +97,26 @@ public class SchemeJsonController {
             schemeService.AddSchemeSafeGuard(scheme_safeguard);
             System.out.println("Add a scheme safe success");
         }
-
-//        完成scheme_Safeguard的填写后，返回推荐内容
         List<Integer> similarSchemeIds = similarSchemeService.GetSimilarSchemeService(scheme_id);
-        System.out.println("similarSchemeIds: " + similarSchemeIds);
-//        return "{\"message\":" + "\"success\"" + "}";
-        return similarSchemeIds;
+        if (similarSchemeIds.size() == 0) {
+            return "{\"similarExist\":" + "\"no\"" + "}";
+        }
+        return "{\"similarKExist\":" + "\"yes\"" + "}";
+    }
+
+
+    //        完成scheme_Safeguard的填写后，返回推荐内容
+    @ResponseBody
+    @RequestMapping(value = "/GetSimilarScheme", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+    public String GetSimilarScheme(@RequestBody Integer scheme_id) {
+        System.out.println("schemeId:" + scheme_id);
+        List<Integer> similarSchemeIds = similarSchemeService.GetSimilarSchemeService(scheme_id);
+        List<Scheme> similarSchemeList = new ArrayList<>();
+        for (Integer m : similarSchemeIds) {
+            similarSchemeList.add(schemeService.GetSchemeBySchemeID(m));
+        }
+        System.out.println("similarSchemeIds:" + similarSchemeIds);
+        return jsonBuilder.buildScheme(similarSchemeList);
     }
 
     @ResponseBody
