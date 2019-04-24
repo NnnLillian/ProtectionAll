@@ -31,15 +31,21 @@
     <script src="js/toggles.min.js"></script>
     <script src="js/retina.min.js"></script>
     <script src="js/jquery.cookies.js"></script>
-
     <script src="js/select2.min.js"></script>
+    <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>
 
     <script src="js/custom.js"></script>
-    <script src="js/when.js"></script>
+<!--    <script src="js/when.js"></script>-->
     <script src="js/sweetalert.min.js"></script>
     <script src="js/bootstrap-select.js"></script>
     <script src="js/bootstrap-table.min.js"></script>
     <script src="js/bootstrap-table-zh-CN.js"></script>
+
+    <style>
+        #schemeContents {
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body>
@@ -171,7 +177,7 @@
 
 <script th:inline="javascript">
 
-    <!-- 加载共同头部 -->
+    // 加载共同头部
     $(function () {
         $('.left').load("left");
         // $('.head').load("head")
@@ -274,22 +280,9 @@
                 url: "/AddSchemeSafeguard",
                 dataType: "json",
                 async: false,     // 取消异步加载
-                success: function (data) {
-                    if (data.similarExist === 'yes') {
-                        $.ajax({
-                            type:'POST',
-                            contentType: "application/json;charset=UTF-8",
-                            data: JSON.stringify(localStorage.getItem("scheme_id")),
-                            url: "/GetSimilarScheme",
-                            async: false,
-                            success: function(data){
-                                console.log(data);
-                                console.log("similar success");
-                            },
-                            error: function () {
-                                console.error("similar error");
-                            }
-                        })
+                success: function (msg) {
+                    if (msg.similarExist === "yes") {
+                        showSimilarAlter();
                     }
                     // window.location.href = "/ShowMap";
                     // location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
@@ -298,8 +291,80 @@
                     console.error("error");
 
                 }
-            })
+            });
 
+            function showSimilarAlter() {
+                $.ajax({
+                    type: 'POST',
+                    url: "/GetSimilarScheme",
+                    contentType: "application/json;charset=UTF-8",
+                    data: JSON.stringify(localStorage.getItem("scheme_id")),
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        console.dir(data);
+                        let array = data.scheme;
+                        console.log(array);
+                        let content = document.createElement("ol");
+                        content.setAttribute("class", "similarSchemeContent");
+                        if (array != null) {
+                            $.map(array, function (item, index) {
+                                console.log(item);
+                                let items = document.createElement("li");
+                                items.onclick = function () {
+                                    showSchemeContent(item.scheme_id, item.scheme_name)
+                                };
+                                items.style.marginBottom = "10px";
+                                items.style.cursor = "pointer";
+                                items.innerText = item.scheme_name;
+                                content.append(items);
+                            });
+                        }
+                        Swal.fire({
+                            title: '<strong>推荐方案</strong>',
+                            type: 'info',
+                            html: content, // HTML
+                            confirmButtonText: "谢谢，不需要", //聚焦到确定按钮
+                            showCloseButton: true,//右上角关闭
+                            allowOutsideClick: false
+                        }).then(function () {
+                            location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
+                        });
+                        console.log("similar success");
+                    },
+                    error: function () {
+                        console.error("similar error");
+                    }
+                })
+            }
+
+            function showSchemeContent(id, name) {
+                Swal.fire({
+                    titleText: "方案内容",
+                    html: "<div id='schemeContents'></div>",
+                    width: "80%",
+                    showCancelButton: true,
+                    confirmButtonText: '选择该方案',
+                    cancelButtonText: '取消',
+                }).then((result) => {
+                    if (result.value) {
+                        Swal.fire(
+                            '已选择推荐方案',
+                            '方案名称: ' + name,
+                            'success'
+                        ).then(function () {
+                            location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
+                        })
+                    } else if (
+                        // Read more about handling dismissals
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        showAlter();
+                    }
+                });
+                $("#schemeContents").load("/text?scheme_id=" + id);
+
+            }
 
         })
 

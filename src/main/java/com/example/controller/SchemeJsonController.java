@@ -101,7 +101,7 @@ public class SchemeJsonController {
         if (similarSchemeIds.size() == 0) {
             return "{\"similarExist\":" + "\"no\"" + "}";
         }
-        return "{\"similarKExist\":" + "\"yes\"" + "}";
+        return "{\"similarExist\":" + "\"yes\"" + "}";
     }
 
 
