@@ -15,11 +15,12 @@ public class Scheme {
 //    private String carry_method;//携装方式
     private List<Equipment> equipment_list;
     private String action_group_flag;
+    private double evaluate_result; //评分结果
 
     public Scheme() {
     }
 
-    public Scheme(Integer scheme_id, String scheme_name, String scheme_code, Integer location_id, String scheme_begin_time, String scheme_end_time, String scheme_type, String combat_direction, List<Equipment> equipment_list, String action_group_flag) {
+    public Scheme(Integer scheme_id, String scheme_name, String scheme_code, Integer location_id, String scheme_begin_time, String scheme_end_time, String scheme_type, String combat_direction, List<Equipment> equipment_list, String action_group_flag, double evaluate_result) {
         this.scheme_id = scheme_id;
         this.scheme_name = scheme_name;
         this.scheme_code = scheme_code;
@@ -30,6 +31,7 @@ public class Scheme {
         this.combat_direction = combat_direction;
         this.equipment_list = equipment_list;
         this.action_group_flag = action_group_flag;
+        this.evaluate_result = evaluate_result;
     }
 
     public Integer getScheme_id() {
@@ -110,5 +112,13 @@ public class Scheme {
 
     public void setAction_group_flag(String action_group_flag) {
         this.action_group_flag = action_group_flag;
+    }
+
+    public double getEvaluate_result() {
+        return evaluate_result;
+    }
+
+    public void setEvaluate_result(double evaluate_result) {
+        this.evaluate_result = evaluate_result;
     }
 }
