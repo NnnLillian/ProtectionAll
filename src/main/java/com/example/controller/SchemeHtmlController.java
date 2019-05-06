@@ -240,4 +240,24 @@ public class SchemeHtmlController {
         return "try";
     }
 
+    @GetMapping("addDevice")
+    public String Device() {
+        return "device_file";
+    }
+
+    @GetMapping("addCategory")
+    public String Category() {
+        return "category_file";
+    }
+
+    @GetMapping("addElement")
+    public String Element() {
+        return "element_file";
+    }
+
+    @GetMapping("addEquipment")
+    public String Equipment() {
+        return "equipment_file";
+    }
+
 }

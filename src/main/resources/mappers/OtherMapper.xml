@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.OtherMapper">
+    <select id="GetCategoryByName" resultType="com.example.entity.Category">
+        select * from category_info where category_name = #{category_name}
+    </select>
+
+    <insert id="AddCategory" parameterType="com.example.entity.Category">
+        insert into category_info(category_name,category_model,category_type,category_unit,category_comment)
+        values (#{category_name},#{category_model},#{category_type},#{category_unit},#{category_comment})
+    </insert>
+
+    <update id="updateCategory" parameterType="com.example.entity.Category">
+        update category_info
+        <set>
+            <if test="category_model != null and category_model != ''">
+                category_model = #{category_model},
+            </if>
+            <if test="category_type != null and category_type!=''">
+                category_type = #{category_type},
+            </if>
+            <if test="category_unit != null and category_unit != ''">
+                category_unit = #{category_unit},
+            </if>
+            <if test="category_comment != null and category_comment != ''">
+                category_comment = #{category_comment},
+            </if>
+        </set>
+        where category_name = #{category_name};
+    </update>
+
+    <select id="GetDeviceByNameAndModel" resultType="com.example.entity.Device">
+        select * from device_info where device_name = #{device_name} and device_modal = #{device_modal}
+    </select>
+
+    <insert id="AddDevice" parameterType="com.example.entity.Device">
+        insert into device_info(device_name, army_id, device_product_id, device_modal, device_manufacturer, device_product_time, device_entry_time, device_source, device_state, device_quality, device_configuration_location, device_financing_division_of_labor, device_metering_cycle,comment,category_id)
+        VALUES(#{device_name}, #{army_id}, #{device_product_id}, #{device_modal}, #{device_manufacturer}, #{device_product_time}, #{device_entry_time}, #{device_source}, #{device_state}, #{device_quality}, #{device_configuration_location}, #{device_financing_division_of_labor}, #{device_metering_cycle}, #{comment} ,#{category_id})
+    </insert>
+
+    <select id="GetElementByElementAndCategoryId" resultType="com.example.entity.Element">
+        select * from element_info where element_name = #{element_name} and category_id = #{category_id}
+    </select>
+
+    <insert id="AddElement" parameterType="com.example.entity.Element">
+        insert into element_info (element_id,category_id,army_id, element_name, element_modal, element_product_identification, element_unit, reference_unit_price, contract_unit_price, units_installed_number, installed_location, element_manufacturer, element_supplier, element_financing_division_of_labor, updateOrNot, army_reserve_standard, platoon_reserve_standard, random_number, army_initial_number, platoon_initial_number, repairOrNot, secretOrNot, repair_factory, detection_cycle, importantOrNot, importOrNot, comment) VALUES
+        (#{element_id},#{category_id},#{army_id}, #{element_name}, #{element_modal}, #{element_product_identification}, #{element_unit}, #{reference_unit_price}, #{contract_unit_price}, #{units_installed_number}, #{installed_location}, #{element_manufacturer}, #{element_supplier}, #{element_financing_division_of_labor}, #{updateOrNot}, #{army_reserve_standard}, #{platoon_reserve_standard}, #{random_number}, #{army_initial_number}, #{platoon_initial_number}, #{repairOrNot}, #{secretOrNot}, #{repair_factory}, #{detection_cycle}, #{importantOrNot}, #{importOrNot}, #{comment})
+    </insert>
+
+
+    <select id="GetEquipment" resultType="com.example.entity.Equipment">
+        select * from equipment_info where equipment_id = #{equipment_id}
+    </select>
+
+
+    <insert id="AddEquipment" parameterType="com.example.entity.Equipment">
+        insert into equipment_info (equipment_id, equipment_name, category_id, category_modal, platoon_id, army_id, category_unit, equipment_chassis_name, maintain_whole_count, maintain_whole_time, equipment_manufacturer, equipment_product_time, equipment_entry_time, equipment_state, equipment_quality, equipment_technology, maintain_whole_element, upgrade_times, upgrade_element, maintain_part_time, maintain_part_count, maintain_part_element, first_maintain_whole_time, maintain_whole_boot_time, maintain_part_boot_time, total_length_time, total_specified_life, cumulative_working_time, post_extension_period, comment)
+        values (#{equipment_id}, #{equipment_name}, #{category_id}, #{category_modal}, #{platoon_id}, #{army_id}, #{category_unit}, #{equipment_chassis_name}, #{maintain_whole_count}, #{maintain_whole_time}, #{equipment_manufacturer}, #{equipment_product_time}, #{equipment_entry_time}, #{equipment_state}, #{equipment_quality}, #{equipment_technology}, #{maintain_whole_element}, #{upgrade_times}, #{upgrade_element}, #{maintain_part_time}, #{maintain_part_count}, #{maintain_part_element}, #{first_maintain_whole_time}, #{maintain_whole_boot_time}, #{maintain_part_boot_time}, #{total_length_time}, #{total_specified_life}, #{cumulative_working_time}, #{post_extension_period}, #{comment})
+    </insert>
+</mapper>
