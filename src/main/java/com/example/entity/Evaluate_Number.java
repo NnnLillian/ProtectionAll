@@ -1,13 +1,13 @@
 package com.example.entity;
 
-public class Evaluate {
+public class Evaluate_Number {
     private Integer evaluate_id;
     private Integer scheme_id;
     private double evaluate_number;
 
-    public Evaluate(){}
+    public Evaluate_Number(){}
 
-    public Evaluate(Integer evaluate_id, Integer scheme_id, double evaluate_number) {
+    public Evaluate_Number(Integer evaluate_id, Integer scheme_id, double evaluate_number) {
         this.evaluate_id = evaluate_id;
         this.scheme_id = scheme_id;
         this.evaluate_number = evaluate_number;

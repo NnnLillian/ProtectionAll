@@ -35,7 +35,7 @@
     <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>
 
     <script src="js/custom.js"></script>
-<!--    <script src="js/when.js"></script>-->
+    <!--    <script src="js/when.js"></script>-->
     <script src="js/sweetalert.min.js"></script>
     <script src="js/bootstrap-select.js"></script>
     <script src="js/bootstrap-table.min.js"></script>
@@ -283,9 +283,10 @@
                 success: function (msg) {
                     if (msg.similarExist === "yes") {
                         showSimilarAlter();
+                    } else {
+                        location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
                     }
                     // window.location.href = "/ShowMap";
-                    // location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
                 },
                 error: function () {
                     console.error("error");
@@ -354,12 +355,13 @@
                             'success'
                         ).then(function () {
                             location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
+                            localStorage.setItem("chooseSimilarFlag", "chosen");
                         })
                     } else if (
                         // Read more about handling dismissals
                         result.dismiss === Swal.DismissReason.cancel
                     ) {
-                        showAlter();
+                        showSimilarAlter();
                     }
                 });
                 $("#schemeContents").load("/text?scheme_id=" + id);
