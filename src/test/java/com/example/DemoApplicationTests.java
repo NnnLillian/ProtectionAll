@@ -163,17 +163,17 @@ public class DemoApplicationTests {
     }
 
     @Test
-    public void ReturnSimilarSchemeId(){
-       List<Integer> similarSchemeIds =similarSchemeService.GetSimilarSchemeService(18);
+    public void ReturnSimilarSchemeId() {
+        List<Integer> similarSchemeIds = similarSchemeService.GetSimilarSchemeService(18);
         List<Scheme> similarSchemeList = new ArrayList<>();
-        for(Integer m : similarSchemeIds){
+        for (Integer m : similarSchemeIds) {
             similarSchemeList.add(schemeMapper.GetSchemeBySchemeID(m));
         }
         System.out.println(similarSchemeList);
     }
 
     @Test
-    public void RemoveList(){
+    public void RemoveList() {
         ArrayList<String> list = new ArrayList<String>();
         list.add("beijing");
         list.add("shanghai");
@@ -183,5 +183,48 @@ public class DemoApplicationTests {
         list.add("hangzhou");
         list.remove("shanghai");
         System.out.println(list);
+    }
+
+    @Test
+    public void AddSimilarScheme() {
+        //  将相似方案的groupInfo复制给当前方案
+        similarSchemeMapper.AddSchemeSimilarGroup(25,7);
+        //  得到当前方案的groupInfo
+        List<Group> groupList = groupMapper.GetGroupBySchemeId(7);
+        for (Group i : groupList) {
+            //  得到相似方案的TeamInfo
+            List<Team> similarTeamInfo = groupMapper.GetTeamBySchemeIdAndTeamType(25, i.getGroup_type());
+            for (Team t : similarTeamInfo) {
+                t.setGroup_id(i.getGroup_id());
+                Integer similarTeamId = t.getTeam_id();
+                //  将相似方案的teamInfo复制给当前方案
+                groupMapper.AddTeam(t);
+                //  得到当前方案的TeamId；
+                Integer teamId = t.getTeam_id();
+                //  将相似方案的teamCategoryInfo复制给当前方案
+                similarSchemeMapper.AddSchemeSimilarTeamCategory(similarTeamId, teamId);
+                //  得到相似方案的teamDepartment
+                List<Team_Department> similarDepartmentList = groupMapper.GetTeamDepartmentByTeamId(similarTeamId);
+                //  将相似方案的department_info复制给当前方案
+                for (Team_Department td : similarDepartmentList) {
+                    Integer similarDepartmentId = td.getDepartment_id();
+                    similarSchemeMapper.AddSchemeSimilarDepartment(similarDepartmentId);
+                    Integer department_id = groupMapper.GetDepartmentLastItem();
+                    similarSchemeMapper.AddSchemeSimilarTeamDepartment(similarDepartmentId,teamId, department_id);
+                }
+            }
+
+        }
+    }
+
+    @Test
+    public void AddTeam() {
+        Team team = new Team();
+        team.setGroup_id(15);
+        team.setTeam_name("2");
+        team.setArmy_id("1");
+        team.setTeam_type("123321");
+        groupMapper.AddTeam(team);
+        System.out.println(team.getTeam_id());
     }
 }

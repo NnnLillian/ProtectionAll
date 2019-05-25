@@ -23,7 +23,7 @@
         select * from team_info where group_id in (select group_id from group_info where scheme_id = #{scheme_id}) and team_type = #{team_type}
     </select>
 
-    <insert id="AddTeam" parameterType="Team">
+    <insert id="AddTeam" parameterType="Team"  useGeneratedKeys="true" keyProperty="team_id">
         insert into team_info(group_id,army_id,team_name,team_type,team_duty)values (#{group_id},#{army_id},#{team_name},#{team_type},#{team_duty})
     </insert>
 

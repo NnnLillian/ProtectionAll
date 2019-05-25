@@ -354,8 +354,24 @@
                             '方案名称: ' + name,
                             'success'
                         ).then(function () {
-                            location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
-                            localStorage.setItem("chooseSimilarFlag", "chosen");
+                            console.log("In add similar");
+                            $.ajax({
+                                type: 'POST',
+                                url: "/AddSimilarProtectionGroup/" + id,
+                                contentType: "application/json;charset=UTF-8",
+                                data: JSON.stringify(localStorage.getItem("scheme_id")),
+                                dataType: "json",
+                                async: false,
+                                success: function () {
+                                    localStorage.setItem("chooseSimilarFlag", "chosen");
+                                    localStorage.setItem("similarSchemeId", id);
+                                    console.log("相似方案保障队伍添加成功");
+                                    location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
+                                },
+                                error:function () {
+                                    console.error("相似方案保障队伍添加失败")
+                                }
+                            });
                         })
                     } else if (
                         // Read more about handling dismissals

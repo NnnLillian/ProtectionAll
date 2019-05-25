@@ -18,6 +18,8 @@ public class SimilarSchemeServiceImpl implements SimilarSchemeService {
     private Similar_SchemeMapper similarSchemeMapper;
     @Autowired
     private SchemeMapper schemeMapper;
+    @Autowired
+    private GroupMapper groupMapper;
 
     @Override
     public List<Integer> GetSimilarSchemeService(Integer schemeId) {
@@ -53,4 +55,38 @@ public class SimilarSchemeServiceImpl implements SimilarSchemeService {
 
         return similarSchemeId;
     }
+
+    @Override
+    public void AddSimilarScheme(Integer scheme_id, Integer similarSchemeId) {
+        //  将相似方案的groupInfo复制给当前方案
+        similarSchemeMapper.AddSchemeSimilarGroup(similarSchemeId, scheme_id);
+        //  得到当前方案的groupInfo
+        List<Group> groupList = groupMapper.GetGroupBySchemeId(scheme_id);
+        for (Group i : groupList) {
+            //  得到相似方案的TeamInfo
+            List<Team> similarTeamInfo = groupMapper.GetTeamBySchemeIdAndTeamType(similarSchemeId, i.getGroup_type());
+            for (Team t : similarTeamInfo) {
+                t.setGroup_id(i.getGroup_id());
+                Integer similarTeamId = t.getTeam_id();
+                //  将相似方案的teamInfo复制给当前方案
+                groupMapper.AddTeam(t);
+                //  得到当前方案的TeamId；
+                Integer teamId = t.getTeam_id();
+                //  将相似方案的teamCategoryInfo复制给当前方案
+                similarSchemeMapper.AddSchemeSimilarTeamCategory(similarTeamId, teamId);
+                //  得到相似方案的teamDepartment
+                List<Team_Department> similarDepartmentList = groupMapper.GetTeamDepartmentByTeamId(similarTeamId);
+                //  将相似方案的department_info复制给当前方案
+                for (Team_Department td : similarDepartmentList) {
+                    Integer similarDepartmentId = td.getDepartment_id();
+                    similarSchemeMapper.AddSchemeSimilarDepartment(similarDepartmentId);
+                    Integer department_id = groupMapper.GetDepartmentLastItem();
+                    similarSchemeMapper.AddSchemeSimilarTeamDepartment(similarDepartmentId, teamId, department_id);
+                }
+            }
+
+        }
+    }
+
+
 }

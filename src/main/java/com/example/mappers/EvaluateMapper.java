@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface EvaluateMapper {
+    public List<Evaluate> GetEvaluateItemsByMainType(String evaluate_main_type);
+
     public List<Double> GetEvaluateNumbersBySchemeId(Integer scheme_id);
 }

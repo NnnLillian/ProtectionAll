@@ -86,6 +86,7 @@
                     </div><!-- panel-heading -->
                     <!--原本版本 panel-body-nopadding editable-list-group作用未知-->
                     <!--<div class="panel-body panel-body-nopadding editable-list-group">-->
+                    <div id="similarGroup"></div>
                     <div class="panel-body">
                         <div class="form-group">
                             <h4>装备抢修组</h4>
@@ -275,7 +276,27 @@
     $(function () {
         $('.left').load("left");
         // $('.head').load("head");
+        if (localStorage.getItem("chooseSimilarFlag") === "chosen") {
+
+        }
     });
+
+    function getSimilarContent(){
+        $.ajax({
+            type:'POST',
+            url:"/AddSimilarProtectionGroup",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(localStorage.getItem("similarSchemeId")),
+            dataType: "json",
+            async: false,
+            success:function () {
+                
+            },
+            error:function () {
+
+            }
+        })
+    }
 
     // 存储点击控件的ID
     let BtnId;

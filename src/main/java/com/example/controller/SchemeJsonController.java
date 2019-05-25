@@ -120,6 +120,16 @@ public class SchemeJsonController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/AddSimilarProtectionGroup/{id}", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+    public String AddSimilarScheme(@PathVariable("id") Integer id,
+                                 @RequestBody Integer scheme_id) {
+        System.out.println("SimilarSchemeId: " + id);
+        System.out.println("SchemeId: " + scheme_id);
+        similarSchemeService.AddSimilarScheme(scheme_id, id);
+        return "{\"message\":" + "\"success\"" + "}";
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/AddSchemeGroup", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
     public String AddSchemeGroup(@RequestBody String jsonStr) {
         Group group = jsonPaser.ParseGroup(jsonStr);

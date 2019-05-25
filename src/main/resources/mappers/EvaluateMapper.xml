@@ -3,6 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mappers.EvaluateMapper">
+    <select id="GetEvaluateItemsByMainType" resultType="com.example.entity.Evaluate">
+        select * from evaluate_info where  evaluate_main_type = #{evaluate_main_type}
+    </select>
     <select id="GetEvaluateNumbersBySchemeId">
         select evaluate_number from evaluate_number where scheme_id=#{scheme_id}
     </select>

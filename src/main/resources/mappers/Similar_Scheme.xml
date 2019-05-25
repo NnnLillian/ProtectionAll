@@ -12,4 +12,22 @@
     <select id="GetSchemeArmyCountBySchemeId" resultType="Integer">
         SELECT COUNT(*)as armyCount, scheme_id FROM scheme_army_info WHERE scheme_id = #{scheme_id} GROUP BY scheme_id;
     </select>
+
+    <insert id="AddSchemeSimilarGroup">
+        INSERT INTO group_info(`group_name`,`group_type`,`scheme_id`) SELECT `group_name`,`group_type`, #{scheme_id} as scheme_id FROM group_info WHERE scheme_id = #{SimilarId}
+    </insert>
+
+    <insert id="AddSchemeSimilarDepartment" useGeneratedKeys="true" keyProperty="department_id">
+        INSERT INTO department_info(`department_name`,`people_max_number`) SELECT `department_name`,`people_max_number` FROM department_info WHERE department_id=#{SimilarDepartmentId}
+    </insert>
+
+    <insert id="AddSchemeSimilarTeamDepartment">
+        INSERT INTO team_department_info(`department_id`,`team_id`,`department_people`) SELECT #{department_id} as department_id, #{team_id} as team_id,`department_people` FROM team_department_info WHERE department_id
+= #{similarDepartmentId}
+    </insert>
+
+    <insert id="AddSchemeSimilarTeamCategory">
+        REPLACE INTO team_category_info(`category_id`,`category_number`,`team_id`) SELECT `category_id`,`category_number`,#{team_id} as team_id FROM team_category_info WHERE team_id
+= #{similarTeamId}
+    </insert>
 </mapper>

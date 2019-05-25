@@ -16,4 +16,16 @@ public interface Similar_SchemeMapper {
 
     //    根据schemeId选出作战部队规模
     public Integer GetSchemeArmyCountBySchemeId(Integer scheme_id);
+
+    //    在group_info中插入相似方案的group信息
+    public void AddSchemeSimilarGroup(@Param("SimilarId") Integer SimilarId, @Param("scheme_id") Integer scheme_id);
+
+    //    在department_info中插入相似方案的department信息
+    public void AddSchemeSimilarDepartment(Integer SimilarDepartmentId);
+
+    //    在team_department_info中插入相似方案的department信息
+    public void AddSchemeSimilarTeamDepartment(@Param("similarDepartmentId") Integer similarDepartmentId,@Param("team_id") Integer team_id, @Param("department_id") Integer department_id);
+
+    //    在team_category_info中插入相似方案的teamCategory信息
+    public void AddSchemeSimilarTeamCategory(@Param("similarTeamId") Integer similarTeamId, @Param("team_id") Integer team_id);
 }
