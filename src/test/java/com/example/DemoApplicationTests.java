@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -186,9 +183,9 @@ public class DemoApplicationTests {
     }
 
     @Test
-    public void AddSimilarScheme() {
+    public void AddSimilarSchemeGroup() {
         //  将相似方案的groupInfo复制给当前方案
-        similarSchemeMapper.AddSchemeSimilarGroup(25,7);
+        similarSchemeMapper.AddSchemeSimilarGroup(25, 7);
         //  得到当前方案的groupInfo
         List<Group> groupList = groupMapper.GetGroupBySchemeId(7);
         for (Group i : groupList) {
@@ -210,10 +207,32 @@ public class DemoApplicationTests {
                     Integer similarDepartmentId = td.getDepartment_id();
                     similarSchemeMapper.AddSchemeSimilarDepartment(similarDepartmentId);
                     Integer department_id = groupMapper.GetDepartmentLastItem();
-                    similarSchemeMapper.AddSchemeSimilarTeamDepartment(similarDepartmentId,teamId, department_id);
+                    similarSchemeMapper.AddSchemeSimilarTeamDepartment(similarDepartmentId, teamId, department_id);
                 }
             }
 
+        }
+    }
+
+    @Test
+    public void AddSimilarSchemeEquipment() {
+        List<Equipment> e = schemeMapper.GetSchemeEquipmentBySchemeId(25);
+        List<Equipment> alle = equipmentMapper.GetEquipmentByPlatoonIdAndType(1,"action");
+//        List<Equipment> e = equipmentMapper.GetEquipmentByPlatoonIdAndType(1,"action");
+
+        Map<String,String> map = new HashMap<>();
+        for (Equipment m :e){
+            map.put(m.getEquipment_id(),m.getEquipment_name());
+        }
+
+        for (int i = 0; i < alle.size(); i++) {
+            if (map.containsKey(alle.get(i).getEquipment_id())){
+                alle.get(i).setState(true);
+            }
+        }
+        System.out.println("After For");
+        for (Equipment m :alle){
+            System.out.println(m.getState());
         }
     }
 

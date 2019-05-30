@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class SchemeJsonController {
@@ -122,7 +124,7 @@ public class SchemeJsonController {
     @ResponseBody
     @RequestMapping(value = "/AddSimilarProtectionGroup/{id}", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
     public String AddSimilarScheme(@PathVariable("id") Integer id,
-                                 @RequestBody Integer scheme_id) {
+                                   @RequestBody Integer scheme_id) {
         System.out.println("SimilarSchemeId: " + id);
         System.out.println("SchemeId: " + scheme_id);
         similarSchemeService.AddSimilarScheme(scheme_id, id);
@@ -215,7 +217,25 @@ public class SchemeJsonController {
     @RequestMapping(value = "/GetEquipmentMsg", method = {RequestMethod.GET})
     public String GetEquipmentMsg(@Param("platoon_id") Integer platoon_id, @Param("type") String type) {
         List<Equipment> equipment_list = equipmentService.GetEquipmentByPlatoonIdAndType(platoon_id, type);
+        return jsonBuilder.buildEquipmentList(equipment_list);
+    }
 
+    @ResponseBody
+    @RequestMapping(value = "/GetSimilarEquipmentMsg/{id}", method = {RequestMethod.GET})
+    public String GetSimilarEquipmentMsg(@PathVariable("id") Integer id,
+                                         @Param("platoon_id") Integer platoon_id,
+                                         @Param("type") String type) {
+        List<Equipment> similarEquipmentList = schemeService.GetEquipmentBySchemeId(id);
+        List<Equipment> equipment_list = equipmentService.GetEquipmentByPlatoonIdAndType(platoon_id, type);
+        Map<String, String> map = new HashMap<>();
+        for (Equipment s : similarEquipmentList) {
+            map.put(s.getEquipment_id(), s.getEquipment_name());
+        }
+        for (int i = 0; i < equipment_list.size(); i++) {
+            if (map.containsKey(equipment_list.get(i).getEquipment_id())) {
+                equipment_list.get(i).setState(true);
+            }
+        }
         return jsonBuilder.buildEquipmentList(equipment_list);
     }
 

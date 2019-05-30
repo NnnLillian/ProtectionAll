@@ -37,7 +37,7 @@
         values (#{scheme_name},#{scheme_code},#{location_id},#{scheme_type},#{combat_direction},#{scheme_begin_time},#{scheme_end_time},#{evaluate_result})
     </insert>
     <insert id="AddSchemeEquipment">
-        insert into scheme_equipment_info(scheme_id,equipment_id)
+        replace into scheme_equipment_info(scheme_id,equipment_id)
         values(#{scheme_id},#{equipment_id})
     </insert>
     <insert id="AddSchemeArmy">

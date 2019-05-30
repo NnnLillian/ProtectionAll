@@ -237,7 +237,11 @@
 
 <!-- 携装装备表格录入 -->
 <script>
-    equipmentDataInit('task-carryEquipment');
+    if (localStorage.getItem('chooseSimilarFlag') === "chosen") {
+        equipmentDataInit('similar-task-carryEquipment')
+    } else {
+        equipmentDataInit('task-carryEquipment');
+    }
 
     function getCarryEquipment() {
         return $("#carryEquipment-table").bootstrapTable('getSelections');

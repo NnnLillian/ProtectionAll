@@ -28,4 +28,5 @@ public interface Similar_SchemeMapper {
 
     //    在team_category_info中插入相似方案的teamCategory信息
     public void AddSchemeSimilarTeamCategory(@Param("similarTeamId") Integer similarTeamId, @Param("team_id") Integer team_id);
+//    选出相似方案中的
 }

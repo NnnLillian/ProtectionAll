@@ -60,7 +60,7 @@
     </select>
 
     <insert id="AddSchemeEquipment" parameterType="com.example.entity.Scheme_Equipment">
-        insert into scheme_equipment_info(scheme_id, equipment_id) values (#{scheme_id},#{equipment_id})
+        replace into scheme_equipment_info(scheme_id, equipment_id) values (#{scheme_id},#{equipment_id})
     </insert>
 
     <select id="GetElementMaintainDate" resultType="String">

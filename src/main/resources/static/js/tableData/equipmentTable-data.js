@@ -1,126 +1,15 @@
 self.equipmentDataInit = function (name) {
-    var url, columns, tableName, clickToSelect;
+    let url, tableName;
     switch (name) {
         case 'task-carryEquipment':
             // // local data
             // url = "js/tableData/json/carryEquipment.json";
-
             url = "/GetEquipmentMsg?type=action&platoon_id=" + localStorage.getItem("platoon_id");
-            // url = "/GetEquipmentMsg?type=action&platoon_id=1";
             tableName = "carryEquipment-table";
-            clickToSelect = true;
-            columns = [
-                {
-                    checkbox: true
-                },
-                {
-                    field: 'equipment_id',
-                    title: '装备编号',
-                    align: 'center',
-                    sortable: true,
-                    // formatter: uidHandle,//自定義方法設置uid跳轉鏈接
-                    // width: 300
-                }, {
-                    field: 'equipment_name',
-                    title: '装备名称 ',
-                    align: 'center',
-                    sortable: false   //本列不可以排序
-                }, {
-                    field: 'category_unit',
-                    title: '计量单位',
-                    align: 'center',
-                }, {
-                    field: 'equipment_chassis_name',
-                    title: '底盘名称 ',
-                    align: 'center'
-                // }, {
-                //     field: 'maintain_whole_count',
-                //     title: '大修次数 ',
-                //     align: 'center'
-                // }, {
-                //     field: 'maintain_whole_time',
-                //     title: '末次大修日期 ',
-                //     align: 'center'
-                }, {
-                    field: 'equipment_manufacturer',
-                    title: '生产厂家 ',
-                    align: 'center'
-                }, {
-                    field: 'equipment_product_time',
-                    title: '出厂年月 ',
-                    align: 'center'
-                }, {
-                    field: 'equipment_entry_time',
-                    title: '入役年月 ',
-                    align: 'center'
-                }, {
-                    field: 'equipment_state',
-                    title: '现处状态 ',
-                    align: 'center'
-                }, {
-                    field: 'equipment_quality',
-                    title: '质量状况',
-                    align: 'center'
-                }, {
-                    field: 'equipment_technology',
-                    title: '技术状态',
-                    align: 'center'
-                // }, {
-                //     field: 'maintain_whole_element',
-                //     title: '末次大修承修单位',
-                //     align: 'center'
-                }, {
-                    field: 'upgrade_times',
-                    title: '升级次数',
-                    align: 'center'
-                }, {
-                    field: 'upgrade_element',
-                    title: '升级承制单位',
-                    align: 'center'
-                // }, {
-                //     field: 'maintain_part_time',
-                //     title: '末次中修日期',
-                //     align: 'center'
-                // }, {
-                //     field: 'maintain_part_count',
-                //     title: '中修次数',
-                //     align: 'center'
-                // }, {
-                //     field: 'maintain_part_element',
-                //     title: '末次中修承制单位',
-                //     align: 'center'
-                // }, {
-                //     field: 'first_maintain_whole_time',
-                //     title: '首次大修日期',
-                //     align: 'center'
-                // }, {
-                //     field: 'maintain_whole_boot_time',
-                //     title: '末次大修后累计开机时间',
-                //     align: 'center'
-                // }, {
-                //     field: 'maintain_part_boot_time',
-                //     title: '末次中修后累计开机时间',
-                //     align: 'center'
-                }, {
-                    field: 'total_length_time',
-                    title: '总规定年限（年）',
-                    align: 'center'
-                }, {
-                    field: 'total_specified_life',
-                    title: '总规定寿命（小时）',
-                    align: 'center'
-                }, {
-                    field: 'cumulative_working_time',
-                    title: '累计工作时间',
-                    align: 'center'
-                }, {
-                    field: 'post_extension_period',
-                    title: '延期后使用期限',
-                    align: 'center'
-                }
-            ];
             break;
-        case 'socketOutputTab':
+        case 'similar-task-carryEquipment':
+            url = "/GetSimilarEquipmentMsg/"+localStorage.getItem("similarSchemeId")+"?type=action&platoon_id=" + localStorage.getItem("platoon_id");
+            tableName = "carryEquipment-table";
             //省略
             break;
     }
@@ -149,7 +38,7 @@ self.equipmentDataInit = function (name) {
         showColumns: true,                  //是否顯示所有的列
         showRefresh: true,                  //是否顯示刷新按鈕
         // showToggle:true,                    //是否顯示詳細視圖和列表視圖
-        clickToSelect: clickToSelect,                //是否啟用點擊選中行
+        clickToSelect: true,                //是否啟用點擊選中行
         minimumCountColumns: 2,          //最少允許的列數
         pagination: true,                   //是否顯示分頁（*）
         pageNumber: 1,                   //初始化加載第一頁，默認第一頁
@@ -161,7 +50,118 @@ self.equipmentDataInit = function (name) {
         paginationFirstText: "第一页",
         paginationLastText: "最后一页",
         // responseHandler: responseHandler,    // 如果json不是 {total:"2" row:{},{}} 的格式
-        columns: columns,
+        columns: [
+            {
+                field: 'state',
+                checkbox: true,
+                formatter: stateFormatter
+            },
+            {
+                field: 'equipment_id',
+                title: '装备编号',
+                align: 'center',
+                sortable: true,
+                // formatter: uidHandle,//自定義方法設置uid跳轉鏈接
+                // width: 300
+            }, {
+                field: 'equipment_name',
+                title: '装备名称 ',
+                align: 'center',
+                sortable: false   //本列不可以排序
+            }, {
+                field: 'category_unit',
+                title: '计量单位',
+                align: 'center',
+            }, {
+                field: 'equipment_chassis_name',
+                title: '底盘名称 ',
+                align: 'center'
+                // }, {
+                //     field: 'maintain_whole_count',
+                //     title: '大修次数 ',
+                //     align: 'center'
+                // }, {
+                //     field: 'maintain_whole_time',
+                //     title: '末次大修日期 ',
+                //     align: 'center'
+            }, {
+                field: 'equipment_manufacturer',
+                title: '生产厂家 ',
+                align: 'center'
+            }, {
+                field: 'equipment_product_time',
+                title: '出厂年月 ',
+                align: 'center'
+            }, {
+                field: 'equipment_entry_time',
+                title: '入役年月 ',
+                align: 'center'
+            }, {
+                field: 'equipment_state',
+                title: '现处状态 ',
+                align: 'center'
+            }, {
+                field: 'equipment_quality',
+                title: '质量状况',
+                align: 'center'
+            }, {
+                field: 'equipment_technology',
+                title: '技术状态',
+                align: 'center'
+                // }, {
+                //     field: 'maintain_whole_element',
+                //     title: '末次大修承修单位',
+                //     align: 'center'
+            }, {
+                field: 'upgrade_times',
+                title: '升级次数',
+                align: 'center'
+            }, {
+                field: 'upgrade_element',
+                title: '升级承制单位',
+                align: 'center'
+                // }, {
+                //     field: 'maintain_part_time',
+                //     title: '末次中修日期',
+                //     align: 'center'
+                // }, {
+                //     field: 'maintain_part_count',
+                //     title: '中修次数',
+                //     align: 'center'
+                // }, {
+                //     field: 'maintain_part_element',
+                //     title: '末次中修承制单位',
+                //     align: 'center'
+                // }, {
+                //     field: 'first_maintain_whole_time',
+                //     title: '首次大修日期',
+                //     align: 'center'
+                // }, {
+                //     field: 'maintain_whole_boot_time',
+                //     title: '末次大修后累计开机时间',
+                //     align: 'center'
+                // }, {
+                //     field: 'maintain_part_boot_time',
+                //     title: '末次中修后累计开机时间',
+                //     align: 'center'
+            }, {
+                field: 'total_length_time',
+                title: '总规定年限（年）',
+                align: 'center'
+            }, {
+                field: 'total_specified_life',
+                title: '总规定寿命（小时）',
+                align: 'center'
+            }, {
+                field: 'cumulative_working_time',
+                title: '累计工作时间',
+                align: 'center'
+            }, {
+                field: 'post_extension_period',
+                title: '延期后使用期限',
+                align: 'center'
+            }
+        ],
         onLoadSuccess: function (data) { //加載成功時執行
             console.log(data);
         },
@@ -191,5 +191,22 @@ self.equipmentDataInit = function (name) {
             console.log(row);
         }
     });
-};
+
+    function stateFormatter(value, row, index) {
+        if (row.state === true) {
+            return {
+                disabled: false,//设置是否不可用
+                checked: true//设置选中
+            }
+        } else {
+            return {
+                disabled: false,
+                checked: false
+            }
+        }
+        ;
+        return value;
+    }
+}
+;
 

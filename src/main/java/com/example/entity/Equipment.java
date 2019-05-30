@@ -36,11 +36,12 @@ public class Equipment {
     private String cumulative_working_time;
     private String post_extension_period;
     private String comment;
+    private Boolean state;
 
     public Equipment() {
     }
 
-    public Equipment(String equipment_id, Integer category_id, String category_name, Integer platoon_id, Integer army_id, String army_name, String equipment_type, String equipment_name, String category_modal, String category_unit, String equipment_chassis_name, Integer maintain_whole_count, String maintain_whole_time, String equipment_manufacturer, String equipment_product_time, String equipment_entry_time, String equipment_state, String equipment_quality, String equipment_technology, String maintain_whole_element, Integer upgrade_times, String upgrade_element, String maintain_part_time, Integer maintain_part_count, String maintain_part_element, String first_maintain_whole_time, Integer maintain_whole_boot_time, Integer maintain_part_boot_time, Integer total_length_time, String total_specified_life, String cumulative_working_time, String post_extension_period, String comment) {
+    public Equipment(String equipment_id, Integer category_id, String category_name, Integer platoon_id, Integer army_id, String army_name, String equipment_type, String equipment_name, String category_modal, String category_unit, String equipment_chassis_name, Integer maintain_whole_count, String maintain_whole_time, String equipment_manufacturer, String equipment_product_time, String equipment_entry_time, String equipment_state, String equipment_quality, String equipment_technology, String maintain_whole_element, Integer upgrade_times, String upgrade_element, String maintain_part_time, Integer maintain_part_count, String maintain_part_element, String first_maintain_whole_time, Integer maintain_whole_boot_time, Integer maintain_part_boot_time, Integer total_length_time, String total_specified_life, String cumulative_working_time, String post_extension_period, String comment, Boolean state) {
         this.equipment_id = equipment_id;
         this.category_id = category_id;
         this.category_name = category_name;
@@ -74,6 +75,7 @@ public class Equipment {
         this.cumulative_working_time = cumulative_working_time;
         this.post_extension_period = post_extension_period;
         this.comment = comment;
+        this.state = state;
     }
 
     public String getCategory_name() {
@@ -339,5 +341,13 @@ public class Equipment {
 
     public void setPost_extension_period(String post_extension_period) {
         this.post_extension_period = post_extension_period;
+    }
+
+    public Boolean getState() {
+        return state;
+    }
+
+    public void setState(Boolean state) {
+        this.state = state;
     }
 }

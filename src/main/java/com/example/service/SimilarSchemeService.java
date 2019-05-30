@@ -10,4 +10,5 @@ public interface SimilarSchemeService {
 
     //    将推荐方案中的保障小分队信息加入现有方案
     public void AddSimilarScheme(Integer scheme_id, Integer similarSchemeId);
+
 }

@@ -281,22 +281,6 @@
         }
     });
 
-    function getSimilarContent(){
-        $.ajax({
-            type:'POST',
-            url:"/AddSimilarProtectionGroup",
-            contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify(localStorage.getItem("similarSchemeId")),
-            dataType: "json",
-            async: false,
-            success:function () {
-                
-            },
-            error:function () {
-
-            }
-        })
-    }
 
     // 存储点击控件的ID
     let BtnId;
