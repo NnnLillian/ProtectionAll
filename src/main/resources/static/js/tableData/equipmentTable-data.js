@@ -4,11 +4,11 @@ self.equipmentDataInit = function (name) {
         case 'task-carryEquipment':
             // // local data
             // url = "js/tableData/json/carryEquipment.json";
-            url = "/GetEquipmentMsg?type=action&platoon_id=" + localStorage.getItem("platoon_id");
+            url = "/GetEquipmentMsg/" + localStorage.getItem("scheme_id") + "?type=action&platoon_id=" + localStorage.getItem("platoon_id");
             tableName = "carryEquipment-table";
             break;
         case 'similar-task-carryEquipment':
-            url = "/GetSimilarEquipmentMsg/"+localStorage.getItem("similarSchemeId")+"?type=action&platoon_id=" + localStorage.getItem("platoon_id");
+            url = "/GetSimilarEquipmentMsg/" + localStorage.getItem("similarSchemeId") + "?type=action&platoon_id=" + localStorage.getItem("platoon_id");
             tableName = "carryEquipment-table";
             //省略
             break;
@@ -204,7 +204,6 @@ self.equipmentDataInit = function (name) {
                 checked: false
             }
         }
-        ;
         return value;
     }
 }

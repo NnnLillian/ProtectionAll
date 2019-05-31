@@ -214,9 +214,18 @@ public class SchemeJsonController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/GetEquipmentMsg", method = {RequestMethod.GET})
-    public String GetEquipmentMsg(@Param("platoon_id") Integer platoon_id, @Param("type") String type) {
+    @RequestMapping(value = "/GetEquipmentMsg/{scheme_id}", method = {RequestMethod.GET})
+    public String GetEquipmentMsg(@PathVariable("scheme_id") Integer scheme_id,
+                                  @Param("platoon_id") Integer platoon_id,
+                                  @Param("type") String type) {
         List<Equipment> equipment_list = equipmentService.GetEquipmentByPlatoonIdAndType(platoon_id, type);
+        Integer carryPattern = schemeService.GetOneSchemeSafeguardBySchemeId(scheme_id).getCarry_method();
+        //  携装方式为“全装”时，默认全选状态
+        if (carryPattern == 1) {
+            for (int i = 0; i < equipment_list.size(); i++) {
+                equipment_list.get(i).setState(true);
+            }
+        }
         return jsonBuilder.buildEquipmentList(equipment_list);
     }
 
