@@ -194,14 +194,27 @@ public class SchemeJsonController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/GetArmyMsg", method = {RequestMethod.GET})
-    public String GetArmyMsg(@Param("platoon_id") Integer platoon_id, @Param("army_type") String army_type) {
+    @RequestMapping(value = "/GetArmyMsg/{schemeId}", method = {RequestMethod.GET})
+    public String GetArmyMsg(@PathVariable("schemeId") Integer schemeId,
+                             @Param("platoon_id") Integer platoon_id,
+                             @Param("army_type") String army_type) {
         List<Army> army_list;
+        //  将已选择的armyId作标记
+        List<Scheme_Army> schemeArmyList = schemeService.GetSchemeArmyBySchemeId(schemeId);
         if (army_type != null) {
             army_list = schemeService.RequestArmyByType(platoon_id, army_type);
         } else {
             army_list = schemeService.RequestArmy(platoon_id);
             System.out.println("ArmyMsg:" + army_list.size());
+        }
+        Map<Integer, String> map = new HashMap<>();
+        for (Scheme_Army s : schemeArmyList) {
+            map.put(s.getArmy_id(), s.getArmy_name());
+        }
+        for (int i = 0; i < army_list.size(); i++) {
+            if (map.containsKey(army_list.get(i).getArmy_id())) {
+                army_list.get(i).setState(true);
+            }
         }
         return jsonBuilder.buildArmyList(army_list);
     }

@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class Army {
 
+    private boolean state;
     private Integer army_id;
     private Integer platoon_id;
     private String army_name;
@@ -14,12 +15,21 @@ public class Army {
     public Army() {
     }
 
-    public Army(Integer army_id, Integer platoon_id, String army_name, Integer army_people, String army_type) {
+    public Army(boolean state, Integer army_id, Integer platoon_id, String army_name, Integer army_people, String army_type) {
+        this.state = state;
         this.army_id = army_id;
         this.platoon_id = platoon_id;
         this.army_name = army_name;
         this.army_people = army_people;
         this.army_type = army_type;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
     }
 
     public Integer getArmy_id() {

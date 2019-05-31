@@ -24,7 +24,7 @@ public class OtherServiceImpl implements OtherService {
         Army army = armyMapper.GetArmyByNameAndPlatooId(army_name,platoon.getPlatoon_id());
         if (army == null)
         {
-            army = new Army(null,platoon.getPlatoon_id(),army_name,0,"normal");
+            army = new Army(false,null,platoon.getPlatoon_id(),army_name,0,"normal");
             armyMapper.IncreaseArmy(army);
         }
         army = armyMapper.GetArmyByNameAndPlatooId(army_name,platoon.getPlatoon_id());
@@ -77,7 +77,7 @@ public class OtherServiceImpl implements OtherService {
         Army army = armyMapper.GetArmyByNameAndPlatooId(army_name,platoon.getPlatoon_id());
         if (army == null)
         {
-            army = new Army(null,platoon.getPlatoon_id(),army_name,0,"normal");
+            army = new Army(false,null,platoon.getPlatoon_id(),army_name,0,"normal");
             armyMapper.IncreaseArmy(army);
         }
         army = armyMapper.GetArmyByNameAndPlatooId(army_name,platoon.getPlatoon_id());
@@ -124,7 +124,7 @@ public class OtherServiceImpl implements OtherService {
             Army army = armyMapper.GetArmyByNameAndPlatooId(equipment.getArmy_name(),platoon.getPlatoon_id());
             if (army == null)
             {
-                army = new Army(null,platoon.getPlatoon_id(),equipment.getArmy_name(),0,"normal");
+                army = new Army(false,null,platoon.getPlatoon_id(),equipment.getArmy_name(),0,"normal");
                 armyMapper.IncreaseArmy(army);
             }
 
