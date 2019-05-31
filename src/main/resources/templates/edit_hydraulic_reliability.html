@@ -124,16 +124,43 @@
         $('.left').load("left");
     });
 
-    // $('#calculationReliability').click(function () {
-    echart();
+    let baseInfo = [77, 33, 40, 46, 53];
+    let dataInfo =["滤油器故障", "汇油环故障", "发射车起竖油缸", "发射车调平油缸故障", "发射车侧移油缸故障"];
+    let baseFlag = localStorage.getItem("case_position");
+    switch (baseFlag) {
+        case "1":
+            dataInfo=["发射车侧移油缸故障","发射车调平油缸故障", "起竖油缸故障","下滑油缸故障","电磁换向阀故障"];
+            baseInfo = [40, 56, 62, 53, 38];
+            break;
+        case "2":
+            dataInfo=["发射车侧移油缸故障","发射车调平油缸故障", "起竖油缸故障","汇油环故障","滤油器故障"];
+            baseInfo = [60, 46, 68, 40, 52];
+            break;
+        case "3":
+            dataInfo=["发射车侧移油缸故障","起竖油缸故障","汇油环故障","滤油器故障","下滑油缸故障"];
+            baseInfo = [55, 40, 66, 45, 43];
+            break;
+        case "4":
+            dataInfo=["发射车侧移油缸故障","起竖油缸故障","滤油器故障","下滑油缸故障","筒弹锁定油缸故障"];
+            baseInfo = [46, 40, 66, 45, 43];
+            break;
+        case "5":
+            dataInfo=["发射车侧移油缸故障","发射车调平油缸故障", "起竖油缸故障","汇油环故障","下滑油缸故障"];
+            baseInfo = [48, 56, 65, 44, 52];
+            break;
+        case "6":
+            dataInfo=["发射车侧移油缸故障","发射车调平油缸故障", "起竖油缸故障","下滑油缸故障","电磁换向阀故障"];
+            baseInfo = [68, 33, 40, 46, 53];
+            break;
+    }
 
-    // });
+    echart();
 
     function echart() {
         <!-- 计算可靠度页面载入 -->
         let myChart = echarts.init(document.getElementById('calculationDiv'));
 
-        var base = [64, 33, 40, 46, 53];
+        var base = baseInfo;
 
         var warningValue = 10;   //警告值
         var errorValue = 50;    //错误值
@@ -216,7 +243,7 @@
                 },
                 yAxis: {
                     type: 'category',
-                    data: ["滤油器故障", "汇油环故障", "发射车起竖油缸", "发射车调平油缸故障", "发射车侧移油缸故障"],
+                    data: dataInfo,
                     axisLabel: {
                         show: true,
                         textStyle: {

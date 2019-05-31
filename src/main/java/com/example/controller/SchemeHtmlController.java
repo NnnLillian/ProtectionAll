@@ -7,10 +7,7 @@ import com.example.service.SchemeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -109,9 +106,16 @@ public class SchemeHtmlController {
     }
 
     @GetMapping("/edit_protection")
-    public String GetEditProtection(Model model) {
+    public String GetEditProtection(@RequestParam("scheme_id") Integer scheme_id, Model model) {
         List<Platoon> platoon_list = schemeService.RequestPlatoon();
         List<Base> baseList = schemeService.RequestBase();
+        Integer schemePlatoonId = schemeService.GetSchemeArmyBySchemeId(scheme_id).get(0).getPlatoon_id();
+        for (int i = platoon_list.size() - 1; i >= 0; i--) {
+            Platoon item = platoon_list.get(i);
+            if (item.getPlatoon_id() == schemePlatoonId) {
+                platoon_list.remove(item);
+            }
+        }
         model.addAttribute("base_list", baseList);
         model.addAttribute("platoon_list", platoon_list);
         return "edit_protection";

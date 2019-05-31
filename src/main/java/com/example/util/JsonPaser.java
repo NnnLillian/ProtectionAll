@@ -113,6 +113,12 @@ public class JsonPaser {
         return jsonObj.getInt("scheme_id");
     }
 
+    public Integer ParsePlatoonId(String jsonStr) throws JSONException {
+        JSONObject jsonObj = new JSONObject(jsonStr);
+        return jsonObj.getInt("platoon_id");
+    }
+
+
     public Integer ParseSafeguardMode(String jsonStr) throws JSONException {
         JSONObject jsonObj = new JSONObject(jsonStr);
         return jsonObj.getInt("safeguard_mode");

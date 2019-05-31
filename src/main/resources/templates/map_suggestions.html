@@ -40,7 +40,7 @@
     <!--<script type="text/javascript" src="baidumapv2_demo/jquery.js"></script>-->
     <script src="baidumapv2_demo/layer/layer.js" type="text/javascript"></script>
     <link href="baidumapv2/css/baidu_map_v2.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="baidumapv2_demo/stylelist.js"></script>
+    <script src="baidumapv2_demo/stylelist.js" type="text/javascript"></script>
 
     <!--&lt;!&ndash; 折线图 &ndash;&gt;-->
     <script src="js/flot/jquery.flot.min.js"></script>
@@ -110,7 +110,7 @@
                             <!--<button onclick="calDistance()" class="btn btn-primary mr10">距离值</button>-->
                             <!--<button onclick="removeLine()" class="btn btn-default mr10">清除</button>-->
                             <div class="mb20"></div>
-<!--                            <a href="baidumapv2_demo/demo/8_0.html" target="mapfrm">设置地图模板样式</a>-->
+                            <!--                            <a href="baidumapv2_demo/demo/8_0.html" target="mapfrm">设置地图模板样式</a>-->
                             <div class="mb10" id="map_demo">MapDiv</div>
                         </div><!-- col-md-12 -->
                     </div><!-- row -->
@@ -263,8 +263,8 @@
 <!-- 百度地图APP　-->
 <script type="text/javascript">
     // 百度地图API功能
-    var map = new BMap.Map("map_demo");  // 不限制滚轮缩放尺度
-    // var map = new BMap.Map("map_demo", {minZoom: 5, maxZoom: 8});
+    // var map = new BMap.Map("map_demo");  // 不限制滚轮缩放尺度
+    var map = new BMap.Map("map_demo", {minZoom: 4, maxZoom: 13});
     var lng = localStorage.getItem("lng");
     var lat = localStorage.getItem("lat");
     var point = new BMap.Point(lng, lat);
@@ -277,10 +277,10 @@
     map.addControl(new BMap.ScaleControl());                    // 添加比例尺控件
     map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
     map.enableScrollWheelZoom();                            //启用滚轮放大缩小
-    map.addControl(new BMap.MapTypeControl({mapTypes: [BMAP_NORMAL_MAP,BMAP_SATELLITE_MAP,BMAP_HYBRID_MAP]}));          //添加地图类型控件
+    map.addControl(new BMap.MapTypeControl({mapTypes: [BMAP_NORMAL_MAP, BMAP_SATELLITE_MAP, BMAP_HYBRID_MAP]}));          //添加地图类型控件
     map.addControl(new BMap.OverviewMapControl());          //添加默认缩略地图控件
-    map.addControl(new BMap.OverviewMapControl({isOpen:true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT}));      //右下角，打开
-    map.setMapStyle({style:'normal'});
+    map.addControl(new BMap.OverviewMapControl({isOpen: true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT}));      //右下角，打开
+    map.setMapStyle({style: 'normal'});
 
     var polyline = new BMap.Polyline([
         new BMap.Point(92.06, 31.28),

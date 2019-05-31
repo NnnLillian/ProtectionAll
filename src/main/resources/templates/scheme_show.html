@@ -69,7 +69,7 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-sm-offset-3" style="text-align: center; margin: 0 auto">
                                         <button class="btn btn-primary"
-                                                onclick="window.location.href='/edit_action'">完成
+                                                onclick="finishScheme()">完成
                                         </button>&nbsp;
                                         <button class="btn btn-default"
                                                 onclick="javascript:history.go(-1);">返回
@@ -127,6 +127,10 @@
     // $('.head').load("head")
     $('.scheme-content').load("text?scheme_id=" + localStorage.getItem("scheme_id"))
 
+    function finishScheme() {
+        localStorage.clear();
+        window.location.href='/edit_action';
+    }
     // jQuery(window).load(function () {
     //     "use strict";
         // var container = document.querySelector('#bloglist');

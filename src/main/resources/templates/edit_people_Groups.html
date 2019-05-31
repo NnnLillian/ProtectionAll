@@ -114,7 +114,7 @@
                         <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
                             返回
                         </button>
-                        <button type="button" id="determineNumber" class="btn btn-primary" onclick="window.location.href='/edit_protection'">继续</button>
+                        <button type="button" id="determineNumber" class="btn btn-primary" onclick="finishArmyGroups()">继续</button>
                     </div><!-- panel-footer -->
                 </div><!-- panel -->
             </div><!-- row -->
@@ -176,7 +176,7 @@
     });
 
     // 加载一次作战活动重的不同梯队
-    var $groupsTable = $('#groupsTable');
+    let $groupsTable = $('#groupsTable');
 
     // 注意，此操作应该置于InitTable之前
     window.operateEvents = {
@@ -264,8 +264,8 @@
 
     //初始化子表格
     InitSubTable = function (index, row, $detail) {
-        var parentid = row.action_group_id;
-        var cur_table = $detail.html('<table></table>').find('table');
+        let parentid = row.action_group_id;
+        let cur_table = $detail.html('<table></table>').find('table');
         $(cur_table).bootstrapTable('destroy');
         $(cur_table).bootstrapTable({
             // url: 'js/tableData/json/armyList.json',
@@ -293,13 +293,13 @@
     };
 
     function view(str) {
-        var a = $('.tableed ').eq(str).html()
-        if (a == '查看') {
-            $('.tableed ').eq(str).html('收起')
+        var a = $('.tableed ').eq(str).html();
+        if (a === '查看') {
+            $('.tableed ').eq(str).html('收起');
             $groupsTable.bootstrapTable('expandRow', str);
         }
         else {
-            $('.tableed ').eq(str).html('查看')
+            $('.tableed ').eq(str).html('查看');
             $groupsTable.bootstrapTable('collapseRow', str);
         }
         event.stopPropagation();
@@ -309,6 +309,10 @@
         return [
             '<button class="btn btn-danger" id="deleteActionGroup" type="button">删除</button>'
         ]
+    }
+
+    function finishArmyGroups() {
+        window.location.href = "/edit_protection?scheme_id=" + localStorage.getItem("scheme_id");
     }
 
 </script>
@@ -417,6 +421,7 @@
                 }
                 var scheme_army_list = {
                     scheme_id: localStorage.getItem("scheme_id"),
+                    platoon_id: localStorage.getItem("platoon_id"),
                     scheme_army_list: army_msg
                 };
                 var armyStr = JSON.stringify(scheme_army_list);

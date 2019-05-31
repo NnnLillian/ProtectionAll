@@ -110,6 +110,21 @@
                         </div>
                         <hr>
                         <h3>保障关系</h3>
+
+                        <div class="form-group" id="sameLevelDiv" style="display: none">
+                            <label class="col-sm-3 control-label"> 同级保障单位<span class="asterisk">*</span></label>
+                            <div class="col-sm-6">
+                                <select class="select2 selectpicker show-tick filter-option" id="sameLevel" multiple>
+                                    <th:block th:each="item:${platoon_list}">
+                                        <option th:text="${item.getPlatoon_name()}"
+                                                th:value="${item.getPlatoon_id()}">
+                                            十二旅
+                                        </option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-sm-3 control-label"> 上级保障单位<span class="asterisk">*</span></label>
                             <div class="col-sm-6">
@@ -127,22 +142,8 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label"> 同级保障单位<span class="asterisk">*</span></label>
-                            <div class="col-sm-6">
-                                <select class="select2 selectpicker show-tick filter-option" id="sameLevel" multiple>
-                                    <option value="0">无</option>
-                                    <th:block th:each="item:${platoon_list}">
-                                        <option th:text="${item.getPlatoon_name()}"
-                                                th:value="${item.getPlatoon_id()}">
-                                            十二旅
-                                        </option>
-                                    </th:block>
-                                </select>
-                            </div>
-                        </div>
 
-                        <div class="form-group">
+                        <div class="form-group" style="display: none" id="highLevelDiv">
                             <label class="col-sm-3 control-label mr10">依托保障资源</label>
                             <div class="col-sm-8">
                                 <table id="safeguardRes">
@@ -180,8 +181,6 @@
     $(function () {
         $('.left').load("left");
         // $('.head').load("head")
-
-        // initTable();
     });
 
     jQuery(document).ready(function () {
@@ -198,10 +197,11 @@
 
     $('#highLevel').change(function () {
         let baseId = $('#highLevel option:selected').val();
+        $("#highLevelDiv").css('display', 'block');
         initTable(baseId);
     });
 
-    var $safeguardRes = $('#safeguardRes');
+    let $safeguardRes = $('#safeguardRes');
 
     function initTable(baseId) {
         $safeguardRes.empty();
@@ -235,157 +235,176 @@
         })
     }
 
-
-    $(function () {
-        $('#newSchemeProtectionBtn').click(function () {
-            var carryPattern = $('#carryPattern option:selected').val();
-            var protectionPatternItem = $('#protectionPattern').select2("val");
-            console.log(protectionPatternItem);
-            // 将获得数组的每一位由字符串更改为数字
-            var res = protectionPatternItem.map(function (value, index, array) {
-                return parseInt(value);
-            });
-            // 数组求和
-            var protectionPattern = res.reduce(function (a, b) {
-                return a + b;
-            }, 0);
-            var highLevel = $('#highLevel option:selected').val();
-            var sameLevel = $('#sameLevel').select2("val");
-            var scheme_safeguard = [];
-            for (var i in sameLevel) {
-                var platoonId = {
-                    platoon_id: sameLevel[i]
-                };
-                scheme_safeguard.push(platoonId);
-            }
+    //  二级联动，选择保障模式后，判断是否出现同级保障关系
+    $('#protectionPattern').change(function () {
+        let protectionPatternItem = $('#protectionPattern').select2("val");
+        console.log(protectionPatternItem);
+        // 将获得数组的每一位由字符串更改为数字
+        let res = protectionPatternItem.map(function (value, index, array) {
+            return parseInt(value);
+        });
+        // 数组求和
+        let protectionPattern = res.reduce(function (a, b) {
+            return a + b;
+        }, 0);
+        let $sameLevelDiv = $("#sameLevelDiv");
+        if ((protectionPattern > 1 && protectionPattern < 4) || (protectionPattern > 5 && protectionPattern < 8)) {
+            $sameLevelDiv.css('display', 'block');
+        } else {
+            $sameLevelDiv.css('display', 'none');
+        }
+    });
 
 
-            var scheme = {
-                scheme_id: localStorage.getItem("scheme_id"),
-                safeguard_mode: protectionPattern,
-                carry_method: carryPattern,
-                base_id: highLevel,
-                scheme_safeguard: scheme_safeguard
+    $('#newSchemeProtectionBtn').click(function () {
+        let carryPattern = $('#carryPattern option:selected').val();
+        let protectionPatternItem = $('#protectionPattern').select2("val");
+        console.log(protectionPatternItem);
+        // 将获得数组的每一位由字符串更改为数字
+        let res = protectionPatternItem.map(function (value, index, array) {
+            return parseInt(value);
+        });
+        // 数组求和
+        let protectionPattern = res.reduce(function (a, b) {
+            return a + b;
+        }, 0);
+        let sameLevel = localStorage.getItem("platoon_id");
+        if ((protectionPattern > 1 && protectionPattern < 4) || (protectionPattern > 5 && protectionPattern < 8)) {
+            sameLevel = $('#sameLevel').select2("val");
+        }
+        let highLevel = $('#highLevel option:selected').val();
+        let scheme_safeguard = [];
+        for (let i in sameLevel) {
+            let platoonId = {
+                platoon_id: sameLevel[i]
             };
+            scheme_safeguard.push(platoonId);
+        }
 
-            var schemeStr = JSON.stringify(scheme);
 
-            console.log(schemeStr);
+        let scheme = {
+            scheme_id: localStorage.getItem("scheme_id"),
+            safeguard_mode: protectionPattern,
+            carry_method: carryPattern,
+            base_id: highLevel,
+            scheme_safeguard: scheme_safeguard
+        };
 
+        let schemeStr = JSON.stringify(scheme);
+
+        console.log(schemeStr);
+
+        $.ajax({
+            type: 'POST',
+            data: schemeStr,
+            contentType: "application/json;charset=UTF-8",
+            url: "/AddSchemeSafeguard",
+            dataType: "json",
+            async: false,     // 取消异步加载
+            success: function (msg) {
+                if (msg.similarExist === "yes") {
+                    showSimilarAlter();
+                } else {
+                    location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
+                }
+            },
+            error: function () {
+                console.error("error");
+
+            }
+        });
+
+        function showSimilarAlter() {
             $.ajax({
                 type: 'POST',
-                data: schemeStr,
+                url: "/GetSimilarScheme",
                 contentType: "application/json;charset=UTF-8",
-                url: "/AddSchemeSafeguard",
+                data: JSON.stringify(localStorage.getItem("scheme_id")),
                 dataType: "json",
-                async: false,     // 取消异步加载
-                success: function (msg) {
-                    if (msg.similarExist === "yes") {
-                        showSimilarAlter();
-                    } else {
-                        location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
+                async: false,
+                success: function (data) {
+                    console.dir(data);
+                    let array = data.scheme;
+                    console.log(array);
+                    let content = document.createElement("ol");
+                    content.setAttribute("class", "similarSchemeContent");
+                    if (array != null) {
+                        $.map(array, function (item, index) {
+                            console.log(item);
+                            let items = document.createElement("li");
+                            items.onclick = function () {
+                                showSchemeContent(item.scheme_id, item.scheme_name)
+                            };
+                            items.style.marginBottom = "10px";
+                            items.style.cursor = "pointer";
+                            items.innerText = item.scheme_name;
+                            content.append(items);
+                        });
                     }
-                    // window.location.href = "/ShowMap";
+                    Swal.fire({
+                        title: '<strong>推荐方案</strong>',
+                        type: 'info',
+                        html: content, // HTML
+                        confirmButtonText: "谢谢，不需要", //聚焦到确定按钮
+                        showCloseButton: true,//右上角关闭
+                        allowOutsideClick: false
+                    }).then(function () {
+                        localStorage.setItem("chooseSimilarFlag", "no");
+                        localStorage.setItem("similarSchemeId", '0');
+                        location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
+                    });
+                    console.log("similar success");
                 },
                 error: function () {
-                    console.error("error");
+                    console.error("similar error");
+                }
+            })
+        }
 
+        function showSchemeContent(id, name) {
+            Swal.fire({
+                titleText: "方案内容",
+                html: "<div id='schemeContents'></div>",
+                width: "80%",
+                showCancelButton: true,
+                confirmButtonText: '选择该方案',
+                cancelButtonText: '取消',
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire(
+                        '已选择推荐方案',
+                        '方案名称: ' + name,
+                        'success'
+                    ).then(function () {
+                        console.log("In add similar");
+                        $.ajax({
+                            type: 'POST',
+                            url: "/AddSimilarProtectionGroup/" + id,
+                            contentType: "application/json;charset=UTF-8",
+                            data: JSON.stringify(localStorage.getItem("scheme_id")),
+                            dataType: "json",
+                            async: false,
+                            success: function () {
+                                localStorage.setItem("chooseSimilarFlag", "chosen");
+                                localStorage.setItem("similarSchemeId", id);
+                                console.log("相似方案保障队伍添加成功");
+                                location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
+                            },
+                            error: function () {
+                                console.error("相似方案保障队伍添加失败")
+                            }
+                        });
+                    })
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    showSimilarAlter();
                 }
             });
+            $("#schemeContents").load("/text?scheme_id=" + id);
 
-            function showSimilarAlter() {
-                $.ajax({
-                    type: 'POST',
-                    url: "/GetSimilarScheme",
-                    contentType: "application/json;charset=UTF-8",
-                    data: JSON.stringify(localStorage.getItem("scheme_id")),
-                    dataType: "json",
-                    async: false,
-                    success: function (data) {
-                        console.dir(data);
-                        let array = data.scheme;
-                        console.log(array);
-                        let content = document.createElement("ol");
-                        content.setAttribute("class", "similarSchemeContent");
-                        if (array != null) {
-                            $.map(array, function (item, index) {
-                                console.log(item);
-                                let items = document.createElement("li");
-                                items.onclick = function () {
-                                    showSchemeContent(item.scheme_id, item.scheme_name)
-                                };
-                                items.style.marginBottom = "10px";
-                                items.style.cursor = "pointer";
-                                items.innerText = item.scheme_name;
-                                content.append(items);
-                            });
-                        }
-                        Swal.fire({
-                            title: '<strong>推荐方案</strong>',
-                            type: 'info',
-                            html: content, // HTML
-                            confirmButtonText: "谢谢，不需要", //聚焦到确定按钮
-                            showCloseButton: true,//右上角关闭
-                            allowOutsideClick: false
-                        }).then(function () {
-                            localStorage.setItem("chooseSimilarFlag", "no");
-                            localStorage.setItem("similarSchemeId", '0');
-                            location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
-                        });
-                        console.log("similar success");
-                    },
-                    error: function () {
-                        console.error("similar error");
-                    }
-                })
-            }
-
-            function showSchemeContent(id, name) {
-                Swal.fire({
-                    titleText: "方案内容",
-                    html: "<div id='schemeContents'></div>",
-                    width: "80%",
-                    showCancelButton: true,
-                    confirmButtonText: '选择该方案',
-                    cancelButtonText: '取消',
-                }).then((result) => {
-                    if (result.value) {
-                        Swal.fire(
-                            '已选择推荐方案',
-                            '方案名称: ' + name,
-                            'success'
-                        ).then(function () {
-                            console.log("In add similar");
-                            $.ajax({
-                                type: 'POST',
-                                url: "/AddSimilarProtectionGroup/" + id,
-                                contentType: "application/json;charset=UTF-8",
-                                data: JSON.stringify(localStorage.getItem("scheme_id")),
-                                dataType: "json",
-                                async: false,
-                                success: function () {
-                                    localStorage.setItem("chooseSimilarFlag", "chosen");
-                                    localStorage.setItem("similarSchemeId", id);
-                                    console.log("相似方案保障队伍添加成功");
-                                    location.href = "/edit_protection_group?scheme_id=" + localStorage.getItem("scheme_id");
-                                },
-                                error: function () {
-                                    console.error("相似方案保障队伍添加失败")
-                                }
-                            });
-                        })
-                    } else if (
-                        // Read more about handling dismissals
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
-                        showSimilarAlter();
-                    }
-                });
-                $("#schemeContents").load("/text?scheme_id=" + id);
-
-            }
-
-        })
+        }
 
     })
 

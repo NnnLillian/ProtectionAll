@@ -76,10 +76,12 @@ public class SchemeJsonController {
     public String AddSchemeArmy(@RequestBody String jsonStr) {
 
         Integer scheme_id = jsonPaser.ParseSchemeId(jsonStr);
+        Integer platoon_id = jsonPaser.ParsePlatoonId(jsonStr);
         System.out.println("AddSchemeArmy:" + jsonStr);
         List<Scheme_Army> scheme_army_list = jsonPaser.ParseSchemeArmy(jsonStr);
         for (int i = 0; i < scheme_army_list.size(); i++) {
             scheme_army_list.get(i).setScheme_id(scheme_id);
+            scheme_army_list.get(i).setPlatoon_id(platoon_id);
             schemeService.AddSchemeArmy(scheme_army_list.get(i));
         }
         return null;

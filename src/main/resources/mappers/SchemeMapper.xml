@@ -41,8 +41,8 @@
         values(#{scheme_id},#{equipment_id})
     </insert>
     <insert id="AddSchemeArmy">
-        insert into scheme_army_info(scheme_id,army_id,army_people,army_action_group)
-        values(#{scheme_id},#{army_id},#{army_people},#{army_action_group})
+        insert into scheme_army_info(scheme_id,platoon_id,army_id,army_people,army_action_group)
+        values(#{scheme_id},#{platoon_id},#{army_id},#{army_people},#{army_action_group})
     </insert>
     <insert id="AddSchemeSafeGuard">
         insert into scheme_safeguard_info(scheme_id, safeguard_mode, base_id, platoon_id, carry_method)

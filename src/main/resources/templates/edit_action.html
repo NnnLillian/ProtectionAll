@@ -283,7 +283,7 @@
                             dataType: "json",
                             async: false,
                             success: function (data) {
-                                localStorage.setItem("onActionGroupId", data.action_group_id)
+                                localStorage.setItem("onActionGroupId", data.action_group_id);
                                 window.location.href = "/edit_people_oneGroup";
                             },
                             error: function () {
