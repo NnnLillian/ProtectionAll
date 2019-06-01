@@ -311,4 +311,16 @@ public class SchemeServiceImpl implements SchemeService {
         }
         return groups;
     }
+
+    @Override
+    public void SetPeopleSelectState(Integer departmentId, Boolean state){
+        List<People> peopleList = RequestPeopleByDepartmentId(departmentId);
+        //      通过RequestPeopleByDepartmentId将id数字数组变为List对象，操作check，表示未选中/选中。
+        for (int i = 0; i < peopleList.size(); i++) {
+            peopleList.get(i).setChecks(state);
+            Integer peopleId = peopleList.get(i).getPeople_id();
+            Boolean peopleCheck = peopleList.get(i).isChecks();
+            UpdatePeopleSelect(peopleId, peopleCheck);
+        }
+    }
 }

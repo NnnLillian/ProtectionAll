@@ -12,10 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class SchemeJsonController {
@@ -130,6 +127,19 @@ public class SchemeJsonController {
         System.out.println("SimilarSchemeId: " + id);
         System.out.println("SchemeId: " + scheme_id);
         similarSchemeService.AddSimilarScheme(scheme_id, id);
+//        得到三种保障小分队的人员List
+        List<Team_People> repairTeamPeopleList = schemeService.RequestTeamPeopleBySchemeIdAndType(scheme_id, "repair");
+        List<Team_People> protectTeamPeopleList = schemeService.RequestTeamPeopleBySchemeIdAndType(scheme_id, "protect");
+        List<Team_People> supplyTeamPeopleList = schemeService.RequestTeamPeopleBySchemeIdAndType(scheme_id, "supply");
+//        进行去重合并
+        Set<Team_People> set = new HashSet<Team_People>();
+        set.addAll(repairTeamPeopleList);
+        set.addAll(protectTeamPeopleList);
+        set.addAll(supplyTeamPeopleList);
+        List<Team_People> teamStrList = new ArrayList<Team_People>(set);
+        for (Team_People str : teamStrList) {
+            schemeService.SetPeopleSelectState(str.getDepartment_id(),true);
+        }
         return "{\"message\":" + "\"success\"" + "}";
     }
 
@@ -172,14 +182,7 @@ public class SchemeJsonController {
 //        通过TeamId查找DepartmentList
         List<Department> teamDepartmentListResults = schemeService.RequestTeamDepartmentByTeamId(teamId);
         for (Department d : teamDepartmentListResults) {
-            List<People> peopleList = schemeService.RequestPeopleByDepartmentId(d.getDepartment_id());
-            //      通过RequestPeopleByDepartmentId将id数字数组变为List对象，操作check，表示已经选中。
-            for (int i = 0; i < peopleList.size(); i++) {
-                peopleList.get(i).setChecks(true);
-                Integer peopleId = peopleList.get(i).getPeople_id();
-                Boolean peopleCheck = peopleList.get(i).isChecks();
-                schemeService.UpdatePeopleSelect(peopleId, peopleCheck);
-            }
+            schemeService.SetPeopleSelectState(d.getDepartment_id(),true);
         }
         return "{\"message\":" + "\"success\"" + "}";
     }
@@ -379,14 +382,7 @@ public class SchemeJsonController {
         //        通过TeamId查找DepartmentList
         List<Department> teamDepartmentListResults = schemeService.RequestTeamDepartmentByTeamId(teamId);
         for (Department d : teamDepartmentListResults) {
-            List<People> peopleList = schemeService.RequestPeopleByDepartmentId(d.getDepartment_id());
-            //      通过RequestPeopleByDepartmentId将id数字数组变为List对象，操作check，表示未选中。
-            for (int i = 0; i < peopleList.size(); i++) {
-                peopleList.get(i).setChecks(false);
-                Integer peopleId = peopleList.get(i).getPeople_id();
-                Boolean peopleCheck = peopleList.get(i).isChecks();
-                schemeService.UpdatePeopleSelect(peopleId, peopleCheck);
-            }
+            schemeService.SetPeopleSelectState(d.getDepartment_id(),false);
         }
         schemeService.DeleteTeam(teamId);
     }

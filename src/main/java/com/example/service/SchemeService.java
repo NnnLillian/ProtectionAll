@@ -73,4 +73,6 @@ public interface SchemeService {
     public Integer GetActionGroupId(Action_Group action_group);
 
     public List<Action_Group> GetActionGroups(Integer scheme_id);
+
+    public void SetPeopleSelectState(Integer departmentId, Boolean state);
 }

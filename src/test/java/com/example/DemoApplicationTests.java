@@ -33,7 +33,8 @@ public class DemoApplicationTests {
     private SimilarSchemeService similarSchemeService;
     @Autowired
     private Similar_SchemeMapper similarSchemeMapper;
-
+    @Autowired
+    private SchemeService schemeService;
 
     @Test
     public void checkGetGroup() {
@@ -249,6 +250,20 @@ public class DemoApplicationTests {
 
     @Test
     public void ChangeCheck(){
-        peopleMapper.changePeopleSelected(1,true);
-    }
+        Integer scheme_id =33;
+        Integer id=32;
+//        similarSchemeService.AddSimilarScheme(scheme_id, id);
+//        得到三种保障小分队的List
+        List<Team_People> repairTeamPeopleList = schemeService.RequestTeamPeopleBySchemeIdAndType(scheme_id, "repair");
+        List<Team_People> protectTeamPeopleList = schemeService.RequestTeamPeopleBySchemeIdAndType(scheme_id, "protect");
+        List<Team_People> supplyTeamPeopleList = schemeService.RequestTeamPeopleBySchemeIdAndType(scheme_id, "supply");
+//        进行去重合并
+        Set<Team_People> set = new HashSet<Team_People>();
+        set.addAll(repairTeamPeopleList);
+        set.addAll(protectTeamPeopleList);
+        set.addAll(supplyTeamPeopleList);
+        List<Team_People> teamStrList = new ArrayList<Team_People>(set);
+        for (Team_People str : teamStrList) {
+            schemeService.SetPeopleSelectState(str.getDepartment_id(),true);
+    }}
 }
