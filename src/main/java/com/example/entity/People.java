@@ -18,12 +18,13 @@ public class People {
     private Integer people_army_id;
     private String people_army_name;
     private String comment;
+    private boolean checks;
 
     public People() {
 
     }
 
-    public People(Integer people_id, String people_name, String people_job, String people_sex, String people_nationality, String military_rank, String birthplace, String birthday, String enlistment, String graduated_school, String people_profession, String education, Integer people_army_id, String people_army_name, String comment) {
+    public People(Integer people_id, String people_name, String people_job, String people_sex, String people_nationality, String military_rank, String birthplace, String birthday, String enlistment, String graduated_school, String people_profession, String education, Integer people_army_id, String people_army_name, String comment, boolean checks) {
         this.people_id = people_id;
         this.people_name = people_name;
         this.people_job = people_job;
@@ -39,6 +40,7 @@ public class People {
         this.people_army_id = people_army_id;
         this.people_army_name = people_army_name;
         this.comment = comment;
+        this.checks = checks;
     }
 
     public Integer getPeople_id() {
@@ -159,6 +161,14 @@ public class People {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public boolean isChecks() {
+        return checks;
+    }
+
+    public void setChecks(boolean checks) {
+        this.checks = checks;
     }
 }
 

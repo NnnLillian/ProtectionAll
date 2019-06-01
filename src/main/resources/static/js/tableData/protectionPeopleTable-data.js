@@ -30,16 +30,15 @@ self.peopleDataInit = function (name) {
         case 'teamLeader':
             tableName = "teamLeader-table";
             // 队长一定要从技术勤务科中选择
-            url = "/GetPeopleMsg?army_type=expert";
+            url = "/GetPeopleMsg/" + localStorage.getItem("scheme_id") + "?army_type=expert";
             // url = "js/tableData/json/people.json";
             check = [{
                 radio: true,
                 formatter: function (value, row, index) {
-                    let leader = parseInt(localStorage.getItem("selected_leader"));
-                    if (row.people_id === leader) {
-
+                    if (row.checks === true) {
                         return {
-                            checked: true
+                            disabled: true,
+                            checked: false
                         }
                     }
                     return value;
@@ -49,7 +48,7 @@ self.peopleDataInit = function (name) {
             break;
         case 'deputyHead':
             tableName = "deputyHead-table";
-            url = "/GetPeopleMsg?army_type=both";
+            url = "/GetPeopleMsg/" + localStorage.getItem("scheme_id") + "?army_type=both";
             // url = "js/tableData/json/people.json";
             check = [{
                 radio: true,
@@ -58,10 +57,13 @@ self.peopleDataInit = function (name) {
                     if (row.people_id === leader) {
                         return {
                             disabled: true,
-                            // checked: true
+                            checked: false
                         }
-                    } else {
-                        return {disabled: false}
+                    } else if (row.checks === true) {
+                        return {
+                            disabled: true,
+                            checked: false
+                        }
                     }
                     return value;
                 }
@@ -70,7 +72,7 @@ self.peopleDataInit = function (name) {
             break;
         case 'teamMember':
             tableName = "teamMember-table";
-            url = "/GetPeopleMsg?army_type=both";
+            url = "/GetPeopleMsg/" + localStorage.getItem("scheme_id") + "?army_type=both";
             // url = "js/tableData/json/people.json";
             check = [{
                 // field: 'checkStatus',
@@ -83,10 +85,14 @@ self.peopleDataInit = function (name) {
                     if (row.people_id === i || row.people_id === j) {
                         return {
                             disabled: true,
-                            // checked: true
+                            checked: true
                         }
-                    } else {
-                        return {disabled: false}
+                    } else
+                    if (row.checks === true) {
+                        return {
+                            // checked: false,
+                            disabled: true
+                        }
                     }
                     return value;
                 }
@@ -164,24 +170,6 @@ self.peopleDataInit = function (name) {
     })
 };
 
-// 翻页保留checkBox
-// function responseHandler(res) {
-//     $.each(res.rows, function (i, row) {
-//         row.state = $.inArray(row.id, selections) !== -1;
-//     });
-//     return res;
-// }
-//
-// function mounted() {
-//     $("#teamMember-table").on('check.bs.table check-all.bs.table ' +
-//         'uncheck.bs.table uncheck-all.bs.table', function (e, rows) {
-//         var ids = $.map(!$.isArray(rows) ? [rows] : rows, function (row) {
-//             return row.id
-//         });
-//         var func = $.inArray(e.type, ['check', 'check-all']) > -1 ? 'union' : 'difference'
-//         selections = window._[func](selections, ids)
-//     })
-// }
 
 // 保障部队人员表的选择
 function getTeamLeaderId() {
