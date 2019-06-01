@@ -246,4 +246,9 @@ public class DemoApplicationTests {
         groupMapper.AddTeam(team);
         System.out.println(team.getTeam_id());
     }
+
+    @Test
+    public void ChangeCheck(){
+        peopleMapper.changePeopleSelected(1,true);
+    }
 }

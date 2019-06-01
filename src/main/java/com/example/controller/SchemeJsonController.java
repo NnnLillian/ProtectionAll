@@ -165,7 +165,23 @@ public class SchemeJsonController {
         team.setTeam_category_list(team_categoryList);
         team.setTeam_department_list(team_departmentList);
         team.setDepartmentList(departmentList);
-        return schemeService.AddTeam(team);
+        Integer teamId = schemeService.AddTeam(team);
+        if (teamId == 0){
+            return "{\"message\":" + "\"failed\"" + "}";
+        }
+//        通过TeamId查找DepartmentList
+        List<Department> teamDepartmentListResults = schemeService.RequestTeamDepartmentByTeamId(teamId);
+        for (Department d:teamDepartmentListResults){
+            List<People> peopleList = schemeService.RequestPeopleByDepartmentId(d.getDepartment_id());
+            //      通过RequestPeopleByDepartmentId将id数字数组变为List对象，操作check，表示已经选中。
+            for (int i = 0; i < peopleList.size(); i++) {
+                peopleList.get(i).setChecks(true);
+                Integer peopleId = peopleList.get(i).getPeople_id();
+                Boolean peopleCheck = peopleList.get(i).isChecks();
+                schemeService.UpdatePeopleSelect(peopleId, peopleCheck);
+            }
+        }
+        return "{\"message\":" + "\"success\"" + "}";
     }
 
     @ResponseBody
@@ -313,8 +329,8 @@ public class SchemeJsonController {
 
     //    获得人员信息
     @ResponseBody
-    @RequestMapping(value = "/GetPeopleMsg", method = {RequestMethod.GET})
-    public String AddPeopleMsg(@Param("army_type") String army_type) {
+    @RequestMapping(value = "/GetPeopleMsg/{schemeId}", method = {RequestMethod.GET})
+    public String AddPeopleMsg(@PathVariable("schemeId") Integer schemeId, @Param("army_type") String army_type) {
         String Both = "both";
         List<People> peopleList = peopleService.GetPeopleByArmyType("expert");
         if (army_type.equals(Both)) {

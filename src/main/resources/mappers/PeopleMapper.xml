@@ -15,4 +15,7 @@
     <insert id="AddPeople" parameterType="com.example.entity.People">
         insert into people_info(people_army_id, people_army_name, people_name, people_job, people_sex, people_nationality, military_rank, birthplace, birthday, enlistment, graduated_school, people_profession, education, comment) values(#{people_army_id}, #{people_army_name}, #{people_name}, #{people_job}, #{people_sex}, #{people_nationality}, #{military_rank}, #{birthplace}, #{birthday}, #{enlistment}, #{graduated_school}, #{people_profession}, #{education}, #{comment})
     </insert>
+    <update id="changePeopleSelected">
+        UPDATE people_info SET checks = #{check} WHERE people_id = #{people_id};
+    </update>
 </mapper>

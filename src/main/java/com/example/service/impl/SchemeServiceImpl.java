@@ -152,6 +152,11 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
+    public void UpdatePeopleSelect(Integer people_id, Boolean check) {
+        peopleMapper.changePeopleSelected(people_id,check);
+    }
+
+    @Override
     public Scheme GetSchemeBySchemeID(Integer scheme_id) {
         return schemeMapper.GetSchemeBySchemeID(scheme_id);
     }
@@ -244,10 +249,10 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
-    public String AddTeam(Team team) {
+    public Integer AddTeam(Team team) {
         Integer team_id = groupMapper.GetTeamId(team);
         if (team_id != null) {
-            return "{\"tips\": \"error\"}";
+            return 0;
         } else {
             groupMapper.AddTeam(team);
             Integer team_id1 = groupMapper.GetTeamId(team);
@@ -270,7 +275,7 @@ public class SchemeServiceImpl implements SchemeService {
                 groupMapper.AddTeamDepartment(team_department);
             }
             System.out.println("{\"tips\": \"success\",\"team_id\": " + team_id1 + "}");
-            return "{\"tips\": \"success\",\"team_id\": " + team_id1 + "}";
+            return team_id1;
         }
     }
 

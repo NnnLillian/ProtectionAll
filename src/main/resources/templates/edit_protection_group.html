@@ -393,6 +393,9 @@
             success: function () {
                 $("#newTeamModal").modal('hide');
                 swal("成功！", "保障队伍添加成功", "success");
+                $("#repairGroupTable").bootstrapTable('refresh');
+                $("#protectGroupTable").bootstrapTable('refresh');
+                $("#supplyGroupTable").bootstrapTable('refresh');
             },
             error: function () {
                 console.error("error");
