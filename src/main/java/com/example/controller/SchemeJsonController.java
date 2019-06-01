@@ -166,12 +166,12 @@ public class SchemeJsonController {
         team.setTeam_department_list(team_departmentList);
         team.setDepartmentList(departmentList);
         Integer teamId = schemeService.AddTeam(team);
-        if (teamId == 0){
+        if (teamId == 0) {
             return "{\"message\":" + "\"failed\"" + "}";
         }
 //        通过TeamId查找DepartmentList
         List<Department> teamDepartmentListResults = schemeService.RequestTeamDepartmentByTeamId(teamId);
-        for (Department d:teamDepartmentListResults){
+        for (Department d : teamDepartmentListResults) {
             List<People> peopleList = schemeService.RequestPeopleByDepartmentId(d.getDepartment_id());
             //      通过RequestPeopleByDepartmentId将id数字数组变为List对象，操作check，表示已经选中。
             for (int i = 0; i < peopleList.size(); i++) {
@@ -376,6 +376,18 @@ public class SchemeJsonController {
     @ResponseBody
     @RequestMapping(value = "/DeleteTeam", method = {RequestMethod.DELETE})
     public void DeleteTeam(@Param("teamId") Integer teamId) {
+        //        通过TeamId查找DepartmentList
+        List<Department> teamDepartmentListResults = schemeService.RequestTeamDepartmentByTeamId(teamId);
+        for (Department d : teamDepartmentListResults) {
+            List<People> peopleList = schemeService.RequestPeopleByDepartmentId(d.getDepartment_id());
+            //      通过RequestPeopleByDepartmentId将id数字数组变为List对象，操作check，表示未选中。
+            for (int i = 0; i < peopleList.size(); i++) {
+                peopleList.get(i).setChecks(false);
+                Integer peopleId = peopleList.get(i).getPeople_id();
+                Boolean peopleCheck = peopleList.get(i).isChecks();
+                schemeService.UpdatePeopleSelect(peopleId, peopleCheck);
+            }
+        }
         schemeService.DeleteTeam(teamId);
     }
 
