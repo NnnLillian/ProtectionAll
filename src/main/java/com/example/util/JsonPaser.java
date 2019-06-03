@@ -194,4 +194,10 @@ public class JsonPaser {
         JSONObject jsonObj = new JSONObject(jsonStr);
         return jsonObj.getInt("team_id");
     }
+
+    public Special_Case ParseSpecialCase(String jsonStr) throws JSONException {
+        JSONObject jsonObject = new JSONObject(jsonStr);
+        Special_Case special_case = new Special_Case(null, jsonObject.getString("case_position"), null, jsonObject.getInt("month_time"), jsonObject.getString("description"));
+        return special_case;
+    }
 }

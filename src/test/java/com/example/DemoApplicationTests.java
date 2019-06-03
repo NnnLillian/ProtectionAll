@@ -218,21 +218,21 @@ public class DemoApplicationTests {
     @Test
     public void AddSimilarSchemeEquipment() {
         List<Equipment> e = schemeMapper.GetSchemeEquipmentBySchemeId(25);
-        List<Equipment> alle = equipmentMapper.GetEquipmentByPlatoonIdAndType(1,"action");
+        List<Equipment> alle = equipmentMapper.GetEquipmentByPlatoonIdAndType(1, "action");
 //        List<Equipment> e = equipmentMapper.GetEquipmentByPlatoonIdAndType(1,"action");
 
-        Map<String,String> map = new HashMap<>();
-        for (Equipment m :e){
-            map.put(m.getEquipment_id(),m.getEquipment_name());
+        Map<String, String> map = new HashMap<>();
+        for (Equipment m : e) {
+            map.put(m.getEquipment_id(), m.getEquipment_name());
         }
 
         for (int i = 0; i < alle.size(); i++) {
-            if (map.containsKey(alle.get(i).getEquipment_id())){
+            if (map.containsKey(alle.get(i).getEquipment_id())) {
                 alle.get(i).setState(true);
             }
         }
         System.out.println("After For");
-        for (Equipment m :alle){
+        for (Equipment m : alle) {
             System.out.println(m.getState());
         }
     }
@@ -249,9 +249,9 @@ public class DemoApplicationTests {
     }
 
     @Test
-    public void ChangeCheck(){
-        Integer scheme_id =33;
-        Integer id=32;
+    public void ChangeCheck() {
+        Integer scheme_id = 33;
+        Integer id = 32;
 //        similarSchemeService.AddSimilarScheme(scheme_id, id);
 //        得到三种保障小分队的List
         List<Team_People> repairTeamPeopleList = schemeService.RequestTeamPeopleBySchemeIdAndType(scheme_id, "repair");
@@ -264,6 +264,30 @@ public class DemoApplicationTests {
         set.addAll(supplyTeamPeopleList);
         List<Team_People> teamStrList = new ArrayList<Team_People>(set);
         for (Team_People str : teamStrList) {
-            schemeService.SetPeopleSelectState(str.getDepartment_id(),true);
-    }}
+            schemeService.SetPeopleSelectState(str.getDepartment_id(), true);
+        }
+    }
+
+    @Test
+    public void testSql() {
+        List<Category> categoryList =equipmentMapper.GetCategoryByPlatoonIdAndType(1,"protect");
+        List<Team> teamList = schemeService.GetTeamBySchemeId(33);
+        List<Category> categories = new ArrayList<Category>();
+        for (Team t : teamList) {
+            List<Category> team_categoryList = schemeService.RequestTeamCategoryByTeamId(t.getTeam_id());
+            categories.addAll(team_categoryList);
+        }
+        Map<Integer,Integer> map=new HashMap<>();
+        for (Category c:categories){
+            map.put(c.getCategory_id(),c.getCategory_number());
+        }
+        for (int i=0;i<categoryList.size();i++){
+            Integer categoryId = categoryList.get(i).getCategory_id();
+            if (map.containsKey(categoryId)){
+                Integer num=categoryList.get(i).getCategory_number() - map.get(categoryId);
+                categoryList.get(i).setCategory_number(num);
+            }
+        }
+    }
+
 }

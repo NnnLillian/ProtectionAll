@@ -32,6 +32,9 @@ public class SchemeJsonController {
     @Autowired
     private SimilarSchemeService similarSchemeService;
 
+    @Autowired
+    private ClassifyService classifyService;
+
     private JsonBuilder jsonBuilder = new JsonBuilder();
 
     JsonPaser jsonPaser = new JsonPaser();
@@ -138,7 +141,7 @@ public class SchemeJsonController {
         set.addAll(supplyTeamPeopleList);
         List<Team_People> teamStrList = new ArrayList<Team_People>(set);
         for (Team_People str : teamStrList) {
-            schemeService.SetPeopleSelectState(str.getDepartment_id(),true);
+            schemeService.SetPeopleSelectState(str.getDepartment_id(), true);
         }
         return "{\"message\":" + "\"success\"" + "}";
     }
@@ -182,7 +185,7 @@ public class SchemeJsonController {
 //        通过TeamId查找DepartmentList
         List<Department> teamDepartmentListResults = schemeService.RequestTeamDepartmentByTeamId(teamId);
         for (Department d : teamDepartmentListResults) {
-            schemeService.SetPeopleSelectState(d.getDepartment_id(),true);
+            schemeService.SetPeopleSelectState(d.getDepartment_id(), true);
         }
         return "{\"message\":" + "\"success\"" + "}";
     }
@@ -305,10 +308,30 @@ public class SchemeJsonController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "GetPlatoonCategoryMsg", method = {RequestMethod.GET})
-    public String GetPlatoonCategoryMsg(@Param("platoon_id") Integer platoon_id, @Param("type") String type) {
+    @RequestMapping(value = "GetPlatoonCategoryMsg/{schemeId}", method = {RequestMethod.GET})
+    public String GetPlatoonCategoryMsg(@PathVariable("schemeId") Integer schemeId, @Param("platoon_id") Integer platoon_id, @Param("type") String type) {
         System.out.println("getPlatoonCategory");
+//        获取所有的装备列表
         List<Category> categoryList = equipmentService.GetCategoryByPlatoonIdAndType(platoon_id, type);
+//        获取改方案下的保障team装备
+        List<Team> teamList = schemeService.GetTeamBySchemeId(schemeId);
+        List<Category> categories = new ArrayList<Category>();
+        for (Team t : teamList) {
+            List<Category> team_categoryList = schemeService.RequestTeamCategoryByTeamId(t.getTeam_id());
+            categories.addAll(team_categoryList);
+        }
+//        将已选择的装备数量进行计算
+        Map<Integer, Integer> map = new HashMap<>();
+        for (Category c : categories) {
+            map.put(c.getCategory_id(), c.getCategory_number());
+        }
+        for (int i = 0; i < categoryList.size(); i++) {
+            Integer categoryId = categoryList.get(i).getCategory_id();
+            if (map.containsKey(categoryId)) {
+                Integer num = categoryList.get(i).getCategory_number() - map.get(categoryId);
+                categoryList.get(i).setCategory_number(num);
+            }
+        }
         return jsonBuilder.buildPlatoonCategoryList(categoryList);
     }
 
@@ -382,7 +405,7 @@ public class SchemeJsonController {
         //        通过TeamId查找DepartmentList
         List<Department> teamDepartmentListResults = schemeService.RequestTeamDepartmentByTeamId(teamId);
         for (Department d : teamDepartmentListResults) {
-            schemeService.SetPeopleSelectState(d.getDepartment_id(),false);
+            schemeService.SetPeopleSelectState(d.getDepartment_id(), false);
         }
         schemeService.DeleteTeam(teamId);
     }
@@ -400,4 +423,13 @@ public class SchemeJsonController {
         List<Category_Case> category_case_list = environmentService.GetCategoryCase(category_id, case_position);
         return jsonBuilder.buildCategoryCase(category_case_list);
     }
+    @ResponseBody
+    @RequestMapping(value = "/AddSpecialCase", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+    public String AddSpecialCase(@RequestBody String jsonStr) {
+        Special_Case special_case = jsonPaser.ParseSpecialCase(jsonStr);
+        if (classifyService.AddSpecialCase(special_case,5))// n是关键词数目
+            return "success";
+        return "false";
+    }
+
 }

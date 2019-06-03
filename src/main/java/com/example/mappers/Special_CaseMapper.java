@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public interface Special_CaseMapper {
+    public void AddSpecialCase(Special_Case special_case);
 
     public List<Special_Case> GetSpecialCase(Special_Case special_case);
 

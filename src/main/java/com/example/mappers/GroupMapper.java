@@ -40,6 +40,8 @@ public interface GroupMapper {
 
     public Integer GetTeamId(Team team);
 
+    public List<Team> GetTeamBySchemeId(Integer scheme_id);
+
     public List<Team> GetTeamByGroupId(Integer group_id);
 
     public void DeleteTeam(Integer team_id);

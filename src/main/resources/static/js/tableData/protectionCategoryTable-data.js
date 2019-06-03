@@ -6,8 +6,8 @@ self.categoryDataInit = function (name) {
             // local data
             // url = "js/tableData/json/repairCategory.json";
 
-            // 假设 type = protect 为保障组装备
-            url = "/GetPlatoonCategoryMsg?type=protect&platoon_id=" + localStorage.getItem("platoon_id");
+            // 假设 type = protect 为保障组装备，这个Type是武器类型
+            url = "/GetPlatoonCategoryMsg/" + localStorage.getItem("scheme_id") + "?type=protect&platoon_id=" + localStorage.getItem("platoon_id");
             clickToSelect = false;
             columns = [
                 {
@@ -81,14 +81,13 @@ self.categoryDataInit = function (name) {
         columns: columns,
         onClickCell: function (field, value, row, $element) {
             Request = value;
-
             // console.log(Request);
         },
         onLoadSuccess: function (data) { //加載成功時執行
-            // console.log(data);
+            console.log(data);
         },
         onLoadError: function (res) { //加載失敗時執行
-            console.log(res);
+            // console.log(res);
         },
 
         onClickRow: function (row) {  //获取选中行的数据

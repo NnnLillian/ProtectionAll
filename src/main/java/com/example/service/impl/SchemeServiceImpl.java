@@ -293,6 +293,11 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
+    public List<Team> GetTeamBySchemeId(Integer scheme_id) {
+        return groupMapper.GetTeamBySchemeId(scheme_id);
+    }
+
+    @Override
     public List<Team> GetTeamBySchemeIdAndTeamType(Integer scheme_id, String team_type) {
         return groupMapper.GetTeamBySchemeIdAndTeamType(scheme_id, team_type);
     }
