@@ -42,6 +42,15 @@ self.categoryDataInit = function (name) {
                                 return '不能为空';
                             } else if (value > Request) {
                                 return '超过已有装备数量';
+                            } else if (value <0){
+                                return '装备数量不能为负';
+                            }
+                        },
+                        noeditFormatter: function (value, row, index) {
+                            if (value === 0) {
+                                return "0";
+                            } else {
+                                return false;
                             }
                         },
                     }
@@ -104,7 +113,13 @@ self.categoryDataInit = function (name) {
             console.log("uncheck");
             console.log(row);
         },
-
+        rowStyle: function (row) {
+            if (row.category_number === 0) {
+                return {css: {"color": "#c30000"}}
+            } else {
+                return row;
+            }
+        },
         onUncheckAll: function (row) {
             console.log("uncheckall");
             console.log(row);
