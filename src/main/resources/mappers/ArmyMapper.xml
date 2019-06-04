@@ -6,6 +6,9 @@
     <select id="GetPlatoon" resultType="Platoon">
         select * from platoon_info
     </select>
+    <select id="GetPlatoonById" resultType="Platoon">
+        select * from platoon_info where platoon_id = #{platoon_id}
+    </select>
     <select id="GetPlatoonByName" resultType="Platoon">
         select * from platoon_info where platoon_name = #{platoon_name}
     </select>

@@ -40,6 +40,10 @@ public interface SchemeService {
 
     public List<Army> GetArmyBySchemeID(Integer scheme_id);
 
+    public Platoon GetPlatoonById(Integer platoon_id);
+
+    public Location GetLocationById(Integer location_id);
+
     public List<Scheme_Safeguard> GetSchemeSafeguardBySchemeID(Integer scheme_id);
 
     public Scheme_Safeguard GetOneSchemeSafeguardBySchemeId(Integer scheme_id);

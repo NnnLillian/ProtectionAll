@@ -176,8 +176,11 @@ public class SchemeHtmlController {
     @GetMapping("/text")
     public String GetTextContent(@RequestParam("scheme_id") Integer scheme_id, Model model) {
         Scheme scheme = schemeService.GetSchemeBySchemeID(scheme_id);
+        Location location = schemeService.GetLocationById(scheme.getLocation_id());
         List<Army> armyList = schemeService.GetArmyBySchemeID(scheme_id);
         List<Scheme_Army> scheme_armyList = schemeService.GetSchemeArmyBySchemeId(scheme_id);
+        Integer platoonId = scheme_armyList.get(0).getPlatoon_id();
+        String platoonName = schemeService.GetPlatoonById(platoonId).getPlatoon_name();
         List<Action_Group> action_groupList = schemeService.GetActionGroups(scheme_id);
         List<Equipment> equipmentList = schemeService.GetEquipmentBySchemeId(scheme_id);
         List<TeamStr> repairTeamStrList = schemeService.RequestTeamBySchemeIdAndType(scheme_id, "repair");
@@ -207,6 +210,8 @@ public class SchemeHtmlController {
         List<Team_People> protectTeamPeopleList = schemeService.RequestTeamPeopleBySchemeIdAndType(scheme_id, "protect");
         List<Team_People> supplyTeamPeopleList = schemeService.RequestTeamPeopleBySchemeIdAndType(scheme_id, "supply");
         List<Supplier> supplierList = equipmentService.GetSupplierByPosition(scheme.getCombat_direction());
+        model.addAttribute("platoonName", platoonName);
+        model.addAttribute("location", location);
         model.addAttribute("army_list", armyList);
         model.addAttribute("action_group_list", action_groupList);
         model.addAttribute("scheme_army_list", scheme_armyList);

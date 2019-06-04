@@ -26,7 +26,7 @@
 
     <h1 style="text-align: center">装备保障方案</h1>
     <h3>作战任务</h3>
-    <div>作战单位<code id="platoon_name"></code>
+    <div>作战单位<code th:text="${platoonName}"></code>
         <span th:if="${#lists.size(action_group_list)} == 1">
         做为一个整体，率领
         <th:block th:each="item:${army_list}">
@@ -40,7 +40,7 @@
         进行作战任务。
         </span>
         <span th:unless="${#lists.size(action_group_list)} == 1">
-            将到达经度：<span class="data" id="lng"></span>，纬度：<span class="data" id="lat"></span>的地点进行作战，并且分为
+            将到达经度：<span class="data" th:text="${location.getLongitude()}"></span>，纬度：<span class="data" th:text="${location.getLatitude()}"></span>的地点进行作战，并且分为
             <span class="data" th:text="${#lists.size(action_group_list)}"></span>
             个梯队进行，其中
             <th:block th:each="ActionGroup:${action_group_list}">
@@ -577,10 +577,6 @@
             $("#pageContent").wordExport();
         });
     });
-
-    $("#platoon_name").text(localStorage.getItem("platoon_name"));
-    $("#lng").text(localStorage.getItem("lng"));
-    $("#lat").text(localStorage.getItem("lat"));
 
     //  这里是表格合并单元格代码
     // let rteamName1 = document.getElementsByName("1rteamName");

@@ -169,6 +169,16 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
+    public Platoon GetPlatoonById(Integer platoon_id) {
+        return armyMapper.GetPlatoonById(platoon_id);
+    }
+
+    @Override
+    public Location GetLocationById(Integer location_id) {
+        return locationMapper.GetAllLocationByID(location_id);
+    }
+
+    @Override
     public List<Scheme_Safeguard> GetSchemeSafeguardBySchemeID(Integer scheme_id) {
         return schemeMapper.GetSchemeSafeguardBySchemeID(scheme_id);
     }
