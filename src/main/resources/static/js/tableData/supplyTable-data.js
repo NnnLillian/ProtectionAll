@@ -3,6 +3,7 @@ self.SupplyInit = function (name) {
     switch (name) {
         case 'supplyMessage':
             tableName = "NearbySupply-table";
+            // url = "/GetSupplierMsg"+ [存放距离信息] +"?case_position=" + localStorage.getItem("case_position");
             url = "/GetSupplierMsg?case_position=" + localStorage.getItem("case_position");
             columns = [
                 {

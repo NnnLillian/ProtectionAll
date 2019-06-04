@@ -41,10 +41,10 @@
     <script src="js/tableData/supplyTable-data.js"></script>
 
     <!-- baidu MapBox -->
-    <script type="text/javascript" src="baidumapv2/baidumap_offline_v2_load.js"></script>
+    <script src="baidumapv2/baidumap_offline_v2_load.js" type="text/javascript"></script>
     <!--<script type="text/javascript" src="baidumapv2_demo/jquery.js"></script>-->
-    <script type="text/javascript" src="baidumapv2_demo/layer/layer.js"></script>
-    <link rel="stylesheet" type="text/css" href="baidumapv2/css/baidu_map_v2.css"/>
+    <script src="baidumapv2_demo/layer/layer.js" type="text/javascript"></script>
+    <link href="baidumapv2/css/baidu_map_v2.css" rel="stylesheet" type="text/css"/>
 
     <style type="text/css">
         body, html, #map_demo {
@@ -106,16 +106,34 @@
                                 <p>民用保障力量 : <img src="baidumapv2/images/marker_red_hd.png"></p>
                                 <p>军用保障力量 : <img src="baidumapv2/images/marker_red_sprite.png"></p>
                             </div>
-                            <div id="localSecurity" class="col-md-12 mb40" style="height: 1000px">
+                            <div class="col-md-12 mb40" id="localSecurity" style="height: 1000px">
                                 <!--<button onclick="addPolyLine();" class="btn btn-default mr10">生成折线</button>-->
                                 <!--<button onclick="addLine()" class="btn btn-default mr10">生成直线</button>-->
                                 <!--<button onclick="removeLine()" class="btn btn-default mr10">清除</button>-->
                                 <!--<button onclick="calDegree()" class="btn btn-default mr10">角度值</button>-->
                                 <!--<button onclick="calDistance()" class="btn btn-default mr10">距离值</button>-->
+                                <button class="btn btn-default mr10" name="distance10" value="100">100公里内</button>
+                                <button class="btn btn-default mr10" name="distance20" value="200">200公里内</button>
+                                <button class="btn btn-default mr10" name="distance30" value="300">300公里内</button>
+                                <button class="btn btn-default mr10" name="distance40" value="1000">300公里以外</button>
                                 <div class="mb20"></div>
                                 <div id="map_demo">map</div>
                             </div>
                             <hr>
+                            <div class="btn-group mr5">
+                                <button class="btn btn-primary" type="button">查看不同范围内保障资源信息</button>
+                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" type="button">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div><!-- btn-group -->
                             <div class="table-responsive">
                                 <table id="NearbySupply-table"></table>
                             </div>
@@ -125,7 +143,9 @@
                         <button class="btn btn-default mr30" onclick="javascript:history.go(-1);">
                             返回
                         </button>
-                        <button type="button" id="NextPage" class="btn btn-primary" onclick="location.href='/ShowMap'">继续</button>
+                        <button class="btn btn-primary" id="NextPage" onclick="location.href='/ShowMap'" type="button">
+                            继续
+                        </button>
                     </div>
                 </div><!-- panel -->
             </div><!-- row -->
@@ -145,68 +165,81 @@
 <!-- 地方保障力量 地图导入 -->
 <script type="text/javascript">
     // 百度地图API功能
-    var map = new BMap.Map("map_demo", {minZoom: 5, maxZoom: 8});
-    var point = new BMap.Point(104.03369, 34.45368);
-    var myIcon = new BMap.Icon("baidumapv2/images/marker_red_hd.png", new BMap.Size(23, 25));
+    let map = new BMap.Map("map_demo", {minZoom: 5, maxZoom: 8});
+    let point = new BMap.Point(104.03369, 34.45368);
+    let myIcon = new BMap.Icon("baidumapv2/images/marker_red_hd.png", new BMap.Size(23, 25));
+    let localIcon = new BMap.Icon("baidumapv2/images/marker_target.png", new BMap.Size(32, 32));
+    let lng = localStorage.getItem("lng");
+    let lat = localStorage.getItem("lat");
+    let localPoint = new BMap.Point(lng, lat);
 
     map.centerAndZoom(point, 6);
+    let localMarker = new BMap.Marker(localPoint, {icon: localIcon});
+    map.addOverlay(localMarker);
     map.enableScrollWheelZoom();
-    var opts = {
+    let opts = {
         width: 300,     // 信息窗口宽度
         height: 135,     // 信息窗口高度
         title: "公司信息", // 信息窗口标题
         enableMessage: true//设置允许信息窗发送短息
     };
-    var bounds = map.getBounds();
-    $.ajax({
-        type: 'GET',
-        // url: "/GetSupplierMsg?case_position=4",
-        url: "/GetSupplierMsg?case_position=" + localStorage.getItem("case_position"),
-        dataType: "JSON",
-        contentType: "application/json;charset=UTF-8",
-        success: function (data) {
-            var data_info_civil = [];
-            var data_info_military = [];
-            var length = data.total;
-            console.log(data);
-            console.log(data.rows);
-            for (var i = 0; i < length; i++) {
-                if (data.rows[i].supplier_type == 1) {
-                    var data_info_item = [];
-                    data_info_item.push(data.rows[i].longitude);
-                    data_info_item.push(data.rows[i].latitude);
-                    data_info_item.push("公司：" + data.rows[i].supplier_name + "<br>地址：" + data.rows[i].position_name + "<br>联系人：" + data.rows[i].supplier_head + "<br>联系电话：" + data.rows[i].supplier_phone);
-                    data_info_civil.push(data_info_item);
-                } else {
-                    var data_info_item = [];
-                    data_info_item.push(data.rows[i].longitude);
-                    data_info_item.push(data.rows[i].latitude);
-                    data_info_item.push("公司：" + data.rows[i].supplier_name + "<br>地址：" + data.rows[i].position_name + "<br>联系人：" + data.rows[i].supplier_head + "<br>联系电话：" + data.rows[i].supplier_phone);
-                    data_info_military.push(data_info_item);
+    let bounds = map.getBounds();
+
+    function showMapMarket(distanceStandard) {
+        $.ajax({
+            type: 'GET',
+            // url: "/GetSupplierMsg?case_position=4",
+            url: "/GetSupplierMsg?case_position=" + localStorage.getItem("case_position"),
+            dataType: "JSON",
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+                let data_info_civil = [];
+                let data_info_military = [];
+                let length = data.total;
+                // console.log(data);
+                // console.log(data.rows);
+                for (let i = 0; i < length; i++) {
+                    if (data.rows[i].supplier_type == 1) {
+                        let data_info_item = [];
+                        data_info_item.push(data.rows[i].longitude);
+                        data_info_item.push(data.rows[i].latitude);
+                        data_info_item.push("公司：" + data.rows[i].supplier_name + "<br>地址：" + data.rows[i].position_name + "<br>联系人：" + data.rows[i].supplier_head + "<br>联系电话：" + data.rows[i].supplier_phone);
+                        data_info_civil.push(data_info_item);
+                    } else {
+                        let data_info_item = [];
+                        data_info_item.push(data.rows[i].longitude);
+                        data_info_item.push(data.rows[i].latitude);
+                        data_info_item.push("公司：" + data.rows[i].supplier_name + "<br>地址：" + data.rows[i].position_name + "<br>联系人：" + data.rows[i].supplier_head + "<br>联系电话：" + data.rows[i].supplier_phone);
+                        data_info_military.push(data_info_item);
+                    }
                 }
+
+                // console.log(data_info_military);
+
+                for (let i = 0; i < data_info_civil.length; i++) {
+                    let markers = new BMap.Marker(new BMap.Point(data_info_civil[i][0], data_info_civil[i][1]), {icon: myIcon});  // 创建标注
+                    let content = data_info_civil[i][2];
+                    let marker = getDistance(distanceStandard, markers);
+                    if (marker != null) {
+                        map.addOverlay(marker); // 将标注添加到地图中
+                        addClickHandler(content, marker);
+                    }
+                }
+
+                for (let i = 0; i < data_info_military.length; i++) {
+                    let markers = new BMap.Marker(new BMap.Point(data_info_military[i][0], data_info_military[i][1]));  // 创建标注
+                    let content = data_info_military[i][2];
+                    let marker = getDistance(distanceStandard, markers);
+                    if (marker != null) {
+                        map.addOverlay(marker); // 将标注添加到地图中
+                        addClickHandler(content, marker);
+                    }
+                }
+            },
+            error: function () {
             }
-
-            console.log(data_info_military);
-
-            for (var i = 0; i < data_info_civil.length; i++) {
-                var marker = new BMap.Marker(new BMap.Point(data_info_civil[i][0], data_info_civil[i][1]), {icon: myIcon});  // 创建标注
-                var content = data_info_civil[i][2];
-                map.addOverlay(marker);               // 将标注添加到地图中
-                addClickHandler(content, marker);
-            }
-
-            for (var i = 0; i < data_info_military.length; i++) {
-                var marker = new BMap.Marker(new BMap.Point(data_info_military[i][0], data_info_military[i][1]));  // 创建标注
-                var content = data_info_military[i][2];
-                map.addOverlay(marker);               // 将标注添加到地图中
-                addClickHandler(content, marker);
-            }
-        },
-        error: function () {
-
-        }
-    });
-
+        });
+    };
 
     function addClickHandler(content, marker) {
         marker.addEventListener("click", function (e) {
@@ -222,6 +255,27 @@
         map.openInfoWindow(infoWindow, point); //开启信息窗口
     }
 
+
+    // 根据要求显示不同的地点
+    $("button[name^='distance']").on('click', function () {
+        // console.log(marker.point);
+        //  获得距离
+        let start = $(this).val();
+        console.log(start);
+        showMapMarket(start);
+    });
+
+    function getDistance(distanceStandard, markers) {
+        let targetPoint = markers.point;
+        let distance = map.getDistance(localPoint, targetPoint);
+        distanceStandard = distanceStandard * 1000;
+        if (distance < distanceStandard) {
+            console.log(distance);
+            return markers;
+        } else {
+            return null;
+        }
+    }
 
     // 地图 button 中对应的方法
     var polyline = new BMap.Polyline([
