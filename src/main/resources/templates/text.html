@@ -40,7 +40,8 @@
         进行作战任务。
         </span>
         <span th:unless="${#lists.size(action_group_list)} == 1">
-            将到达经度：<span class="data" th:text="${location.getLongitude()}"></span>，纬度：<span class="data" th:text="${location.getLatitude()}"></span>的地点进行作战，并且分为
+            将到达经度：<span class="data" th:text="${location.getLongitude()}"></span>，纬度：<span class="data"
+                                                                                           th:text="${location.getLatitude()}"></span>的地点进行作战，并且分为
             <span class="data" th:text="${#lists.size(action_group_list)}"></span>
             个梯队进行，其中
             <th:block th:each="ActionGroup:${action_group_list}">
@@ -235,15 +236,15 @@
     <p>战时组织实施装备保障时，装备保障指挥命令指示与保障信息的传递，通常以有线电话为主，无线电话为辅，有线电话中断时，采取无线电话（报）。</p>
     <p>当与上级装备保障机构通信中断时，旅按作战装备保障计划，独立自主实施指挥。营通信中断时，按照防空作战计划积极果断地实施指挥。</p>
     <p>附件:</p>
-    <a style="display: block" href="#table1">1.装备抢修组编成与部署表</a>
-    <a style="display: block" href="#table2">2.器材保障组编成与部署表</a>
-    <a style="display: block" href="#table3">3.支援保障组编成与部署表</a>
-    <a style="display: block" href="#table4">4.旅、营携行军械车辆维修装（设）备表</a>
-    <a style="display: block" href="#table5">5.枪支弹药携行情况</a>
+    <a href="#table1" style="display: block">1.装备抢修组编成与部署表</a>
+    <a href="#table2" style="display: block">2.器材保障组编成与部署表</a>
+    <a href="#table3" style="display: block">3.支援保障组编成与部署表</a>
+    <a href="#table4" style="display: block">4.旅、营携行军械车辆维修装（设）备表</a>
+    <a href="#table5" style="display: block">5.枪支弹药携行情况</a>
 
     <p>附件1</p>
     <h5 align="center">装备抢修组编成与部署表</h5>
-    <table id="table1" align="center" border="1" cellpadding="5" width="80%">
+    <table align="center" border="1" cellpadding="5" id="table1" name="protectTable" width="80%">
         <tr>
             <th>分组</th>
             <th>职务</th>
@@ -282,7 +283,7 @@
     <br>
     <p>附件2</p>
     <h5 align="center">器材保障组编成与部署表</h5>
-    <table id="table2" align="center" border="1" cellpadding="5" width="80%">
+    <table align="center" border="1" cellpadding="5" id="table2" name="protectTable" width="80%">
         <tr>
             <th>分组</th>
             <th>职务</th>
@@ -306,7 +307,7 @@
     <br>
     <p>附件3</p>
     <h5 align="center">支援保障组编成与部署表</h5>
-    <table id="table3" align="center" border="1" cellpadding="5" width="80%">
+    <table align="center" border="1" cellpadding="5" id="table3" name="protectTable" width="80%">
         <tr>
             <th>分组</th>
             <th>职务</th>
@@ -330,7 +331,7 @@
     <br>
     <p>附件4</p>
     <h5 align="center">旅、营携行军械车辆装（设）备表</h5>
-    <table id="table4" align="center" border="1" cellpadding="5" width="80%">
+    <table align="center" border="1" cellpadding="5" id="table4" width="80%">
         <tr>
             <th>序号</th>
             <th>装备名称</th>
@@ -566,29 +567,29 @@
         导出为.doc文档
     </a>
 </div>
-<script src="js/jquery-1.11.1.min.js"></script>
-<script src="js/FileSaver.js" type="text/javascript"></script>
-<script src="js/jquery.wordexport.js" type="text/javascript"></script>
-
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/FileSaver.js" type="text/javascript"></script>
+<script src="/js/jquery.wordexport.js" type="text/javascript"></script>
+<script src="/js/jquery.rowspanizer.min.js"></script>
 
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
         $("a.jquery-word-export").click(function (event) {
             $("#pageContent").wordExport();
         });
+        let tables = document.getElementsByName("protectTable");
+        for (let i = 0; i < tables.length; i++) {
+            AutoRowSpan(tables[i].id);
+        }
     });
 
     //  这里是表格合并单元格代码
-    // let rteamName1 = document.getElementsByName("1rteamName");
-    // let rteamDuty1 = document.getElementsByName("1rteamDuty");
-    // const l = rteamName1.length;
-    //
-    // for (let i = l; i > 1; i--) {
-    //     rteamName1[i - 1].remove();//remove为jQuery方法。
-    //     rteamDuty1[i - 1].remove();
-    // }
-    // rteamName1[0].setAttribute("rowspan", l);
-    // rteamDuty1[0].setAttribute("rowspan", l);
+    function AutoRowSpan(table) {
+        $("#" + table).rowspanizer({
+            vertical_align: 'middle',
+            text_align: 'center'
+        });
+    }
 </script>
 </body>
 </html>
