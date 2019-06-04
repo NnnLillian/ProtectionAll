@@ -5,37 +5,61 @@
 <!--<title>Air pressure</title>-->
 <!--</head>-->
 <!--<body>-->
+<style>
+    #loading1{
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        position: absolute;
+        top:0;
+        left: 0;
+        z-index: 9999;
+    }
+    #loading1 >div{
+        width: 72px;
+        height: 72px;
+        position: absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right: 0;
+        margin: auto;
+    }
+</style>
+<div id="loading1">
+    <div id="status1"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
 <div id="pressuretable" style="width:64%;height:500px; float: left"></div>
 <div style="width: 36%;float: right">
     <ul id="pressureDescriptionTips">
-        <li>西藏地区空气稀薄，大气压力低，空气电抗强度降低，高压器件绝缘性能大幅下降，主要对雷达设备的影响较大，如高压继电器触点之间、高压导线与机壳之间和高低压导线之间容易形成电弧、花火，极易造成高压设备打火；</li>
-        <li>
+        <li><div class="checkbox block"><input type="checkbox">西藏地区空气稀薄，大气压力低，空气电抗强度降低，高压器件绝缘性能大幅下降，主要对雷达设备的影响较大，如高压继电器触点之间、高压导线与机壳之间和高低压导线之间容易形成电弧、花火，极易造成高压设备打火；</div></li>
+        <li><div class="checkbox block"><input type="checkbox">
             低气压条件下，要重点关注雷达的高电压，大功率器件，发射系统、显示器的高压电源等部位，一是在使用中要针对可能出现的打火，增加静电循环检查，器件外观检查，疑点部位测量检查、高压线路走向间隔检查。
-        </li>
-        <li>
+        </div></li>
+        <li><div class="checkbox block"><input type="checkbox">
             高压器件耐压性急剧下降，使用寿命减少；非增压发动机对高原环境的适应性比增压发动机差，如油机由于燃烧不充分，造成发动机转速不稳，排气冒黑烟；
-        </li>
-        <li>
+        </div></li>
+        <li><div class="checkbox block"><input type="checkbox">
             高原地区云层低，为雷电多发地带，雷击可能使武器系统遭受严重损坏；
-        </li>
-        <li><b>
+        </div></li>
+        <li><div class="checkbox block"><input type="checkbox">
             低气压条件下，要重点关注雷达的高电压，大功率器件，发射系统、显示器的高压电源等部位
-        </b></li>
-        <li>
+        </div></li>
+        <li><div class="checkbox block"><input type="checkbox">
             在使用中要针对可能出现的打火，增加静电循环检查，器件外观检查，疑点部位测量检查、高压线路走向间隔检查。
-        </li>
-        <li>
+        </div></li>
+        <li><div class="checkbox block"><input type="checkbox">
             对接触部分涂抹绝缘胶，防止打火放电；高压导线应尽量拉直平滑，远离低压线。
-        </li>
-        <li>
+        </div></li>
+        <li><div class="checkbox block"><input type="checkbox">
             控制好雷达发射机升高压节奏，适当增加电子管预热时间，必要时调低发射机高压，将发射机高压置规定值下限，尽量限制引发发射机打火的诱因
-        </li>
-        <li>
+        </div></li>
+        <li><div class="checkbox block"><input type="checkbox">
             天馈线系统波导气压严格按照规定值充气，防止天馈线系统打火，发现打火应立即关机。
-        </li>
-        <li>
+        </div></li>
+        <li><div class="checkbox block"><input type="checkbox">
             对接接触器、继电器等有触点的电器，要定期用酒精擦拭。
-        </li>
+        </div></li>
     </ul>
 </div>
 <!--<script src="js/jquery-1.11.1.min.js"></script>-->
@@ -44,7 +68,7 @@
     var pressureChart = echarts.init(document.getElementById('pressuretable'));
     var PressureDataList = [];
     // var DataList = [];
-    $("#document").ready(function () {
+    function showCharts() {
         $.ajax({
             type: 'GET',
             url: '/GetEnvironment?scheme_id=' + localStorage.getItem("scheme_id") + '&month=' + localStorage.getItem("month") + '&type=pressure',
@@ -163,9 +187,12 @@
                 }
             },
         }, JSON)
-    })
+    }
 
-
+    setTimeout(function () {
+        $("#loading1").fadeOut();
+        showCharts();
+    },2000)
 </script>
 <!--</body>-->
 <!--</html>-->

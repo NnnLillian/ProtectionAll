@@ -5,10 +5,34 @@
 <!--<title>Air pressure</title>-->
 <!--</head>-->
 <!--<body>-->
+<style>
+    #loading2{
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        position: absolute;
+        top:0;
+        left: 0;
+        z-index: 9999;
+    }
+    #loading2 >div{
+        width: 72px;
+        height: 72px;
+        position: absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right: 0;
+        margin: auto;
+    }
+</style>
+<div id="loading2">
+    <div id="status2"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
 <div id="table" style="width:64%;height:500px; float: left"></div>
 <div style="width: 36%;float: right">
     <ul id="descriptionTips">
-        <li>西藏地区年大风期长，沙尘天气容易导致机箱内，尤其是高压部分会导致打火。</li>
+        <li><div class="radio"><label><input type="radio"> 西藏地区年大风期长，沙尘天气容易导致机箱内，尤其是高压部分会导致打火。</label></div></li>
         <li>风沙容易进入液压支腿及发射车大齿弧等裸露机械部分，会导致机械卡滞或其润滑油脂变质，使润滑效果下降，损坏兵器；</li>
         <li>风沙容易侵入触点，增大接触电阻，使触点温度增高，从而导致电接触部分的触点容易烧伤，产生接触不良、漏电等故障；</li>
         <li>空气中灰尘微粒含量多，仪表油、润滑油(脂)易变质，使润滑油效果降低，导致机械磨损增大；</li>
@@ -23,7 +47,7 @@
     var corrosionChart = echarts.init(document.getElementById('table'));
     var CorrosionList = [];
     // var DataList = [];
-    $("#document").ready(function () {
+    function showCharts() {
         $.ajax({
             type: 'GET',
             url: '/GetEnvironment?scheme_id=' + localStorage.getItem("scheme_id") + '&month=' + localStorage.getItem("month") + '&type=corrosion',
@@ -142,8 +166,12 @@
                 }
             },
         }, JSON)
-    })
+    }
 
+    setTimeout(function () {
+        $("#loading2").fadeOut();
+        showCharts();
+    },2000)
 
 </script>
 <!--</body>-->

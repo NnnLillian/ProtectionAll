@@ -5,17 +5,41 @@
 <!--<title>Air pressure</title>-->
 <!--</head>-->
 <!--<body>-->
+<style>
+    #loading6{
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        position: absolute;
+        top:0;
+        left: 0;
+        z-index: 9999;
+    }
+    #loading6 >div{
+        width: 72px;
+        height: 72px;
+        position: absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right: 0;
+        margin: auto;
+    }
+</style>
+<div id="loading6">
+    <div id="status6"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
 <div id="temperaturetable" style="width:64%;height:500px; float: left"></div>
 <div style="width: 36%;float: right">
     <ul id="temperatureDescriptionTips">
-        <li>西藏地区气温偏低，年温差小昼夜温差大。</li>
-        <li>低温或者极低温环境会增加装备机械润滑部分预热时间，增加大型真空管器件的预热时间。</li>
-        <li>高海拔条件下，大气压力低，对管路，空腔，真空设备均有较大影响；</li>
-        <li>高热的环境会影响雷达装备板件的性能，加速导弹各机部件、发动机装药的老化，影响导弹的可靠性和使用寿命</li>
-        <li>同时，温度超出导弹规定的工作界值，会对导弹的电缆线路产生影响，从而影响信号传输；液压、高压油路系统易出故障。</li>
-        <li>太阳直射时光线强烈，液压及油路系统和增速齿轮箱与中频电机以及同轴扩大电机连接处均有加强密封性的胶皮垫，在高温下容易造成其老化损裂，从而影响其密封性，造成油料渗出。</li>
-        <li>低温下线缆变硬、油脂受冻。</li>
-        <li>西藏地区夜间温度很低，兵器在撤收与架设、抽拉组合时，容易导致电缆芯线、导线绝缘塑料折断或接触不良而影响兵器性能；机油、润滑脂黏度变大，电机等工作阻力增大，车辆发动比较困难，天线座润滑油脂受冻，天线转动阻力增大。</li>
+        <li><div class="checkbox block"><input type="checkbox">西藏地区气温偏低，年温差小昼夜温差大。</div></li>
+        <li><div class="checkbox block"><input type="checkbox">低温或者极低温环境会增加装备机械润滑部分预热时间，增加大型真空管器件的预热时间。</div></li>
+        <li><div class="checkbox block"><input type="checkbox">高海拔条件下，大气压力低，对管路，空腔，真空设备均有较大影响；</div></li>
+        <li><div class="checkbox block"><input type="checkbox">高热的环境会影响雷达装备板件的性能，加速导弹各机部件、发动机装药的老化，影响导弹的可靠性和使用寿命</div></li>
+        <li><div class="checkbox block"><input type="checkbox">同时，温度超出导弹规定的工作界值，会对导弹的电缆线路产生影响，从而影响信号传输；液压、高压油路系统易出故障。</div></li>
+        <li><div class="checkbox block"><input type="checkbox">太阳直射时光线强烈，液压及油路系统和增速齿轮箱与中频电机以及同轴扩大电机连接处均有加强密封性的胶皮垫，在高温下容易造成其老化损裂，从而影响其密封性，造成油料渗出。</div></li>
+        <li><div class="checkbox block"><input type="checkbox">低温下线缆变硬、油脂受冻。</div></li>
+        <li><div class="checkbox block"><input type="checkbox">西藏地区夜间温度很低，兵器在撤收与架设、抽拉组合时，容易导致电缆芯线、导线绝缘塑料折断或接触不良而影响兵器性能；机油、润滑脂黏度变大，电机等工作阻力增大，车辆发动比较困难，天线座润滑油脂受冻，天线转动阻力增大。</div></li>
     </ul>
 </div>
 <!--<script src="js/jquery-1.11.1.min.js"></script>-->
@@ -24,7 +48,7 @@
     var temperatureChart = echarts.init(document.getElementById('temperaturetable'));
     var TemperatureDataList = [];
     // var DataList = [];
-    $("#document").ready(function () {
+    function showCharts () {
         $.ajax({
             type: 'GET',
             url: '/GetEnvironment?scheme_id=' + localStorage.getItem("scheme_id") + '&month=' + localStorage.getItem("month") + '&type=temperature',
@@ -143,9 +167,12 @@
                 }
             },
         }, JSON)
-    })
+    }
 
-
+    setTimeout(function () {
+        $("#loading6").fadeOut();
+        showCharts();
+    },2000)
 </script>
 <!--</body>-->
 <!--</html>-->
