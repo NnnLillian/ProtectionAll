@@ -423,13 +423,39 @@ public class SchemeJsonController {
         List<Category_Case> category_case_list = environmentService.GetCategoryCase(category_id, case_position);
         return jsonBuilder.buildCategoryCase(category_case_list);
     }
+
+    //    增加特情信息
     @ResponseBody
     @RequestMapping(value = "/AddSpecialCase", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
     public String AddSpecialCase(@RequestBody String jsonStr) {
         Special_Case special_case = jsonPaser.ParseSpecialCase(jsonStr);
-        if (classifyService.AddSpecialCase(special_case,5))// n是关键词数目
-            return "success";
-        return "false";
+        //  n是关键词数目
+        Integer caseId = classifyService.AddSpecialCase(special_case, 5);
+        if (caseId != 0) {
+        //  通过caseId获取case
+            Special_Case specialCaseResult = schemeService.GetSpecialCaseById(caseId);
+            String caseType = specialCaseResult.getCase_type();
+            switch (caseType) {
+                case "geography":
+                    specialCaseResult.setCase_type("地理环境特情");
+                    break;
+                case "climate":
+                    specialCaseResult.setCase_type("气候环境特情");
+                    break;
+                case "border":
+                    specialCaseResult.setCase_type("边境环境特情");
+                    break;
+                case "category":
+                    specialCaseResult.setCase_type("装备环境特情");
+                    break;
+                default:
+                    specialCaseResult.setCase_type("其他特情");
+                    break;
+            }
+            return jsonBuilder.buildSpecailCase(specialCaseResult);
+        } else {
+            return "{\"message\":" + "\"failed\"" + "}";
+        }
     }
 
 }

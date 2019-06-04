@@ -21,7 +21,11 @@
     select * from category_case_info where
     case_position = #{case_position} and category_id=(select category_id from equipment_info where equipment_id = #{equipment_id})
 </select>
-    <insert id="AddSpecialCase" parameterType="com.example.entity.Special_Case">
+    <select id="GetSpecialCaseById" resultType="com.example.entity.Special_Case">
+        select * from special_case_info where case_id = #{case_id};
+    </select>
+    <insert id="AddSpecialCase" parameterType="com.example.entity.Special_Case" useGeneratedKeys="true"
+            keyProperty="case_id">
         insert into special_case_info(case_position,case_type,month_time,description) values (#{case_position},#{case_type},#{month_time},#{description})
     </insert>
 </mapper>

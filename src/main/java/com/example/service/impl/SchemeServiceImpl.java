@@ -23,6 +23,8 @@ public class SchemeServiceImpl implements SchemeService {
     private EquipmentMapper equipmentMapper;
     @Autowired
     private PeopleMapper peopleMapper;
+    @Autowired
+    private Special_CaseMapper specialCaseMapper;
 
     @Override
     public List<Platoon> RequestPlatoon() {
@@ -327,5 +329,10 @@ public class SchemeServiceImpl implements SchemeService {
             Boolean peopleCheck = peopleList.get(i).isChecks();
             UpdatePeopleSelect(peopleId, peopleCheck);
         }
+    }
+
+    @Override
+    public Special_Case GetSpecialCaseById(Integer caseId) {
+        return specialCaseMapper.GetSpecialCaseById(caseId);
     }
 }

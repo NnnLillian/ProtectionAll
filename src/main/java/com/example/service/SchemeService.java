@@ -77,4 +77,6 @@ public interface SchemeService {
     public List<Action_Group> GetActionGroups(Integer scheme_id);
 
     public void SetPeopleSelectState(Integer departmentId, Boolean state);
+
+    public Special_Case GetSpecialCaseById(Integer caseId);
 }

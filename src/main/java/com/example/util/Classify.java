@@ -61,8 +61,6 @@ public class Classify {
                     vector[i][j] = 0;
                 result[i] += vector[i][j]*vector[i][j];
             }
-            if (vector[i][0]!=0)
-                result[i] = result[i]/(vector[i][0]*vector[i][0]);
         }
         double max = 0;
         int maxIndex = -1;
