@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <link href="images/favicon.png" rel="shortcut icon" type="image/png">
+
+    <title>方案效能评估</title>
+
+    <link href="css/style.default.css" rel="stylesheet"/>
+    <link href="css/style.DarkKnight.css" rel="stylesheet"/>
+    <link href="css/bootstrap-select.css" rel="stylesheet">
+    <link href="css/sweetalert.css" rel="stylesheet" type="text/css">
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/jquery-ui-1.10.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/toggles.min.js"></script>
+    <script src="js/retina.min.js"></script>
+    <script src="js/jquery.cookies.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+
+    <script src="js/jquery.autogrow-textarea.js"></script>
+    <script src="js/jquery.maskedinput.min.js"></script>
+    <script src="js/jquery.mousewheel.js"></script>
+    <script src="js/bootstrap-wizard.min.js"></script>
+    <script src="js/jquery.bootstrap.wizard.js"></script>
+    <script src="js/dropzone.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/jquery.rowspanizer.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <!--    <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>-->
+
+
+    <script src="js/custom.js"></script>
+
+
+    <style type="text/css">
+        tr > th, tr > td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+
+        .radio input[type=radio] {
+            position: static;
+            margin: 0 0 0 0;
+            margin-top: 4px \9;
+        }
+
+        [name^="EvaInput"] {
+            outline: none;
+            border: 0px;
+            cursor: pointer;
+            background-color: #fcfcfc;
+            text-align: center
+        }
+    </style>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+<div aria-labelledby="myModalLabel" class="modal fade" id="pdf_Modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document" style="width: 1000px;height: 1600px;z-index:1500">
+        <div class="modal-content pro_modal">
+            <iframe id="pdfContainer" name="pdfContainer" src=""></iframe>
+        </div>
+    </div>
+</div>
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1><span>[</span>装备保障系统<span>]</span></h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+            <h5 class="sidebartitle">方案评估</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li class="nav-parent"><a href=""><i class="fa fa-home"></i> <span>方案列表</span></a>
+                    <ul class="children">
+                        <li><a href=""><i class="fa fa-caret-right"></i>方案详细列表</a></li>
+                        <li><a href=""><i class="fa fa-caret-right"></i>方案评估结果</a></li>
+                    </ul>
+                </li>
+                <li class="nav-parent nav-active active"><a href=""><i class="fa fa-edit"></i> <span>评估准则管理</span></a>
+                    <ul class="children" style="display: block">
+                        <li class="active"><a href=""><i class="fa fa-caret-right"></i>完整性评估</a></li>
+                        <li><a href=""><i class="fa fa-caret-right"></i>合理性评估</a></li>
+                        <li><a href=""><i class="fa fa-caret-right"></i>有效性评估</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- leftpanelinner -->
+    </div><!-- leftpanel -->
+
+    <div class="mainpanel">
+
+        <!-- headerbar -->
+
+        <div class="pageheader">
+            <h2><i class="fa fa-edit"></i> 方案评估 <span>专家打分...</span></h2>
+        </div>
+
+        <div class="contentpanel">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a class="panel-close" href="">&times;</a>
+                        <a class="minimize" href="">&minus;</a>
+                    </div>
+                    <h4 class="panel-title">完整性评估因素修改</h4>
+                    <p>支持增删改查操作</p>
+                </div>
+                <div class="panel-body panel-body-nopadding">
+                    <form class="form-horizontal form-bordered" id="">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">评估因素内容:</label>
+                            <div class="col-sm-6">
+                                <input class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">评估因素权重:</label>
+                            <div class="col-sm-6">
+                                <input class="form-control">
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div><!-- panel-body -->
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <button class="btn btn-primary">保存</button>&nbsp;
+                            <button class="btn btn-default">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- panel -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a class="panel-close" href="">&times;</a>
+                        <a class="minimize" href="">&minus;</a>
+                    </div>
+                    <h4 class="panel-title">完整性评估权重更改</h4>
+                    <p>本系统采用层次分析法确定各评价指标的权重系数</p>
+                </div>
+                <div class="panel-body">
+                    <!-- BASIC WIZARD -->
+                    <!-- Question 这里是否需要request -->
+                    <div class="basic-wizard" id="progressWizard">
+                        <div class="tab-content">
+                            <div class="form-group">
+                                <h4 class="mb5">完整性评估</h4>
+                                <p class="mb20">
+                                    可选作战指挥部门（作战部门首长1名、作战参谋2名）、装备保障部门（装备部门首长1名、战计参谋1名、维修分队人员1名）、装备保障专家（院校1名、研究所1名、军工厂1名、以上3名专家专业领域分别为维修保障、弹药保障、器材保障）。</p>
+                                <form class="form" id="form1">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-primary table-bordered mb30">
+                                            <thead>
+                                            <tr>
+                                                <th>基本指标</th>
+                                                <th>次指标</th>
+                                                <th>评估因素</th>
+                                                <th>评估权重</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="myTbody1">
+                                            </tbody>
+                                        </table>
+                                    </div><!-- table-responsive -->
+                                </form><!-- form1 -->
+                            </div>
+                        </div><!-- tab-content -->
+                    </div>
+                </div><!-- panel-body -->
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <button class="btn btn-primary">保存</button>&nbsp;
+                            <button class="btn btn-default">取消</button>
+                        </div>
+                    </div>
+                </div><!-- panel-footer -->
+            </div><!-- panel -->
+        </div><!-- contentpanel -->
+    </div><!-- mainpanel -->
+
+</section>
+
+
+<script>
+    jQuery(document).ready(function () {
+
+        // 获取完整性表格数据
+        let data1 = getData("js/tableData/json/evaluateInfo.json").getXml();
+        let table = "#myTbody1";
+        createTable(table, data1);
+
+    });
+
+
+    // 获取评估方案准则
+    function getData(urls) {
+        let xml;
+        $.ajax({
+            url: urls,
+            type: "GET",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                xml = data;
+            },
+            error: function () {
+                console.error("获取方案评估准则出错");
+            }
+        });
+        return {
+            getXml: function () {
+                if (xml) return xml;
+            }
+        }
+    }
+
+    // 合并同类项
+    function AutoRowSpan(table) {
+        $(table).parent().rowspanizer({
+            vertical_align: 'middle',
+            text_align: 'center'
+        });
+    }
+
+    // 创建表格
+    function createTable(table, data) {
+        let array = data.rows;
+        for (let i in array) {
+            let html = $("<tr class='req'></tr>");
+            html.append("<td><label>" + array[i].evaluate_main_type + "</label></td>");
+            html.append("<td><label>" + array[i].evaluate_subtype + "</label></td>");
+            html.append("<td><label>" + array[i].evaluate_item + "</label><input type='radio'  name='Eva" + array[i].evaluate_id + "' style='visibility: hidden' required></td>");
+            html.append("<td><div class='input'><input type='text' name='EvaInput" + array[i].evaluate_id + "' placeholder='' required></div> </td>");
+            html.appendTo(table);
+        }
+        AutoRowSpan(table);
+    }
+
+    function creatAbilityTable(table, data) {
+        let array = data.rows;
+        for (let i in array) {
+            let html = $("<tr class='req'></tr>");
+            html.append("<td><label>" + array[i].evaluate_item + "</label><input type='text'  name='EvaInput" + array[i].evaluate_id + "' style='visibility: hidden; width: 2px;' required></td>");
+            html.append("<td><div class='input'><input type='text' name='EvaInput" + array[i].evaluate_id + "' style='outline: none;border: 0px;cursor: pointer; background-color: #fcfcfc' placeholder='' required></div> </td>");
+            html.append("<td><div class='input'><input type='text' name='EvaInput" + array[i].evaluate_id + "' style='outline: none;border: 0px;cursor: pointer;background-color: #fcfcfc' placeholder='' required></div> </td>");
+            html.appendTo(table);
+        }
+    }
+
+    // 将单选框值赋值给结果数组 resultArray，并返回。
+    function getResult(data) {
+        let array = data.rows;
+        let resultArray = new Array();
+        let itemArray = new Array();
+        for (let j in array) {
+            itemArray.push("Eva" + array[j].evaluate_id)
+        }
+        for (let i in itemArray) {
+            console.log(itemArray[i]);
+            let s = Name(itemArray[i]);
+            if (s != 10) {
+                resultArray[i] = Name(itemArray[i]);
+            } else {
+                alert("您有未选择选项");
+                return null;
+            }
+        }
+        return {
+            result: function () {
+                return resultArray;
+            }
+        }
+    }
+
+    // 通过name分类，得到不同name下的单选框值
+    function Name(name) {
+        let temp = document.getElementsByName(name);
+        let intHot = 9;
+        for (let m in temp) {
+            if (temp[m].checked)
+                intHot = temp[m].value;
+        }
+        if (intHot == 9) {
+            return 10
+        }
+        return intHot;
+    }
+
+
+    // 得到不同的元素分别有几个，假设 resArray = ["A", "B", "B", "A", "B", "B", "B"]， 则prev = {A: 2, B: 5}
+    function getSameItemCount(resArray) {
+        return resArray.reduce(function (prev, next) {
+            prev[next] = (prev[next] + 1) || 1;
+            return prev
+        }, {})
+    }
+
+    // 计算评分总分
+    function calculateScore(resArray) {
+        let obj = getSameItemCount(resArray);
+        let calculateNumber = 0;
+        for (let name in obj) {
+            switch (name) {
+                case "A":
+                    calculateNumber += 0.875 * obj[name];
+                    break;
+                case "B":
+                    calculateNumber += 0.625 * obj[name];
+                    break;
+                case "C":
+                    calculateNumber += 0.375 * obj[name];
+                    break;
+                case "D":
+                    calculateNumber += 0.125 * obj[name];
+                    break;
+            }
+        }
+        return calculateNumber;
+    }
+
+    // 加载方案内容
+    // $("#schemeContent").load("/text?scheme_id=" + id);
+    $("#schemeContent").load("text.html");
+
+</script>
+
+
+</body>
+</html>
