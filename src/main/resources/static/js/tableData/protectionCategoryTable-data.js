@@ -11,51 +11,89 @@ self.categoryDataInit = function (name) {
             clickToSelect = false;
             columns = [
                 {
-                    checkbox: true
-                },
-                {
-                    field: 'category_id',
-                    title: '装备ID',
-                    align: 'center',
-                    visible: false
-                    // width:300
-                }, {
-                    field: 'category_name',
-                    title: '装备名称',
-                    align: 'center'
-                    // sortable:false   //本列不可以排序
-                }, {
-                    field: 'category_model',
-                    title: '装备型号',
-                    align: 'center'
-                    // sortable:false   //本列不可以排序
-                }, {
-                    field: 'category_number',
-                    title: '装备数目（默认为最大数量）',
-                    align: 'center',
-                    editable: {
-                        type: 'number',
-                        title: '数量',
-                        validate: function (value) {
-                            value = $.trim(value);
-                            if (!value) {
-                                return '不能为空';
-                            } else if (value > Request) {
-                                return '超过已有装备数量';
-                            } else if (value <0){
-                                return '装备数量不能为负';
+                    checkbox: true,
+                    formatter: function (value, row, index) {
+                        if (row.category_number === 0) {
+                            return {
+                                disabled: true,//设置是否不可用
+                                checked: false//设置选中
                             }
-                        },
-                        noeditFormatter: function (value, row, index) {
-                            if (value === 0) {
-                                return "0";
-                            } else {
-                                return false;
+                        } else {
+                            return {
+                                disabled: false,
+                                checked: false
                             }
-                        },
+                        }
+                        return value;
                     }
                 }
-            ];
+                ,
+                {
+                    field: 'category_id',
+                    title:
+                        '装备ID',
+                    align:
+                        'center',
+                    visible:
+                        false
+                    // width:300
+                }
+                ,
+                {
+                    field: 'category_name',
+                    title:
+                        '装备名称',
+                    align:
+                        'center'
+                    // sortable:false   //本列不可以排序
+                }
+                ,
+                {
+                    field: 'category_model',
+                    title:
+                        '装备型号',
+                    align:
+                        'center'
+                    // sortable:false   //本列不可以排序
+                }
+                ,
+                {
+                    field: 'category_number',
+                    title:
+                        '装备数目（默认为最大数量）',
+                    align:
+                        'center',
+                    editable:
+                        {
+                            type: 'number',
+                            title:
+                                '数量',
+                            validate:
+
+                                function (value) {
+                                    value = $.trim(value);
+                                    if (!value) {
+                                        return '不能为空';
+                                    } else if (value > Request) {
+                                        return '超过已有装备数量';
+                                    } else if (value < 0) {
+                                        return '装备数量不能为负';
+                                    }
+                                }
+
+                            ,
+                            noeditFormatter: function (value, row, index) {
+                                if (value === 0) {
+                                    return "0";
+                                } else {
+                                    return false;
+                                }
+                            }
+                            ,
+                        }
+                }
+            ]
+            ;
             break;
     }
     $('#' + tableName).empty();
@@ -125,7 +163,8 @@ self.categoryDataInit = function (name) {
             console.log(row);
         }
     });
-};
+}
+;
 
 // 保障部队装备的选择
 function getCategoryList() {

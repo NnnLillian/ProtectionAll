@@ -273,7 +273,7 @@
                 dataType: "json",
                 async: false,     // 取消异步加载
                 success: function (data) {
-                    alert("scheme" + data.scheme_id);
+                    console.log("scheme" + data.scheme_id);
                     if (radio === "0") {
                         $.ajax({
                             type: 'POST',

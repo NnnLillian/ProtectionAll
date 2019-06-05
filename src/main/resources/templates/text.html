@@ -24,6 +24,7 @@
 <body>
 <div id="pageContent">
 
+    <div id="EvaluateScheme" style="display:none">方案ID为：<span id="schemeId"></span></div>
     <h1 style="text-align: center">装备保障方案</h1>
     <h3>作战任务</h3>
     <div>作战单位<code th:text="${platoonName}"></code>
@@ -580,6 +581,14 @@
         let tables = document.getElementsByName("protectTable");
         for (let i = 0; i < tables.length; i++) {
             AutoRowSpan(tables[i].id);
+        }
+
+        if (localStorage.getItem("EvaluateSchemeId") != null) {
+            console.log(localStorage.getItem("EvaluateSchemeId"));
+            let a = document.getElementById("EvaluateScheme");
+            console.log(a);
+            $("#EvaluateScheme").css("display", "block");
+            $("#schemeId").text(localStorage.getItem("EvaluateSchemeId"));
         }
     });
 
