@@ -432,7 +432,7 @@ public class SchemeJsonController {
         //  n是关键词数目
         Integer caseId = classifyService.AddSpecialCase(special_case, 5);
         if (caseId != 0) {
-        //  通过caseId获取case
+            //  通过caseId获取case
             Special_Case specialCaseResult = schemeService.GetSpecialCaseById(caseId);
             String caseType = specialCaseResult.getCase_type();
             switch (caseType) {
@@ -458,4 +458,19 @@ public class SchemeJsonController {
         }
     }
 
+    // 重置保障小分队人员选择状态
+    @ResponseBody
+    @RequestMapping(value = "/resetProtectionGroupPeoples", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+    public String ResetPeopleState(@Param("scheme_id") Integer scheme_id) {
+        List<Team> teamList = schemeService.GetTeamBySchemeId(scheme_id);
+        List<Department> departments = new ArrayList<>();
+        for (Team t : teamList) {
+            List<Department> departmentList = schemeService.RequestTeamDepartmentByTeamId(t.getTeam_id());
+            departments.addAll(departmentList);
+        }
+        for (Department d : departments) {
+            schemeService.SetPeopleSelectState(d.getDepartment_id(), false);
+        }
+        return "{\"message\":" + "\"success\"" + "}";
+    }
 }
