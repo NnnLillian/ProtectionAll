@@ -2,6 +2,7 @@ package com.example;
 
 import com.example.entity.*;
 import com.example.mappers.*;
+import com.example.service.EnvironmentService;
 import com.example.service.SchemeService;
 import com.example.service.SimilarSchemeService;
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
@@ -35,6 +36,12 @@ public class DemoApplicationTests {
     private Similar_SchemeMapper similarSchemeMapper;
     @Autowired
     private SchemeService schemeService;
+    @Autowired
+    private EnvironmentMapper environmentMapper;
+    @Autowired
+    private EnvironmentService environmentService;
+    @Autowired
+    private Special_CaseMapper specialCaseMapper;
 
     @Test
     public void checkGetGroup() {
@@ -270,23 +277,42 @@ public class DemoApplicationTests {
 
     @Test
     public void testSql() {
-        List<Category> categoryList =equipmentMapper.GetCategoryByPlatoonIdAndType(1,"protect");
+        List<Category> categoryList = equipmentMapper.GetCategoryByPlatoonIdAndType(1, "protect");
         List<Team> teamList = schemeService.GetTeamBySchemeId(33);
         List<Category> categories = new ArrayList<Category>();
         for (Team t : teamList) {
             List<Category> team_categoryList = schemeService.RequestTeamCategoryByTeamId(t.getTeam_id());
             categories.addAll(team_categoryList);
         }
-        Map<Integer,Integer> map=new HashMap<>();
-        for (Category c:categories){
-            map.put(c.getCategory_id(),c.getCategory_number());
+        Map<Integer, Integer> map = new HashMap<>();
+        for (Category c : categories) {
+            map.put(c.getCategory_id(), c.getCategory_number());
         }
-        for (int i=0;i<categoryList.size();i++){
+        for (int i = 0; i < categoryList.size(); i++) {
             Integer categoryId = categoryList.get(i).getCategory_id();
-            if (map.containsKey(categoryId)){
-                Integer num=categoryList.get(i).getCategory_number() - map.get(categoryId);
+            if (map.containsKey(categoryId)) {
+                Integer num = categoryList.get(i).getCategory_number() - map.get(categoryId);
                 categoryList.get(i).setCategory_number(num);
             }
+        }
+    }
+
+    @Test
+    public void GetEnvironmentTips() {
+        String type = "temperature";
+        Scheme scheme = schemeMapper.GetSchemeBySchemeID(34);
+        Integer beginMonth = Integer.parseInt(scheme.getScheme_begin_time().substring(5, 7));
+        Integer endMonth = Integer.parseInt(scheme.getScheme_end_time().substring(5, 7));
+        List<Environment> eList = environmentMapper.GetEnvironmentByCasePosition(scheme.getCombat_direction());
+        List<Environment> environments = eList.subList(beginMonth - 1, endMonth);
+        List<Double> r = environmentService.GetResultByType(type, environments);
+        //  获取不同类型的数据标准
+        List<Double> standard = environmentService.GetTypeStandard(type);
+        Double lowStandard = standard.get(0);
+        Double highStandard = standard.get(1);
+        if (Collections.max(r) > highStandard) {
+            List<Special_Case> specialCaseList = specialCaseMapper.GetEnvironmentSpecialCase(type, 6, 10);
+            System.out.println(specialCaseList);
         }
     }
 

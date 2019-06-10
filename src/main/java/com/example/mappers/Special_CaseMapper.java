@@ -15,6 +15,8 @@ public interface Special_CaseMapper {
 
     public List<Special_Case> GetSpecialCase(Special_Case special_case);
 
+    public List<Special_Case> GetEnvironmentSpecialCase(@Param("type") String type, @Param("lowLevel") Integer lowLevel, @Param("highLevel") Integer highLevel);
+
     public List<Category_Case> GetCategoryCase(@Param("equipment_id") Integer equipment_id, @Param("case_position") String case_position);
 
 }

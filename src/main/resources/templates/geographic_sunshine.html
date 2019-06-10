@@ -32,10 +32,10 @@
 <div id="sunshinetable" style="width:64%;height:500px; float: left"></div>
 <div style="width: 36%;float: right">
     <ul id="sunshineDescriptionTips">
-        <li><div class="checkbox block"><input type="checkbox">西藏地区太阳辐射强，高原地区强烈的日晒及高温可能导致某些非金属部件加速老化，缩短寿命，电瓶电解液蒸发快，极板化学反应加剧，加速了电瓶老化，空气的热传导和对流作用的有效性降低，热交换能力降低，造成设备温度过高而引起性能下降和老化过快；</div></li>
-        <li><div class="checkbox block"><input type="checkbox">防强光暴晒和地表高温，到阵地后，及时架设随机配备的制式伪装网，阵地电缆一律用电缆套包裹，并用电缆架支起，进行装备维护时，应尽量选择温度较低的时间组织；</div></li>
-        <li><div class="checkbox block"><input type="checkbox">开机前，根据实际情况，造当延长空调通风时间；</div></li>
-        <li><div class="checkbox block"><input type="checkbox">由于高温蓄电瓶电解液蒸发快，容易引起电解液外溢，因此要视情补充蒸馏水，并用苏打水清洗通气螺塞和电瓶四周，保证液面高度适当及通气孔顺畅，防止电解液对电瓶外壳造成腐蚀，要定期检查电机轴承有无漏油，电子器件有无过热变色，橡胶机件有无发粘等现象，有此问题时，要及时查明原因，并采取相应的修复措施。</div></li>
+<!--        <li><div class="checkbox block"><input type="checkbox">西藏地区太阳辐射强，高原地区强烈的日晒及高温可能导致某些非金属部件加速老化，缩短寿命，电瓶电解液蒸发快，极板化学反应加剧，加速了电瓶老化，空气的热传导和对流作用的有效性降低，热交换能力降低，造成设备温度过高而引起性能下降和老化过快；</div></li>-->
+<!--        <li><div class="checkbox block"><input type="checkbox">防强光暴晒和地表高温，到阵地后，及时架设随机配备的制式伪装网，阵地电缆一律用电缆套包裹，并用电缆架支起，进行装备维护时，应尽量选择温度较低的时间组织；</div></li>-->
+<!--        <li><div class="checkbox block"><input type="checkbox">开机前，根据实际情况，造当延长空调通风时间；</div></li>-->
+<!--        <li><div class="checkbox block"><input type="checkbox">由于高温蓄电瓶电解液蒸发快，容易引起电解液外溢，因此要视情补充蒸馏水，并用苏打水清洗通气螺塞和电瓶四周，保证液面高度适当及通气孔顺畅，防止电解液对电瓶外壳造成腐蚀，要定期检查电机轴承有无漏油，电子器件有无过热变色，橡胶机件有无发粘等现象，有此问题时，要及时查明原因，并采取相应的修复措施。</div></li>-->
     </ul>
 </div>
 <!--<script src="js/jquery-1.11.1.min.js"></script>-->
@@ -45,10 +45,10 @@
     var SunshineList = [];
     var WholeSunshineList = [];
     // var DataList = [];
-    function showCharts() {
+    function showSunshineCharts() {
         $.ajax({
             type: 'GET',
-            url: '/GetEnvironment?scheme_id=' + localStorage.getItem("scheme_id") + '&month=' + localStorage.getItem("month") + '&type=temperature',
+            url: '/GetEnvironment?scheme_id=' + localStorage.getItem("scheme_id") + '&month=' + localStorage.getItem("month") + '&type=sunshine',
             contentType: 'application/json',
             dataType: 'JSON',
             data: {index: 0},
@@ -191,8 +191,8 @@
                 var case_list = data.case_list;
                 for (var i = 0; i < case_list.length; i++) {
                     var tips = $("<li>");
-                    tips.text(case_list[i].description);
-                    $("#descriptionTips").append(tips);
+                    tips.append("<div class='checkbox block'><input type='checkbox' checked value=" + case_list[i].case_id + ">" + case_list[i].description + "</div>");
+                    $("#sunshineDescriptionTips").append(tips);
                 }
             },
         }, JSON)
@@ -200,7 +200,7 @@
 
     setTimeout(function () {
         $("#loading5").fadeOut();
-        showCharts();
+        showSunshineCharts();
     },2000)
 </script>
 <!--</body>-->

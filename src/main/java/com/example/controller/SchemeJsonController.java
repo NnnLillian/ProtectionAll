@@ -193,20 +193,44 @@ public class SchemeJsonController {
     @ResponseBody
     @RequestMapping(value = "/GetEnvironment", method = {RequestMethod.GET})
     public String RequestEnvironment(@Param("scheme_id") String scheme_id, @Param("month") String month, @Param("type") String type) {
-        System.out.println(scheme_id + "......" + month + "........." + type);
+        System.out.println(scheme_id + "......." + type);
         Scheme scheme = schemeService.GetSchemeBySchemeID(Integer.parseInt(scheme_id));
-        Integer month_number = Integer.parseInt(month);
-        System.out.println(scheme.getCombat_direction() + "......" + month_number + "........." + type);
-//        List<Environment> environment_list = environmentService.GetEnvironment(1);
+        Integer beginMonth = Integer.parseInt(scheme.getScheme_begin_time().substring(5, 7));
+        Integer endMonth = Integer.parseInt(scheme.getScheme_end_time().substring(5, 7));
         String case_position = scheme.getCombat_direction();
+        //  根据作战方向选择水文信息
         List<Environment> environment_list = environmentService.GetEnvironmentByCasePosition(case_position);
         System.out.println(environment_list);
-        Special_Case special_case = new Special_Case(null, scheme.getCombat_direction(), null, month_number, null);
-        List<Special_Case> special_case_list = environmentService.GetSpecialCase(special_case);
+        List<Special_Case> special_case_list = new ArrayList<>();
+        if (type != null){
+            //  根据作战时间，获得相应的数据内容
+            List<Environment> environments = environment_list.subList(beginMonth - 1, endMonth);
+            List<Double> result = environmentService.GetResultByType(type, environments);
+            //  获取不同类型的数据标准
+            List<Double> standard = environmentService.GetTypeStandard(type);
+            Double lowStandard = standard.get(0);
+            Double highStandard = standard.get(1);
+            //  建立特殊情况
+            special_case_list = environmentService.GetSpecialCase(type,4,5);
+            if (Collections.max(result)>highStandard){
+                special_case_list.addAll(environmentService.GetSpecialCase(type,6,10));
+            }
+            if (Collections.min(result)<lowStandard){
+                special_case_list.addAll(environmentService.GetSpecialCase(type,0,4));
+            }
+            System.out.println(special_case_list);
+        }
+
 
         return jsonBuilder.buildEnvironmentCase(type, environment_list, special_case_list);
     }
 
+    @ResponseBody
+    @RequestMapping(value ="/GetEnvironmentTips",method = {RequestMethod.GET})
+    public String RequestEnvironmentTips(@Param("scheme_id") Integer scheme_id){
+        Scheme scheme=schemeService.GetSchemeBySchemeID(scheme_id);
+        return "";
+    }
     @ResponseBody
     @RequestMapping(value = "/GetActionGroupsMsg", method = {RequestMethod.GET})
     public String RequestActionGroupMsg(@Param("scheme_id") String scheme_id) {
@@ -446,7 +470,7 @@ public class SchemeJsonController {
                     specialCaseResult.setCase_type("边境环境特情");
                     break;
                 case "category":
-                    specialCaseResult.setCase_type("装备环境特情");
+                    specialCaseResult.setCase_type("装备情况特情");
                     break;
                 default:
                     specialCaseResult.setCase_type("其他特情");

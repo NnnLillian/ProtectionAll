@@ -12,7 +12,11 @@ public interface EnvironmentService {
 
     public List<Environment> GetEnvironmentByCasePosition(String case_position);
 
-    public List<Special_Case> GetSpecialCase(Special_Case special_case);
+    public List<Special_Case> GetSpecialCase(String type, Integer lowLevel, Integer highLevel);
 
     public List<Category_Case> GetCategoryCase(Integer equipment_id, String case_position);
+
+    public List<Double> GetResultByType(String type, List<Environment> environmentList);
+
+    public List<Double> GetTypeStandard(String type);
 }
