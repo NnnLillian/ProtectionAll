@@ -121,10 +121,10 @@
             <!-- 外部引用，有问题，getLocation是新建立的Location -->
             <div class="panel panel-default">
                 <div class="panel-heading">
-<!--                    <div class="panel-btns mb10">-->
-<!--                        <input class="btn btn-default" id="btnAirPressure" style="float: right" type="button"-->
-<!--                               value="查看数据内容">-->
-<!--                    </div>-->
+                    <!--                    <div class="panel-btns mb10">-->
+                    <!--                        <input class="btn btn-default" id="btnAirPressure" style="float: right" type="button"-->
+                    <!--                               value="查看数据内容">-->
+                    <!--                    </div>-->
                     <h5 class="panel-title">历史气压数据</h5>
                 </div>
                 <div class="panel-body">
@@ -136,10 +136,10 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-<!--                    <div class="panel-btns mb10">-->
-<!--                        <input class="btn btn-default" id="btnHumidity" style="float: right" type="button"-->
-<!--                               value="查看数据内容">-->
-<!--                    </div>-->
+                    <!--                    <div class="panel-btns mb10">-->
+                    <!--                        <input class="btn btn-default" id="btnHumidity" style="float: right" type="button"-->
+                    <!--                               value="查看数据内容">-->
+                    <!--                    </div>-->
                     <h5 class="panel-title">历史湿度数据</h5>
                 </div>
                 <div class="panel-body">
@@ -153,10 +153,10 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-<!--                    <div class="panel-btns mb10">-->
-<!--                        <input class="btn btn-default" id="btnRainfall" style="float: right" type="button"-->
-<!--                               value="查看数据内容">-->
-<!--                    </div>-->
+                    <!--                    <div class="panel-btns mb10">-->
+                    <!--                        <input class="btn btn-default" id="btnRainfall" style="float: right" type="button"-->
+                    <!--                               value="查看数据内容">-->
+                    <!--                    </div>-->
                     <h5 class="panel-title">历史降雨量数据</h5>
                 </div>
                 <div class="panel-body">
@@ -170,10 +170,10 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-<!--                    <div class="panel-btns mb10">-->
-<!--                        <input class="btn btn-default" id="btnSunshine" style="float: right" type="button"-->
-<!--                               value="查看数据内容">-->
-<!--                    </div>-->
+                    <!--                    <div class="panel-btns mb10">-->
+                    <!--                        <input class="btn btn-default" id="btnSunshine" style="float: right" type="button"-->
+                    <!--                               value="查看数据内容">-->
+                    <!--                    </div>-->
                     <h5 class="panel-title">历史日照数据</h5>
                 </div>
                 <div class="panel-body">
@@ -187,10 +187,10 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-<!--                    <div class="panel-btns mb10">-->
-<!--                        <input class="btn btn-default" id="btnTemperature" style="float: right" type="button"-->
-<!--                               value="查看数据内容">-->
-<!--                    </div>-->
+                    <!--                    <div class="panel-btns mb10">-->
+                    <!--                        <input class="btn btn-default" id="btnTemperature" style="float: right" type="button"-->
+                    <!--                               value="查看数据内容">-->
+                    <!--                    </div>-->
                     <h5 class="panel-title">历史温度数据</h5>
                 </div>
                 <div class="panel-body">
@@ -204,10 +204,10 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-<!--                    <div class="panel-btns mb10">-->
-<!--                        <input class="btn btn-default" id="btnWindLevel" style="float: right" type="button"-->
-<!--                               value="查看数据内容">-->
-<!--                    </div>-->
+                    <!--                    <div class="panel-btns mb10">-->
+                    <!--                        <input class="btn btn-default" id="btnWindLevel" style="float: right" type="button"-->
+                    <!--                               value="查看数据内容">-->
+                    <!--                    </div>-->
                     <h5 class="panel-title">历史风速数据</h5>
                 </div>
                 <div class="panel-body">
@@ -252,12 +252,33 @@
     $('.left').load("left");
     // 跳转按钮
     $("#myGeographicSuggestions").click(function () {
-        let checkTrueCaseItem;
-        $.each($('input:checkbox:checked'),function(){
-            window.alert("你选了："+
-                $('input[type=checkbox]:checked').length+"个，其中有："+$(this).val());
+        let checkTrueCaseList = [];
+        $.each($('input:checkbox:checked'), function () {
+            // window.alert("你选了："+
+            //     $('input[type=checkbox]:checked').length+"个，其中有："+$(this).val());
+            let caseItem = {case_id: $(this).val()};
+            checkTrueCaseList.push(caseItem);
         });
-        // window.location.href = "/edit_special";
+        let schemeCase = {
+            scheme_id: localStorage.getItem("scheme_id"),
+            scheme_case_list: checkTrueCaseList
+        };
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(schemeCase),
+            contentType: "application/json;charset=UTF-8",
+            url: "/AddSchemeCase",
+            dataType: "json",
+            async: false,     // 取消异步加载
+            success: function (data) {
+                // alert("Add Case Success");
+                console.log(data.count);
+                window.location.href = "/edit_special";
+            },
+            error: function () {
+                console.error("error");
+            }
+        })
     });
 
     // 加载数据图表
@@ -283,7 +304,7 @@
         }
     });
 
-    function showPressure(){
+    function showPressure() {
         let $div = $("#airPressureDiv");
         let bodyDiv = $("<div style=\"width: 100%; height: 500px; margin-bottom: 20px\"></div>");
         bodyDiv.attr("id", "airPressure");

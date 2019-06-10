@@ -155,7 +155,7 @@ public class SchemeServiceImpl implements SchemeService {
 
     @Override
     public void UpdatePeopleSelect(Integer people_id, Boolean check) {
-        peopleMapper.changePeopleSelected(people_id,check);
+        peopleMapper.changePeopleSelected(people_id, check);
     }
 
     @Override
@@ -330,7 +330,7 @@ public class SchemeServiceImpl implements SchemeService {
     }
 
     @Override
-    public void SetPeopleSelectState(Integer departmentId, Boolean state){
+    public void SetPeopleSelectState(Integer departmentId, Boolean state) {
         List<People> peopleList = RequestPeopleByDepartmentId(departmentId);
         //      通过RequestPeopleByDepartmentId将id数字数组变为List对象，操作check，表示未选中/选中。
         for (int i = 0; i < peopleList.size(); i++) {
@@ -344,5 +344,10 @@ public class SchemeServiceImpl implements SchemeService {
     @Override
     public Special_Case GetSpecialCaseById(Integer caseId) {
         return specialCaseMapper.GetSpecialCaseById(caseId);
+    }
+
+    @Override
+    public void AddSchemeCase(Integer scheme_id, Integer caseId) {
+        schemeMapper.AddSchemeCase(scheme_id, caseId);
     }
 }

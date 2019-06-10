@@ -88,7 +88,7 @@ public class JsonPaser {
         JSONArray scheme_safeguard = jsonObj.getJSONArray("scheme_safeguard");
         for (int i = 0; i < scheme_safeguard.length(); i++) {
             JSONObject platoonJson = scheme_safeguard.getJSONObject(i);
-            Platoon platoon = new Platoon(platoonJson.getInt("platoon_id"),null);
+            Platoon platoon = new Platoon(platoonJson.getInt("platoon_id"), null);
             list.add(platoon);
         }
         return list;
@@ -106,6 +106,18 @@ public class JsonPaser {
         }
         return list;
 
+    }
+
+    public List<Integer> ParseCaseIdList(String jsonStr) throws JSONException {
+        JSONObject jsonObject = new JSONObject(jsonStr);
+        List<Integer> list = new ArrayList<>();
+        JSONArray list_json = jsonObject.getJSONArray("scheme_case_list");
+        for (int i = 0; i < list_json.length(); i++) {
+            JSONObject case_id_json = list_json.getJSONObject(i);
+            Integer case_id = case_id_json.getInt("case_id");
+            list.add(case_id);
+        }
+        return list;
     }
 
     public Integer ParseSchemeId(String jsonStr) throws JSONException {
@@ -142,7 +154,7 @@ public class JsonPaser {
 
     public Team ParseTeam(String jsonStr) throws JSONException {
         JSONObject jsonObject = new JSONObject(jsonStr);
-        Team team = new Team(null, jsonObject.getInt("group_id"), jsonObject.getString("army_id"), null, jsonObject.getString("team_name"), null, null, null, null,jsonObject.getString("team_duty"), jsonObject.getString("team_type"));
+        Team team = new Team(null, jsonObject.getInt("group_id"), jsonObject.getString("army_id"), null, jsonObject.getString("team_name"), null, null, null, null, jsonObject.getString("team_duty"), jsonObject.getString("team_type"));
         return team;
     }
 
@@ -153,7 +165,7 @@ public class JsonPaser {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             Team_Category team_category
-                    = new Team_Category(null, jsonObject.getInt("category_id"),null, jsonObject.getInt("category_number"),null);
+                    = new Team_Category(null, jsonObject.getInt("category_id"), null, jsonObject.getInt("category_number"), null);
             team_category_list.add(team_category);
         }
 

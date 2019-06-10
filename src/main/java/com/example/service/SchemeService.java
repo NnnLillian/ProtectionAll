@@ -83,4 +83,6 @@ public interface SchemeService {
     public void SetPeopleSelectState(Integer departmentId, Boolean state);
 
     public Special_Case GetSpecialCaseById(Integer caseId);
+
+    public void AddSchemeCase(Integer scheme_id, Integer caseId);
 }

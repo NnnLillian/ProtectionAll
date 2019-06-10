@@ -191,6 +191,18 @@ public class SchemeJsonController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/AddSchemeCase", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+    public String AddCase(@RequestBody String jsonStr) {
+        Integer scheme_id = jsonPaser.ParseSchemeId(jsonStr);
+        List<Integer> caseIdList = jsonPaser.ParseCaseIdList(jsonStr);
+        for (Integer caseId : caseIdList) {
+            schemeService.AddSchemeCase(scheme_id, caseId);
+        }
+        Integer count = caseIdList.size();
+        return "{\"count\":" + count + "}";
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/GetEnvironment", method = {RequestMethod.GET})
     public String RequestEnvironment(@Param("scheme_id") String scheme_id, @Param("month") String month, @Param("type") String type) {
         System.out.println(scheme_id + "......." + type);
@@ -202,7 +214,7 @@ public class SchemeJsonController {
         List<Environment> environment_list = environmentService.GetEnvironmentByCasePosition(case_position);
         System.out.println(environment_list);
         List<Special_Case> special_case_list = new ArrayList<>();
-        if (type != null){
+        if (type != null) {
             //  根据作战时间，获得相应的数据内容
             List<Environment> environments = environment_list.subList(beginMonth - 1, endMonth);
             List<Double> result = environmentService.GetResultByType(type, environments);
@@ -211,12 +223,12 @@ public class SchemeJsonController {
             Double lowStandard = standard.get(0);
             Double highStandard = standard.get(1);
             //  建立特殊情况
-            special_case_list = environmentService.GetSpecialCase(type,4,5);
-            if (Collections.max(result)>highStandard){
-                special_case_list.addAll(environmentService.GetSpecialCase(type,6,10));
+            special_case_list = environmentService.GetSpecialCase(type, 4, 5);
+            if (Collections.max(result) > highStandard) {
+                special_case_list.addAll(environmentService.GetSpecialCase(type, 6, 10));
             }
-            if (Collections.min(result)<lowStandard){
-                special_case_list.addAll(environmentService.GetSpecialCase(type,0,4));
+            if (Collections.min(result) < lowStandard) {
+                special_case_list.addAll(environmentService.GetSpecialCase(type, 0, 4));
             }
             System.out.println(special_case_list);
         }
@@ -225,12 +237,6 @@ public class SchemeJsonController {
         return jsonBuilder.buildEnvironmentCase(type, environment_list, special_case_list);
     }
 
-    @ResponseBody
-    @RequestMapping(value ="/GetEnvironmentTips",method = {RequestMethod.GET})
-    public String RequestEnvironmentTips(@Param("scheme_id") Integer scheme_id){
-        Scheme scheme=schemeService.GetSchemeBySchemeID(scheme_id);
-        return "";
-    }
     @ResponseBody
     @RequestMapping(value = "/GetActionGroupsMsg", method = {RequestMethod.GET})
     public String RequestActionGroupMsg(@Param("scheme_id") String scheme_id) {
