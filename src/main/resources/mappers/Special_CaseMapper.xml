@@ -30,8 +30,15 @@
     <select id="GetEnvironmentSpecialCaseBySchemeId" resultType="com.example.entity.Special_Case">
         SELECT * FROM special_case_info WHERE case_id in (SELECT case_id FROM scheme_case_info where scheme_id = #{scheme_id})
     </select>
+    <select id="GetEnvironmentCaseByCaseId" resultType="com.example.entity.Special_Case">
+        select * FROM environment_case_info WHERE case_id = #{case_id}
+    </select>
     <insert id="AddSpecialCase" parameterType="com.example.entity.Special_Case" useGeneratedKeys="true"
             keyProperty="case_id">
         insert into special_case_info(case_position,case_type,month_time,description) values (#{case_position},#{case_type},#{month_time},#{description})
+    </insert>
+    <insert id="AddEnvironmentCase">
+        insert into environment_case_info(environment_type, case_id, case_level)
+        values (#{environment_type},#{case_id},#{case_level})
     </insert>
 </mapper>

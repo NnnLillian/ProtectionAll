@@ -22,4 +22,7 @@ public interface Special_CaseMapper {
 
     List<Special_Case> GetEnvironmentSpecialCaseBySchemeId(Integer scheme_id);
 
+    Special_Case GetEnvironmentCaseByCaseId(Integer case_id);
+
+    void AddEnvironmentCase(String environment_type, Integer case_id, Integer case_level);
 }

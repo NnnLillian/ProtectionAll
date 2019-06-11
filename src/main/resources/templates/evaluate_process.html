@@ -22,8 +22,6 @@
     <![endif]-->
 
 
-
-
     <style type="text/css">
         .cwts {
             height: 30px;
@@ -112,7 +110,7 @@
             margin-top: 4px \9;
         }
 
-        #schemeContent{
+        #schemeContent {
             border: 0.3em solid #428bca;
             padding: 10px 20px;
             margin-bottom: 30px;
@@ -203,13 +201,15 @@
                             <div class="tab-pane" id="ptab1">
                                 <div class="form-horizontal form-bordered">
                                     <div class="alert alert-danger fade in">
-                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <button aria-hidden="true" class="close" data-dismiss="alert" type="button">
+                                            &times;
+                                        </button>
                                         <h4>注意!</h4>
                                         <p>请仔细核对所持方案ID与该页面中方案ID是否一致。方案ID为装备保障方案唯一标识符。</p>
                                     </div>
                                     <div id="schemeContent"></div>
                                     <div class="rdio rdio-primary">
-                                        <input type="radio" name="beforeEva" value="OK" id="radioPrimary" />
+                                        <input id="radioPrimary" name="beforeEva" type="radio" value="OK"/>
                                         <label for="radioPrimary">我已阅读</label>
                                     </div>
                                 </div>
@@ -347,7 +347,7 @@
         });
 
         // 获取完整性表格数据
-        let data1 = getData("/js/tableData/json/evaluateInfo.json").getXml();
+        let data1 = getData("/evaluate/getItems?type=complete").getXml();
         let data2 = getData("/js/tableData/json/evaluateInfo2.json").getXml();
         let data3 = getData("/js/tableData/json/evaluateInfo3.json").getXml();
 
@@ -413,7 +413,7 @@
         });
 
         jQuery('#progressWizard .finish').click(function () {
-            swal("0.85 分", "评估方法方案得分", "info",{button:"确定"});
+            swal("0.85 分", "评估方法方案得分", "info", {button: "确定"});
         });
 
         // 加载方案内容

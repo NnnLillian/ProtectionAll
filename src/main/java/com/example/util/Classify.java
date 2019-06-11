@@ -3,14 +3,12 @@ package com.example.util;
 import jieba.keyword.Keyword;
 import jieba.keyword.TFIDFAnalyzer;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class Classify {
-
+    private HashMap<String,String> TypeList;
+    private HashMap<String,String> IntensityList;
     private String[][] label;
 
     public Classify() {
@@ -44,8 +42,47 @@ public class Classify {
         return (String[]) ret.toArray(fileString);
     }
 
+    public String GetSpecialType(String special)
+    {
+        TypeList=new HashMap<>();
+        loadTypeMessage(TypeList, "./\\src\\main\\resources\\type.txt");
+
+        String[] splitString = special.split("，");
+        String newSpecial = "";
+        for (int i=0;i<splitString.length-1;i++)
+        {
+            newSpecial += splitString[i]+",";
+        }
+        TFIDFAnalyzer tfidfAnalyzer=new TFIDFAnalyzer();
+        Keyword result=tfidfAnalyzer.analyze(newSpecial);
+        if (result != null)
+            return TypeList.get(result.getName());
+        else
+            return "other";
+    }
+
+    public String GetSpecialIntensity(String special)
+    {
+        IntensityList=new HashMap<>();
+        loadTypeMessage(IntensityList, "./\\src\\main\\resources\\intensity.txt");
+        String[] splitString = special.split("，");
+        String newSpecial = "";
+        for (int i=0;i<splitString.length-1;i++)
+        {
+            newSpecial += splitString[i]+",";
+        }
+        TFIDFAnalyzer tfidfAnalyzer=new TFIDFAnalyzer();
+        Keyword result=tfidfAnalyzer.getIntensity(newSpecial);
+        if (result != null)
+            return result.getName();
+        else
+            return "5";
+    }
     public String GetSpecialType(String special,int n)
     {
+        TypeList=new HashMap<>();
+        loadTypeMessage(TypeList, "./\\src\\main\\resources\\type.txt");
+
         TFIDFAnalyzer tfidfAnalyzer=new TFIDFAnalyzer();
         List<Keyword> list=tfidfAnalyzer.analyze(special,n);
         double[][] vector = new double[4][list.size()];
@@ -82,7 +119,6 @@ public class Classify {
         else
             return "other";
     }
-
     public boolean IsInStringList(String str,String[] doc)
     {
         for (int i=0;i<doc.length;i++)
@@ -92,5 +128,31 @@ public class Classify {
         }
         return false;
     }
+    private void loadTypeMessage(Map<String,String> map, String file ){
 
+
+        BufferedReader bufr;
+        try
+        {
+            InputStream in = new FileInputStream(file);
+            bufr = new BufferedReader(new InputStreamReader(in));
+            String line=null;
+            while((line=bufr.readLine())!=null) {
+                String[] kv=line.trim().split(" ");
+                map.put(kv[0],kv[1]);
+            }
+            try
+            {
+                bufr.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

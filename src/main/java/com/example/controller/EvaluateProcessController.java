@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.entity.*;
 import com.example.service.EquipmentService;
+import com.example.service.EvaluateService;
 import com.example.service.PeopleService;
 import com.example.service.SchemeService;
 import com.example.util.ExcelUtil;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +34,8 @@ public class EvaluateProcessController {
     private SchemeService schemeService;
     @Autowired
     private PeopleService peopleService;
+    @Autowired
+    private EvaluateService evaluateService;
 
 
     @GetMapping("/process")
@@ -40,8 +44,20 @@ public class EvaluateProcessController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/GetItems",method = {RequestMethod.GET})
-    public String GetEvaluateItems(){
+    @RequestMapping(value = "/getItems", method = {RequestMethod.GET})
+    public String GetEvaluateItems(@RequestParam("type") String type) {
+        List<String> MainType = new ArrayList<>();
+        switch (type) {
+            case "complete":
+                MainType.add("结构的完整性");
+                MainType.add("内容的规范性");
+                break;
+            default:
+                System.out.println("type is null");
+                break;
+        }
+        List<Evaluate> evaluateList = evaluateService.RequestEvaluateItems(MainType);
+
         return "";
     }
 

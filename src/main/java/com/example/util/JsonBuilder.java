@@ -138,7 +138,7 @@ public class JsonBuilder {
         return resPbj.toString();
     }
 
-    public String buildSpecailCase(Special_Case special_case) throws JSONException {
+    public String buildSpecialCase(Special_Case special_case) throws JSONException {
         JSONObject resObj = new JSONObject();
         resObj.put("message", "success");
         resObj.put("case_position", special_case.getCase_position());

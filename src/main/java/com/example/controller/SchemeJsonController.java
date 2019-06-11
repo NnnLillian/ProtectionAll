@@ -482,7 +482,9 @@ public class SchemeJsonController {
                     specialCaseResult.setCase_type("其他特情");
                     break;
             }
-            return jsonBuilder.buildSpecailCase(specialCaseResult);
+            //  添加环境信息特情分类及等级
+            classifyService.AddEnvironmentSpecialCase(specialCaseResult);
+            return jsonBuilder.buildSpecialCase(specialCaseResult);
         } else {
             return "{\"message\":" + "\"failed\"" + "}";
         }

@@ -9,4 +9,7 @@
     <select id="GetEvaluateNumbersBySchemeId">
         select evaluate_number from evaluate_number where scheme_id=#{scheme_id}
     </select>
+    <select id="RequestEvaluateItems" resultType="com.example.entity.Evaluate">
+        SELECT * FROM evaluate_info WHERE evaluate_main_type in (${evaluate_main_type});
+    </select>
 </mapper>
