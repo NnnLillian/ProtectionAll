@@ -146,7 +146,7 @@
     // 加载共同头部
     $('.left').load("left");
     // $('.head').load("head");
-    $('#specialInfo').load("special_info");
+    $('#specialInfo').load("special_info?scheme_id=" + localStorage.getItem("scheme_id"));
 
     // 跳转按钮
     $("#specialMsg").click(function () {
@@ -169,7 +169,7 @@
             async: false,     // 取消异步加载
             success: function (data) {
                 console.log(data);
-                if(data.message === "success"){
+                if (data.message === "success") {
                     swal({
                         icon: "success",
                         text: "特情信息添加成功！",

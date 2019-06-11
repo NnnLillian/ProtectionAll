@@ -350,4 +350,9 @@ public class SchemeServiceImpl implements SchemeService {
     public void AddSchemeCase(Integer scheme_id, Integer caseId) {
         schemeMapper.AddSchemeCase(scheme_id, caseId);
     }
+
+    @Override
+    public List<Special_Case> RequestSpecialCaseBySchemeId(Integer scheme_id) {
+        return specialCaseMapper.GetEnvironmentSpecialCaseBySchemeId(scheme_id);
+    }
 }

@@ -27,6 +27,9 @@
     <select id="GetEnvironmentSpecialCase" resultType="com.example.entity.Special_Case">
         SELECT * FROM special_case_info WHERE case_id in (SELECT case_id FROM environment_case_info WHERE environment_case_info.environment_type = #{type} AND environment_case_info.case_level between #{lowLevel} AND #{highLevel});
     </select>
+    <select id="GetEnvironmentSpecialCaseBySchemeId" resultType="com.example.entity.Special_Case">
+        SELECT * FROM special_case_info WHERE case_id in (SELECT case_id FROM scheme_case_info where scheme_id = #{scheme_id})
+    </select>
     <insert id="AddSpecialCase" parameterType="com.example.entity.Special_Case" useGeneratedKeys="true"
             keyProperty="case_id">
         insert into special_case_info(case_position,case_type,month_time,description) values (#{case_position},#{case_type},#{month_time},#{description})

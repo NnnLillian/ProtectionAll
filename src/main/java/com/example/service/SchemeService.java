@@ -85,4 +85,6 @@ public interface SchemeService {
     public Special_Case GetSpecialCaseById(Integer caseId);
 
     public void AddSchemeCase(Integer scheme_id, Integer caseId);
+
+    List<Special_Case> RequestSpecialCaseBySchemeId(Integer scheme_id);
 }
