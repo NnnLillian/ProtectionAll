@@ -34,7 +34,7 @@ public class EvaluateProcessController {
     private PeopleService peopleService;
 
 
-    @GetMapping("process")
+    @GetMapping("/process")
     public String evaluateProcess() {
         return "evaluate_process";
     }

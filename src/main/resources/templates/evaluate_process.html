@@ -17,35 +17,11 @@
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="/js/html5shiv.js"></script>
+    <script src="/js/html5shiv.min.js"></script>
     <script src="/js/respond.min.js"></script>
     <![endif]-->
 
-    <script src="/js/jquery-1.11.1.min.js"></script>
-    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="/js/jquery-ui-1.10.3.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/modernizr.min.js"></script>
-    <script src="/js/toggles.min.js"></script>
-    <script src="/js/retina.min.js"></script>
-    <script src="/js/jquery.cookies.js"></script>
-    <script src="/js/bootstrap-select.js"></script>
 
-    <script src="/js/jquery.autogrow-textarea.js"></script>
-    <script src="/js/jquery.maskedinput.min.js"></script>
-    <script src="/js/jquery.mousewheel.js"></script>
-    <script src="/js/bootstrap-wizard.min.js"></script>
-    <script src="/js/jquery.bootstrap.wizard.js"></script>
-    <script src="/js/dropzone.min.js"></script>
-    <script src="/js/select2.min.js"></script>
-    <script src="/js/jquery.validate.min.js"></script>
-    <script src="/js/jquery.rowspanizer.min.js"></script>
-    <script src="/js/sweetalert.min.js"></script>
-    <!--    <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>-->
-
-
-
-    <script src="/js/custom.js"></script>
 
 
     <style type="text/css">
@@ -338,7 +314,24 @@
 
 </section>
 
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<!--<script src="/js/jquery-ui-1.10.3.min.js"></script>-->
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
 
+<script src="/js/bootstrap-wizard.min.js"></script>
+<script src="/js/jquery.bootstrap.wizard.js"></script>
+<script src="/js/select2.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.rowspanizer.min.js"></script>
+<script src="/js/sweetalert.min.js"></script>
+
+
+<script src="/js/custom.js"></script>
 <script>
     jQuery(document).ready(function () {
 
@@ -354,9 +347,9 @@
         });
 
         // 获取完整性表格数据
-        let data1 = getData("js/tableData/json/evaluateInfo.json").getXml();
-        let data2 = getData("js/tableData/json/evaluateInfo2.json").getXml();
-        let data3 = getData("js/tableData/json/evaluateInfo3.json").getXml();
+        let data1 = getData("/js/tableData/json/evaluateInfo.json").getXml();
+        let data2 = getData("/js/tableData/json/evaluateInfo2.json").getXml();
+        let data3 = getData("/js/tableData/json/evaluateInfo3.json").getXml();
 
         // Progress Wizard
         $('#progressWizard').bootstrapWizard({
@@ -556,16 +549,6 @@
             }
         }
         return calculateNumber;
-    }
-
-
-
-    if (localStorage.getItem("EvaluateSchemeId") != null) {
-        console.log(localStorage.getItem("EvaluateSchemeId"));
-        let a = document.getElementById("EvaluateScheme");
-        console.log(a);
-        $("#EvaluateScheme").css("display", "block");
-        $("#schemeId").text(localStorage.getItem("EvaluateSchemeId"));
     }
 </script>
 
