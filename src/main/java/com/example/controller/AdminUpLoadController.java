@@ -59,6 +59,9 @@ public class AdminUpLoadController {
         return "admin_people";
     }
 
+    @GetMapping("/specialCase")
+    public String InputSpecialCase(){return "admin_specialCase";}
+
     @RequestMapping("/findArmyList")
     @ResponseBody
     public List<Army> findArmyList(@RequestParam("platoon_id") Integer platoon_id) {

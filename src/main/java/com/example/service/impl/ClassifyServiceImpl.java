@@ -32,7 +32,9 @@ public class ClassifyServiceImpl implements ClassifyService {
         Classify classify = new Classify();
         String caseContent = special_case.getDescription();
         String environmentType = classify.GetSpecialType(caseContent);
-        Integer caseLevel = Integer.parseInt(classify.GetSpecialIntensity(caseContent));
+        String caseLevelStr = classify.GetSpecialIntensity(caseContent);
+        System.out.println(caseLevelStr);
+        Integer caseLevel = Integer.parseInt(caseLevelStr);
         Integer caseId = special_case.getCase_id();
         if (special_caseMapper.GetEnvironmentCaseByCaseId(caseId) == null) {
             special_caseMapper.AddEnvironmentCase(environmentType, caseId, caseLevel);

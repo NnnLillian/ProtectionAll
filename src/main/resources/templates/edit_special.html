@@ -111,33 +111,6 @@
                     </div>
                 </div><!-- panel -->
             </div><!-- row -->
-            <!--在此增加其他特情信息-->
-            <div class="row">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="panel-btns">
-                            <a class="panel-close" href="">&times;</a>
-                            <a class="minimize" href="">&minus;</a>
-                        </div>
-                        <h4 class="panel-title">新增-装备保障特情处置预案</h4>
-                        <!--                        <p></p>-->
-                    </div><!-- panel-heading -->
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" style="text-align: right;">专家新增其他保障特情处置预案</label>
-                            <div class="col-sm-7">
-                                <textarea class="form-control" id="NewSpecialInfo" rows="6"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div id="specialInfoResult"></div>
-                        </div>
-                    </div><!-- panel-body -->
-                    <div class="panel-footer" style="text-align: center; margin: 0 auto">
-                        <button class="btn btn-primary" id="AddSpecialMsg" type="button">新增特情信息</button>
-                    </div>
-                </div><!-- panel -->
-            </div><!-- row -->
         </div><!-- contentpanel -->
     </div><!-- mainpanel -->
 </section>
@@ -153,62 +126,6 @@
         window.location.href = "/scheme_show?scheme_id=" + localStorage.getItem("scheme_id");
     });
 
-    $("#AddSpecialMsg").click(function () {
-        let NewSpecialInfo = $("#NewSpecialInfo").val();
-        let specialCase = {
-            case_position: localStorage.getItem("case_position"),
-            month_time: 0,
-            description: NewSpecialInfo
-        };
-        $.ajax({
-            type: 'POST',
-            data: JSON.stringify(specialCase),
-            contentType: "application/json;charset=UTF-8",
-            url: "/AddSpecialCase",
-            dataType: "json",
-            async: false,     // 取消异步加载
-            success: function (data) {
-                console.log(data);
-                if (data.message === "success") {
-                    swal({
-                        icon: "success",
-                        text: "特情信息添加成功！",
-                        timer: 2000,
-                        button: false
-                    });
-                    CreateDiv(data.case_type, data.description);
-                } else if (data.message === "failed") {
-                    swal("特情信息添加失败!", {
-                        icon: "error",
-                        buttons: false,
-                        timer: 2000,
-                    });
-                }
-            },
-            error: function () {
-                swal("特情信息添加失败!", {
-                    icon: "error",
-                    buttons: false,
-                    timer: 2000,
-                });
-                console.error("error");
-            }
-        });
-    });
-
-    function CreateDiv(case_type, description) {
-        let $div = $("#specialInfoResult");
-        let bodyDiv = $("<div class='col-sm-7'></div>");
-        let $label = $("<label class=\"col-sm-3 control-label\" style=\"text-align: right;\">新增特情内容</label>");
-        let $h4 = $("<h4></h4>");
-        let $p = $("<p class='mb30'></p>");
-        $h4.append(case_type);
-        $p.append(description);
-        bodyDiv.append($h4);
-        bodyDiv.append($p);
-        $div.append($label);
-        $div.append(bodyDiv);
-    }
 </script>
 
 

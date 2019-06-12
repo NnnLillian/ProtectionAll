@@ -16,3 +16,4 @@
 高温 temperature
 低温 temperature
 强风 wind_level
+风力 wind_level

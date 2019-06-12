@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+    <title>后台信息录入</title>
+
+    <link href="/css/style.default.css" rel="stylesheet"/>
+    <link href="/css/style.katniss.css" rel="stylesheet">
+    <link href="/css/bootstrap-select.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/js/jquery-ui-1.10.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script src="/js/toggles.min.js"></script>
+    <script src="/js/retina.min.js"></script>
+    <script src="/js/jquery.cookies.js"></script>
+    <script src="/js/bootstrap-select.js"></script>
+
+    <script src="/js/jquery.mousewheel.js"></script>
+    <script src="/js/sweetalert.min.js"></script>
+
+    <script src="/js/custom.js"></script>
+
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1><span>[</span>装备保障系统<span>]</span></h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+            <h5 class="sidebartitle">系统录入</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li><a href="/admin/army"><i class="fa fa-home"></i> <span>部队信息录入</span></a></li>
+                <li><a href="/admin/people">
+                    <!-- 右侧的数字提示 -->
+                    <!--<span class="pull-right badge badge-success">2</span>-->
+                    <i class="fa fa-group"></i> <span>人员录入</span></a></li>
+                <li class="nav-parent"><a href="/admin/people"><i class="fa fa-edit"></i> <span>装备信息录入</span></a>
+                    <ul class="children">
+                        <li><a href="/admin/category"><i class="fa fa-caret-right"></i>设备类型</a></li>
+                        <li><a href="/admin/equipment"><i class="fa fa-caret-right"></i> 装备</a></li>
+                        <li><a href="/admin/device"><i class="fa fa-caret-right"></i> 仪器设备</a></li>
+                        <li><a href="/admin/element"><i class="fa fa-caret-right"></i> 器材</a></li>
+                    </ul>
+                </li>
+                <li class="active"><a href="/admin/specialCase"><i class="fa fa-rocket"></i> <span>特情信息录入</span></a></li>
+<!--                <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>保养记录录入</span></a>-->
+<!--                    <ul class="children">-->
+<!--                        <li><a href="buttons.html"><i class="fa fa-caret-right"></i> 维修信息</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+            </ul>
+        </div><!-- leftpanelinner -->
+    </div><!-- leftpanel -->
+
+    <div class="mainpanel">
+
+        <!-- headerbar -->
+
+        <div class="pageheader">
+            <h2><i class="fa fa-edit"></i> 信息录入 <span>管理员权限...</span></h2>
+        </div>
+
+        <div class="contentpanel">
+            <form class="form-horizontal" id="specialCaseForm">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-btns">
+                            <a class="panel-close" href="">&times;</a>
+                            <a class="minimize" href="">&minus;</a>
+                        </div>
+                        <h4 class="panel-title">特情信息录入</h4>
+                        <p>特情信息录入</p>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group dropdown">
+                            <label class="col-sm-3 control-label">特情所属作战方向<span class="asterisk">*</span>:
+                            </label>
+                            <div class="col-sm-7">
+                                <select class="form-control selectpicker show-tick" id="schemeCaseDirection">
+                                    <option value="1">中韩方向</option>
+                                    <option value="2">首都方向</option>
+                                    <option value="3">东海方向</option>
+                                    <option value="4">中印方向</option>
+                                    <option value="5">台海方向</option>
+                                    <option value="6">南海方向</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="text-align: right;">专家新增其他保障特情处置预案</label>
+                            <div class="col-sm-7">
+                                <textarea class="form-control" id="NewSpecialInfo" rows="6"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div id="specialInfoResult"></div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="col-md-12 col-sm-offset-3" style="text-align: center; margin: 0 auto">
+                                <button class="btn btn-primary" id="AddSpecialMsg" type="button">保存</button>
+                                <button class="btn btn-default" type="reset">清空</button>
+                            </div>
+                        </div><!-- panel-footer -->
+                    </div><!-- panel-body -->
+                </div><!-- panel -->
+            </form>
+        </div><!-- panel -->
+    </div><!-- contentpanel -->
+    </div><!-- mainpanel -->
+
+</section>
+
+
+<script>
+
+    $("#AddSpecialMsg").click(function () {
+        let NewSpecialInfo = $("#NewSpecialInfo").val();
+        let schemeDirection = $('#schemeCaseDirection option:selected').val();
+        let specialCase = {
+            case_position: schemeDirection,
+            month_time: 0,
+            description: NewSpecialInfo
+        };
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(specialCase),
+            contentType: "application/json;charset=UTF-8",
+            url: "/AddSpecialCase",
+            dataType: "json",
+            async: false,     // 取消异步加载
+            success: function (data) {
+                console.log(data);
+                if (data.message === "success") {
+                    swal({
+                        icon: "success",
+                        text: "特情信息添加成功！",
+                        timer: 2000,
+                        button: false
+                    });
+                    CreateDiv(data.case_type, data.description);
+                } else if (data.message === "failed") {
+                    swal("特情信息添加失败!", {
+                        icon: "error",
+                        buttons: false,
+                        timer: 2000,
+                    });
+                }
+            },
+            error: function () {
+                swal("特情信息添加失败!", {
+                    icon: "error",
+                    buttons: false,
+                    timer: 2000,
+                });
+                console.error("error");
+            }
+        });
+    });
+
+    function CreateDiv(case_type, description) {
+        let $div = $("#specialInfoResult");
+        let bodyDiv = $("<div class='col-sm-7'></div>");
+        let $label = $("<label class=\"col-sm-3 control-label\" style=\"text-align: right;\">新增特情内容</label>");
+        let $h4 = $("<h4></h4>");
+        let $p = $("<p class='mb30'></p>");
+        $h4.append(case_type);
+        $p.append(description);
+        bodyDiv.append($h4);
+        bodyDiv.append($p);
+        $div.append($label);
+        $div.append(bodyDiv);
+    }
+</script>
+
+
+</body>
+</html>

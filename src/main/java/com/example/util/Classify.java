@@ -74,7 +74,7 @@ public class Classify {
         TFIDFAnalyzer tfidfAnalyzer=new TFIDFAnalyzer();
         Keyword result=tfidfAnalyzer.getIntensity(newSpecial);
         if (result != null)
-            return result.getName();
+            return IntensityList.get(result.getName());
         else
             return "5";
     }
