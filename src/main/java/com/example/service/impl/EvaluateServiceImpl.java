@@ -14,7 +14,7 @@ public class EvaluateServiceImpl implements EvaluateService {
     private EvaluateMapper evaluateMapper;
 
     @Override
-    public List<Evaluate> RequestEvaluateItems(List<String> MainType) {
+    public List<Evaluate> RequestEvaluateItems(String MainType) {
         return evaluateMapper.RequestEvaluateItems(MainType);
     }
 }

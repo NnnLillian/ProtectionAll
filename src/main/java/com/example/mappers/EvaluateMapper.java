@@ -12,5 +12,5 @@ public interface EvaluateMapper {
 
     public List<Double> GetEvaluateNumbersBySchemeId(Integer scheme_id);
 
-    List<Evaluate> RequestEvaluateItems(List<String> evaluate_main_type);
+    List<Evaluate> RequestEvaluateItems(String evaluate_type);
 }

@@ -6,6 +6,7 @@ import com.example.service.EvaluateService;
 import com.example.service.PeopleService;
 import com.example.service.SchemeService;
 import com.example.util.ExcelUtil;
+import com.example.util.JsonBuilder;
 import net.sf.cglib.beans.BeanMap;
 import org.apache.ibatis.annotations.Param;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -37,6 +38,8 @@ public class EvaluateProcessController {
     @Autowired
     private EvaluateService evaluateService;
 
+    private JsonBuilder jsonBuilder = new JsonBuilder();
+
 
     @GetMapping("/process")
     public String evaluateProcess() {
@@ -46,19 +49,9 @@ public class EvaluateProcessController {
     @ResponseBody
     @RequestMapping(value = "/getItems", method = {RequestMethod.GET})
     public String GetEvaluateItems(@RequestParam("type") String type) {
-        List<String> MainType = new ArrayList<>();
-        switch (type) {
-            case "complete":
-                MainType.add("结构的完整性");
-                MainType.add("内容的规范性");
-                break;
-            default:
-                System.out.println("type is null");
-                break;
-        }
-        List<Evaluate> evaluateList = evaluateService.RequestEvaluateItems(MainType);
+        List<Evaluate> evaluateList = evaluateService.RequestEvaluateItems(type);
 
-        return "";
+        return jsonBuilder.buildEvaluateItems(evaluateList);
     }
 
 

@@ -146,4 +146,10 @@ public class JsonBuilder {
         resObj.put("description", special_case.getDescription());
         return resObj.toString();
     }
+    public String buildEvaluateItems(List<Evaluate> evaluateList) throws JSONException {
+        JSONObject resObj = new JSONObject();
+        resObj.put("total", evaluateList.size());
+        resObj.put("rows", evaluateList);
+        return resObj.toString();
+    }
 }

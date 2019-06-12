@@ -7,5 +7,5 @@ import java.util.List;
 
 @Service
 public interface EvaluateService {
-    List<Evaluate> RequestEvaluateItems(List<String> MainType);
+    List<Evaluate> RequestEvaluateItems(String MainType);
 }

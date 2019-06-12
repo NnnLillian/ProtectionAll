@@ -42,6 +42,8 @@ public class DemoApplicationTests {
     private EnvironmentService environmentService;
     @Autowired
     private Special_CaseMapper specialCaseMapper;
+    @Autowired
+    private EvaluateMapper evaluateMapper;
 
     @Test
     public void checkGetGroup() {
@@ -318,6 +320,8 @@ public class DemoApplicationTests {
 
     @Test
     public void Try() {
-
+        String MainType = "complete";
+        List<Evaluate> evaluateList = evaluateMapper.RequestEvaluateItems(MainType);
+        System.out.println(evaluateList);
     }
 }

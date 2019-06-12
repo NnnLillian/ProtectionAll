@@ -1,7 +1,7 @@
 {
   scheme_id
   platoon_name:
-  army_list£º[
+  army_listï¿½ï¿½[
       {
         army_id
         army_name
