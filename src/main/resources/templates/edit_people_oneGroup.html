@@ -107,7 +107,7 @@
             method: 'GET',
             // locale data
             // url: 'js/tableData/json/armyList.json',
-            url: '/GetArmyMsg?platoon_id=' + localStorage.getItem("platoon_id") + "&army_type=" + army_type,
+            url: '/GetArmyMsg/' + localStorage.getItem("scheme_id") + '?platoon_id=' + localStorage.getItem("platoon_id") + "&army_type=" + army_type,
             striped: true,   //是否显示行间隔色
             // showHeader: true,
             showColumns: true, //是否显示所有的列
