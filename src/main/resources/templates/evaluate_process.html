@@ -21,6 +21,31 @@
     <script src="/js/respond.min.js"></script>
     <![endif]-->
 
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <!--    <script src="/js/jquery-ui-1.10.3.min.js"></script>-->
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script src="/js/toggles.min.js"></script>
+    <!--    <script src="/js/retina.min.js"></script>-->
+    <script src="/js/jquery.cookies.js"></script>
+    <!--    <script src="/js/bootstrap-select.js"></script>-->
+
+    <!--    <script src="/js/jquery.autogrow-textarea.js"></script>-->
+    <!--    <script src="/js/jquery.maskedinput.min.js"></script>-->
+    <!--    <script src="/js/jquery.mousewheel.js"></script>-->
+    <script src="/js/bootstrap-wizard.min.js"></script>
+    <script src="/js/jquery.bootstrap.wizard.js"></script>
+    <!--    <script src="/js/dropzone.min.js"></script>-->
+    <script src="/js/select2.min.js"></script>
+    <script src="/js/jquery.rowspanizer.min.js"></script>
+    <script src="/js/sweetalert.min.js"></script>
+    <!--    <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>-->
+
+
+    <script src="/js/custom.js"></script>
+
 
     <style type="text/css">
         .cwts {
@@ -314,24 +339,7 @@
 
 </section>
 
-<script src="/js/jquery-1.11.1.min.js"></script>
-<script src="/js/jquery-migrate-1.2.1.min.js"></script>
-<script src="/js/jquery-ui-1.10.3.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/modernizr.min.js"></script>
-<script src="/js/toggles.min.js"></script>
-<script src="/js/retina.min.js"></script>
-<script src="/js/jquery.cookies.js"></script>
 
-<script src="/js/bootstrap-wizard.min.js"></script>
-<script src="/js/jquery.bootstrap.wizard.js"></script>
-<script src="/js/select2.min.js"></script>
-<script src="/js/jquery.validate.min.js"></script>
-<script src="/js/jquery.rowspanizer.min.js"></script>
-<script src="/js/sweetalert.min.js"></script>
-
-
-<script src="/js/custom.js"></script>
 <script>
     jQuery(document).ready(function () {
 
@@ -361,7 +369,7 @@
                     case 1:
                         let a = $("input[name='beforeEva']:checked").val();
                         if (a != "OK") {
-                            alert("请完成阅读");
+                            swal("请完成阅读", "", "warning", {button: "确定"});
                             return false;
                         } else {
                             let table = "myTbody1";
@@ -417,7 +425,7 @@
         });
 
         // 加载方案内容
-        $("#schemeContent").load("/text?scheme_id=33");
+        $("#schemeContent").load("/text?scheme_id=34");
     });
 
 
