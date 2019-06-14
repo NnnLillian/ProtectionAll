@@ -336,7 +336,7 @@
             </div><!-- panel -->
         </div><!-- contentpanel -->
     </div><!-- mainpanel -->
-
+    <div id="schemeId" th:text="${schemeId}"></div>
 </section>
 
 
@@ -380,6 +380,7 @@
                         let $valid1 = jQuery('#form1').valid();
                         if (!$valid1) {
                             $validator.focusInvalid();
+                            swal("请检查", "存在未填写选项", "warning", {button: "确定"});
                             return false;
                         } else {
                             console.log(data1);
@@ -389,6 +390,7 @@
                                 console.log(result);
                                 console.log(getSameItemCount(result));
                                 console.log(calculateScore(result));
+                                localStorage.setItem("completeResult", calculateScore(result));
                             }
                             // 加载合理性评价表
                             let table = "myTbody2";
@@ -399,6 +401,7 @@
                         let $valid2 = jQuery('#form2').valid();
                         if (!$valid2) {
                             $validator.focusInvalid();
+                            swal("请检查", "存在未填写选项", "warning", {button: "确定"});
                             return false;
                         } else {
                             // 计算合理性得分
@@ -407,6 +410,7 @@
                                 console.log(result);
                                 console.log(getSameItemCount(result));
                                 console.log(calculateScore(result));
+                                localStorage.setItem("reasonableResult", calculateScore(result));
                             }
                             // 加载有效性评价表
                             let table = "myTbody3";
@@ -421,13 +425,23 @@
         });
 
         jQuery('#progressWizard .finish').click(function () {
-            swal("0.85 分", "评估方法方案得分", "info", {button: "确定"});
+            let res = (parseFloat(localStorage.getItem("completeResult")) + parseFloat(localStorage.getItem("reasonableResult"))) / 145;
+            res = res.toFixed(2);
+            swal({
+                title: res,
+                text: "评估方法方案得分",
+                html: true,
+                icon: "info",
+                button: "确定"
+            });
         });
 
         // 加载方案内容
         $("#schemeContent").load("/text?scheme_id=34");
     });
 
+    let schemeId = $("#schemeId").text();
+    localStorage.setItem("EvaluateSchemeId", schemeId);
 
     // 获取评估方案准则
     function getData(urls) {
@@ -483,7 +497,7 @@
             html.append("<td><label>" + array[i].evaluate_item + "</label><input type='text'  name='EvaInput" + array[i].evaluate_id + "' style='visibility: hidden; width: 2px;' required></td>");
             html.append("<td><div class='input'><input type='text' name='EvaInput" + array[i].evaluate_id + "' placeholder='' required></div> </td>");
             html.append("<td><div class='input'><input type='text' name='EvaInput" + array[i].evaluate_id + "' placeholder='' required></div> </td>");
-            html.appendTo(table);
+            html.appendTo('#' + table);
         }
     }
 

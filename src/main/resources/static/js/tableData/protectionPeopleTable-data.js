@@ -75,7 +75,7 @@ self.peopleDataInit = function (name) {
             url = "/GetPeopleMsg/" + localStorage.getItem("scheme_id") + "?army_type=both";
             // url = "js/tableData/json/people.json";
             check = [{
-                // field: 'checkStatus',
+                field: 'checkStatus',
                 // align: 'center',
                 checkbox: true,
                 formatter: function (value, row, index) {
@@ -84,13 +84,13 @@ self.peopleDataInit = function (name) {
                     let j = parseInt(localStorage.getItem("selected_leader"));
                     if (row.people_id === i || row.people_id === j) {
                         return {
-                            disabled: true,
-                            checked: true
+                            checked: false,
+                            disabled: true
                         }
                     } else
                     if (row.checks === true) {
                         return {
-                            // checked: false,
+                            checked: false,
                             disabled: true
                         }
                     }

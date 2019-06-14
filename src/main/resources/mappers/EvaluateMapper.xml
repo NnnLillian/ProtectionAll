@@ -12,4 +12,10 @@
     <select id="RequestEvaluateItems" resultType="com.example.entity.Evaluate">
         SELECT * FROM evaluate_info WHERE evaluate_type = #{evaluate_type};
     </select>
+    <select id="GetSchemeIdWhereEvaluateCountMore" resultType="Integer">
+        SELECT scheme_id  FROM scheme_evaluate GROUP BY scheme_id HAVING COUNT(1) &gt; #{proficientNumber}
+    </select>
+    <select id="GetEvaluateCountsBySchemeId" resultType="Integer">
+        SELECT COUNT(*) FROM scheme_evaluate WHERE scheme_id = #{schemeId}
+    </select>
 </mapper>

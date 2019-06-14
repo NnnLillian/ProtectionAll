@@ -54,6 +54,12 @@ public class JsonBuilder {
         return resObj.toString();
     }
 
+    public String buildSchemeEvaluate(List<Scheme_Evaluate> schemeList) throws JSONException {
+        JSONObject resObj = new JSONObject();
+        resObj.put("schemeEvaluate", schemeList);
+        return resObj.toString();
+    }
+
     public String buildArmyList(List<Army> army_list) throws JSONException {
         JSONObject resObj = new JSONObject();
         resObj.put("total", army_list.size());

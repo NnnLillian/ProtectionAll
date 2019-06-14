@@ -13,4 +13,8 @@ public interface EvaluateMapper {
     public List<Double> GetEvaluateNumbersBySchemeId(Integer scheme_id);
 
     List<Evaluate> RequestEvaluateItems(String evaluate_type);
+
+    List<Integer> GetSchemeIdWhereEvaluateCountMore(Integer proficientNumber);
+
+    Integer GetEvaluateCountsBySchemeId(Integer schemeId);
 }

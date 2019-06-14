@@ -3,6 +3,7 @@ package com.example;
 import com.example.entity.*;
 import com.example.mappers.*;
 import com.example.service.EnvironmentService;
+import com.example.service.EvaluateService;
 import com.example.service.SchemeService;
 import com.example.service.SimilarSchemeService;
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
@@ -44,6 +45,8 @@ public class DemoApplicationTests {
     private Special_CaseMapper specialCaseMapper;
     @Autowired
     private EvaluateMapper evaluateMapper;
+    @Autowired
+    private EvaluateService evaluateService;
 
     @Test
     public void checkGetGroup() {
@@ -320,8 +323,7 @@ public class DemoApplicationTests {
 
     @Test
     public void Try() {
-        String MainType = "complete";
-        List<Evaluate> evaluateList = evaluateMapper.RequestEvaluateItems(MainType);
-        System.out.println(evaluateList);
+        List<Integer> schemeList = evaluateMapper.GetSchemeIdWhereEvaluateCountMore(2);
+        System.out.println(schemeList);
     }
 }

@@ -32,6 +32,9 @@
     <select id="GetOneSchemeSafeguardMsyBySchemeId" resultType="com.example.entity.Scheme_Safeguard">
         select * from scheme_safeguard_info where safeguard_id = (select MAX(safeguard_id) from scheme_safeguard_info where scheme_id = #{scheme_id})
     </select>
+    <select id="RequestSchemeId" resultType="Integer">
+        select scheme_id from scheme_info
+    </select>
     <insert id="AddScheme" parameterType="com.example.entity.Scheme">
         insert into scheme_info(scheme_name,scheme_code,location_id,scheme_type,combat_direction,scheme_begin_time,scheme_end_time,evaluate_result)
         values (#{scheme_name},#{scheme_code},#{location_id},#{scheme_type},#{combat_direction},#{scheme_begin_time},#{scheme_end_time},#{evaluate_result})

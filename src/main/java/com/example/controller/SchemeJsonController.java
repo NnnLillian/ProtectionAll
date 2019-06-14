@@ -353,7 +353,12 @@ public class SchemeJsonController {
 //        将已选择的装备数量进行计算
         Map<Integer, Integer> map = new HashMap<>();
         for (Category c : categories) {
-            map.put(c.getCategory_id(), c.getCategory_number());
+            Integer id = c.getCategory_id();
+            if (map.containsKey(id)) {
+                map.put(id, map.get(id) + c.getCategory_number());
+            } else {
+                map.put(c.getCategory_id(), c.getCategory_number());
+            }
         }
         for (int i = 0; i < categoryList.size(); i++) {
             Integer categoryId = categoryList.get(i).getCategory_id();

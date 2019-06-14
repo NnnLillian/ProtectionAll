@@ -253,6 +253,11 @@
         } else {
             $sameLevelDiv.css('display', 'none');
         }
+        if (protectionPattern > 3) {
+            localStorage.setItem("supportProtection", "true");
+        } else {
+            localStorage.setItem("supportProtection", "false");
+        }
     });
 
 

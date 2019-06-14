@@ -41,9 +41,15 @@ public class EvaluateProcessController {
     private JsonBuilder jsonBuilder = new JsonBuilder();
 
 
-    @GetMapping("/process")
-    public String evaluateProcess() {
+    @GetMapping("/process/{schemeId}")
+    public String evaluateProcess(@PathVariable("schemeId") Integer schemeId, Model model) {
+        model.addAttribute("schemeId", schemeId);
         return "evaluate_process";
+    }
+
+    @GetMapping("/schemeList")
+    public String evaluateSchemeList() {
+        return "evaluate_schemeList";
     }
 
     @ResponseBody
@@ -52,6 +58,19 @@ public class EvaluateProcessController {
         List<Evaluate> evaluateList = evaluateService.RequestEvaluateItems(type);
 
         return jsonBuilder.buildEvaluateItems(evaluateList);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getSchemeList", method = {RequestMethod.GET})
+    public String GetSchemeList() {
+//        表示需要8位专家评估才算结束
+        Integer number = 7;
+        List<Scheme_Evaluate> schemeList = evaluateService.RequestSchemeToEvaluate(number);
+        if (schemeList.size() != 0) {
+            return jsonBuilder.buildSchemeEvaluate(schemeList);
+        } else {
+            return "{\"schemeEvaluate\":" + "\"null\"" + "}";
+        }
     }
 
 

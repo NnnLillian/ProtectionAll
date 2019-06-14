@@ -46,4 +46,6 @@ public interface SchemeMapper {
     public void DeleteSchemeActionGroup(@Param("action_group_id") Integer army_action_group);
 
     void AddSchemeCase(@Param("scheme_id") Integer scheme_id, @Param("caseId") Integer caseId);
+
+    List<Integer> RequestSchemeId();
 }

@@ -26,7 +26,7 @@ public class SimilarSchemeServiceImpl implements SimilarSchemeService {
         Scheme schemeAction = schemeMapper.GetSchemeBySchemeID(schemeId);
         Scheme_Safeguard schemeSafeguard = schemeMapper.GetSchemeSafeguardBySchemeID(schemeId).get(0);
 //        选择出Action相似的schemeId
-        List<Integer> schemeIdList1 = similarSchemeMapper.GetSimilarActionSchemeId(schemeAction.getCombat_direction(), "1", "4", "5");
+        List<Integer> schemeIdList1 = similarSchemeMapper.GetSimilarActionSchemeId(schemeAction.getCombat_direction(), schemeAction.getScheme_type(), schemeAction.getScheme_begin_time().substring(5,7), schemeAction.getScheme_end_time().substring(5,7));
 //        选择出Safeguards相似的schemeId
         List<Integer> schemeIdList2 = similarSchemeMapper.GetSimilarSafeguardSchemeId(schemeSafeguard.getCarry_method(), schemeSafeguard.getSafeguard_mode());
 
