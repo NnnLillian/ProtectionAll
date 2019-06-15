@@ -54,10 +54,13 @@ public class SchemeServiceImpl implements SchemeService {
     @Override
     public List<TeamStr> RequestTeamBySchemeIdAndType(Integer scheme_id, String group_type) {
         Group group = groupMapper.GetSchemeGroupBySchemeIdAndGroupType(scheme_id, group_type);
+        List<TeamStr> teamStrList = new ArrayList<>();
+        if (group == null) {
+            return teamStrList;
+        }
         Integer groupId = group.getGroup_id();
         String groupName = group.getGroup_name();
         List<Team> teamList = groupMapper.GetTeamByGroupId(groupId);
-        List<TeamStr> teamStrList = new ArrayList<>();
         for (int i = 0; i < teamList.size(); i++) {
             TeamStr teamStr = new TeamStr();
             Integer teamId = teamList.get(i).getTeam_id();
@@ -93,8 +96,11 @@ public class SchemeServiceImpl implements SchemeService {
     @Override
     public List<Team_People> RequestTeamPeopleBySchemeIdAndType(Integer scheme_id, String group_type) {
         Group group = groupMapper.GetSchemeGroupBySchemeIdAndGroupType(scheme_id, group_type);
-        List<Team_People> teamPeopleList = groupMapper.GetTeamPeopleByGroupId(group.getGroup_id());
         List<Team_People> teamPeopleList1 = new ArrayList<>();
+        if (group == null) {
+            return teamPeopleList1;
+        }
+        List<Team_People> teamPeopleList = groupMapper.GetTeamPeopleByGroupId(group.getGroup_id());
         String groupName = group.getGroup_name();
         for (Team_People teamPeople : teamPeopleList) {
             String teamName = "第" + teamPeople.getTeam_name() + groupName;

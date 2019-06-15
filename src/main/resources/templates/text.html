@@ -122,21 +122,23 @@
             </li>
         </th:block>
     </ol>
-    <h5>（三）支援保障组 </h5>
-    <p>组建<span class="data" th:text="${#lists.size(supply_team_list)}"></span>支支援保障组。</p>
-    <ol>
-        <th:block th:each="supplyTeam:${supply_team_list}">
-            <li>
-                <p><b class="data" th:text="${supplyTeam.getTeam_name()}"></b></p>
-                <p>
-                    各类保障人员<span class="data" th:text="${supplyTeam.getTeam_people_count()}"></span>人；
-                    携型装备<span class="data" th:text="${supplyTeam.getTeam_category_msg()}"></span>；
-                    担负：<span class="data" th:text="${supplyTeam.getArmy_name()}"></span>
-                    的 <span class="data" th:text="${supplyTeam.getTeam_duty()}"></span>
-                </p>
-            </li>
-        </th:block>
-    </ol>
+    <div id="supplyDiv" th:value="${supply_people_count}">
+        <h5>（三）支援保障组 </h5>
+        <p>组建<span class="data" th:text="${#lists.size(supply_team_list)}"></span>支支援保障组。</p>
+        <ol>
+            <th:block th:each="supplyTeam:${supply_team_list}">
+                <li>
+                    <p><b class="data" th:text="${supplyTeam.getTeam_name()}"></b></p>
+                    <p>
+                        各类保障人员<span class="data" th:text="${supplyTeam.getTeam_people_count()}"></span>人；
+                        携型装备<span class="data" th:text="${supplyTeam.getTeam_category_msg()}"></span>；
+                        担负：<span class="data" th:text="${supplyTeam.getArmy_name()}"></span>
+                        的 <span class="data" th:text="${supplyTeam.getTeam_duty()}"></span>
+                    </p>
+                </li>
+            </th:block>
+        </ol>
+    </div>
     <h4>4.1.3 保障人员、装备及物资 </h4>
     <h5>（一）保障人员 </h5>
     <p>旅直属保障人员（装备抢修组<span class="data" th:text="${repair_people_count}"></span>人、器材保障组<span class="data"
@@ -234,11 +236,11 @@
     <p>战时组织实施装备保障时，装备保障指挥命令指示与保障信息的传递，通常以有线电话为主，无线电话为辅，有线电话中断时，采取无线电话（报）。</p>
     <p>当与上级装备保障机构通信中断时，旅按作战装备保障计划，独立自主实施指挥。营通信中断时，按照防空作战计划积极果断地实施指挥。</p>
     <p>附件:</p>
-    <a href="#table1" style="display: block">1.装备抢修组编成与部署表</a>
-    <a href="#table2" style="display: block">2.器材保障组编成与部署表</a>
-    <a href="#table3" style="display: block">3.支援保障组编成与部署表</a>
-    <a href="#table4" style="display: block">4.旅、营携行军械车辆维修装（设）备表</a>
-    <a href="#table5" style="display: block">5.枪支弹药携行情况</a>
+    <a href="#table1" style="display: block">装备抢修组编成与部署表</a>
+    <a href="#table2" style="display: block">器材保障组编成与部署表</a>
+    <a href="#table3" style="display: block" id="supplyTipA">支援保障组编成与部署表</a>
+    <a href="#table4" style="display: block">旅、营携行军械车辆维修装（设）备表</a>
+    <a href="#table5" style="display: block">枪支弹药携行情况</a>
 
     <p>附件1</p>
     <h5 align="center">装备抢修组编成与部署表</h5>
@@ -303,29 +305,30 @@
         </th:block>
     </table>
     <br>
-    <p>附件3</p>
-    <h5 align="center">支援保障组编成与部署表</h5>
-    <table align="center" border="1" cellpadding="5" id="table3" name="protectTable" width="80%">
-        <tr>
-            <th>分组</th>
-            <th>职务</th>
-            <th>岗位</th>
-            <th>姓名</th>
-            <th>负责专业</th>
-            <th>备注</th>
-        </tr>
-        <th:block th:each="supplyPeopleItem:${supply_teamPeople_list}">
+    <div id="supplyTableDiv"><p>附件3</p>
+        <h5 align="center">支援保障组编成与部署表</h5>
+        <table align="center" border="1" cellpadding="5" id="table3" name="protectTable" width="80%">
             <tr>
-                <td class="data" th:text="${supplyPeopleItem.getTeam_name()}"></td>
-                <td class="data" th:text="${supplyPeopleItem.getDepartment_name()}"></td>
-                <td class="data" th:text="${supplyPeopleItem.getPeople_job()}"></td>
-                <td class="data" th:text="${supplyPeopleItem.getPeople_name()}"></td>
-                <td class="data" th:text="${supplyPeopleItem.getPeople_profession()}"></td>
-                <td class="data" th:text="${supplyPeopleItem.getTeam_duty()}">
-                </td>
+                <th>分组</th>
+                <th>职务</th>
+                <th>岗位</th>
+                <th>姓名</th>
+                <th>负责专业</th>
+                <th>备注</th>
             </tr>
-        </th:block>
-    </table>
+            <th:block th:each="supplyPeopleItem:${supply_teamPeople_list}">
+                <tr>
+                    <td class="data" th:text="${supplyPeopleItem.getTeam_name()}"></td>
+                    <td class="data" th:text="${supplyPeopleItem.getDepartment_name()}"></td>
+                    <td class="data" th:text="${supplyPeopleItem.getPeople_job()}"></td>
+                    <td class="data" th:text="${supplyPeopleItem.getPeople_name()}"></td>
+                    <td class="data" th:text="${supplyPeopleItem.getPeople_profession()}"></td>
+                    <td class="data" th:text="${supplyPeopleItem.getTeam_duty()}">
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
     <br>
     <p>附件4</p>
     <h5 align="center">旅、营携行军械车辆装（设）备表</h5>
@@ -503,7 +506,7 @@
     <p>3.情况紧急时，选用备打发射架。</p>
     <h4>4.3.5 环境特情处置预案</h4>
     <th:block th:each="case:${specialCaseList}">
-        <p th:text="${case.getDescription()}"></p>
+        <p class="data" th:text="${case.getDescription()}"></p>
     </th:block>
     <h4>4.3.6 要求</h4>
     <p>（一）提高认识，加强领导。各保障组人员思想上必须高度重视，加强对装备保障特情处置工作的组织领导。要严密组织，认真搞好各种预想，提高认识，要制定切实可行的实施方案。</p>
@@ -590,6 +593,13 @@
             console.log(a);
             $("#EvaluateScheme").css("display", "block");
             $("#schemeId").text(localStorage.getItem("EvaluateSchemeId"));
+        }
+
+        //    判断是否有支援保障
+        if (localStorage.getItem("supportProtection") === "false") {
+            $("#supplyDiv").css("display", "none");
+            $("#supplyTableDiv").css("display", "none");
+            $("#supplyTipA").css("display", "none");
         }
     });
 

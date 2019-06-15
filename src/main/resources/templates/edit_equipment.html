@@ -152,26 +152,26 @@
             </div>
             <div class="modal-body">
                 <div class="tab-pane active elementInfo">
-                    <div class="table-responsive" id="elementTablesDiv">
-                        <table id="element-table"></table>
-                    </div>
-                    <div class="mb15"></div>
-                    <div class="table-responsive">
-                        <table id="element-repair-table"></table>
-                    </div>
-                    <hr>
                     <div align="center" id="loaderImg">
                         <img alt="" src="images/loaders/loader1.gif">
                     </div>
-                    <div id="elementSuggest">
+                    <div class="table-responsive" id="elementTablesDiv">
+                        <table id="element-table"></table>
                     </div>
                     <hr>
-                    <div align="center">
-                        <img id="tableLoaderImg"
-                             src="images/loaders/loader1.gif">
+                    <div align="center" id="tableLoaderImg">
+                        <img
+                                src="images/loaders/loader1.gif">
                     </div>
-                    <div id="applyElementTable">
+                    <div class="table-responsive" id="elementRepairTableDiv">
+                        <table id="element-repair-table"></table>
                     </div>
+                    <!--<hr>-->
+                    <!--<div id="elementSuggest">-->
+                    <!--</div>-->
+                    <!--<hr>-->
+                    <!--<div id="applyElementTable">-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
@@ -251,17 +251,37 @@
     $("#reliabilityModal").on('shown.bs.modal', function () {
         document.getElementById("elementMsgTitle").innerHTML = localStorage.getItem("element_category_name");
         //    查看装备元件信息
-        elementDataInit("elementReliability");
-        elementRepairDataInit("elementRepairInfo");
-        setTimeout(loadSuggest, 2000);
-        setTimeout(loadApplyTable, 2500);
+        setTimeout(loadElementData, 2000);
+        setTimeout(loadElementRepair, 2500);
     });
     $("#reliabilityModal").on('hidden.bs.modal', function () {
         $("#loaderImg").show();
         $("#tableLoaderImg").show();
+        $("#elementTablesDiv").css('display', 'none');
+        $("#elementRepairTableDiv").css('display', 'none');
         $('#elementSuggest').hide();
         $('#applyElementTable').hide()
     });
+
+    function loadElementData() {
+        $("#loaderImg").hide();
+        setTimeout(createTableElementData, 100)
+    }
+
+    function loadElementRepair() {
+        $("#tableLoaderImg").hide();
+        setTimeout(createTableElementRepair,100)
+    }
+
+    function createTableElementData() {
+        $("#elementTablesDiv").css('display', 'block');
+        elementDataInit("elementReliability");
+    }
+
+    function createTableElementRepair() {
+        $("#elementRepairTableDiv").css('display', 'block');
+        elementRepairDataInit("elementRepairInfo");
+    }
 
     function loadSuggest() {
         $("#loaderImg").hide();

@@ -112,17 +112,19 @@
                             </div>
                             <table class="table" id="protectGroupTable"></table>
                         </div>
-                        <hr>
-                        <div class="form-group">
-                            <h4>支援保障组</h4>
-                            <p>负责战地的资源保障</p>
-                            <div class="btn-group" id="supplyToolbar">
-                                <button class="btn btn-default" data-target="#newTeamModal"
-                                        data-toggle="modal" id="supply" name="modalSupplyDepartment">
-                                    <span aria-hidden="true" class="glyphicon glyphicon-plus"> </span>新增支援保障组
-                                </button>
+                        <div id="supportDiv" style="display: none">
+                            <hr>
+                            <div class="form-group">
+                                <h4>支援保障组</h4>
+                                <p>负责战地的资源保障</p>
+                                <div class="btn-group" id="supplyToolbar">
+                                    <button class="btn btn-default" data-target="#newTeamModal"
+                                            data-toggle="modal" id="supply" name="modalSupplyDepartment">
+                                        <span aria-hidden="true" class="glyphicon glyphicon-plus"> </span>新增支援保障组
+                                    </button>
+                                </div>
+                                <table class="table" id="supplyGroupTable"></table>
                             </div>
-                            <table class="table" id="supplyGroupTable"></table>
                         </div>
                         <!--<div class="form-group">-->
                         <!--<button class="btn btn-pink" id="testBtn">TEST</button>-->
@@ -455,7 +457,10 @@
 
     protectDataInit("repairTeam");
     protectDataInit("protectTeam");
-    protectDataInit("supplyTeam");
+    if (localStorage.getItem("supportProtection") === "true") {
+        $("#supportDiv").css("display","block");
+        protectDataInit("supplyTeam");
+    }
 
     function protectDataInit(name) {
         let url, tableName, toolBar;

@@ -59,7 +59,7 @@
 
                             <ul class="blog-meta">
                                 <li>方案编辑人: <a href=""></a></li>
-                                <li>完成日期: <a href="">2019-01-12</a></li>
+                                <li>完成日期: <a href="" id="date"></a></li>
                                 <li>评估结果: <a href=""></a></li>
                             </ul>
                             <!--<div class="blog-img"><img src="" class="img-responsive" alt="" /></div>-->
@@ -126,6 +126,7 @@
     $('.left').load("left");
     // $('.head').load("head")
     $('.scheme-content').load("text?scheme_id=" + localStorage.getItem("scheme_id"));
+    $('#date').text(getNowFormatDate());
 
     function finishScheme() {
         $.ajax({
@@ -140,6 +141,22 @@
                 console.error("failed");
             }
         });
+    }
+
+    function getNowFormatDate() {
+        let date = new Date();
+        let separator = "-";
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        let currentDate = year + separator + month + separator + strDate;
+        return currentDate;
     }
 
     // jQuery(window).load(function () {

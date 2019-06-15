@@ -200,9 +200,11 @@ public class SchemeHtmlController {
         List<TeamStr> supplyTeamList = schemeService.RequestTeamBySchemeIdAndType(scheme_id, "supply");
         Integer supplyTeamPeople = 0;
         String supplyTeamCategory = "";
-        for (TeamStr supplyTeamStr : supplyTeamList) {
-            supplyTeamPeople += supplyTeamStr.getTeam_people_count();
-            repairTeamCategory += supplyTeamStr.getTeam_category_msg();
+        if (supplyTeamList.size() != 0) {
+            for (TeamStr supplyTeamStr : supplyTeamList) {
+                supplyTeamPeople += supplyTeamStr.getTeam_people_count();
+                repairTeamCategory += supplyTeamStr.getTeam_category_msg();
+            }
         }
         List<Scheme_Safeguard> scheme_safeguardList = schemeService.GetSchemeSafeguardBySchemeID(scheme_id);
         Scheme_Safeguard scheme_safeguard1 = scheme_safeguardList.get(0);
