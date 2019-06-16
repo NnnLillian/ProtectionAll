@@ -1,12 +1,12 @@
 // var selections = []
-self.supplyPeopleDataInit = function (name) {
-    var url, tableName, check, columns;
-    var basicColumns = [
+supplyPeopleDataInit = function (name) {
+    let url, tableName, check, columns;
+    let basicColumns = [
         {
             field: 'people_id',
             title: '人员ID',
             align: 'center',
-            width: '20%'
+            width: '15%'
         }, {
             field: 'people_name',
             title: '姓名',
@@ -17,10 +17,15 @@ self.supplyPeopleDataInit = function (name) {
             field: 'people_profession',
             title: '专业',
             align: 'center',
-            width: '30%'
+            width: '20%'
+        }, {
+            field: 'people_platoon_name',
+            title: '所属单位',
+            align: 'center',
+            width: '15%'
         }, {
             field: 'people_army_name',
-            title: '所属单位',
+            title: '所属部门',
             align: 'center',
             width: '30%'
             // sortable: true
@@ -30,7 +35,7 @@ self.supplyPeopleDataInit = function (name) {
         case 'teamLeader':
             tableName = "teamLeader-table";
             // 队长一定要从技术勤务科中选择
-            url = "/GetPeopleMsg/" + localStorage.getItem("scheme_id") + "?army_type=expert";
+            url = "/GetSupplyPeopleMsg/" + localStorage.getItem("scheme_id") + "?army_type=expert";
             // url = "js/tableData/json/people.json";
             check = [{
                 radio: true,
@@ -48,7 +53,7 @@ self.supplyPeopleDataInit = function (name) {
             break;
         case 'deputyHead':
             tableName = "deputyHead-table";
-            url = "/GetPeopleMsg/" + localStorage.getItem("scheme_id") + "?army_type=both";
+            url = "/GetSupplyPeopleMsg/" + localStorage.getItem("scheme_id") + "?army_type=both";
             // url = "js/tableData/json/people.json";
             check = [{
                 radio: true,
@@ -72,7 +77,7 @@ self.supplyPeopleDataInit = function (name) {
             break;
         case 'teamMember':
             tableName = "teamMember-table";
-            url = "/GetPeopleMsg/" + localStorage.getItem("scheme_id") + "?army_type=both";
+            url = "/GetSupplyPeopleMsg/" + localStorage.getItem("scheme_id") + "?army_type=both";
             // url = "js/tableData/json/people.json";
             check = [{
                 field: 'checkStatus',
@@ -87,8 +92,7 @@ self.supplyPeopleDataInit = function (name) {
                             checked: false,
                             disabled: true
                         }
-                    } else
-                    if (row.checks === true) {
+                    } else if (row.checks === true) {
                         return {
                             checked: false,
                             disabled: true

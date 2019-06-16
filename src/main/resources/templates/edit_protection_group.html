@@ -301,9 +301,12 @@
 
         // 加载保障人员信息
         if (BtnId === "supply"){
-            peopleDataInit('teamLeader');
-            peopleDataInit('deputyHead');
-            peopleDataInit('teamMember');
+            supplyPeopleDataInit('teamLeader');
+            supplyPeopleDataInit('deputyHead');
+            supplyPeopleDataInit('teamMember');
+
+            // 加载保障器材信息
+            categoryDataInit('teamCategory');
         } else {
             peopleDataInit('teamLeader');
             peopleDataInit('deputyHead');

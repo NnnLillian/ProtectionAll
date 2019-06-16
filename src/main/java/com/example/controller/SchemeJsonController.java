@@ -406,6 +406,29 @@ public class SchemeJsonController {
         return jsonBuilder.buildPeopleList(peopleList);
     }
 
+    //    获得外旅人员信息
+    @ResponseBody
+    @RequestMapping(value = "/GetSupplyPeopleMsg/{schemeId}", method = {RequestMethod.GET})
+    public String GetSupplyPeopleMsg(@PathVariable("schemeId") Integer schemeId, @Param("army_type") String army_type) {
+        String Both = "both";
+        List<Scheme_Safeguard> schemeSafeguards = schemeService.GetSchemeSafeguardBySchemeID(schemeId);
+        List<People> peopleList = new ArrayList<>();
+        for (Scheme_Safeguard s : schemeSafeguards) {
+            Integer platoonId = s.getPlatoon_id();
+            peopleList = peopleService.GetPeopleByPlatoonIdAndType("expert", platoonId);
+            if (army_type.equals(Both)) {
+                List<People> peopleList2 = peopleService.GetPeopleByPlatoonIdAndType("engineer", platoonId);
+                peopleList.addAll(peopleList2);
+            }
+            for (int i = 0; i < peopleList.size(); i++) {
+                String platoonName = schemeService.GetPlatoonById(platoonId).getPlatoon_name();
+                peopleList.get(i).setPeople_platoon_name(platoonName);
+            }
+        }
+        return jsonBuilder.buildPeopleList(peopleList);
+
+    }
+
     //    获取保障小分队的table，对应表格在Team_resultProtection中
     @ResponseBody
     @RequestMapping(value = "/GetTeamMsg", method = {RequestMethod.GET})
