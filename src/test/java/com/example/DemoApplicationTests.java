@@ -323,7 +323,7 @@ public class DemoApplicationTests {
 
     @Test
     public void Try() {
-        List<Integer> schemeList = evaluateMapper.GetSchemeIdWhereEvaluateCountMore(2);
-        System.out.println(schemeList);
+        List<People> peopleList = peopleMapper.GetPeopleByPlatoonIdAndType("expert",1);
+        System.out.println(peopleList);
     }
 }

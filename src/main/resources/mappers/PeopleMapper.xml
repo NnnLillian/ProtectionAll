@@ -10,7 +10,7 @@
         select * from people_info where people_profession = #{people_profession}
     </select>
     <select id="GetPeopleByArmyType" resultType="com.example.entity.People">
-        select * from people_info where people_army_id = (select army_id from army_info where army_type = #{army_info})
+        select * from people_info where people_army_id in (select army_id from army_info where army_type = #{army_info})
     </select>
     <insert id="AddPeople" parameterType="com.example.entity.People">
         insert into people_info(people_army_id, people_army_name, people_name, people_job, people_sex, people_nationality, military_rank, birthplace, birthday, enlistment, graduated_school, people_profession, education, comment) values(#{people_army_id}, #{people_army_name}, #{people_name}, #{people_job}, #{people_sex}, #{people_nationality}, #{military_rank}, #{birthplace}, #{birthday}, #{enlistment}, #{graduated_school}, #{people_profession}, #{education}, #{comment})
@@ -18,4 +18,7 @@
     <update id="changePeopleSelected">
         UPDATE people_info SET checks = #{check} WHERE people_id = #{people_id};
     </update>
+    <select id="GetPeopleByPlatoonIdAndType" resultType="com.example.entity.People">
+        select * from people_info where people_army_id in (select army_id from army_info where army_type = #{army_type} and platoon_id = #{platoon_id})
+    </select>
 </mapper>

@@ -11,16 +11,17 @@ public class Scheme {
     private String scheme_end_time;
     private String scheme_type;
     private String combat_direction;//作战方向
-//    private String safeguard_mode;//保障模式
+    //    private String safeguard_mode;//保障模式
 //    private String carry_method;//携装方式
     private List<Equipment> equipment_list;
     private String action_group_flag;
     private double evaluate_result; //评分结果
+    private int evaluate_times; //要求评估次数
 
     public Scheme() {
     }
 
-    public Scheme(Integer scheme_id, String scheme_name, String scheme_code, Integer location_id, String scheme_begin_time, String scheme_end_time, String scheme_type, String combat_direction, List<Equipment> equipment_list, String action_group_flag, double evaluate_result) {
+    public Scheme(Integer scheme_id, String scheme_name, String scheme_code, Integer location_id, String scheme_begin_time, String scheme_end_time, String scheme_type, String combat_direction, List<Equipment> equipment_list, String action_group_flag, double evaluate_result, int evaluate_times) {
         this.scheme_id = scheme_id;
         this.scheme_name = scheme_name;
         this.scheme_code = scheme_code;
@@ -32,6 +33,7 @@ public class Scheme {
         this.equipment_list = equipment_list;
         this.action_group_flag = action_group_flag;
         this.evaluate_result = evaluate_result;
+        this.evaluate_times = evaluate_times;
     }
 
     public Integer getScheme_id() {
@@ -120,5 +122,13 @@ public class Scheme {
 
     public void setEvaluate_result(double evaluate_result) {
         this.evaluate_result = evaluate_result;
+    }
+
+    public int getEvaluate_times() {
+        return evaluate_times;
+    }
+
+    public void setEvaluate_times(int evaluate_times) {
+        this.evaluate_times = evaluate_times;
     }
 }

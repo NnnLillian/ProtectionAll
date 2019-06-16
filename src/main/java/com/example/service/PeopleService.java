@@ -12,6 +12,8 @@ public interface PeopleService {
 
     public List<People> GetPeopleByArmyType(String army_type);
 
+    public List<People> GetPeopleByPlatoonIdAndType(String army_type, Integer platoon_id);
+
     public Integer AddPeople(People people);
 
     public Integer IncreaseBase(String baseName);

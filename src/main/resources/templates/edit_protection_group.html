@@ -43,6 +43,7 @@
     <script src="js/sweetalert.min.js"></script>
 
     <script src="js/tableData/protectionPeopleTable-data.js"></script>
+    <script src="js/tableData/protectionSupplyPeopleTable-data.js"></script>
     <script src="js/tableData/protectionCategoryTable-data.js"></script>
 
     <style>
@@ -299,12 +300,18 @@
         localStorage.setItem("selected_people", "");
 
         // 加载保障人员信息
-        peopleDataInit('teamLeader');
-        peopleDataInit('deputyHead');
-        peopleDataInit('teamMember');
+        if (BtnId === "supply"){
+            peopleDataInit('teamLeader');
+            peopleDataInit('deputyHead');
+            peopleDataInit('teamMember');
+        } else {
+            peopleDataInit('teamLeader');
+            peopleDataInit('deputyHead');
+            peopleDataInit('teamMember');
 
-        // 加载保障器材信息
-        categoryDataInit('teamCategory');
+            // 加载保障器材信息
+            categoryDataInit('teamCategory');
+        }
         // console.log(getHtmlElementId());
         let title = $("#" + BtnId).text();
         // console.log(typeof title);

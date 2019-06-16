@@ -393,9 +393,14 @@ public class SchemeJsonController {
     @RequestMapping(value = "/GetPeopleMsg/{schemeId}", method = {RequestMethod.GET})
     public String AddPeopleMsg(@PathVariable("schemeId") Integer schemeId, @Param("army_type") String army_type) {
         String Both = "both";
-        List<People> peopleList = peopleService.GetPeopleByArmyType("expert");
+        List<Scheme_Army> schemeArmies = schemeService.GetSchemeArmyBySchemeId(schemeId);
+        Integer platoonId = 1;
+        if (schemeArmies.size() != 0) {
+            platoonId = schemeArmies.get(0).getPlatoon_id();
+        }
+        List<People> peopleList = peopleService.GetPeopleByPlatoonIdAndType("expert", platoonId);
         if (army_type.equals(Both)) {
-            List<People> peopleList2 = peopleService.GetPeopleByArmyType("engineer");
+            List<People> peopleList2 = peopleService.GetPeopleByPlatoonIdAndType("engineer", platoonId);
             peopleList.addAll(peopleList2);
         }
         return jsonBuilder.buildPeopleList(peopleList);
