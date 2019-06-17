@@ -89,8 +89,8 @@
 <script type="text/javascript">
     let pressureChart = echarts.init(document.getElementById('pressuretable'));
     let PressureDataList = [];
-    let monthBegin = parseInt(localStorage.getItem("month"));
-    let monthEnd = parseInt(localStorage.getItem("monthEnd"));
+    let monthBegin = parseInt(localStorage.getItem("month")) - 1;
+    let monthEnd = parseInt(localStorage.getItem("monthEnd")) - 1;
 
     // var DataList = [];
     function showPressureCharts() {
@@ -102,14 +102,14 @@
             data: {index: 0},
             success: function (data) {
                 console.log(data);
-                var data_list = data.data_list;
+                let data_list = data.data_list;
                 console.log(data_list);
-                for (var i = 0; i < data_list.length; i++) {
+                for (let i = 0; i < data_list.length; i++) {
                     PressureDataList.push(data_list[i].pressure);
                     // DataList.push(data_list[i].month_time);
                 }
                 // 指定图表的配置项和数据
-                var option = {
+                let option = {
                     title: {
                         text: '往年气压变化',
                         // subtext: '说明性文字',
@@ -120,8 +120,8 @@
                         trigger: 'axis',
                         // axisPointer: {type: 'cross'}
                         formatter: function (params) {
-                            var relVal = params[0].name + '月';
-                            for (var i = 0, l = params.length; i < l; i++) {
+                            let relVal = params[0].name + '月';
+                            for (let i = 0, l = params.length; i < l; i++) {
                                 relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value;
                             }
                             return relVal;
@@ -191,7 +191,19 @@
                             // symbol: 'none',  // 设置之后无小点
                             smooth: true,
                             color: ['#15971f'],
-                            data: PressureDataList
+                            data: PressureDataList,
+                            markArea: {
+                                itemStyle: {
+                                    normal: {
+                                        color: 'rgba(251,211,176,0.4)',
+                                    }
+                                },
+                                data: [
+                                    [
+                                        {xAxis: monthBegin}, {xAxis: monthEnd}
+                                    ]
+                                ],
+                            },
                             // 在 轴 上显示数据
                             // itemStyle: {
                             //     normal: {

@@ -6,22 +6,23 @@
 <!--</head>-->
 <!--<body>-->
 <style>
-    #loading7{
+    #loading7 {
         width: 100%;
         height: 100%;
         background-color: #fff;
         position: absolute;
-        top:0;
+        top: 0;
         left: 0;
         z-index: 9999;
     }
-    #loading7 >div{
+
+    #loading7 > div {
         width: 72px;
         height: 72px;
         position: absolute;
-        top:0;
-        bottom:0;
-        left:0;
+        top: 0;
+        bottom: 0;
+        left: 0;
         right: 0;
         margin: auto;
     }
@@ -32,25 +33,27 @@
 <div id="windLeveltable" style="width:64%;height:500px; float: left"></div>
 <div style="width: 36%;float: right">
     <ul id="WindLevelDescriptionTips">
-<!--        <li><div class="checkbox block"><input type="checkbox">西藏地区年大风期长，大风天气容易使雷达天线甚至车辆发生倾覆危险；</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">沙尘天气容易导致机箱内，尤其是高压部分会导致打火。</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">风沙容易进入液压支腿及发射车大齿弧等裸露机械部分，会导致机械卡滞或其润滑油脂变质，使润滑效果下降，损坏兵器；</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">风沙容易侵入触点，增大接触电阻，使触点温度增高，从而导致电接触部分的触点容易烧伤，产生接触不良、漏电等故障；</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">空气中灰尘微粒含量多，仪表油、润滑油(脂)易变质，使润滑油效果降低，导致机械磨损增大；</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">做好装备防风防尘，及时关紧车厢门窗，非工作状态下，装备外露的空调、冷却装置、通风口等要进行遮盖，防止沙尘侵入，动力系统的进气口要尽量避开风的来袭方向。</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">根据风力大小，适时加固兵器装备，加盖篷布，必要时，撤收易受损伤的旋转关节、雷达的升降导轨等要涂油，用帆布或油纸包裹，工作时及时除掉油脂，经常清洗空气清器，防止空气中的沙尘颗粒堵塞空气滤清器的进气孔。</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">视情组织装备的清洁保养，重点进行兵器内部除尘，电缆头维护，旋转机构润滑及滤尘网，空气滤清器清洗工作，风沙过后要对武器装备进行全面，彻底的维护擦拭，将沙土清除干净。</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">根据风力大小，适时加固兵器装备，加盖篷布，必要时，撤收易受损伤的旋转关节、雷达的升降导轨等要涂油，用帆布或油纸包裹；</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">风力过大时，及时撤收兵器，将装备转移至安全地域，并加强对易损部位的防护；在不影响作战时，请示关机，切断电源。</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">西藏地区年大风期长，大风天气容易使雷达天线甚至车辆发生倾覆危险；</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">沙尘天气容易导致机箱内，尤其是高压部分会导致打火。</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">风沙容易进入液压支腿及发射车大齿弧等裸露机械部分，会导致机械卡滞或其润滑油脂变质，使润滑效果下降，损坏兵器；</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">风沙容易侵入触点，增大接触电阻，使触点温度增高，从而导致电接触部分的触点容易烧伤，产生接触不良、漏电等故障；</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">空气中灰尘微粒含量多，仪表油、润滑油(脂)易变质，使润滑油效果降低，导致机械磨损增大；</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">做好装备防风防尘，及时关紧车厢门窗，非工作状态下，装备外露的空调、冷却装置、通风口等要进行遮盖，防止沙尘侵入，动力系统的进气口要尽量避开风的来袭方向。</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">根据风力大小，适时加固兵器装备，加盖篷布，必要时，撤收易受损伤的旋转关节、雷达的升降导轨等要涂油，用帆布或油纸包裹，工作时及时除掉油脂，经常清洗空气清器，防止空气中的沙尘颗粒堵塞空气滤清器的进气孔。</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">视情组织装备的清洁保养，重点进行兵器内部除尘，电缆头维护，旋转机构润滑及滤尘网，空气滤清器清洗工作，风沙过后要对武器装备进行全面，彻底的维护擦拭，将沙土清除干净。</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">根据风力大小，适时加固兵器装备，加盖篷布，必要时，撤收易受损伤的旋转关节、雷达的升降导轨等要涂油，用帆布或油纸包裹；</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">风力过大时，及时撤收兵器，将装备转移至安全地域，并加强对易损部位的防护；在不影响作战时，请示关机，切断电源。</div></li>-->
     </ul>
 </div>
 <!--<script src="js/jquery-1.11.1.min.js"></script>-->
 <!--<script src="js/echarts.js"></script>-->
 <script type="text/javascript">
-    var windLevelChart = echarts.init(document.getElementById('windLeveltable'));
-    var YData = [];
+    let windLevelChart = echarts.init(document.getElementById('windLeveltable'));
+    let YData = [];
+    let monthBegin = parseInt(localStorage.getItem("month"))-1;
+    let monthEnd = parseInt(localStorage.getItem("monthEnd"))-1;
     // var DataList = [];
-    function showWindLevelCharts () {
+    function showWindLevelCharts() {
         $.ajax({
             type: 'GET',
             url: '/GetEnvironment?scheme_id=' + localStorage.getItem("scheme_id") + '&month=' + localStorage.getItem("month") + '&type=wind_level',
@@ -76,11 +79,10 @@
                     tooltip: {
                         trigger: 'axis',
                         // axisPointer: {type: 'cross'}
-                        formatter:function(params)
-                        {
+                        formatter: function (params) {
                             var relVal = params[0].name;
                             for (var i = 0, l = params.length; i < l; i++) {
-                                relVal += '月<br/>' + params[i].seriesName + ' : ' + params[i].value+"级";
+                                relVal += '月<br/>' + params[i].seriesName + ' : ' + params[i].value + "级";
                             }
                             return relVal;
                         }
@@ -128,7 +130,7 @@
                                     // color: '#000080'
                                 }
                             },
-                            axisLabel:{
+                            axisLabel: {
                                 formatter: '{value} 级'
                             }
                         }
@@ -149,6 +151,18 @@
                             smooth: true,
                             color: ['#0d60b7'],
                             data: YData,
+                            markArea: {
+                                itemStyle: {
+                                    normal: {
+                                        color: 'rgba(251,211,176,0.4)',
+                                    }
+                                },
+                                data: [
+                                    [
+                                        {xAxis: monthBegin}, {xAxis: monthEnd}
+                                    ]
+                                ],
+                            },
                             // 在 轴 上显示数据
                             // itemStyle: {
                             //     normal: {
@@ -166,9 +180,7 @@
                     ]
                 };
                 // 设置pieces
-                let monthBegin = parseInt(localStorage.getItem("month"));
-                let monthEnd = parseInt(localStorage.getItem("monthEnd"));
-                option.visualMap.pieces[0]={gte:monthBegin,lte:monthEnd,color:['#ff8e23']};
+                option.visualMap.pieces[0] = {gte: monthBegin, lte: monthEnd, color: ['#ff8e23']};
                 // 使用刚指定的配置项和数据显示图表。
                 windLevelChart.setOption(option);
 
@@ -186,7 +198,7 @@
     setTimeout(function () {
         $("#loading7").fadeOut();
         showWindLevelCharts();
-    },2000)
+    }, 2000)
 </script>
 <!--</body>-->
 <!--</html>-->

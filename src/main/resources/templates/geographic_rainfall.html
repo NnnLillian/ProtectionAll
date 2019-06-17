@@ -6,22 +6,23 @@
 <!--</head>-->
 <!--<body>-->
 <style>
-    #loading4{
+    #loading4 {
         width: 100%;
         height: 100%;
         background-color: #fff;
         position: absolute;
-        top:0;
+        top: 0;
         left: 0;
         z-index: 9999;
     }
-    #loading4 >div{
+
+    #loading4 > div {
         width: 72px;
         height: 72px;
         position: absolute;
-        top:0;
-        bottom:0;
-        left:0;
+        top: 0;
+        bottom: 0;
+        left: 0;
         right: 0;
         margin: auto;
     }
@@ -32,44 +33,47 @@
 <div id="rainfalltable" style="width:64%;height:500px; float: left"></div>
 <div style="width: 36%;float: right">
     <ul id="rainfallDescriptionTips">
-<!--        <li><div class="checkbox block"><input type="checkbox">-->
-<!--            西藏地区全年多晴朗天气，降雨稀少，降水集中在6—9月份，多夜雨，为雨季。-->
-<!--        </div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">-->
-<!--            干燥的环境会导致装备接地性能不好，影响装备工作的稳定性，导致故障率提高，同时干燥的环境也会导致静电的产生，导致维护难度的增加；-->
-<!--        </div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">-->
-<!--            雨季降雨频繁，空气湿度大，需注意非密封结构器件受潮进水容易导致装备出现各类故障；-->
-<!--        </div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">-->
-<!--            电气设备进水，受潮后绝缘性能下降。容易产生漏电，短路、打火，严重时会击穿烧坏元器件，高频电缆受潮后驻波系数变化，造成高频信号产生畸变，影响兵器性能；野战条件下执行任务，条件简陋，装备处于露天状态存放，各种金属构件进水、受潮或接触腐蚀介质后，会造成腐蚀、生绣，导致机件运转不灵活，卡滞，以致构件的机械强度降低，构造构件断裂；-->
-<!--        </div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">-->
-<!--            武器装备开机前应酌情通风加温去潮，雨后要及时清除武器装备内外和阵地周围的积水，天气晴朗时，及时去掉装备的盖布，打开车门、窗口，自然通风去潮；-->
-<!--        </div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">-->
-<!--            平时关好车门，窗门，盖好盖布和防水套。加强检查维护，对动力电源接插头要加强检查防护，防止因潮湿导致烧蚀；-->
-<!--        </div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">-->
-<!--            对裸露的金属表面要涂油；车辆电瓶适时进行充电，防止因潮湿漏电而导致车辆不能正常启动，对电瓶极柱适当涂油，进行防锈处理；-->
-<!--        </div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">-->
-<!--            突出对高压电路的检查，当发现高压器件发霉或线缆发粘时，应及时晾干；-->
-<!--        </div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">-->
-<!--            导线发粘时，要及时包扎或更换；-->
-<!--        </div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">-->
-<!--            对裸露电缆头进行密封，防止巨大温差凝露导致电缆接口短路，天气条件允许时注意通风去潮。-->
-<!--        </div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">-->
+        <!--            西藏地区全年多晴朗天气，降雨稀少，降水集中在6—9月份，多夜雨，为雨季。-->
+        <!--        </div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">-->
+        <!--            干燥的环境会导致装备接地性能不好，影响装备工作的稳定性，导致故障率提高，同时干燥的环境也会导致静电的产生，导致维护难度的增加；-->
+        <!--        </div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">-->
+        <!--            雨季降雨频繁，空气湿度大，需注意非密封结构器件受潮进水容易导致装备出现各类故障；-->
+        <!--        </div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">-->
+        <!--            电气设备进水，受潮后绝缘性能下降。容易产生漏电，短路、打火，严重时会击穿烧坏元器件，高频电缆受潮后驻波系数变化，造成高频信号产生畸变，影响兵器性能；野战条件下执行任务，条件简陋，装备处于露天状态存放，各种金属构件进水、受潮或接触腐蚀介质后，会造成腐蚀、生绣，导致机件运转不灵活，卡滞，以致构件的机械强度降低，构造构件断裂；-->
+        <!--        </div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">-->
+        <!--            武器装备开机前应酌情通风加温去潮，雨后要及时清除武器装备内外和阵地周围的积水，天气晴朗时，及时去掉装备的盖布，打开车门、窗口，自然通风去潮；-->
+        <!--        </div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">-->
+        <!--            平时关好车门，窗门，盖好盖布和防水套。加强检查维护，对动力电源接插头要加强检查防护，防止因潮湿导致烧蚀；-->
+        <!--        </div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">-->
+        <!--            对裸露的金属表面要涂油；车辆电瓶适时进行充电，防止因潮湿漏电而导致车辆不能正常启动，对电瓶极柱适当涂油，进行防锈处理；-->
+        <!--        </div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">-->
+        <!--            突出对高压电路的检查，当发现高压器件发霉或线缆发粘时，应及时晾干；-->
+        <!--        </div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">-->
+        <!--            导线发粘时，要及时包扎或更换；-->
+        <!--        </div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">-->
+        <!--            对裸露电缆头进行密封，防止巨大温差凝露导致电缆接口短路，天气条件允许时注意通风去潮。-->
+        <!--        </div></li>-->
     </ul>
 </div>
 <!--<script src="js/jquery-1.11.1.min.js"></script>-->
 <!--<script src="js/echarts.js"></script>-->
 <script type="text/javascript">
-    var rainfallChart = echarts.init(document.getElementById('rainfalltable'));
-    var RainfalleDataList = [];
-    var EveryRainfalleDataList = [];
+    let rainfallChart = echarts.init(document.getElementById('rainfalltable'));
+    let RainfalleDataList = [];
+    let EveryRainfalleDataList = [];
+    let monthBegin = parseInt(localStorage.getItem("month")) - 1;
+    let monthEnd = parseInt(localStorage.getItem("monthEnd")) - 1;
+
     // var DataList = [];
     function showRainfallCharts() {
         $.ajax({
@@ -171,7 +175,7 @@
                         show: false,
                         dimension: 0,
                         pieces: [],
-                        outOfRange: [{color: ['#003366']},{color: ['#006699']}]
+                        outOfRange: [{color: ['#003366']}, {color: ['#006699']}]
                     },
                     series: [
                         {
@@ -193,9 +197,7 @@
                     ]
                 };
                 // 设置pieces
-                let monthBegin = parseInt(localStorage.getItem("month"));
-                let monthEnd = parseInt(localStorage.getItem("monthEnd"));
-                option.visualMap.pieces[0]={gte:monthBegin,lte:monthEnd,color:['#ff8e23']};
+                option.visualMap.pieces[0] = {gte: monthBegin, lte: monthEnd, color: ['#ff8e23']};
                 // 使用刚指定的配置项和数据显示图表。
                 rainfallChart.setOption(option);
 
@@ -213,7 +215,7 @@
     setTimeout(function () {
         $("#loading4").fadeOut();
         showRainfallCharts();
-    },2000)
+    }, 2000)
 </script>
 <!--</body>-->
 <!--</html>-->

@@ -6,22 +6,23 @@
 <!--</head>-->
 <!--<body>-->
 <style>
-    #loading5{
+    #loading5 {
         width: 100%;
         height: 100%;
         background-color: #fff;
         position: absolute;
-        top:0;
+        top: 0;
         left: 0;
         z-index: 9999;
     }
-    #loading5 >div{
+
+    #loading5 > div {
         width: 72px;
         height: 72px;
         position: absolute;
-        top:0;
-        bottom:0;
-        left:0;
+        top: 0;
+        bottom: 0;
+        left: 0;
         right: 0;
         margin: auto;
     }
@@ -30,20 +31,13 @@
     <div id="status5"><i class="fa fa-spinner fa-spin"></i></div>
 </div>
 <div id="sunshinetable" style="width:64%;height:500px; float: left"></div>
-<div style="width: 36%;float: right">
-    <ul id="sunshineDescriptionTips">
-<!--        <li><div class="checkbox block"><input type="checkbox">西藏地区太阳辐射强，高原地区强烈的日晒及高温可能导致某些非金属部件加速老化，缩短寿命，电瓶电解液蒸发快，极板化学反应加剧，加速了电瓶老化，空气的热传导和对流作用的有效性降低，热交换能力降低，造成设备温度过高而引起性能下降和老化过快；</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">防强光暴晒和地表高温，到阵地后，及时架设随机配备的制式伪装网，阵地电缆一律用电缆套包裹，并用电缆架支起，进行装备维护时，应尽量选择温度较低的时间组织；</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">开机前，根据实际情况，造当延长空调通风时间；</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">由于高温蓄电瓶电解液蒸发快，容易引起电解液外溢，因此要视情补充蒸馏水，并用苏打水清洗通气螺塞和电瓶四周，保证液面高度适当及通气孔顺畅，防止电解液对电瓶外壳造成腐蚀，要定期检查电机轴承有无漏油，电子器件有无过热变色，橡胶机件有无发粘等现象，有此问题时，要及时查明原因，并采取相应的修复措施。</div></li>-->
-    </ul>
-</div>
-<!--<script src="js/jquery-1.11.1.min.js"></script>-->
-<!--<script src="js/echarts.js"></script>-->
 <script type="text/javascript">
-    var sunshineChart = echarts.init(document.getElementById('sunshinetable'));
-    var SunshineList = [];
-    var WholeSunshineList = [];
+    let sunshineChart = echarts.init(document.getElementById('sunshinetable'));
+    let SunshineList = [];
+    let WholeSunshineList = [];
+    let monthBegin = parseInt(localStorage.getItem("month")) - 1;
+    let monthEnd = parseInt(localStorage.getItem("monthEnd")) - 1;
+
     // var DataList = [];
     function showSunshineCharts() {
         $.ajax({
@@ -54,31 +48,32 @@
             data: {index: 0},
             success: function (data) {
                 console.log(data);
-                var data_list = data.data_list;
+                let data_list = data.data_list;
                 console.log(data_list);
-                for (var i = 0; i < data_list.length; i++) {
-                    var sunshine = data_list[i].sunshine;
-                    var month =data_list[i].month_time;
-                    var wholeSun;
+                for (let i = 0; i < data_list.length; i++) {
+                    let sunshine = data_list[i].sunshine;
+                    let month = data_list[i].month_time;
+                    let wholeSun;
                     SunshineList.push(sunshine);
                     // DataList.push(month);
+                    // 设置pieces
                     switch (month) {
                         case 2:
-                            wholeSun = 28*sunshine;
+                            wholeSun = 28 * sunshine;
                             break;
                         case 4:
                         case 6:
                         case 9:
                         case 11:
-                            wholeSun = 30*sunshine;
+                            wholeSun = 30 * sunshine;
                             break;
                         default:
-                            wholeSun = 31*sunshine;
+                            wholeSun = 31 * sunshine;
                     }
                     WholeSunshineList.push(wholeSun.toFixed(2));
                 }
                 // 指定图表的配置项和数据
-                var option = {
+                let option = {
                     backgroundColor: '#FBFBFB',
                     title: {
                         text: '往年日照情况',
@@ -88,17 +83,16 @@
                     tooltip: {
                         trigger: 'axis',
                         // axisPointer: {type: 'cross'}
-                        formatter:function(params)
-                        {
-                            var relVal = params[0].name+'月';
-                            for (var i = 0, l = params.length; i < l; i++) {
-                                relVal += '<br/>'+ params[i].seriesName + ' : '+ params[i].value + " 小时";
+                        formatter: function (params) {
+                            let relVal = params[0].name + '月';
+                            for (let i = 0, l = params.length; i < l; i++) {
+                                relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value + " 小时";
                             }
                             return relVal;
                         }
                     },
                     legend: {
-                        data: ['总日照','平均日照'],
+                        data: ['总日照', '平均日照'],
                         x: 'left'
                     },
                     toolbox: {
@@ -135,8 +129,8 @@
                         {
                             type: 'value',
                             name: '总日照',
-                            min:0,
-                            max:720,
+                            min: 0,
+                            max: 720,
                             position: 'right',
                             axisLine: {
                                 lineStyle: {
@@ -150,8 +144,8 @@
                         {
                             type: 'value',
                             name: '平均日照',
-                            min:0,
-                            max:24,
+                            min: 0,
+                            max: 24,
                             axisLine: {
                                 lineStyle: {
                                     color: '#e97817'
@@ -167,7 +161,7 @@
                         show: false,
                         dimension: 0,
                         pieces: [],
-                        outOfRange: [{color: ['#0d60b7']},{color: ['#e97817'],}]
+                        outOfRange: [{color: ['#0d60b7']}, {color: ['#e97817'],}]
                     },
                     series: [
                         {
@@ -190,17 +184,14 @@
                         }
                     ]
                 };
-                // 设置pieces
-                let monthBegin = parseInt(localStorage.getItem("month"));
-                let monthEnd = parseInt(localStorage.getItem("monthEnd"));
-                option.visualMap.pieces[0]={gte:monthBegin,lte:monthEnd,color:['#ff8e23']};
+                option.visualMap.pieces[0] = {gte: monthBegin, lte: monthEnd, color: ['#ff8e23']};
                 // 使用刚指定的配置项和数据显示图表。
                 sunshineChart.setOption(option);
 
                 // 特情部分的获取
-                var case_list = data.case_list;
-                for (var i = 0; i < case_list.length; i++) {
-                    var tips = $("<li>");
+                let case_list = data.case_list;
+                for (let i = 0; i < case_list.length; i++) {
+                    let tips = $("<li>");
                     tips.append("<div class='checkbox block'><input type='checkbox' checked value=" + case_list[i].case_id + ">" + case_list[i].description + "</div>");
                     $("#sunshineDescriptionTips").append(tips);
                 }
@@ -211,7 +202,17 @@
     setTimeout(function () {
         $("#loading5").fadeOut();
         showSunshineCharts();
-    },2000)
+    }, 2000)
 </script>
+<div style="width: 36%;float: right">
+    <ul id="sunshineDescriptionTips">
+        <!--        <li><div class="checkbox block"><input type="checkbox">西藏地区太阳辐射强，高原地区强烈的日晒及高温可能导致某些非金属部件加速老化，缩短寿命，电瓶电解液蒸发快，极板化学反应加剧，加速了电瓶老化，空气的热传导和对流作用的有效性降低，热交换能力降低，造成设备温度过高而引起性能下降和老化过快；</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">防强光暴晒和地表高温，到阵地后，及时架设随机配备的制式伪装网，阵地电缆一律用电缆套包裹，并用电缆架支起，进行装备维护时，应尽量选择温度较低的时间组织；</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">开机前，根据实际情况，造当延长空调通风时间；</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">由于高温蓄电瓶电解液蒸发快，容易引起电解液外溢，因此要视情补充蒸馏水，并用苏打水清洗通气螺塞和电瓶四周，保证液面高度适当及通气孔顺畅，防止电解液对电瓶外壳造成腐蚀，要定期检查电机轴承有无漏油，电子器件有无过热变色，橡胶机件有无发粘等现象，有此问题时，要及时查明原因，并采取相应的修复措施。</div></li>-->
+    </ul>
+</div>
+<!--<script src="js/jquery-1.11.1.min.js"></script>-->
+<!--<script src="js/echarts.js"></script>-->
 <!--</body>-->
 <!--</html>-->

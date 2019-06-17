@@ -6,22 +6,23 @@
 <!--</head>-->
 <!--<body>-->
 <style>
-    #loading6{
+    #loading6 {
         width: 100%;
         height: 100%;
         background-color: #fff;
         position: absolute;
-        top:0;
+        top: 0;
         left: 0;
         z-index: 9999;
     }
-    #loading6 >div{
+
+    #loading6 > div {
         width: 72px;
         height: 72px;
         position: absolute;
-        top:0;
-        bottom:0;
-        left:0;
+        top: 0;
+        bottom: 0;
+        left: 0;
         right: 0;
         margin: auto;
     }
@@ -32,23 +33,26 @@
 <div id="temperaturetable" style="width:64%;height:500px; float: left"></div>
 <div style="width: 36%;float: right">
     <ul id="temperatureDescriptionTips">
-<!--        <li><div class="checkbox block"><input type="checkbox">西藏地区气温偏低，年温差小昼夜温差大。</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">低温或者极低温环境会增加装备机械润滑部分预热时间，增加大型真空管器件的预热时间。</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">高海拔条件下，大气压力低，对管路，空腔，真空设备均有较大影响；</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">高热的环境会影响雷达装备板件的性能，加速导弹各机部件、发动机装药的老化，影响导弹的可靠性和使用寿命</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">同时，温度超出导弹规定的工作界值，会对导弹的电缆线路产生影响，从而影响信号传输；液压、高压油路系统易出故障。</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">太阳直射时光线强烈，液压及油路系统和增速齿轮箱与中频电机以及同轴扩大电机连接处均有加强密封性的胶皮垫，在高温下容易造成其老化损裂，从而影响其密封性，造成油料渗出。</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">低温下线缆变硬、油脂受冻。</div></li>-->
-<!--        <li><div class="checkbox block"><input type="checkbox">西藏地区夜间温度很低，兵器在撤收与架设、抽拉组合时，容易导致电缆芯线、导线绝缘塑料折断或接触不良而影响兵器性能；机油、润滑脂黏度变大，电机等工作阻力增大，车辆发动比较困难，天线座润滑油脂受冻，天线转动阻力增大。</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">西藏地区气温偏低，年温差小昼夜温差大。</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">低温或者极低温环境会增加装备机械润滑部分预热时间，增加大型真空管器件的预热时间。</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">高海拔条件下，大气压力低，对管路，空腔，真空设备均有较大影响；</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">高热的环境会影响雷达装备板件的性能，加速导弹各机部件、发动机装药的老化，影响导弹的可靠性和使用寿命</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">同时，温度超出导弹规定的工作界值，会对导弹的电缆线路产生影响，从而影响信号传输；液压、高压油路系统易出故障。</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">太阳直射时光线强烈，液压及油路系统和增速齿轮箱与中频电机以及同轴扩大电机连接处均有加强密封性的胶皮垫，在高温下容易造成其老化损裂，从而影响其密封性，造成油料渗出。</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">低温下线缆变硬、油脂受冻。</div></li>-->
+        <!--        <li><div class="checkbox block"><input type="checkbox">西藏地区夜间温度很低，兵器在撤收与架设、抽拉组合时，容易导致电缆芯线、导线绝缘塑料折断或接触不良而影响兵器性能；机油、润滑脂黏度变大，电机等工作阻力增大，车辆发动比较困难，天线座润滑油脂受冻，天线转动阻力增大。</div></li>-->
     </ul>
 </div>
 <!--<script src="js/jquery-1.11.1.min.js"></script>-->
 <!--<script src="js/echarts.js"></script>-->
 <script type="text/javascript">
-    var temperatureChart = echarts.init(document.getElementById('temperaturetable'));
-    var TemperatureDataList = [];
+    let temperatureChart = echarts.init(document.getElementById('temperaturetable'));
+    let TemperatureDataList = [];
+    let monthBegin = parseInt(localStorage.getItem("month")) - 1;
+    let monthEnd = parseInt(localStorage.getItem("monthEnd")) - 1;
+
     // var DataList = [];
-    function showTemperatureCharts () {
+    function showTemperatureCharts() {
         $.ajax({
             type: 'GET',
             url: '/GetEnvironment?scheme_id=' + localStorage.getItem("scheme_id") + '&month=' + localStorage.getItem("month") + '&type=temperature',
@@ -57,14 +61,14 @@
             data: {index: 0},
             success: function (data) {
                 console.log(data);
-                var data_list = data.data_list;
+                let data_list = data.data_list;
                 console.log(data_list);
-                for (var i = 0; i < data_list.length; i++) {
+                for (let i = 0; i < data_list.length; i++) {
                     TemperatureDataList.push(data_list[i].temperature);
                     // DataList.push(data_list[i].month_time);
                 }
                 // 指定图表的配置项和数据
-                var option = {
+                let option = {
                     backgroundColor: '#FBFBFB',
                     title: {
                         text: '往年温度变化',
@@ -74,11 +78,10 @@
                     tooltip: {
                         trigger: 'axis',
                         // axisPointer: {type: 'cross'}
-                        formatter:function(params)
-                        {
-                            var relVal = params[0].name+'月';
-                            for (var i = 0, l = params.length; i < l; i++) {
-                                relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value+"°C";
+                        formatter: function (params) {
+                            let relVal = params[0].name + '月';
+                            for (let i = 0, l = params.length; i < l; i++) {
+                                relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value + "°C";
                             }
                             return relVal;
                         }
@@ -126,7 +129,7 @@
                                     // color: '#000080'
                                 }
                             },
-                            axisLabel:{
+                            axisLabel: {
                                 formatter: '{value} °C'
                             }
                         }
@@ -147,6 +150,18 @@
                             smooth: true,
                             color: ['#a12726'],
                             data: TemperatureDataList,
+                            markArea: {
+                                itemStyle: {
+                                    normal: {
+                                        color: 'rgba(251,211,176,0.4)',
+                                    }
+                                },
+                                data: [
+                                    [
+                                        {xAxis: monthBegin}, {xAxis: monthEnd}
+                                    ]
+                                ],
+                            },
                             // 在 轴 上显示数据
                             // itemStyle: {
                             //     normal: {
@@ -164,9 +179,7 @@
                     ]
                 };
                 // 设置pieces
-                let monthBegin = parseInt(localStorage.getItem("month"));
-                let monthEnd = parseInt(localStorage.getItem("monthEnd"));
-                option.visualMap.pieces[0]={gte:monthBegin,lte:monthEnd,color:['#ff8e23']};
+                option.visualMap.pieces[0] = {gte: monthBegin, lte: monthEnd, color: ['#ff8e23']};
                 // 使用刚指定的配置项和数据显示图表。
                 temperatureChart.setOption(option);
 
@@ -184,7 +197,7 @@
     setTimeout(function () {
         $("#loading6").fadeOut();
         showTemperatureCharts();
-    },2000)
+    }, 2000)
 </script>
 <!--</body>-->
 <!--</html>-->
