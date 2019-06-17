@@ -206,8 +206,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-btns">
-                        <a class="panel-close" href="">&times;</a>
-                        <a class="minimize" href="">&minus;</a>
+                        <!--<a class="panel-close" href="">&times;</a>-->
+                        <!--<a class="minimize" href="">&minus;</a>-->
+                        <a>
+                            <button class="btn btn-default" id="test">一键全选</button>
+                        </a>
                     </div>
                     <h4 class="panel-title">装备保障方案评估</h4>
                     <p>本系统评估方案针对地空导弹装备战术级保障方案的完整性、合理性和有效性进行评价</p>
@@ -374,6 +377,7 @@
                         } else {
                             let table = "myTbody1";
                             createTable(table, data1);
+                            $("#test").show();
                         }
                         break;
                     case 2:
@@ -427,21 +431,45 @@
         jQuery('#progressWizard .finish').click(function () {
             let res = (parseFloat(localStorage.getItem("completeResult")) + parseFloat(localStorage.getItem("reasonableResult"))) / 145;
             res = res.toFixed(2);
-            swal({
-                title: res,
-                text: "评估方法方案得分",
-                html: true,
-                icon: "info",
-                button: "确定"
-            });
+            let evaluateResult = {
+                schemeEvaluate:
+                    {
+                        scheme_id: parseInt(localStorage.getItem("EvaluateSchemeId")),
+                        evaluate_result: parseFloat(res),
+                        evaluate_proficient: "1"
+                    }
+            };
+            //  将数值存入数据库
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(evaluateResult),
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                url: "/evaluate/AddResult",
+                async: false,
+                success: function () {
+                    swal({
+                        title: res,
+                        text: "评估方法方案得分",
+                        html: true,
+                        icon: "info",
+                        button: "确定"
+                    }).then((value)=>{
+                        window.location = "/evaluate/schemeList"
+                    });
+                },
+                error: function () {
+                    console.error("获取方案表出错");
+                }
+            })
         });
 
+        let schemeId = $("#schemeId").text();
+        localStorage.setItem("EvaluateSchemeId", schemeId);
         // 加载方案内容
-        $("#schemeContent").load("/text?scheme_id=34");
+        $("#schemeContent").load("/text?scheme_id=" + schemeId);
     });
 
-    let schemeId = $("#schemeId").text();
-    localStorage.setItem("EvaluateSchemeId", schemeId);
 
     // 获取评估方案准则
     function getData(urls) {
@@ -495,8 +523,8 @@
         for (let i in array) {
             let html = $("<tr class='req'></tr>");
             html.append("<td><label>" + array[i].evaluate_item + "</label><input type='text'  name='EvaInput" + array[i].evaluate_id + "' style='visibility: hidden; width: 2px;' required></td>");
-            html.append("<td><div class='input'><input type='text' name='EvaInput" + array[i].evaluate_id + "' placeholder='' required></div> </td>");
-            html.append("<td><div class='input'><input type='text' name='EvaInput" + array[i].evaluate_id + "' placeholder='' required></div> </td>");
+            html.append("<td><div class='input'><input type='text' name='EvaInput" + array[i].evaluate_id + "' placeholder='' required class='test'></div> </td>");
+            html.append("<td><div class='input'><input type='text' name='EvaInput" + array[i].evaluate_id + "' placeholder='' required class='test'></div> </td>");
             html.appendTo('#' + table);
         }
     }
@@ -515,7 +543,7 @@
             if (s != 10) {
                 resultArray[i] = Name(itemArray[i]);
             } else {
-                alert("您有未选择选项");
+                swal("请检查", "存在未填写选项", "warning", {button: "确定"});
                 return null;
             }
         }
@@ -573,6 +601,17 @@
     }
 </script>
 
+<!--一键全选,后期删除-->
+<script>
+    $("#test").hide();
+    $("#test").click(function () {
+        $("input[value='A']").attr("checked", true);
+        let s = document.getElementsByClassName("test");
+        for (let a = 0; a < s.length; a++) {
+            s[a].value = "10";
+        }
+    });
+</script>
 
 </body>
 </html>

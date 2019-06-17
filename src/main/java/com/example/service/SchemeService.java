@@ -87,4 +87,8 @@ public interface SchemeService {
     public void AddSchemeCase(Integer scheme_id, Integer caseId);
 
     List<Special_Case> RequestSpecialCaseBySchemeId(Integer scheme_id);
+
+    Double AddSchemeEvaluate(Scheme_Evaluate schemeEvaluate);
+
+    void UpdateSchemeEvaluateResult(Double avgResult, Integer schemeId);
 }

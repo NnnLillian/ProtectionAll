@@ -6,9 +6,11 @@ import com.example.service.EnvironmentService;
 import com.example.service.EvaluateService;
 import com.example.service.SchemeService;
 import com.example.service.SimilarSchemeService;
+import com.example.util.JsonPaser;
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import net.minidev.json.writer.ArraysMapper;
 import org.apache.ibatis.annotations.Param;
+import org.json.JSONException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,8 @@ public class DemoApplicationTests {
     private EvaluateMapper evaluateMapper;
     @Autowired
     private EvaluateService evaluateService;
+
+    private JsonPaser jsonPaser;
 
     @Test
     public void checkGetGroup() {
@@ -322,8 +326,24 @@ public class DemoApplicationTests {
     }
 
     @Test
-    public void Try() {
-        List<Spare_Part> peopleList = equipmentMapper.GetSparePartsByElementId("2147483647");
-        System.out.println(peopleList);
+    public void addSchemeEvaluate() {
+        Scheme_Evaluate schemeEvaluate=new Scheme_Evaluate();
+        schemeEvaluate.setScheme_id(43);
+        schemeEvaluate.setEvaluate_result(0.73);
+        schemeEvaluate.setEvaluate_proficient("1");
+        Double avgResult = schemeService.AddSchemeEvaluate(schemeEvaluate);
+//        将平均值放入schemeInfo中
+        Integer schemeId = schemeEvaluate.getScheme_id();
+        schemeService.UpdateSchemeEvaluateResult(avgResult, schemeId);
+        System.out.println("ok");
+    }
+
+    @Test
+    public void Trry() throws JSONException {
+        String jsonStr = "{'schemeEvaluate':{'scheme_id':43,'evaluate_result':'0.04','evaluate_proficient':'1'}}";
+        Scheme_Evaluate schemeEvaluate = jsonPaser.ParseSchemeEvaluate(jsonStr);
+        Double avgResult = schemeEvaluate.getEvaluate_result();
+        System.out.println(avgResult);
+
     }
 }

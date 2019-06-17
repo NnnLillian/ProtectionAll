@@ -35,6 +35,9 @@
     <select id="RequestSchemeId" resultType="Integer">
         select scheme_id from scheme_info
     </select>
+    <select id="GetAVGResultOfEvaluate" resultType="Double">
+        SELECT AVG(evaluate_result) FROM scheme_evaluate WHERE scheme_id = #{scheme_id};
+    </select>
     <insert id="AddScheme" parameterType="com.example.entity.Scheme">
         insert into scheme_info(scheme_name,scheme_code,location_id,scheme_type,combat_direction,scheme_begin_time,scheme_end_time,evaluate_result)
         values (#{scheme_name},#{scheme_code},#{location_id},#{scheme_type},#{combat_direction},#{scheme_begin_time},#{scheme_end_time},#{evaluate_result})
@@ -59,7 +62,10 @@
         insert into scheme_case_info(scheme_id, case_id)
         values (#{scheme_id},#{caseId})
     </insert>
-
+    <insert id="AddSchemeEvaluate">
+        insert into scheme_evaluate(scheme_id, evaluate_result, evaluate_proficient)
+        values (#{scheme_id},#{evaluate_result},#{evaluate_proficient})
+    </insert>
     <update id="ModifySchemeArmy" parameterType="com.example.entity.Scheme_Army">
         update scheme_army_info set army_people = #{army_people}
         where scheme_id = #{scheme_id} and army_id = #{army_id} and army_action_group = #{army_action_group}
@@ -93,7 +99,9 @@
         where scheme_id = #{scheme_id}
     </update>
 
-
+    <update id="UpdateSchemeEvaluateResult" parameterType="com.example.entity.Scheme">
+        update scheme_info set evaluate_result = #{avgResult} where scheme_id = #{scheme_id}
+    </update>
     <delete id="DeleteSchemeEquipment">
         delete from scheme_equipment_info where scheme_id = #{scheme_id} and equipment_id = #{equipment_id}
     </delete>

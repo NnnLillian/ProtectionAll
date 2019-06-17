@@ -361,4 +361,18 @@ public class SchemeServiceImpl implements SchemeService {
     public List<Special_Case> RequestSpecialCaseBySchemeId(Integer scheme_id) {
         return specialCaseMapper.GetEnvironmentSpecialCaseBySchemeId(scheme_id);
     }
+
+    @Override
+    public Double AddSchemeEvaluate(Scheme_Evaluate schemeEvaluate) {
+//        新增schemeEvaluate
+        schemeMapper.AddSchemeEvaluate(schemeEvaluate);
+//        获得平均值并返回
+        Integer schemeId = schemeEvaluate.getScheme_id();
+        return schemeMapper.GetAVGResultOfEvaluate(schemeId);
+    }
+
+    @Override
+    public void UpdateSchemeEvaluateResult(Double avgResult, Integer scheme_id) {
+        schemeMapper.UpdateSchemeEvaluateResult(avgResult, scheme_id);
+    }
 }

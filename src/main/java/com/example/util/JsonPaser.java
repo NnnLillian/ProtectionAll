@@ -212,4 +212,11 @@ public class JsonPaser {
         Special_Case special_case = new Special_Case(null, jsonObject.getString("case_position"), null, jsonObject.getInt("month_time"), jsonObject.getString("description"));
         return special_case;
     }
+
+    public Scheme_Evaluate ParseSchemeEvaluate(String jsonStr) throws JSONException {
+        JSONObject jsonObj = new JSONObject(jsonStr);
+        Scheme_Evaluate schemeEvaluate = new Scheme_Evaluate();
+        JsonObjToBeanObj(jsonObj.getJSONObject("schemeEvaluate"), schemeEvaluate);
+        return schemeEvaluate;
+    }
 }

@@ -39,6 +39,8 @@ public interface SchemeMapper {
 
     public void AddSchemeSafeGuard(Scheme_Safeguard scheme_safeguard);
 
+    void AddSchemeEvaluate(Scheme_Evaluate schemeEvaluate);
+
     public void DeleteSchemeEquipment(@Param("scheme_id") Integer scheme_id, @Param("equipment_id") Integer equipment_id);
 
     public void DeleteScheme(@Param("scheme_id") Integer scheme_id);
@@ -48,4 +50,8 @@ public interface SchemeMapper {
     void AddSchemeCase(@Param("scheme_id") Integer scheme_id, @Param("caseId") Integer caseId);
 
     List<Integer> RequestSchemeId();
+
+    Double GetAVGResultOfEvaluate(Integer scheme_id);
+
+    void UpdateSchemeEvaluateResult(@Param("avgResult") Double avgResult, @Param("scheme_id") Integer scheme_id);
 }

@@ -7,6 +7,7 @@ import com.example.service.PeopleService;
 import com.example.service.SchemeService;
 import com.example.util.ExcelUtil;
 import com.example.util.JsonBuilder;
+import com.example.util.JsonPaser;
 import net.sf.cglib.beans.BeanMap;
 import org.apache.ibatis.annotations.Param;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -40,6 +41,8 @@ public class EvaluateProcessController {
 
     private JsonBuilder jsonBuilder = new JsonBuilder();
 
+    private JsonPaser jsonPaser = new JsonPaser();
+
 
     @GetMapping("/process/{schemeId}")
     public String evaluateProcess(@PathVariable("schemeId") Integer schemeId, Model model) {
@@ -71,6 +74,17 @@ public class EvaluateProcessController {
         } else {
             return "{\"schemeEvaluate\":" + "\"null\"" + "}";
         }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/AddResult", method = {RequestMethod.POST})
+    public void AddEvaluateResult(@RequestBody String jsonStr) {
+        System.out.println(jsonStr);
+        Scheme_Evaluate schemeEvaluate = jsonPaser.ParseSchemeEvaluate(jsonStr);
+        Double avgResult = schemeService.AddSchemeEvaluate(schemeEvaluate);
+//        将平均值放入schemeInfo中
+        Integer schemeId = schemeEvaluate.getScheme_id();
+        schemeService.UpdateSchemeEvaluateResult(avgResult, schemeId);
     }
 
 
