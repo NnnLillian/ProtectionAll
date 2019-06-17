@@ -142,6 +142,14 @@
                             }
                         }
                     ],
+                    visualMap: {
+                        show: false,
+                        dimension: 0,
+                        pieces: [],
+                        outOfRange: {
+                            color: ['#0d60b7'],
+                        }
+                    },
                     series: [
                         {
                             name: '每日平均湿度',
@@ -162,6 +170,10 @@
                         // }
                     ]
                 };
+                // 设置pieces
+                let monthBegin = parseInt(localStorage.getItem("month"));
+                let monthEnd = parseInt(localStorage.getItem("monthEnd"));
+                option.visualMap.pieces[0]={gte:monthBegin,lte:monthEnd,color:['#ff8e23']};
                 // 使用刚指定的配置项和数据显示图表。
                 humidityChart.setOption(option);
 
