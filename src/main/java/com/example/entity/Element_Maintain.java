@@ -4,7 +4,7 @@ public class Element_Maintain {
     private Integer element_maintain_id;
     private String equipment_id;
     private String element_id;
-    private Integer spare_part_id;
+    private String spare_part_id;
     private String spare_part_name;
     private String  maintain_time;
     private String  malfunction_description;
@@ -15,7 +15,7 @@ public class Element_Maintain {
     public Element_Maintain() {
     }
 
-    public Element_Maintain(Integer element_maintain_id, String equipment_id, String element_id, Integer spare_part_id, String spare_part_name, String maintain_time, String malfunction_description, String reason_description, Integer maintain_type, String maintain_type_name) {
+    public Element_Maintain(Integer element_maintain_id, String equipment_id, String element_id, String spare_part_id, String spare_part_name, String maintain_time, String malfunction_description, String reason_description, Integer maintain_type, String maintain_type_name) {
         this.element_maintain_id = element_maintain_id;
         this.equipment_id = equipment_id;
         this.element_id = element_id;
@@ -52,11 +52,11 @@ public class Element_Maintain {
         this.element_id = element_id;
     }
 
-    public Integer getSpare_part_id() {
+    public String getSpare_part_id() {
         return spare_part_id;
     }
 
-    public void setSpare_part_id(Integer spare_part_id) {
+    public void setSpare_part_id(String spare_part_id) {
         this.spare_part_id = spare_part_id;
     }
 
