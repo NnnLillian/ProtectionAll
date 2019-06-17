@@ -93,4 +93,9 @@ public class EquipmentServiceImpl implements EquipmentService {
         return 1;
     }
 
+    @Override
+    public List<Spare_Part> GetSparePartsByElementId(String elementId) {
+        return equipmentMapper.GetSparePartsByElementId(elementId);
+    }
+
 }

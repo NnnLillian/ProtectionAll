@@ -49,4 +49,6 @@ public interface EquipmentMapper {
 
     public List<Supplier> GetSupplierByBase(Integer base_id);
 
+    List<Spare_Part> GetSparePartsByElementId(String element_id);
+
 }

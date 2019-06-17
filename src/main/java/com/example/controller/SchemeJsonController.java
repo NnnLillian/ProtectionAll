@@ -370,6 +370,15 @@ public class SchemeJsonController {
         return jsonBuilder.buildPlatoonCategoryList(categoryList);
     }
 
+    //    获得备件表
+    @ResponseBody
+    @RequestMapping(value = "/GetSpare", method = {RequestMethod.GET})
+    public String GetSpareMsg(@Param("elementId") String elementId) {
+        System.out.println("In GetSpare and elementId:" + elementId);
+        List<Spare_Part> sparePartList = equipmentService.GetSparePartsByElementId(elementId);
+        return jsonBuilder.buildSparePartList(sparePartList);
+    }
+
     //    获得依托保障资源
     @ResponseBody
     @RequestMapping(value = "/GetBaseResource", method = {RequestMethod.GET})

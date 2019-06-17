@@ -31,4 +31,6 @@ public interface EquipmentService {
 
     public Integer IncreaseDevice(Device device);
 
+    List<Spare_Part> GetSparePartsByElementId(String elementId);
+
 }

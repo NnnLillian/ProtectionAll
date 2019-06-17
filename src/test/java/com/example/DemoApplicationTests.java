@@ -323,7 +323,7 @@ public class DemoApplicationTests {
 
     @Test
     public void Try() {
-        List<People> peopleList = peopleMapper.GetPeopleByPlatoonIdAndType("expert",1);
+        List<Spare_Part> peopleList = equipmentMapper.GetSparePartsByElementId("2147483647");
         System.out.println(peopleList);
     }
 }

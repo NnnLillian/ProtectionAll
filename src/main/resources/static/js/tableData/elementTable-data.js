@@ -60,11 +60,11 @@ self.elementDataInit = function (name) {
                 field: 'maintenance_date',
                 title: '保养日期',
                 align: 'center'
-            }, {
-                field: 'reliability',
-                title: '可靠性',
-                align: 'center',
-                sortable: true,
+            // }, {
+            //     field: 'reliability',
+            //     title: '可靠性',
+            //     align: 'center',
+            //     sortable: true,
             }
         ],
 

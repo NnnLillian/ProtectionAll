@@ -87,6 +87,10 @@
         select * from category_info where category_name=#{category_model} and category_model = #{category_model}
     </select>
 
+    <select id="GetSparePartsByElementId" resultType="com.example.entity.Spare_Part">
+        select * from spare_part_info where element_id = #{element_id}
+    </select>
+
     <insert id="AddTeamCategory" parameterType="com.example.entity.Team_Category">
         insert into team_department_info values (#{team_id},#{category_id},#{category_number})
     </insert>

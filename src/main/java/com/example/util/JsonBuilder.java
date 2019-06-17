@@ -152,10 +152,18 @@ public class JsonBuilder {
         resObj.put("description", special_case.getDescription());
         return resObj.toString();
     }
+
     public String buildEvaluateItems(List<Evaluate> evaluateList) throws JSONException {
         JSONObject resObj = new JSONObject();
         resObj.put("total", evaluateList.size());
         resObj.put("rows", evaluateList);
         return resObj.toString();
+    }
+
+    public String buildSparePartList(List<Spare_Part> sparePartList) throws JSONException {
+        JSONObject spObj = new JSONObject();
+        spObj.put("total", sparePartList.size());
+        spObj.put("rows", sparePartList);
+        return spObj.toString();
     }
 }

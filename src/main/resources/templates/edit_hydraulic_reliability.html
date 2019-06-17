@@ -24,26 +24,6 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
 
-    <!-- 生成的大型故障信息，载入维修方案 -->
-    <div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade bs-example-modal-lg"
-         data-backdrop="static"
-         id="solutionModal" role="dialog" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
-                    <h4 class="modal-title">处置方法</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="tab-pane active" id="solutionList">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" data-dismiss="modal" type="button">确认</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/jquery-migrate-1.2.1.min.js"></script>
@@ -53,6 +33,10 @@
     <script src="js/toggles.min.js"></script>
     <script src="js/retina.min.js"></script>
     <script src="js/jquery.cookies.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-zh-CN.js"></script>
+    <script src="js/bootstrap-table-export.min.js"></script>
+    <script src="js/tableExport.min.js"></script>
 
     <script src="js/morris.min.js"></script>
     <script src="js/raphael-2.1.0.min.js"></script>
@@ -73,7 +57,30 @@
 <section>
 
     <div class="left"></div>
-
+    <!-- 生成的大型故障信息，载入维修方案 -->
+    <div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade bs-example-modal-lg"
+         data-backdrop="static"
+         id="solutionModal" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                    <h4 class="modal-title">处置方法</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="tab-pane active" id="solutionList">
+                    </div>
+                    <hr>
+                    <div class="table-responsive" id="elementSupplyTableDiv">
+                        <table id="elementSupplyTable"></table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal" type="button">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="mainpanel">
 
         <div class="head"></div>
@@ -125,33 +132,41 @@
     });
 
     let baseInfo = [77, 33, 40, 46, 53];
-    let dataInfo =["滤油器故障", "汇油环故障", "发射车起竖油缸", "发射车调平油缸故障", "发射车侧移油缸故障"];
-    let baseFlag = localStorage.getItem("case_position");
+    let dataInfo = ["滤油器故障", "汇油环故障", "发射车起竖油缸", "发射车调平油缸故障", "发射车侧移油缸故障"];
+    // let baseFlag = RandomNumBoth(1, 6);
+    let baseFlag = 4;
     switch (baseFlag) {
-        case "1":
-            dataInfo=["发射车侧移油缸故障","发射车调平油缸故障", "起竖油缸故障","下滑油缸故障","电磁换向阀故障"];
-            baseInfo = [40, 56, 62, 53, 38];
+        case 1:
+            dataInfo = ["发射车侧移油缸故障", "发射车调平油缸故障", "起竖油缸故障", "下滑油缸故障", "电磁换向阀故障"];
+            baseInfo = [30, 56, 62, 63, 78];
             break;
-        case "2":
-            dataInfo=["发射车侧移油缸故障","发射车调平油缸故障", "起竖油缸故障","汇油环故障","滤油器故障"];
-            baseInfo = [60, 46, 68, 40, 52];
+        case 2:
+            dataInfo = ["发射车侧移油缸故障", "发射车调平油缸故障", "起竖油缸故障", "汇油环故障", "滤油器故障"];
+            baseInfo = [40, 46, 68, 70, 72];
             break;
-        case "3":
-            dataInfo=["发射车侧移油缸故障","起竖油缸故障","汇油环故障","滤油器故障","下滑油缸故障"];
-            baseInfo = [55, 40, 66, 45, 43];
+        case 3:
+            dataInfo = ["发射车侧移油缸故障", "起竖油缸故障", "汇油环故障", "滤油器故障", "下滑油缸故障"];
+            baseInfo = [35, 40, 46, 65, 73];
             break;
-        case "4":
-            dataInfo=["发射车侧移油缸故障","起竖油缸故障","滤油器故障","下滑油缸故障","筒弹锁定油缸故障"];
-            baseInfo = [46, 40, 66, 45, 43];
+        case 4:
+            dataInfo = ["发射车侧移油缸故障", "起竖油缸故障", "滤油器故障", "下滑油缸故障", "筒弹锁定油缸故障"];
+            baseInfo = [32, 40, 66, 75, 83];
             break;
-        case "5":
-            dataInfo=["发射车侧移油缸故障","发射车调平油缸故障", "起竖油缸故障","汇油环故障","下滑油缸故障"];
-            baseInfo = [48, 56, 65, 44, 52];
+        case 5:
+            dataInfo = ["发射车侧移油缸故障", "发射车调平油缸故障", "起竖油缸故障", "汇油环故障", "下滑油缸故障"];
+            baseInfo = [48, 56, 65, 74, 78];
             break;
-        case "6":
-            dataInfo=["发射车侧移油缸故障","发射车调平油缸故障", "起竖油缸故障","下滑油缸故障","电磁换向阀故障"];
+        case 6:
+            dataInfo = ["发射车侧移油缸故障", "发射车调平油缸故障", "起竖油缸故障", "下滑油缸故障", "电磁换向阀故障"];
             baseInfo = [68, 33, 40, 46, 53];
             break;
+    }
+
+    function RandomNumBoth(Min, Max) {
+        let Range = Max - Min;
+        let Rand = Math.random();
+        let num = Min + Math.round(Rand * Range);
+        return num;
     }
 
     echart();
@@ -160,14 +175,14 @@
         <!-- 计算可靠度页面载入 -->
         let myChart = echarts.init(document.getElementById('calculationDiv'));
 
-        var base = baseInfo;
+        let base = baseInfo;
 
-        var warningValue = 10;   //警告值
-        var errorValue = 50;    //错误值
+        let warningValue = 10;   //警告值
+        let errorValue = 50;    //错误值
 
-        var normal = [];	//正常范围 0~60
-        var warning = [];  //警告范围 60~80
-        var error = [];	//错误范围 80~
+        let normal = [];	//正常范围 0~60
+        let warning = [];  //警告范围 60~80
+        let error = [];	//错误范围 80~
 
         base.forEach(function (value, index, data) {
             normal[index] = data[index] > warningValue ? warningValue : data[index];
@@ -187,12 +202,13 @@
                 let modal = $(this);
                 modal.find('.modal-title').text(param.name);
                 $("#solutionList").load("solutionList/solution" + localStorage.getItem("malfunctionSolution") + ".html");
+                supplyTable();
             })
         });
 
         function hideLoad() {
             myChart.hideLoading();
-            var labelOption = {
+            let labelOption = {
                 normal: {
                     show: true,
                     position: 'insideLeft',
@@ -362,6 +378,54 @@
         })
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
+    }
+
+    //    创建申领表
+    function supplyTable() {
+        $('#elementSupplyTable').bootstrapTable('destroy').bootstrapTable({
+            method: "GET",                     //使用get請求到服務器獲取數據
+            dataType: "json",
+            url: "/GetSpare?elementId=2147483647",
+            contentType: 'application/json,charset=utf-8',
+            striped: false,                      // 隔行加亮
+            showRefresh: true,                  //是否顯示刷新按鈕
+            search: true,
+            showToggle:false,
+            //    导出Excel设置
+            showExport: true,
+            buttonsAlign:"right",
+            exportDataType: "basic",
+            exportTypes: ['excel','xlsx'],
+            exportOptions:{
+              fileName:'备件请领表',
+              worksheetName: 'Sheet1',
+            },
+            columns: [{
+                field: 'spare_part_id',
+                title: '备件ID',
+                visible: false
+            }, {
+                field: 'spare_part_name',
+                align: 'center',
+                valign: 'middle',
+                title: '器材名称',
+            }, {
+                field: 'spare_part_model',
+                align: 'center',
+                valign: 'middle',
+                title: '规格型号',
+            }, {
+                field: 'spare_part_quantity',
+                align: 'center',
+                valign: 'middle',
+                title: '数量'
+            }, {
+                field: 'spare_part_unit',
+                align: 'center',
+                valign: 'middle',
+                title: '单位'
+            }],
+        });
     }
 </script>
 
