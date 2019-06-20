@@ -50,6 +50,8 @@ public class DemoApplicationTests {
     private EvaluateService evaluateService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private SafetyService safetyService;
 
     private JsonPaser jsonPaser;
 
@@ -341,12 +343,8 @@ public class DemoApplicationTests {
 
     @Test
     public void AddUser() throws BhException {
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
-        String d = dateFormat.format(date);
         User user = new User();
         user.setBirthday("2018-01-02");
-        user.setCreateTime(d);
         user.setName("ccc");
         user.setPhone("4356");
 //        由于mysql语句，无需设置updatetime，将会自动更新
@@ -367,9 +365,9 @@ public class DemoApplicationTests {
     }
 
     @Test
-    public void getUser(){
+    public void getUser() {
         Long id = 5L;
-        User user=userService.GetUserById(id);
+        User user = userService.GetUserById(id);
         if (null != user) {
             System.out.println("得到的userId" + user.getId());
         } else {
@@ -378,8 +376,35 @@ public class DemoApplicationTests {
     }
 
     @Test
-    public void getUserList(){
+    public void getUserList() {
         List<User> users = userService.RequestAllUser();
         System.out.println("yes");
     }
+
+    @Test
+    public void SaveSafety() throws BhException{
+        Safety safety = new Safety();
+        safety.setMobile("16354");
+        safety.setUsername("小张");
+        safety.setPassword("16354");
+        safetyService.saveSafety(safety);
+    }
+
+    @Test
+    public void DeleteSafety(){
+        Long a = 1L;
+        Long b = 1L;
+        safetyService.deleteSafety(a,b);
+    }
+
+    @Test
+    public void LoadSafety(){
+        Long a = 1L;
+        String b = "";
+        String v = "";
+        Safety s = safetyService.loadSafety(a,b,v);
+        System.out.println(s.getId());
+    }
+
+
 }
