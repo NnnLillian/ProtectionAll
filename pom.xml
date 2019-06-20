@@ -56,6 +56,11 @@
             <artifactId>cglib-nodep</artifactId>
             <version>2.2.2</version>
         </dependency>
+<!--        引入spring security组件，开发用户登录功能。-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>com.example</groupId>-->
 <!--            <artifactId>demo</artifactId>-->

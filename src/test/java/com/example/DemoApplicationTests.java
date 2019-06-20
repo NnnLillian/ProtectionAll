@@ -1,11 +1,9 @@
 package com.example;
 
 import com.example.entity.*;
+import com.example.exception.BhException;
 import com.example.mappers.*;
-import com.example.service.EnvironmentService;
-import com.example.service.EvaluateService;
-import com.example.service.SchemeService;
-import com.example.service.SimilarSchemeService;
+import com.example.service.*;
 import com.example.util.JsonPaser;
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import net.minidev.json.writer.ArraysMapper;
@@ -17,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RunWith(SpringRunner.class)
@@ -49,6 +48,8 @@ public class DemoApplicationTests {
     private EvaluateMapper evaluateMapper;
     @Autowired
     private EvaluateService evaluateService;
+    @Autowired
+    private UserService userService;
 
     private JsonPaser jsonPaser;
 
@@ -327,7 +328,7 @@ public class DemoApplicationTests {
 
     @Test
     public void addSchemeEvaluate() {
-        Scheme_Evaluate schemeEvaluate=new Scheme_Evaluate();
+        Scheme_Evaluate schemeEvaluate = new Scheme_Evaluate();
         schemeEvaluate.setScheme_id(43);
         schemeEvaluate.setEvaluate_result(0.73);
         schemeEvaluate.setEvaluate_proficient("1");
@@ -339,11 +340,46 @@ public class DemoApplicationTests {
     }
 
     @Test
-    public void Trry() throws JSONException {
-        String jsonStr = "{'schemeEvaluate':{'scheme_id':43,'evaluate_result':'0.04','evaluate_proficient':'1'}}";
-        Scheme_Evaluate schemeEvaluate = jsonPaser.ParseSchemeEvaluate(jsonStr);
-        Double avgResult = schemeEvaluate.getEvaluate_result();
-        System.out.println(avgResult);
+    public void AddUser() throws BhException {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+        String d = dateFormat.format(date);
+        User user = new User();
+        user.setBirthday("2018-01-02");
+        user.setCreateTime(d);
+        user.setName("ccc");
+        user.setPhone("4356");
+//        由于mysql语句，无需设置updatetime，将会自动更新
+//        user.setUpdateTime(d);
+        User reUser = userService.SaveUser(user);
+        System.out.println(reUser.getId());
+    }
 
+    @Test
+    public void deleteUser() {
+        Long id = 5L;
+        User user = userService.DeleteUserById(id);
+        if (null != user) {
+            System.out.println("被删掉的userId" + user.getId());
+        } else {
+            System.out.println("nothing to delete");
+        }
+    }
+
+    @Test
+    public void getUser(){
+        Long id = 5L;
+        User user=userService.GetUserById(id);
+        if (null != user) {
+            System.out.println("得到的userId" + user.getId());
+        } else {
+            System.out.println("nothing to get");
+        }
+    }
+
+    @Test
+    public void getUserList(){
+        List<User> users = userService.RequestAllUser();
+        System.out.println("yes");
     }
 }
