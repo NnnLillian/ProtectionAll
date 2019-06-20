@@ -65,6 +65,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User GetUserByPhone(String phone) {
+        return userMapper.findByPhone(phone);
+    }
+
+    @Override
     public List<User> RequestAllUser() {
         List<User> users = userMapper.findAll();
         return users;

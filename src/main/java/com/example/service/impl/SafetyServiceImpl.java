@@ -1,10 +1,8 @@
 package com.example.service.impl;
 
 import com.example.entity.Safety;
-import com.example.entity.User;
 import com.example.exception.BhException;
 import com.example.mappers.SafetyMapper;
-import com.example.mappers.UserMapper;
 import com.example.service.SafetyService;
 import com.example.util.CheckUtils;
 import com.example.util.TimeUtils;
@@ -16,13 +14,14 @@ import org.springframework.stereotype.Service;
 public class SafetyServiceImpl implements SafetyService {
     @Autowired
     private SafetyMapper safetyMapper;
-    @Autowired
-    private UserMapper userMapper;
 
     @Override
     public Safety saveSafety(Safety safety) throws BhException {
         if (null == safety.getId()) {
             safety.setId(0L);
+        }
+        if (CheckUtils.isEmpty(safety.getUid())) {
+            throw new BhException("必须关联到用户");
         }
         if (CheckUtils.isEmpty(safety.getMobile())) {
             throw new BhException("必须填写电话号码");
@@ -30,13 +29,6 @@ public class SafetyServiceImpl implements SafetyService {
             if (!CheckUtils.isEmpty(safety.getMobile())) {
                 safety.setUsername(safety.getMobile());
             }
-        }
-//        通过safety_info的mobile和user_info的phone，可设置Uid。
-        User user = userMapper.findByPhone(safety.getMobile());
-        if (null != user) {
-            safety.setUid(user.getId());
-        } else {
-            throw new BhException("必须关联到用户");
         }
         if (CheckUtils.isEmpty(safety.getUsername())) {
             throw new BhException("用户名不能为空");

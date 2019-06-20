@@ -13,5 +13,7 @@ public interface UserService {
 
     User GetUserById(Long id);
 
+    User GetUserByPhone(String phone);
+
     List<User> RequestAllUser();
 }
