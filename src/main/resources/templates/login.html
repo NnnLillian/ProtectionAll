@@ -56,8 +56,8 @@
                     <h4 class="nomargin">登录</h4>
                     <p class="mt5 mb20">输入账户名及密码</p>
 
-                    <input type="text" class="form-control uname" placeholder="账户名称" />
-                    <input type="password" class="form-control pword" placeholder="密码" />
+                    <input type="text" class="form-control" name='username' placeholder="账户名称" />
+                    <input type="password" class="form-control" name='password' placeholder="密码" />
                     <a href=""><small>忘记密码?</small></a>
                     <button class="btn btn-success btn-block" type="submit">登录</button>
 
@@ -90,21 +90,5 @@
 <script src="js/retina.min.js"></script>
 
 <script src="js/custom.js"></script>
-<script>
-    jQuery(document).ready(function(){
-
-        // Please do not use the code below
-        // This is for demo purposes only
-        var c = jQuery.cookie('change-skin');
-        if (c && c == 'greyjoy') {
-            jQuery('.btn-success').addClass('btn-orange').removeClass('btn-success');
-        } else if(c && c == 'dodgerblue') {
-            jQuery('.btn-success').addClass('btn-primary').removeClass('btn-success');
-        } else if (c && c == 'katniss') {
-            jQuery('.btn-success').addClass('btn-primary').removeClass('btn-success');
-        }
-    });
-</script>
-
 </body>
 </html>

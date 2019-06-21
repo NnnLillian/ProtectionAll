@@ -7,15 +7,27 @@ import com.example.service.SafetyService;
 import com.example.service.UserService;
 import com.example.util.CheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class SafetyController {
     @Autowired
     private UserService userService;
     @Autowired
     private SafetyService safetyService;
 
+    @GetMapping(value = { "/", "/home" })
+    public String homePage() {
+        return "index";
+    }
+
+    @GetMapping(value = { "/login" })
+    public String login() {
+        return "login";
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/user/safety/save", method = {RequestMethod.POST})
     public String SaveSafety(@RequestBody Safety safety) throws BhException {
         if (CheckUtils.isEmpty(safety.getMobile())) {
