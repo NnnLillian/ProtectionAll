@@ -442,7 +442,7 @@
                         url: "/DeleteTeam?teamId=" + row.team_id,
                         success: function () {
                             swal("删除！", "已经被删除。",
-                                "success");
+                                "success", {button: "确定"});
                             $('table[id$=GroupTable]').bootstrapTable('refresh');
                         },
                         error: function () {

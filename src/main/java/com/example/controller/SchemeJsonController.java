@@ -1,15 +1,12 @@
 package com.example.controller;
 
 import com.example.entity.*;
-import com.example.mappers.Similar_SchemeMapper;
 import com.example.service.*;
 import com.example.util.JsonBuilder;
 import com.example.util.JsonPaser;
 import org.apache.ibatis.annotations.Param;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -525,8 +522,31 @@ public class SchemeJsonController {
                     break;
             }
             //  添加环境信息特情分类及等级
-            classifyService.AddEnvironmentSpecialCase(specialCaseResult);
-            return jsonBuilder.buildSpecialCase(specialCaseResult);
+            String type = classifyService.AddEnvironmentSpecialCase(specialCaseResult);
+            switch (type) {
+                case "wind_level":
+                    type = "风力因素";
+                    break;
+                case "temperature":
+                    type = "温度因素";
+                    break;
+                case "sunshine":
+                    type = "日照长度因素";
+                    break;
+                case "rainfall":
+                    type = "降雨量因素";
+                    break;
+                case "humidity":
+                    type = "湿度因素";
+                    break;
+                case "pressure":
+                    type = "气压因素";
+                    break;
+                default:
+                    type = "";
+                    break;
+            }
+            return jsonBuilder.buildSpecialCase(specialCaseResult, type);
         } else {
             return "{\"message\":" + "\"failed\"" + "}";
         }

@@ -144,9 +144,10 @@ public class JsonBuilder {
         return resPbj.toString();
     }
 
-    public String buildSpecialCase(Special_Case special_case) throws JSONException {
+    public String buildSpecialCase(Special_Case special_case, String type) throws JSONException {
         JSONObject resObj = new JSONObject();
         resObj.put("message", "success");
+        resObj.put("environmentType", type);
         resObj.put("case_position", special_case.getCase_position());
         resObj.put("case_type", special_case.getCase_type());
         resObj.put("description", special_case.getDescription());

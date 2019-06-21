@@ -376,11 +376,12 @@
                 cancelButtonText: '取消',
             }).then((result) => {
                 if (result.value) {
-                    Swal.fire(
-                        '已选择推荐方案',
-                        '方案名称: ' + name,
-                        'success'
-                    ).then(function () {
+                    Swal.fire({
+                        title: '已选择推荐方案',
+                        text: '方案名称: ' + name,
+                        type: 'success',
+                        confirmButtonText: '继续'
+                    }).then(function () {
                         console.log("In add similar");
                         $.ajax({
                             type: 'POST',

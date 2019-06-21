@@ -134,7 +134,7 @@
     let baseInfo = [77, 33, 40, 46, 53];
     let dataInfo = ["滤油器故障", "汇油环故障", "发射车起竖油缸", "发射车调平油缸故障", "发射车侧移油缸故障"];
     // let baseFlag = RandomNumBoth(1, 6);
-    let baseFlag = 4;
+    let baseFlag = parseInt(localStorage.getItem("scheme_type"));
     switch (baseFlag) {
         case 1:
             dataInfo = ["发射车侧移油缸故障", "发射车调平油缸故障", "起竖油缸故障", "下滑油缸故障", "电磁换向阀故障"];
@@ -157,6 +157,7 @@
             baseInfo = [48, 56, 65, 74, 78];
             break;
         case 6:
+        case 7:
             dataInfo = ["发射车侧移油缸故障", "发射车调平油缸故障", "起竖油缸故障", "下滑油缸故障", "电磁换向阀故障"];
             baseInfo = [68, 33, 40, 46, 53];
             break;
@@ -390,15 +391,15 @@
             striped: false,                      // 隔行加亮
             showRefresh: true,                  //是否顯示刷新按鈕
             search: true,
-            showToggle:false,
+            showToggle: false,
             //    导出Excel设置
             showExport: true,
-            buttonsAlign:"right",
+            buttonsAlign: "right",
             exportDataType: "basic",
-            exportTypes: ['excel','xlsx'],
-            exportOptions:{
-              fileName:'备件请领表',
-              worksheetName: 'Sheet1',
+            exportTypes: ['excel', 'xlsx'],
+            exportOptions: {
+                fileName: '备件请领表',
+                worksheetName: 'Sheet1',
             },
             columns: [{
                 field: 'spare_part_id',

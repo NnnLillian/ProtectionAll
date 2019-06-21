@@ -226,6 +226,7 @@
             // var actionGroupCount = parseInt($('#actionGroupCount').val());
             var radio = $('input:radio:checked').val();
             console.log(typeof radio);
+            localStorage.setItem("scheme_type", schemeType.val());
             localStorage.setItem("case_position", schemeDirection.val());
             localStorage.setItem("platoon_id", platoonId);
             localStorage.setItem("platoon_name", platoonName);
@@ -243,7 +244,7 @@
             var month = monthStr[1];
             localStorage.setItem("month", month);
             //  切割任务开始时间字符串，得到结束时间的月份
-            let monthEndStr = schemeBeginTime.split('-');
+            let monthEndStr = schemeEndTime.split('-');
             let monthEnd = monthEndStr[1];
             localStorage.setItem("monthEnd", monthEnd);
             var schemeName = schemeDirection.text().substr(0, 2) + '-' + schemeType.text() + '-' + month + '月-' + schemeCode;

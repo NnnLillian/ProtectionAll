@@ -27,7 +27,7 @@ public class ClassifyServiceImpl implements ClassifyService {
     }
 
     @Override
-    public void AddEnvironmentSpecialCase(Special_Case special_case) {
+    public String AddEnvironmentSpecialCase(Special_Case special_case) {
 //        根据描述，进行分类，得到关于环境水文信息的caseType
         Classify classify = new Classify();
         String caseContent = special_case.getDescription();
@@ -38,6 +38,8 @@ public class ClassifyServiceImpl implements ClassifyService {
         Integer caseId = special_case.getCase_id();
         if (special_caseMapper.GetEnvironmentCaseByCaseId(caseId) == null) {
             special_caseMapper.AddEnvironmentCase(environmentType, caseId, caseLevel);
+            return environmentType;
         }
+        return "other";
     }
 }
