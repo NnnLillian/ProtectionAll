@@ -75,7 +75,7 @@ if (typeof jQuery !== "undefined" && typeof saveAs !== "undefined") {
             mhtmlBottom += "--NEXT.ITEM-BOUNDARY--";
 
             //TODO: load css from included stylesheet
-            var styles = "";
+            var styles = "body{font-size:16pt;font-family:'FangSong';line-height:28.95pt;}h4, h5{font-size:16pt;font-family:'FangSong';line-height:28.95pt}h1{font-size:22pt;text-align:center;}h2{font-size:16pt;font-family:'SimHei'}h3{font-size:16pt;font-family:'KaiTi'}";
 
             // Aggregate parts of the file together
             var fileContent = static.mhtml.top.replace("_html_", static.mhtml.head.replace("_styles_", styles) + static.mhtml.body.replace("_body_", markup.html())) + mhtmlBottom;
